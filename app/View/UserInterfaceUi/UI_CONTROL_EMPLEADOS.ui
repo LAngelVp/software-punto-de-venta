@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Control_empleados</class>
+ <widget class="QWidget" name="Control_empleados">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>979</width>
+    <height>709</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Control_empleados{
+background-color: #fffefb;
+}
+#panel_controles{
+margin-bottom:20px;
+}
+#label_we_titulo_empleado{
+background-color: rgb(3, 51, 116);
+color:#fffefb;
+font-size: 24px;
+font-weight: bold;
+padding-left: 5px;
+}
+#tabla_listaempleados {
+    border: 1px solid;
+    background: #fffefb;
+}
+*[objectName*=&quot;etiqueta&quot;]{
+font-family: Arial;
+margin-left: 5px;
+margin-right: 5px;
+font-size: 16px;
+font-weight:bold;
+text-transform: uppercase;
+}
+*[objectName*=&quot;txt_&quot;]{
+background-color: #F5F5F5;
+color:#1d1c1c;
+border: none;
+border-bottom: 1px solid;
+border-radius: 5px;
+font-size: 16px;
+font-family: Arial;
+height: 20px;
+}
+#txt_buscar{
+max-width: 250px;
+}
+*[objectName^=&quot;txt_&quot;]::focus{
+border-bottom: 2px solid #023375;
+}
+*[objectName*=&quot;btn_btn&quot;]{
+border:none;
+border-radius: 5px;
+background-color: #00619a;
+font-family: Arial;
+font-size: 16px;
+font-weight: bold;
+height: 30px;
+margin-left: 5px;
+margin-right: 5px;
+padding-left:10px;
+padding-right:10px;
+text-align: center;
+text-transform: uppercase;
+color: #fffefb;
+}
+*[objectName*=&quot;btn_btn&quot;]:hover{
+background-color: #2196F3;
+}
+#btn_btn_eliminar:hover{
+background-color:#EE1D52;
+}
+#btn_btn_agregar:hover{
+background-color: #68a67d;
+}
+#tabla_listaempleados QScrollBar:vertical {
+    border: 1px solid gray;
+    background:#023375;
+    width: 5px;
+border-radius:2px;
+    margin: 22px 0 22px 0; 
+}
+
+#tabla_listaempleados QScrollBar::handle:vertical {
+    background: #023375;  /* Color del &quot;manejador&quot; */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+#tabla_listaempleados QScrollBar::add-line:vertical,
+#tabla_listaempleados QScrollBar::sub-line:vertical {
+background-color:none;
+}
+
+#tabla_listaempleados QScrollBar::handle:horizontal {
+    background: #023375;  /* Color del &quot;manejador&quot; horizontal */
+    height: 5px;  /* Altura de la barra horizontal */
+	border-radius: 2px;
+}
+
+#tabla_listaempleados QScrollBar:horizontal {
+    background: #023375;
+    height: 5px;  /* Altura de la barra */
+	border-radius: 2px;
+}
+#tabla_listaempleados QHeaderView::section {
+    background-color: #023375;  /* Color de fondo de los encabezados */
+    color: white;  /* Color del texto */
+    padding: 5px;  /* Espaciado interno */
+    border: 1px solid gray;  /* Borde de los encabezados */
+}
+
+#tabla_listaempleados QHeaderView::horizontal {
+    background-color: #023375;  /* Color de fondo de los encabezados horizontales */
+    color: white;  /* Color del texto */
+}
+
+#tabla_listaempleados QHeaderView::vertical {
+    background-color: #023375;  /* Color de fondo de los encabezados verticales */
+    color: white;  /* Color del texto */
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_we_titulo_empleado">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>ADMINISTRACIÓN DE EMPLEADOS</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QFrame" name="contenedorprincipal">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>5</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="1" column="1">
+       <widget class="QWidget" name="widget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinAndMaxSize</enum>
+         </property>
+         <item row="1" column="0">
+          <widget class="QTableWidget" name="tabla_listaempleados">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" alignment="Qt::AlignBottom">
+          <widget class="QFrame" name="contenedor_cabeceraopcionbusqueda">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>10</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>10</number>
+            </property>
+            <property name="horizontalSpacing">
+             <number>10</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>5</number>
+            </property>
+            <item row="1" column="2">
+             <widget class="QComboBox" name="comboBox">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContents</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QToolButton" name="btn_btn_buscar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/ibootstrap.qrc">
+                <normaloff>:/Icons/Bootstrap/search.svg</normaloff>:/Icons/Bootstrap/search.svg</iconset>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="txt_idempleado">
+              <property name="placeholderText">
+               <string>Id del empleado</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="etiqueta_buscar">
+              <property name="text">
+               <string>Buscar por:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLineEdit" name="txt_nombreempleado">
+              <property name="placeholderText">
+               <string>Nombre de empleado</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2" alignment="Qt::AlignTop">
+       <widget class="QFrame" name="panel_controles">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>150</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0" alignment="Qt::AlignTop">
+          <widget class="QFrame" name="frame_2">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>5</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <item>
+             <widget class="QToolButton" name="btn_btn_agregar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Agregar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="btn_btn_eliminar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Eliminar</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_btn_controlroles">
+              <property name="text">
+               <string>Control de Roles</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+ </resources>
+ <connections/>
+</ui>

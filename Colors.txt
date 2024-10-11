@@ -1,0 +1,145 @@
+pyuic5 UI_CONTROL_CLIENTES.ui -o ../userinterfacepy/UI_CONTROL_CLIENTES.py
+pyuic5 UI_CONTROL_COMPRAS.ui -o ../userinterfacepy/UI_CONTROL_COMPRAS.py
+pyuic5 UI_CONTROL_EMPLEADOS.ui -o ../userinterfacepy/UI_CONTROL_EMPLEADOS.py
+pyuic5 UI_CONTROL_PERFIL.ui -o ../userinterfacepy/UI_CONTROL_PERFIL.py
+pyuic5 UI_CONTROL_PROVEEDORES.ui -o ../userinterfacepy/UI_CONTROL_PROVEEDORES.py
+pyuic5 UI_CONTROL_VENTA.ui -o ../userinterfacepy/UI_CONTROL_VENTA.py
+pyuic5 UI_CREAR_ORDEN_DE_COMPRA.ui -o ../userinterfacepy/UI_CREAR_ORDEN_DE_COMPRA.py
+pyuic5 UI_INICIO_SESION.ui -o ../userinterfacepy/UI_INICIO_SESION.py
+pyuic5 UI_REGISTRO_EMPLEADO.ui -o ../userinterfacepy/UI_REGISTRO_EMPLEADO.py
+pyuic5 UI_SISTEMA_PRINCIPAL.ui -o ../userinterfacepy/UI_SISTEMA_PRINCIPAL.py
+pyuic5 UI_ADMINISTRAR_PUESTOS.ui -o ../userinterfacepy/UI_ADMINISTRAR_PUESTOS.py
+pyuic5 UI_NUEVO_ROL.ui -o ../userinterfacepy/UI_NUEVO_ROL.py
+pyuic5 UI_NUEVA_CATEGORIA.ui -o ../userinterfacepy/UI_NUEVA_CATEGORIA.py
+pyuic5 UI_BIENVENIDA.ui -o ../userinterfacepy/UI_BIENVENIDA.py
+pyuic5 UI_CONTROL_PRODUCTOS.ui -o ../userinterfacepy/UI_CONTROL_PRODUCTOS.py
+pyuic5 UI_CONTROL_VENTAS.ui -o ../userinterfacepy/UI_CONTROL_VENTAS.py
+pyuic5 UI_CONTROL_SUCURSALES.ui -o ../userinterfacepy/UI_CONTROL_SUCURSALES.py
+pyuic5 UI_NUEVA_AREA_NEGOCIO.ui -o ../userinterfacepy/UI_NUEVA_AREA_NEGOCIO.py
+
+
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA PUBLIC;
+GRANT ALL ON SCHEMA public TO public;
+
+rojo : #EE1D52
+azul enfasis : #023375
+etiquetas con enfasis : #fffefb
+color fondo base : #fffefb
+color etiquetas sin fondo: #313d44
+color cajas de texto: #f5f4f1
+botones : #00619a
+botón hover: #2196F3
+botones success hover : #68a67d
+focus de cajas : #00668c
+cabeceras de tabla : #00668c
+color etiquetas normal: #1d1c1c
+cajas de texto: #F5F5F5
+bordes: #787878
+color fondo contenedores extra: #B0C5D1
+
+propiedades para estilos de tabla:
+[objectName*="tabla_"] QScrollBar:vertical {
+    border: 1px solid gray;
+    background: #023375;
+    width: 5px;
+border-radius:2px;
+    margin: 22px 0 22px 0; 
+}
+
+[objectName*="tabla_"] QScrollBar::handle:vertical {
+    background: #023375;  /* Color del "manejador" */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+[objectName*="tabla_"] QScrollBar::add-line:vertical,
+[objectName*="tabla_"] QScrollBar::sub-line:vertical {
+background-color:none;
+}
+
+[objectName*="tabla_"] QScrollBar::handle:horizontal {
+    background: #023375;  /* Color del "manejador" horizontal */
+    height: 5px;  /* Altura de la barra horizontal */
+	border-radius: 2px;
+}
+
+[objectName*="tabla_"] QScrollBar:horizontal {
+    background: #023375;
+    height: 5px;  /* Altura de la barra */
+	border-radius: 2px;
+}
+[objectName*="tabla_"] QHeaderView::section {
+    background-color: #023375;  /* Color de fondo de los encabezados */
+    color: white;  /* Color del texto */
+    padding: 5px;  /* Espaciado interno */
+    border: 1px solid gray;  /* Borde de los encabezados */
+}
+
+[objectName*="tabla_"] QHeaderView::horizontal {
+    background-color: #023375;  /* Color de fondo de los encabezados horizontales */
+    color: white;  /* Color del texto */
+}
+
+[objectName*="tabla_"] QHeaderView::vertical {
+    background-color: #023375;  /* Color de fondo de los encabezados verticales */
+    color: white;  /* Color del texto */
+}
+
+-------------------
+[objectName^="cajaopciones_"]{
+border: none;
+border-bottom: 1px solid rgb(29, 28, 28);
+borde-radius: 5px;
+padding: 2px;
+background-color: #f5f4f1;
+borde-radius: 5px;
+font-size: 12px;
+width:87px;
+}
+[objectName^="cajaopciones_"]::drop-down{
+subcontrol-origin: padding;
+subcontrol-position: top right;
+padding-right:5px;
+width: 20%;
+border-left-width: 1px;
+borde-radius: 5px;
+background-color: #f5f4f1;
+}
+[objectName^="cajaopciones_"]::down-arrow{
+image: url(:/Icons/Bootstrap/filter-left.svg);
+width: 17%;
+height: 17%;
+padding-left:5px;
+padding-right:5px;
+}
+
+-------------------------
+
+[objectName^="fecha_"]{
+border: none;
+border-bottom: 1px solid #3b3c3d;
+border-radius: 5px;
+padding: 2px;
+background-color: #f5f4f1;
+font-size: 12px;
+width:87px;
+}
+*[objectName^="fecha_"]::drop-down{
+subcontrol-origin: padding;
+subcontrol-position: top right;
+padding-right:5px;
+width: 20%;
+border-left-width: 1px;
+borde-radius: 5px;
+background-color: #f5f4f1;
+}
+*[objectName^="fecha_"]::down-arrow{
+image: url(:/Icons/Bootstrap/calendar2-date.svg);
+width: 17%;
+height: 17%;
+padding-left:5px;
+padding-right:5px;
+}
+*[objectName^="fecha_"]::focus{
+border-bottom: 2px solid #00668c;
+}

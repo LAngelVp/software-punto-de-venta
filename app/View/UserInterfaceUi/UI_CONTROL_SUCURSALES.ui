@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Nueva_sucursal</class>
+ <widget class="QWidget" name="Nueva_sucursal">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>370</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>640</width>
+    <height>370</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>640</width>
+    <height>370</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Nueva_sucursal{
+background: #fffefb;
+}
+[objectName*=&quot;contenedor_&quot;]{
+background: #fffefb;
+}
+[objectName*=&quot;etiquetaTitulo_&quot;]{
+color: #1d1c1c;
+font-size:18px;
+font-weight:bold;
+font-family:Arial;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+color: #1d1c1c;
+font-size:12px;
+font-weight:bold;
+font-family:Arial;
+}
+[objectName*=&quot;txt_&quot;]{
+color: #1d1c1c;
+font-size:12px;
+font-family:Arial;
+background: #F5F5F5;
+border:none;
+border-radius:5px;
+border-bottom: 1px solid #1d1c1c;
+}
+[objectName*=&quot;txtlargo_&quot;]{
+color: #1d1c1c;
+font-size:12px;
+font-family:Arial;
+background: #F5F5F5;
+border:none;
+border-radius:5px;
+border-bottom: 1px solid #1d1c1c;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+border-bottom: 1px solid #023375;
+}
+[objectName*=&quot;txtlargo_&quot;]:focus{
+border-bottom: 1px solid #023375;
+}
+[objectName*=&quot;btn_btn_&quot;]{
+color:#fffefb;
+font-size:14px;
+font-family:Arial;
+font-weight:bold;
+background: #023375;
+border:none;
+border-radius: 5px;
+padding-left:5px;
+padding-right: 5px;
+height:25px;
+}
+[objectName*=&quot;btn_btn_&quot;]:hover{
+background: #2196F3;
+}
+#btn_btn_agregar:hover{
+background: #68a67d;
+}
+#btn_btn_eliminar:hover{
+background: #EE1D52;
+}
+QListWidget {
+    background-color: #fffefb;  /* Color de fondo del QListWidget */
+    border: 1px solid gray;  /* Borde del QListWidget */
+    border-radius: 2px;  /* Bordes redondeados */
+    padding: 5px;  /* Espaciado interno */
+}
+
+QListWidget::item {
+    background-color: #fffefb;  /* Color de fondo de los elementos */
+    color: #1d1c1c;  /* Color del texto */
+    padding: 5px;  /* Espaciado interno de los elementos */
+}
+
+QListWidget::item:selected {
+    background-color: #0056a6;  /* Color de fondo al seleccionar un elemento */
+    color: white;  /* Color del texto del elemento seleccionado */
+}
+
+QScrollBar:vertical {
+    border: 1px solid gray;
+    background: #023375;
+    width: 5px;
+    border-radius: 2px;
+    margin: 22px 0; 
+}
+
+QScrollBar::handle:vertical {
+    background: #023375;  /* Color del &quot;manejador&quot; */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    background-color: none;
+}
+
+QScrollBar:horizontal {
+ border: 1px solid gray;
+    background: #023375;
+    height: 5px;  /* Altura de la barra */
+    border-radius: 2px;
+}
+
+QScrollBar::handle:horizontal {
+    background: #023375;  /* Color del &quot;manejador&quot; horizontal */
+    height: 5px;  /* Altura de la barra horizontal */
+    border-radius:3px;
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="1">
+    <widget class="QFrame" name="contenedor_lista">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QListWidget" name="lista_sucursales"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor">
+     <property name="minimumSize">
+      <size>
+       <width>350</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>350</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="3" column="0">
+       <widget class="QLabel" name="etiqueta_ciudad">
+        <property name="text">
+         <string>Ciudad</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="etiqueta_ntelefono">
+        <property name="text">
+         <string>Num. Telefono</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="etiquetaTitulo_sucursal">
+        <property name="text">
+         <string>Nueva Sucursal</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="2">
+       <widget class="QLabel" name="etiqueta_direccion">
+        <property name="text">
+         <string>Direccion</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="etiqueta_estado">
+        <property name="text">
+         <string>Estado</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="etiqueta_nombre">
+        <property name="text">
+         <string>Nombre</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QLabel" name="etiqueta_codigopostal">
+        <property name="text">
+         <string>Codigo Postal</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0" colspan="4">
+       <widget class="QPlainTextEdit" name="txtlargo_direccion"/>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QLabel" name="etiqueta_pais">
+        <property name="text">
+         <string>Pais</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2" colspan="2">
+       <widget class="QLineEdit" name="txt_pais"/>
+      </item>
+      <item row="4" column="2" colspan="2">
+       <widget class="QLineEdit" name="txt_estado"/>
+      </item>
+      <item row="6" column="2" colspan="2">
+       <widget class="QLineEdit" name="txt_ntelefono"/>
+      </item>
+      <item row="3" column="2" colspan="2">
+       <widget class="QLineEdit" name="txt_ciudad"/>
+      </item>
+      <item row="1" column="2" colspan="2">
+       <widget class="QLineEdit" name="txt_nombre"/>
+      </item>
+      <item row="2" column="2" colspan="2">
+       <widget class="QLineEdit" name="txt_codigopostal"/>
+      </item>
+      <item row="9" column="0" colspan="4">
+       <widget class="QFrame" name="contenedor_botones">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="btn_btn_eliminar">
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_btn_actualizar">
+           <property name="text">
+            <string>Actualizar</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_btn_agregar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Agregar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource>
+    <file>Icons/IconosSVG/facebook.svg</file>
+    <file>Icons/IconosSVG/google.svg</file>
+    <file>Icons/IconosSVG/linkedin.svg</file>
+    <file>Icons/IconosSVG/whatsapp.svg</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,9 @@
+pyqt5
+Pandas
+sqlalchemy
+plotly
+bcrypt
+psycopg2-binary
+SQLAlchemy-Utils
+alembic
+bcrypt

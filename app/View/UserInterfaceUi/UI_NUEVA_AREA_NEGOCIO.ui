@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Nueva_area_negocio</class>
+ <widget class="QWidget" name="Nueva_area_negocio">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>340</width>
+    <height>259</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>340</width>
+    <height>250</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>340</width>
+    <height>259</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Nueva_area_negocio{
+background: #fffefb; 
+}
+#contenedor{
+background: #fffefb; 
+}
+[objectName*=&quot;etiquetaTitulo_&quot;]{
+color: #1d1c1c;
+font-size: 18px;
+font-weight:bold;
+font-family:Arial;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+color: #1d1c1c;
+font-size: 14px;
+font-weight:bold;
+font-family:Arial;
+}
+[objectName*=&quot;txt_&quot;]{
+color: #1d1c1c;
+font-size: 14px;
+font-weight:bold;
+font-family:Arial;
+background: #F5F5F5;
+border:none;
+border-bottom: 1px solid #1d1c1c;
+border-radius:5px;
+}
+[objectName*=&quot;txtlargo_&quot;]{
+color: #1d1c1c;
+font-size: 14px;
+font-weight:bold;
+font-family:Arial;
+background: #F5F5F5;
+border:none;
+border-bottom: 1px solid #1d1c1c;
+border-radius:5px;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;txtlargo_&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;btn_btn_&quot;]{
+color: #fffefb;
+font-size: 14px;
+font-weight:bold;
+font-family:Arial;
+background: #023375;
+border-radius: 5px;
+height: 25px;
+}
+[objectName*=&quot;btn_btn_&quot;]:hover{
+background: #68a67d;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="etiquetaTitulo_nuevacategoria">
+        <property name="text">
+         <string>Nueva Área</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="btn_btn_guardar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Guardar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QFrame" name="contenedor_datos">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="horizontalSpacing">
+          <number>0</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>10</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="etiqueta_nombre">
+           <property name="text">
+            <string>Nombre</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLineEdit" name="txt_nombre"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="etiqueta_descripcion">
+           <property name="text">
+            <string>Descripción</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QPlainTextEdit" name="txtlargo_descripcion"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

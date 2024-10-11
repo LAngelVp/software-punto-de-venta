@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Control_Roles_Permisos</class>
+ <widget class="QWidget" name="Control_Roles_Permisos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>600</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Control_Roles_Permisos{
+background: #fffefb;
+}
+#contenedor{
+background: #fffefb;
+}
+[objectName*=&quot;etiquetaTitulo_&quot;]{
+font-size:18px;
+color: #1d1c1c;
+font-weight: bold;
+font-family:Arial;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+font-size:14px;
+color: #1d1c1c;
+font-weight: bold;
+font-family:Arial;
+}
+[objectName*=&quot;txt_&quot;]{
+font-size:14px;
+color: #1d1c1c;
+font-family:Arial;
+background: #F5F5F5;
+border-radius:5px;
+border: none;
+border-bottom: 1px solid #1d1c1c;
+min-width: 300px;
+}
+[objectName*=&quot;btn_btn_&quot;]{
+font-size:14px;
+color: #fffefb;
+font-family:Arial;
+font-weight: bold;
+background: #00619a;
+border-radius:5px;
+height: 25px;
+border: none;
+padding-left: 10px;
+padding-right:10px;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+border: none;
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;btn_btn_&quot;]:hover{
+background: #2196F3;
+}
+[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
+    border: 1px solid gray;
+    background: #023375;
+    width: 5px;
+border-radius:2px;
+    margin: 22px 0 22px 0; 
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
+    background: #023375;  /* Color del &quot;manejador&quot; */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
+[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
+background-color:none;
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
+    background: #023375;  /* Color del &quot;manejador&quot; horizontal */
+    height: 5px;  /* Altura de la barra horizontal */
+	border-radius: 2px;
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
+    background: #023375;
+    height: 5px;  /* Altura de la barra */
+	border-radius: 2px;
+}
+[objectName*=&quot;tabla_&quot;] QHeaderView::section {
+    background-color: #023375;  /* Color de fondo de los encabezados */
+    color: white;  /* Color del texto */
+    padding: 5px;  /* Espaciado interno */
+    border: 1px solid gray;  /* Borde de los encabezados */
+}
+
+[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
+    background-color: #023375;  /* Color de fondo de los encabezados horizontales */
+    color: white;  /* Color del texto */
+}
+
+[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
+    background-color: #023375;  /* Color de fondo de los encabezados verticales */
+    color: white;  /* Color del texto */
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="etiquetaTitulo_Roles">
+        <property name="text">
+         <string>Roles y permisos</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QFrame" name="contenedor_tabla">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="0" column="3">
+          <widget class="QPushButton" name="btn_btn_buscar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Buscar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QLineEdit" name="txt_nombrerol">
+           <property name="placeholderText">
+            <string>Nombre del rol</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="4">
+          <widget class="QTableWidget" name="tabla_listapermisosroles"/>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="etiqueta_buscar">
+           <property name="text">
+            <string>Buscar:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="0" alignment="Qt::AlignLeft">
+       <widget class="QPushButton" name="btn_btn_nuevorol">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Crear un nuevo Rol</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

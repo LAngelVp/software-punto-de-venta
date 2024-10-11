@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Control_nuevo_rol</class>
+ <widget class="QWidget" name="Control_nuevo_rol">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>400</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Control_nuevo_rol{
+background: #fffefb;
+}
+#contenedor{
+background: #fffefb;
+}
+[objectName*=&quot;etiquetaTitulo_&quot;]{
+font-size:18px;
+font-family:Arial;
+font-weight:bold;
+color: #1d1c1c;
+}
+[objectName*=&quot;etiquetasubtitulo_&quot;]{
+font-size:16px;
+font-family:Arial;
+font-weight:bold;
+color: #1d1c1c;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+font-size:14px;
+font-family:Arial;
+font-weight:bold;
+color: #1d1c1c;
+}
+[objectName*=&quot;opcion_&quot;]{
+font-size:14px;
+font-family:Arial;
+color: #1d1c1c;
+}
+#contenedor_permisos{
+background: #fffefb;
+}
+#contenedor_permisosscroll{
+background: #fffefb;
+color: #1d1c1c;
+}
+#contenedor_permisos QScrollBar:vertical {
+    border: 1px solid gray;
+    background: #023375;
+    width: 5px;
+border-radius:2px;
+    margin: 22px 0 22px 0; 
+}
+
+#contenedor_permisos QScrollBar::handle:vertical {
+    background: #023375;  /* Color del &quot;manejador&quot; */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+#contenedor_permisos QScrollBar:horizontal {
+    border: 1px solid gray;
+    background: #023375;
+    width: 5px;
+border-radius:2px;
+    margin: 22px 0 22px 0; 
+}
+
+#contenedor_permisos QScrollBar::handle:horizontal {
+    background: #023375;  /* Color del &quot;manejador&quot; */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+
+[objectName*=&quot;txt_&quot;]{
+font-size:14px;
+font-family:Arial;
+font-weight:bold;
+color: #1d1c1c;
+background: #F5F5F5;
+border: none;
+border-radius: 5px;
+border-bottom: 1px solid #1d1c1c;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;btn_btn_&quot;]{
+font-size:14px;
+font-family:Arial;
+font-weight:bold;
+color: #fffefb;
+background: #023375;
+border:none;
+border-radius: 5px;
+padding-left: 10px;
+padding-right: 10px;
+height: 30px;
+}
+[objectName*=&quot;btn_btn_&quot;]:hover{
+background: #2196F3;
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="QLabel" name="etiquetaTitulo_rol">
+        <property name="text">
+         <string>Nuevo Rol</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="etiqueta_nombrerol">
+        <property name="text">
+         <string>Nombre:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <widget class="QScrollArea" name="contenedor_permisos">
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="contenedor_permisosscroll">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>355</width>
+           <height>327</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="4" column="2">
+           <widget class="QLabel" name="etiquetasubtitulo_proveedor">
+            <property name="text">
+             <string>Proveedores</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QCheckBox" name="opcion_eliminarsucursal">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QCheckBox" name="opcion_crearproveedor">
+            <property name="text">
+             <string>Crear</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="4">
+           <widget class="QLabel" name="etiquetasubtitulo_cliente">
+            <property name="text">
+             <string>Clientes</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QCheckBox" name="opcion_eliminarproveedor">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QCheckBox" name="opcion_modificarproveedor">
+            <property name="text">
+             <string>Modificar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0">
+           <widget class="QLabel" name="etiquetasubtitulo_sucursal">
+            <property name="text">
+             <string>Sucursales</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="4">
+           <widget class="QCheckBox" name="opcion_crearcliente">
+            <property name="text">
+             <string>Crear</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="0">
+           <widget class="QCheckBox" name="opcion_crearsucursal">
+            <property name="text">
+             <string>Crear</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
+           <widget class="QCheckBox" name="opcion_crearproducto">
+            <property name="text">
+             <string>Crear</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="opcion_eliminarventa">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QCheckBox" name="opcion_eliminarcompra">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="etiquetasubtitulo_compra">
+            <property name="text">
+             <string>Compras</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="etiquetasubtitulo_venta">
+            <property name="text">
+             <string>Ventas</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="opcion_crearventa">
+            <property name="text">
+             <string>Crear</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QCheckBox" name="opcion_crearcompra">
+            <property name="text">
+             <string>Crear</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="4">
+           <widget class="QLabel" name="etiquetasubtitulo_producto">
+            <property name="text">
+             <string>Productos</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="2">
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="4">
+           <widget class="QCheckBox" name="opcion_eliminarproducto">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="4">
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="12" column="0">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="3" rowspan="14">
+           <widget class="Line" name="line_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" rowspan="14">
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="opcion_modificarventa">
+            <property name="text">
+             <string>Modificar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QCheckBox" name="opcion_modificarcompra">
+            <property name="text">
+             <string>Modificar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QCheckBox" name="opcion_modificarproducto">
+            <property name="text">
+             <string>Modificar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0">
+           <widget class="QCheckBox" name="opcion_modificarempleado">
+            <property name="text">
+             <string>Modificar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="4">
+           <widget class="QCheckBox" name="opcion_modificarcliente">
+            <property name="text">
+             <string>Modificar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="0">
+           <widget class="QCheckBox" name="opcion_eliminarempleado">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="etiquetasubtitulo_empleado">
+            <property name="text">
+             <string>Empleados</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QCheckBox" name="opcion_crearempleado">
+            <property name="text">
+             <string>Crear</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="4">
+           <widget class="QCheckBox" name="opcion_eliminarcliente">
+            <property name="text">
+             <string>Eliminar</string>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="0">
+           <widget class="QCheckBox" name="opcion_modificarsucursal">
+            <property name="text">
+             <string>Modificar</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="5" column="1" alignment="Qt::AlignRight">
+       <widget class="QPushButton" name="btn_btn_agregar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Guardar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLineEdit" name="txt_nombrerol"/>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

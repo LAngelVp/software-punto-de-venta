@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Formulario_puestos</class>
+ <widget class="QWidget" name="Formulario_puestos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>750</width>
+    <height>450</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>750</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>750</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Formulario_puestos{
+background: #fffefb;
+}
+#contenedor{
+background: #fffefb;
+}
+[objectName*=&quot;etiquetaTitulo_&quot;]{
+font-size: 18px;
+font-weight:bold;
+font-family:Arial;
+color: #1d1c1c;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+font-size: 14px;
+font-weight:bold;
+font-family:Arial;
+color: #1d1c1c;
+}
+[objectName*=&quot;txt_&quot;]{
+font-size: 14px;
+font-family:Arial;
+color: #1d1c1c;
+background: #F5F5F5;
+border:none;
+border-radius: 5px;
+border-bottom: 1px solid #1d1c1c;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;cajaopcion_&quot;]{
+font-size: 14px;
+font-weight:bold;
+font-family:Arial;
+color: #1d1c1c;
+}
+[objectName^=&quot;decimal_&quot;]{
+border: none;
+border-bottom: 1px solid #3b3c3d;
+border-radius: 4px;
+background-color: #F5F5F5;
+font-size: 14px;
+padding: 2px;
+}
+[objectName^=&quot;decimal_&quot;]::focus{
+border-bottom: 2px solid #00668c;
+}
+[objectName^=&quot;tiempo_&quot;]{
+border: none;
+border-bottom: 1px solid #3b3c3d;
+border-radius: 4px;
+background-color: #F5F5F5;
+font-size: 14px;
+padding: 2px;
+}
+[objectName^=&quot;tiempo_&quot;]::focus{
+border-bottom: 2px solid #00668c;
+}
+[objectName^=&quot;btn_btn_&quot;]{
+background: #00619a;
+font-size: 14px;
+font-weight: bold;
+color: #fffefb;
+border: none;
+border-radius:5px;
+min-height: 25px;
+padding-right:10px;
+padding-left:10px;
+}
+[objectName^=&quot;btn_btn_&quot;]:hover{
+background: #2196F3;
+}
+#btn_btn_agregar:hover{
+background: #68a67d;
+}
+#btn_btn_eliminar:hover{
+background: #EE1D52;
+}
+[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
+    border: 1px solid gray;
+    background: #023375;
+    width: 5px;
+border-radius:2px;
+    margin: 22px 0 22px 0; 
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
+    background: #023375;  /* Color del &quot;manejador&quot; */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
+[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
+background-color:none;
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
+    background: #023375;  /* Color del &quot;manejador&quot; horizontal */
+    height: 5px;  /* Altura de la barra horizontal */
+	border-radius: 2px;
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
+    background: #023375;
+    height: 5px;  /* Altura de la barra */
+	border-radius: 2px;
+}
+[objectName*=&quot;tabla_&quot;] QHeaderView::section {
+    background-color: #023375;  /* Color de fondo de los encabezados */
+    color: white;  /* Color del texto */
+    padding: 5px;  /* Espaciado interno */
+    border: 1px solid gray;  /* Borde de los encabezados */
+}
+
+[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
+    background-color: #023375;  /* Color de fondo de los encabezados horizontales */
+    color: white;  /* Color del texto */
+}
+
+[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
+    background-color: #023375;  /* Color de fondo de los encabezados verticales */
+    color: white;  /* Color del texto */
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="1">
+    <widget class="QFrame" name="contenedor">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="etiquetaTitulo_administrarpuestos">
+        <property name="text">
+         <string>Administrar puestos</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="3">
+       <widget class="QTableWidget" name="tabla_puestos">
+        <property name="showGrid">
+         <bool>true</bool>
+        </property>
+        <property name="sortingEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="cornerButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="txt_buscarpuesto"/>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="btn_btn_buscarpuesto">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Buscar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" rowspan="2">
+       <widget class="QFrame" name="contenedor_formulario">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <item row="6" column="0">
+          <widget class="QFrame" name="contenedor_diaslaborales">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="cajaopcion_lunes">
+              <property name="text">
+               <string>Lunes</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="cajaopcion_martes">
+              <property name="text">
+               <string>Martes</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="cajaopcion_miercoles">
+              <property name="text">
+               <string>Miercoles</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QCheckBox" name="cajaopcion_jueves">
+              <property name="text">
+               <string>Jueves</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QCheckBox" name="cajaopcion_viernes">
+              <property name="text">
+               <string>Viernes</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QCheckBox" name="cajaopcion_sabado">
+              <property name="text">
+               <string>Sabado</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QCheckBox" name="cajaopcion_domingo">
+              <property name="text">
+               <string>Domingo</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="etiqueta_diaslaborales">
+           <property name="text">
+            <string>Dias laborales:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="etiqueta_horasalida">
+           <property name="text">
+            <string>Hora salida</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="etiqueta_nombrepuesto">
+           <property name="text">
+            <string>Nombre:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="etiqueta_salario">
+           <property name="text">
+            <string>Salario:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="etiqueta_horas_laborales">
+           <property name="text">
+            <string>Horas laborales:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="etiqueta_horaentrada">
+           <property name="text">
+            <string>Hora entrada</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="2">
+          <widget class="QPushButton" name="btn_btn_agregar">
+           <property name="text">
+            <string>Agregar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QPushButton" name="btn_btn_eliminar">
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1" colspan="2">
+          <widget class="QTimeEdit" name="tiempo_horasalida">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1" colspan="2">
+          <widget class="QTimeEdit" name="tiempo_horaentrada">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="2">
+          <widget class="QDoubleSpinBox" name="decimal_horaslaborales"/>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QDoubleSpinBox" name="decimal_salario"/>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QLineEdit" name="txt_nombrepuesto"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+ </resources>
+ <connections/>
+</ui>

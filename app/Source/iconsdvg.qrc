@@ -1,0 +1,37 @@
+<RCC>
+  <qresource>
+    <file>Icons/IconosSVG/productos.png</file>
+    <file>Icons/IconosSVG/logo_devrous.png</file>
+    <file>Icons/IconosSVG/compras.png</file>
+    <file>Icons/IconosSVG/empleados.png</file>
+    <file>Icons/IconosSVG/clientes.png</file>
+    <file>Icons/IconosSVG/operacion_ventas.png</file>
+    <file>Icons/IconosSVG/vendedores.png</file>
+    <file>Icons/IconosSVG/ventas.png</file>
+    <file>Icons/SVG/DrawKit(1).svg</file>
+    <file>Icons/SVG/DrawKit(2).svg</file>
+    <file>Icons/SVG/DrawKit(3).svg</file>
+    <file>Icons/SVG/DrawKit(4).svg</file>
+    <file>Icons/SVG/DrawKit(5).svg</file>
+    <file>Icons/SVG/DrawKit(6).svg</file>
+    <file>Icons/SVG/DrawKit(7).svg</file>
+    <file>Icons/SVG/DrawKit(8).svg</file>
+    <file>Icons/SVG/DrawKit(9).svg</file>
+    <file>Icons/SVG/DrawKit(10).svg</file>
+    <file>Icons/SVG/DrawKit(11).svg</file>
+    <file>Icons/SVG/DrawKit(12).svg</file>
+    <file>Icons/SVG/DrawKit(13).svg</file>
+    <file>Icons/SVG/DrawKit(14).svg</file>
+    <file>Icons/SVG/DrawKit(15).svg</file>
+    <file>Icons/SVG/DrawKit(16).svg</file>
+    <file>Icons/SVG/DrawKit(17).svg</file>
+    <file>Icons/SVG/DrawKit(18).svg</file>
+    <file>Icons/SVG/DrawKit(19).svg</file>
+    <file>Icons/SVG/DrawKit(20).svg</file>
+    <file>Icons/SVG/DrawKit(21).svg</file>
+    <file>Icons/SVG/DrawKit(22).svg</file>
+    <file>Icons/SVG/DrawKit(23).svg</file>
+    <file>Icons/SVG/DrawKit(24).svg</file>
+    <file>Icons/SVG/DrawKit(25).svg</file>
+  </qresource>
+</RCC>
