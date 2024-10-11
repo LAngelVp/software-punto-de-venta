@@ -88,6 +88,9 @@ class Clientes(QWidget):
         #------------------------------
         #//: ACTUALIZAR CLIENTES
         self.ui.btn_btn_cliente_modificar.clicked.connect(self.actualizar_clientes)
+        #----------------------------
+        #// : eliminar clientes
+        self.ui.btn_btn_cliente_eliminar.clicked.connect(self.eliminar_clientes)
     #FUNCIONES:-----------------
     def buscar_cliente(self):
         tipo_cliente = None
@@ -353,8 +356,8 @@ class Clientes(QWidget):
                             datos["web"].setText(campo.web)
 
 
-                            if campo.representante and len(campo.representante) > 0:
-                                representante = campo.representante[0]
+                            if campo.representante:
+                                representante = campo.representante
                                 datos['representante moral'].setText(representante.nombre)
                                 datos['telefono representante'].setText(representante.telefono)
                                 datos['puesto del representante'].setText(representante.puesto)
@@ -394,21 +397,42 @@ class Clientes(QWidget):
                     else:
                         self.clientes = ClientesFisicosAndMorales(session).mostrar_clientes_morales()
                     self.llenar_tabla_clientes(self.clientes)
-                    self.clientes = None
         except Exception as e:
             print(e)
+        self.clientes = None
 
     def llenar_tabla_clientes(self, clientes):
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_clientes is None:
-                print("El widget tabla no está disponible.")
+                print("El widget tabla_clientes no está disponible.")
                 return
-            
-            self.model = QStandardItemModel()
-            self.model.clear()
 
+            # Inicializar el modelo de la tabla si no existe
+            if not hasattr(self, 'model'):
+                self.model = QStandardItemModel()
+
+            
+            
+            # Limpiar el modelo antes de llenarlo con nuevos datos
+            self.model.clear()
+            
+            # Establecer los encabezados para el modelo
             if self.ui.btnRadio_wpc_clienteFisico.isChecked():
+                # Verificar si clientes es None o una lista vacía
+                if clientes is None or len(clientes) == 0:
+                    self.model.clear()  # Limpiar el modelo
+                    self.model.setHorizontalHeaderLabels([
+                        "Id",
+                        "Nombre",
+                        "Apellido Paterno",
+                        "Apellido Materno",
+                        "RFC",
+                        "CURP"
+                        ])
+                    self.ui.tabla_clientes.setModel(self.model) 
+                    print("No se recibieron datos de clientes o la lista está vacía.")
+                    return
                 nombre_columnas = [
                     "Id",
                     "Nombre",
@@ -418,7 +442,9 @@ class Clientes(QWidget):
                     "CURP"
                 ]
                 self.model.setHorizontalHeaderLabels(nombre_columnas)
-                for row_index, (cliente, cliente_fisico) in enumerate(clientes):
+                
+                # Llenar el modelo con datos de clientes
+                for cliente, cliente_fisico in clientes:
                     if cliente_fisico is not None:
                         row_data = [
                             str(cliente.id),
@@ -429,14 +455,28 @@ class Clientes(QWidget):
                             cliente_fisico.curp
                         ]
                     else:
-                        # En caso de que no haya datos de cliente físico, usar campos vacíos
+                        # Usar campos vacíos si no hay datos de cliente físico
                         row_data = [
                             str(cliente.id), cliente.nombre, "", "", cliente.rfc, ""
                         ]
 
                     items = [QStandardItem(item) for item in row_data]
                     self.model.appendRow(items)
+
             elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
+                # Verificar si clientes es None o una lista vacía
+                if clientes is None or len(clientes) == 0:
+                    self.model.clear()  # Limpiar el modelo
+                    self.model.setHorizontalHeaderLabels([
+                        "Id",
+                        "Nombre",
+                        "RFC",
+                        "RAZON SOCIAL",
+                        "NIF"
+                        ])
+                    self.ui.tabla_clientes.setModel(self.model) 
+                    print("No se recibieron datos de clientes o la lista está vacía.")
+                    return
                 nombre_columnas = [
                     "Id",
                     "Nombre",
@@ -743,9 +783,10 @@ class Clientes(QWidget):
                             nombre=datos['representante moral'],
                             telefono=datos['telefono representante'],
                             correo=datos['correo electronico representante'],
-                            puesto=datos['puesto del representante'],
-                            cliente_moral_id=nuevo_cliente.id
+                            puesto=datos['puesto del representante']
                         )
+
+                        nuevo_cliente.representante = representante
                     except Exception as e:
                         print(f'No se logro hacer la creacion del cliente moral: ,  {str(e)}')
             self.tabla_listar_clientes()
@@ -851,6 +892,40 @@ class Clientes(QWidget):
                         self.tabla_listar_clientes()
                     except Exception as e:
                         print(f'No se logro hacer la actualizacion del cliente moral: {e}')
+
+    def eliminar_clientes(self):
+        if self.ui.btnRadio_wpc_clienteFisico.isChecked():
+            modelo = Clientes_fisicos
+            id = self.id_cliente
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    try:
+                        eliminar = ClientesFisicosAndMorales(session).eliminar_cliente(id, modelo)
+                        if  eliminar:
+                            Mensaje().mensaje_informativo("Se elimino el cliente de manera exitosa!")
+                        else:
+                            Mensaje().mensaje_alerta("No se logro hacer la operacion!")
+                    except Exception as e:
+                        print(f'No se logro eliminar el cliente fisico: {e}')
+
+                self.tabla_listar_clientes()
+        if self.ui.btnRadio_wpc_clienteMoral.isChecked():
+            modelo = Clientes_morales
+            id = self.id_cliente
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    try:
+                        eliminar = ClientesFisicosAndMorales(session).eliminar_cliente(id, modelo)
+                        if  eliminar:
+                            Mensaje().mensaje_informativo("Se elimino el cliente de manera exitosa!")
+                            self.tabla_listar_clientes()
+                        else:
+                            Mensaje().mensaje_alerta("No se logro hacer la operacion!")
+                    except Exception as e:
+                        print(f'No se logro eliminar el cliente fisico: {e}')
+
 
     def nueva_area_cliente_fisico(self):
         self.ui_area_cliente_fisico =  AreaNegocioClientesController("Fisico")

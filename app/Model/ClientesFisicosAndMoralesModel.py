@@ -25,7 +25,7 @@ class ClientesFisicosAndMorales:
         try:
             cliente_existente = (self.session.query(Clientes_morales).filter(Clientes.nombre == nombre).filter(Clientes_morales.razon_social == razon_social).first())
             if cliente_existente:
-                return True
+                return cliente_existente
             else:
                 cliente = Clientes_morales(
                     nombre=nombre, correo = correo , rfc = rfc, telefono = telefono, pais = pais, estado = estado, ciudad = ciudad, avenidas = avenidas, calles = calles, codigo_postal = codigo_postal, direccion_adicional = direccion_adicional, entidad_legalizada = entidad_legalizada, categoria_cliente_id = categoria_cliente_id, credito = credito, estado_credito = estado_credito, limite_credito = limite_credito, porcentaje_interes = porcentaje_interes, fecha_ultimo_reporte = fecha_ultimo_reporte, credito_disponible = credito_disponible, credito_utilizado = credito_utilizado, tipo_cliente = tipo_cliente, aplica_descuento = aplica_descuento,porcentaje_descuento = porcentaje_descuento, comentarios = comentarios, areas_de_negocios_id = areas_de_negocios_id, razon_social = razon_social, fecha_constitucion = fecha_constitucion,  web = web, sector = sector, NIF = nif
@@ -36,15 +36,15 @@ class ClientesFisicosAndMorales:
         except Exception as e:
             print(f"Error al agregar cliente moral: {e}")
         
-    def agregar_representante_cliente_moral(self, nombre, telefono, correo, puesto, cliente_moral_id):
+    def agregar_representante_cliente_moral(self, nombre, telefono, correo, puesto):
     
         try:
-            representante_existente = (self.session.query(Representantes_clientes_morales).filter(Representantes_clientes_morales.nombre == nombre).first())
+            representante_existente = (self.session.query(Representantes_clientes_morales).filter(Representantes_clientes_morales.nombre == nombre, Representantes_clientes_morales.telefono == telefono).first())
             if representante_existente:
                 print('representante existente')
                 return representante_existente
             else:
-                representante = Representantes_clientes_morales(nombre = nombre, telefono = telefono, correo = correo, puesto = puesto, cliente_moral_id = cliente_moral_id)
+                representante = Representantes_clientes_morales(nombre = nombre, telefono = telefono, correo = correo, puesto = puesto)
                 self.session.add(representante)
                 self.session.flush()
                 print ('representante agregado')
@@ -62,7 +62,11 @@ class ClientesFisicosAndMorales:
                 .filter(Clientes.tipo_cliente == 'FISICO')
                 .join(clientes_fisicos_alias, Clientes.id == clientes_fisicos_alias.id)
                 .all())
-            return clientes
+            print(clientes)
+            if clientes:
+                return clientes
+            else:
+                return None
         except Exception as e:
             print(f"Error al mostrar clientes fisicos: {e}")
 
@@ -262,12 +266,12 @@ class ClientesFisicosAndMorales:
                         else:
                             print(f'No se encontró área de negocio con ID: {areas_de_negocios_id}')
                     # Actualizar o agregar representante
-                    if cliente_moral.representante and len(cliente_moral.representante) > 0:
+                    if cliente_moral.representante:
                         print('si contiene representante')
                         # Actualizar el primer representante si existe
-                        representante = cliente_moral.representante[0]  # O usa un índice adecuado
+                        representante = cliente_moral.representante  # O usa un índice adecuado
                         if not (nombre_representante and telefono_representante and correo_representante and puesto_representante):
-                            cliente_moral.representante.remove(representante)
+                            cliente_moral.representante = None
                         else:
                             representante.nombre = nombre_representante
                             representante.telefono = telefono_representante
@@ -280,15 +284,10 @@ class ClientesFisicosAndMorales:
                                 nombre=nombre_representante,
                                 telefono=telefono_representante,
                                 correo=correo_representante,
-                                puesto=puesto_representante,
-                                cliente_moral_id=id
+                                puesto=puesto_representante
                             )
-                            cliente_moral.representante.append(nuevo_representante)
-                        
-
-                    
-                    # Confirmar cambios
-                    self.session.commit()
+                            self.session.add(nuevo_representante)
+                            cliente_moral.representante = nuevo_representante
                     print(f"Cliente con ID {id} actualizado correctamente")
                     return True
                 else:
@@ -298,3 +297,17 @@ class ClientesFisicosAndMorales:
             print(f'Error al hacer la actualización: {e}')
             self.session.rollback()
             return False
+        
+    def eliminar_cliente(self, id, modelo):
+        try:
+            cliente = self.session.query(modelo).filter(modelo.id == id).one_or_none()
+            if cliente:
+                self.session.delete(cliente)
+                print(f"se elimino el registro del cliente {modelo}")
+                return True
+            return False
+        except Exception as e:
+            print(f'Error al eliminar el cliente: {modelo} ---- {e}')
+            return False
+
+

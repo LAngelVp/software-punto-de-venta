@@ -449,7 +449,7 @@ class Areas_negocios(Base):
 
 class Clientes_fisicos(Clientes):
     __tablename__ = "Clientes_fisicos"
-    id = Column(Integer, ForeignKey("Clientes.id"), primary_key=True)
+    id = Column(Integer, ForeignKey("Clientes.id", ondelete='CASCADE'), primary_key=True)
     apellido_paterno = Column(String(255))
     apellido_materno = Column(String(255))
     curp = Column(String(18))
@@ -467,13 +467,13 @@ class Clientes_fisicos(Clientes):
 
 class Clientes_morales(Clientes):
     __tablename__ = "Clientes_morales"
-    id = Column(Integer, ForeignKey("Clientes.id"), primary_key=True)
+    id = Column(Integer, ForeignKey("Clientes.id", ondelete="CASCADE"), primary_key=True)
     razon_social = Column(String(255))
     fecha_constitucion = Column(Date)
     web =  Column(String(255))
     sector = Column(String(255))
     NIF = Column(String(20))
-
+    representante_id = Column(Integer, ForeignKey("Representantes_clientes_morales.id"))
     representante = relationship(
         "Representantes_clientes_morales", back_populates="clientes_morales"
     )
@@ -502,7 +502,6 @@ class Representantes_clientes_morales(Base):
     telefono = Column(String(20))
     correo = Column(String(100))
     puesto = Column(String(100))
-    cliente_moral_id = Column(Integer, ForeignKey("Clientes_morales.id"))
     clientes_morales = relationship("Clientes_morales", back_populates="representante")
 
 
