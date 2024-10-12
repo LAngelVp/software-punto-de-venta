@@ -926,7 +926,6 @@ class Clientes(QWidget):
                     except Exception as e:
                         print(f'No se logro eliminar el cliente fisico: {e}')
 
-
     def nueva_area_cliente_fisico(self):
         self.ui_area_cliente_fisico =  AreaNegocioClientesController("Fisico")
         self.ui_area_cliente_fisico.show()

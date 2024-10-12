@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\DesktopPosWithPython\app\View\UserInterfaceUi\UI_CONTROL_SUCURSALES.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_SUCURSALES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Nueva_sucursal(object):
     def setupUi(self, Nueva_sucursal):
         Nueva_sucursal.setObjectName("Nueva_sucursal")
-        Nueva_sucursal.resize(640, 370)
-        Nueva_sucursal.setMinimumSize(QtCore.QSize(640, 370))
-        Nueva_sucursal.setMaximumSize(QtCore.QSize(640, 370))
+        Nueva_sucursal.resize(749, 449)
+        Nueva_sucursal.setMinimumSize(QtCore.QSize(0, 0))
+        Nueva_sucursal.setMaximumSize(QtCore.QSize(16777215, 16777215))
         Nueva_sucursal.setStyleSheet("#Nueva_sucursal{\n"
 "background: #fffefb;\n"
 "}\n"
@@ -32,6 +32,12 @@ class Ui_Nueva_sucursal(object):
 "[objectName*=\"etiqueta_\"]{\n"
 "color: #1d1c1c;\n"
 "font-size:12px;\n"
+"font-weight:bold;\n"
+"font-family:Arial;\n"
+"}\n"
+"[objectName*=\"etiquetasubtitulo_\"]{\n"
+"color: #1d1c1c;\n"
+"font-size:15px;\n"
 "font-weight:bold;\n"
 "font-family:Arial;\n"
 "}\n"
@@ -137,9 +143,14 @@ class Ui_Nueva_sucursal(object):
         self.contenedor_lista.setObjectName("contenedor_lista")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.contenedor_lista)
         self.gridLayout_3.setObjectName("gridLayout_3")
+        self.etiquetasubtitulo_sucursales = QtWidgets.QLabel(self.contenedor_lista)
+        self.etiquetasubtitulo_sucursales.setObjectName("etiquetasubtitulo_sucursales")
+        self.gridLayout_3.addWidget(self.etiquetasubtitulo_sucursales, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
         self.lista_sucursales = QtWidgets.QListWidget(self.contenedor_lista)
+        self.lista_sucursales.setMinimumSize(QtCore.QSize(0, 0))
+        self.lista_sucursales.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.lista_sucursales.setObjectName("lista_sucursales")
-        self.gridLayout_3.addWidget(self.lista_sucursales, 0, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.lista_sucursales, 1, 0, 1, 1)
         self.gridLayout.addWidget(self.contenedor_lista, 0, 1, 1, 1)
         self.contenedor = QtWidgets.QFrame(Nueva_sucursal)
         self.contenedor.setMinimumSize(QtCore.QSize(350, 0))
@@ -219,6 +230,7 @@ class Ui_Nueva_sucursal(object):
     def retranslateUi(self, Nueva_sucursal):
         _translate = QtCore.QCoreApplication.translate
         Nueva_sucursal.setWindowTitle(_translate("Nueva_sucursal", "Form"))
+        self.etiquetasubtitulo_sucursales.setText(_translate("Nueva_sucursal", "Sucursales"))
         self.etiqueta_ciudad.setText(_translate("Nueva_sucursal", "Ciudad"))
         self.etiqueta_ntelefono.setText(_translate("Nueva_sucursal", "Num. Telefono"))
         self.etiquetaTitulo_sucursal.setText(_translate("Nueva_sucursal", "Nueva Sucursal"))

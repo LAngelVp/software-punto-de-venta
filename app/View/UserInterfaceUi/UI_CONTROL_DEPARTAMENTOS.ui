@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Control_departamentos</class>
+ <widget class="QWidget" name="Control_departamentos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>878</width>
+    <height>565</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Control_departamentos{
+background: #fffefb;
+}
+[objectName*=&quot;contenedor&quot;]{
+background: #fffefb;
+}
+#etiquetaTitulo{
+color: #1d1c1c;
+font-size:20px;
+font-weight:bold;
+font-family:Arial;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+color: #1d1c1c;
+font-size:14px;
+font-weight:bold;
+font-family:Arial;
+}
+[objectName*=&quot;etiquetasubtitulo_&quot;]{
+color: #1d1c1c;
+font-size:15px;
+font-weight:bold;
+font-family:Arial;
+}
+[objectName*=&quot;btn_btn_&quot;]{
+color:#fffefb;
+font-size:14px;
+font-family:Arial;
+font-weight:bold;
+background: #023375;
+border:none;
+border-radius: 5px;
+padding-left:5px;
+padding-right: 5px;
+height:25px;
+}
+[objectName*=&quot;btn_btn_&quot;]:hover{
+background: #2196F3;
+}
+#btn_btn_eliminar:hover{
+background:#EE1D52;
+}
+[objectName*=&quot;txt_&quot;]{
+background: #F5F5F5;
+font-size: 12px;
+border: none;
+border-radius: 5px;
+border-bottom: 1px solid #1d1c1c;
+font-family:Arial;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+background: #F5F5F5;
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;txtlargo_&quot;]{
+background: #F5F5F5;
+font-size: 12px;
+border: none;
+border-radius: 5px;
+border-bottom: 1px solid #1d1c1c;
+font-family:Arial;
+height: 100px;
+max-height: 100px;
+}
+[objectName*=&quot;txtlargo_&quot;]:focus{
+background: #F5F5F5;
+border-bottom: 2px solid #023375;
+}
+QListWidget {
+    background-color: #fffefb;  /* Color de fondo del QListWidget */
+    border: 1px solid gray;  /* Borde del QListWidget */
+    border-radius: 2px;  /* Bordes redondeados */
+    padding: 5px;  /* Espaciado interno */
+}
+
+QListWidget::item {
+    background-color: #fffefb;  /* Color de fondo de los elementos */
+    color: #1d1c1c;  /* Color del texto */
+    padding: 5px;  /* Espaciado interno de los elementos */
+}
+
+QListWidget::item:selected {
+    background-color: #0056a6;  /* Color de fondo al seleccionar un elemento */
+    color: white;  /* Color del texto del elemento seleccionado */
+}
+
+QScrollBar:vertical {
+    border: 1px solid gray;
+    background: #023375;
+    width: 5px;
+    border-radius: 2px;
+    margin: 22px 0; 
+}
+
+QScrollBar::handle:vertical {
+    background: #023375;  /* Color del &quot;manejador&quot; */
+    min-height: 20px;  /* Altura mínima del manejador */
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    background-color: none;
+}
+
+QScrollBar:horizontal {
+ border: 1px solid gray;
+    background: #023375;
+    height: 5px;  /* Altura de la barra */
+    border-radius: 2px;
+}
+
+QScrollBar::handle:horizontal {
+    background: #023375;  /* Color del &quot;manejador&quot; horizontal */
+    height: 5px;  /* Altura de la barra horizontal */
+    border-radius:3px;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>0</number>
+      </property>
+      <property name="verticalSpacing">
+       <number>15</number>
+      </property>
+      <item row="1" column="0" colspan="4">
+       <widget class="QFrame" name="contenedor_formulario">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>10</number>
+         </property>
+         <item row="5" column="1">
+          <widget class="QFrame" name="contenedor_botonesvincular">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <widget class="QPushButton" name="btn_btn_vincular">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>Vincular</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/ibootstrap.qrc">
+                <normaloff>:/Icons/Bootstrap/arrow-right-circle.svg</normaloff>:/Icons/Bootstrap/arrow-right-circle.svg</iconset>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QPushButton" name="btn_btn_desvincular">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>Desvincular</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/ibootstrap.qrc">
+                <normaloff>:/Icons/Bootstrap/arrow-left-circle.svg</normaloff>:/Icons/Bootstrap/arrow-left-circle.svg</iconset>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="6" column="5">
+          <widget class="QPushButton" name="btn_btn_eliminar">
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="3">
+          <widget class="QPlainTextEdit" name="txtlargo_descripciondepartamento"/>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="etiquetasubtitulo_sucursalesexistentes">
+           <property name="text">
+            <string>Sucursales existentes:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="2">
+          <widget class="QListWidget" name="lista_sucursalesvinculadas"/>
+         </item>
+         <item row="5" column="0">
+          <widget class="QListWidget" name="lista_sucursalesexistentes"/>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="etiquetasubtitulo_departamentosexistentes">
+           <property name="text">
+            <string>Departamentos existentes</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0" colspan="3">
+          <widget class="QLabel" name="etiqueta_descripciondepartamento">
+           <property name="text">
+            <string>Descripcion del departamento:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="3">
+          <widget class="QLabel" name="etiqueta_nombredepartamento">
+           <property name="text">
+            <string>Nombre del departamento:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="3">
+          <widget class="QLineEdit" name="txt_nombredepartamento"/>
+         </item>
+         <item row="4" column="2">
+          <widget class="QLabel" name="etiquetasubtitulo_sucursalesvinculadas">
+           <property name="text">
+            <string>Sucusales vinculadas</string>
+           </property>
+           <property name="wordWrap">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="4">
+          <widget class="QPushButton" name="btn_btn_guardar">
+           <property name="text">
+            <string>Guardar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3" rowspan="5" colspan="3">
+          <widget class="QListWidget" name="lista_departamentosexistentes"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="etiquetaTitulo">
+        <property name="text">
+         <string>Departamentos</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+ </resources>
+ <connections/>
+</ui>

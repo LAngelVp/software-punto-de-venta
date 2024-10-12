@@ -9,13 +9,16 @@ pyuic5 UI_INICIO_SESION.ui -o ../userinterfacepy/UI_INICIO_SESION.py
 pyuic5 UI_REGISTRO_EMPLEADO.ui -o ../userinterfacepy/UI_REGISTRO_EMPLEADO.py
 pyuic5 UI_SISTEMA_PRINCIPAL.ui -o ../userinterfacepy/UI_SISTEMA_PRINCIPAL.py
 pyuic5 UI_ADMINISTRAR_PUESTOS.ui -o ../userinterfacepy/UI_ADMINISTRAR_PUESTOS.py
-pyuic5 UI_NUEVO_ROL.ui -o ../userinterfacepy/UI_NUEVO_ROL.py
 pyuic5 UI_NUEVA_CATEGORIA.ui -o ../userinterfacepy/UI_NUEVA_CATEGORIA.py
 pyuic5 UI_BIENVENIDA.ui -o ../userinterfacepy/UI_BIENVENIDA.py
 pyuic5 UI_CONTROL_PRODUCTOS.ui -o ../userinterfacepy/UI_CONTROL_PRODUCTOS.py
 pyuic5 UI_CONTROL_VENTAS.ui -o ../userinterfacepy/UI_CONTROL_VENTAS.py
 pyuic5 UI_CONTROL_SUCURSALES.ui -o ../userinterfacepy/UI_CONTROL_SUCURSALES.py
 pyuic5 UI_NUEVA_AREA_NEGOCIO.ui -o ../userinterfacepy/UI_NUEVA_AREA_NEGOCIO.py
+pyuic5 UI_CONTROL_SUCUDEPAPUESTO.ui -o ../userinterfacepy/UI_CONTROL_SUCUDEPAPUESTO.py
+pyuic5 UI_ADMINISTRAR_PUESTOS.ui -o ../userinterfacepy/UI_ADMINISTRAR_PUESTOS.py
+pyuic5 UI_CONTROL_DEPARTAMENTOS.ui -o ../userinterfacepy/UI_CONTROL_DEPARTAMENTOS.py
+pyuic5 UI_CONTROL_ROLES.ui -o ../userinterfacepy/UI_CONTROL_ROLES.py
 
 
 DROP SCHEMA public CASCADE;

@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>473</height>
+    <width>900</width>
+    <height>600</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>900</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="cursor">
    <cursorShape>PointingHandCursor</cursorShape>
@@ -22,6 +34,19 @@ background: #fffefb;
 }
 [objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
+}
+[objectName*=&quot;btn_btn&quot;]{
+background: #023375;
+color: #fffefb;
+font-weight:bold;
+font-size: 14px;
+font-family: Arial;
+height: 30px;
+border:none;
+border-radius:5px;
+}
+[objectName*=&quot;btn_btn&quot;]:hover{
+background: #2196F3;
 }
 </string>
   </property>
@@ -50,6 +75,21 @@ background: #fffefb;
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item row="0" column="0">
        <widget class="QFrame" name="contenedor_botones">
         <property name="frameShape">
@@ -111,13 +151,43 @@ background: #fffefb;
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_5">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item row="0" column="0">
           <widget class="QStackedWidget" name="contenedor_paginas">
            <property name="styleSheet">
             <string notr="true"/>
            </property>
-           <widget class="QWidget" name="page"/>
-           <widget class="QWidget" name="page_2"/>
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="pagina_inicial">
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
+               <property name="styleSheet">
+                <string notr="true">image: url(:/Icons/IconosSVG/logo_devrous.png);</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </widget>
          </item>
         </layout>
@@ -128,6 +198,8 @@ background: #fffefb;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../Source/iconsdvg.qrc"/>
+ </resources>
  <connections/>
 </ui>
