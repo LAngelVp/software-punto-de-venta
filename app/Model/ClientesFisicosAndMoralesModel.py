@@ -10,7 +10,7 @@ class ClientesFisicosAndMorales:
         try:
             cliente_existente = (self.session.query(Clientes_fisicos).filter(Clientes.nombre == nombre).filter(Clientes_fisicos.apellido_paterno == apellido_paterno and Clientes_fisicos.curp == curp).first())
             if cliente_existente:
-                return True
+                return cliente_existente
             else:
                 cliente = Clientes_fisicos(
                     nombre = nombre, correo = correo, rfc = rfc, telefono = telefono, pais = pais, estado = estado, ciudad = ciudad, avenidas = avenidas, calles = calles, codigo_postal = codigo_postal, direccion_adicional = direccion_adicional, entidad_legalizada = entidad_legalizada, categoria_cliente_id = categoria_cliente_id, credito = credito, estado_credito = estado_credito, limite_credito = limite_credito, porcentaje_interes = porcentaje_interes, fecha_ultimo_reporte = fecha_ultimo_reporte, credito_disponible = credito_disponible, credito_utilizado = credito_utilizado, tipo_cliente = tipo_cliente, aplica_descuento = aplica_descuento, porcentaje_descuento = porcentaje_descuento, comentarios = comentarios, areas_de_negocios_id = areas_de_negocios_id, apellido_paterno = apellido_paterno, apellido_materno = apellido_materno, curp = curp, fecha_nacimiento = fecha_nacimiento, num_identificacion = num_identificacion, ocupacion = ocupacion, ingresos = ingresos, estado_civil = estado_civil, foto = foto

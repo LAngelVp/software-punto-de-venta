@@ -135,6 +135,8 @@ class Clientes(QWidget):
                     elif isinstance(campo, QDateEdit):
                         campo.setDate(QDate.currentDate())
 
+                    self.listar_areas()
+                    self.listar_categorias()
                 self.ui.label_wpc_fotocliente.setText(self._translate("Control_Clientes", "Imagen"))
 
                     
@@ -161,6 +163,9 @@ class Clientes(QWidget):
                     # Restablecer QDateEdit a la fecha actual
                     elif isinstance(campo, QDateEdit):
                         campo.setDate(QDate.currentDate())
+
+                    self.listar_areas()
+                    self.listar_categorias()
         except Exception as e:
             print(f"Error al limpiar campos: {e}")
 
@@ -463,7 +468,7 @@ class Clientes(QWidget):
                     items = [QStandardItem(item) for item in row_data]
                     self.model.appendRow(items)
 
-            elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
+            if self.ui.btnRadio_wpc_clienteMoral.isChecked():
                 # Verificar si clientes es None o una lista vacía
                 if clientes is None or len(clientes) == 0:
                     self.model.clear()  # Limpiar el modelo
@@ -563,7 +568,7 @@ class Clientes(QWidget):
                     "correo electronico" : self.ui.txt_correo_fisico.text().strip(),
                     "avenidas" : self.ui.txt_avenidas_fisico.text().strip().upper(),
                     "calles" : self.ui.txt_calles_fisico.text().strip().upper(),
-                    "fecha de nacimiento" : self.ui.fecha_fechanacimiento.date().toString("yyyy/MM/dd"),
+                    "fecha de nacimiento" : self.ui.fecha_fechanacimiento.date().toPyDate(),
                     "numero identificacion" : self.ui.txt_ine_fisico.text().strip().upper(),
                     "ocupacion" : self.ui.txt_ocupacion_fisico.text().strip().upper(),
                     "area de negocio" : self.ui.cajaopciones_areasnegocio_fisico.currentText().strip().upper(),
@@ -632,7 +637,7 @@ class Clientes(QWidget):
             'estado' : self.ui.txt_estado_moral.text().strip().upper(),
             'codigo postal' : self.ui.txt_codigopostal_moral.text().strip().upper(),
             'area de negocio' : self.ui.cajaopciones_areasnegocio_moral.currentText().strip().upper(),
-            "fecha de constitucion" : self.ui.fecha_fechaconstitucion.date().toString("yyyy/MM/dd"),
+            "fecha de constitucion" : self.ui.fecha_fechaconstitucion.date().toPyDate(),
             'clasificacion de cliente' : self.ui.cajaopciones_categoriaMoral.currentText().strip().upper(),
             'direccion adicional' : self.ui.txtlargo_direccionadicional_moral.toPlainText().strip().upper(),
             'representante moral' : self.ui.txt_nombre_repre_moral.text().strip().upper(),
@@ -670,7 +675,7 @@ class Clientes(QWidget):
             if not self.validacion_campos_cliente_fisico(datos):
                 return
             limite_credito = datos["limite del credito"]
-            fecha_ultimo_reporte = fecha_actual.strftime("%d/%m/%Y")
+            fecha_ultimo_reporte = fecha_actual.strftime("%Y/%m/%d")
             credito_disponible = limite_credito
             tipo_de_cliente = "FISICO"
             
@@ -737,7 +742,8 @@ class Clientes(QWidget):
                 return
             #comment:_ obtener los datos de los campos numericos y checks
             credito_disponible = datos["limite del credito"]
-            fecha_ultimo_reporte = fecha_actual.strftime("%d/%m/%Y")
+            fecha_ultimo_reporte = fecha_actual.strftime("%Y/%m/%d")
+            print(datos['fecha de constitucion'])
 
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
@@ -790,6 +796,7 @@ class Clientes(QWidget):
                     except Exception as e:
                         print(f'No se logro hacer la creacion del cliente moral: ,  {str(e)}')
             self.tabla_listar_clientes()
+            self.limpiar_campos()
 
     def actualizar_clientes(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
@@ -841,6 +848,7 @@ class Clientes(QWidget):
                             
                         )
                         self.tabla_listar_clientes()
+                        self.limpiar_campos()
                     except Exception as e:
                         print(f'No se logro hacer la actualizacion del cliente fisico: ,  {e}')
 
@@ -890,6 +898,7 @@ class Clientes(QWidget):
                             puesto_representante=datos['puesto del representante']
                             ) 
                         self.tabla_listar_clientes()
+                        self.limpiar_campos()
                     except Exception as e:
                         print(f'No se logro hacer la actualizacion del cliente moral: {e}')
 
@@ -910,6 +919,7 @@ class Clientes(QWidget):
                         print(f'No se logro eliminar el cliente fisico: {e}')
 
                 self.tabla_listar_clientes()
+                self.limpiar_campos()
         if self.ui.btnRadio_wpc_clienteMoral.isChecked():
             modelo = Clientes_morales
             id = self.id_cliente
@@ -920,11 +930,12 @@ class Clientes(QWidget):
                         eliminar = ClientesFisicosAndMorales(session).eliminar_cliente(id, modelo)
                         if  eliminar:
                             Mensaje().mensaje_informativo("Se elimino el cliente de manera exitosa!")
-                            self.tabla_listar_clientes()
                         else:
                             Mensaje().mensaje_alerta("No se logro hacer la operacion!")
                     except Exception as e:
                         print(f'No se logro eliminar el cliente fisico: {e}')
+                self.tabla_listar_clientes()
+                self.limpiar_campos()
 
     def nueva_area_cliente_fisico(self):
         self.ui_area_cliente_fisico =  AreaNegocioClientesController("Fisico")
