@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1125</width>
+    <width>1009</width>
     <height>974</height>
    </rect>
   </property>
@@ -468,6 +468,23 @@ qproperty-iconSize: 20px 20px;
                 <width>35</width>
                 <height>35</height>
                </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="btn_btn_sucursales">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt; font-weight:600;&quot;&gt;Administrador de Sucursales&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconsdvg.qrc">
+                <normaloff>:/Icons/IconosSVG/sucursales.png</normaloff>:/Icons/IconosSVG/sucursales.png</iconset>
               </property>
              </widget>
             </item>

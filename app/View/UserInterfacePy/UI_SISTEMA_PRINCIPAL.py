@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Principal_sistema(object):
     def setupUi(self, Principal_sistema):
         Principal_sistema.setObjectName("Principal_sistema")
-        Principal_sistema.resize(1125, 974)
+        Principal_sistema.resize(1009, 974)
         Principal_sistema.setStyleSheet("#Principal_sistema{\n"
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
@@ -232,12 +232,20 @@ class Ui_Principal_sistema(object):
         self.btn_productos.setIconSize(QtCore.QSize(35, 35))
         self.btn_productos.setObjectName("btn_productos")
         self.verticalLayout_2.addWidget(self.btn_productos)
+        self.btn_btn_sucursales = QtWidgets.QToolButton(self.w_cuerpo_menu)
+        self.btn_btn_sucursales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_sucursales.setText("")
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/sucursales.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_sucursales.setIcon(icon9)
+        self.btn_btn_sucursales.setObjectName("btn_btn_sucursales")
+        self.verticalLayout_2.addWidget(self.btn_btn_sucursales)
         self.btn_mas_opciones = QtWidgets.QToolButton(self.w_cuerpo_menu)
         self.btn_mas_opciones.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_mas_opciones.setText("")
-        icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/plus-circle.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_mas_opciones.setIcon(icon9)
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/plus-circle.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_mas_opciones.setIcon(icon10)
         self.btn_mas_opciones.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
         self.btn_mas_opciones.setObjectName("btn_mas_opciones")
         self.verticalLayout_2.addWidget(self.btn_mas_opciones)
@@ -284,6 +292,7 @@ class Ui_Principal_sistema(object):
         self.btn_clientes.setToolTip(_translate("Principal_sistema", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Clientes</span></p></body></html>"))
         self.btn_productos.setToolTip(_translate("Principal_sistema", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Productos</span></p></body></html>"))
         self.btn_productos.setText(_translate("Principal_sistema", "..."))
+        self.btn_btn_sucursales.setToolTip(_translate("Principal_sistema", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Administrador de Sucursales</span></p></body></html>"))
         self.btn_mas_opciones.setToolTip(_translate("Principal_sistema", "Más Opciones"))
 from ...Source import ibootstrap_rc
 from ...Source import iconos_rc

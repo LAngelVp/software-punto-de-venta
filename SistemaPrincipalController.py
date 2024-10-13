@@ -13,6 +13,7 @@ from app.Controller.EmpleadosController import *
 from app.Controller.VentaController import *
 from app.Controller.VentasController import *
 from app.Controller.ProductosController import *
+from app.Controller.ControlSucursalesController import *
 
 
 
@@ -54,6 +55,7 @@ class SistemaPrincipal(QWidget):
         self.ui.btn_proveedores.clicked.connect(self.mostrar_proveedores)
         self.ui.btn_clientes.clicked.connect(self.mostrar_clientes)
         self.ui.btn_productos.clicked.connect(self.mostrar_productos)
+        self.ui.btn_btn_sucursales.clicked.connect(self.control_de_sucursales)
 
         self.ui.btc_cerrar_2.clicked.connect(lambda:  sys.exit())
         self.ui.btc_minimizar_2.clicked.connect(lambda:  self.showMinimized())
@@ -85,6 +87,10 @@ class SistemaPrincipal(QWidget):
     
     def mostrar_productos(self):
         self.ui.w_cuerpo_contenido.setCurrentWidget(self.p_productos)
+    
+    def control_de_sucursales(self):
+        self.control_sucursales = ControlSucursalesController()
+        self.control_sucursales.show()
 
     
 

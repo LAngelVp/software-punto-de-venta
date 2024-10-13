@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_SUCURSALES.ui'
+# Form implementation generated from reading ui file 'c:\Users\Ing. Angel Perez\Documents\projects\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_SUCURSALES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -222,10 +222,31 @@ class Ui_Nueva_sucursal(object):
         self.btn_btn_agregar.setObjectName("btn_btn_agregar")
         self.horizontalLayout.addWidget(self.btn_btn_agregar)
         self.gridLayout_2.addWidget(self.contenedor_botones, 9, 0, 1, 4)
+        self.btn_btn_limpiar = QtWidgets.QPushButton(self.contenedor)
+        self.btn_btn_limpiar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_limpiar.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_limpiar.setIcon(icon)
+        self.btn_btn_limpiar.setIconSize(QtCore.QSize(25, 25))
+        self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
+        self.gridLayout_2.addWidget(self.btn_btn_limpiar, 0, 3, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem, 0, 2, 1, 1)
         self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
 
         self.retranslateUi(Nueva_sucursal)
         QtCore.QMetaObject.connectSlotsByName(Nueva_sucursal)
+        Nueva_sucursal.setTabOrder(self.txt_nombre, self.txt_codigopostal)
+        Nueva_sucursal.setTabOrder(self.txt_codigopostal, self.txt_ciudad)
+        Nueva_sucursal.setTabOrder(self.txt_ciudad, self.txt_estado)
+        Nueva_sucursal.setTabOrder(self.txt_estado, self.txt_pais)
+        Nueva_sucursal.setTabOrder(self.txt_pais, self.txt_ntelefono)
+        Nueva_sucursal.setTabOrder(self.txt_ntelefono, self.txtlargo_direccion)
+        Nueva_sucursal.setTabOrder(self.txtlargo_direccion, self.btn_btn_eliminar)
+        Nueva_sucursal.setTabOrder(self.btn_btn_eliminar, self.btn_btn_actualizar)
+        Nueva_sucursal.setTabOrder(self.btn_btn_actualizar, self.btn_btn_agregar)
+        Nueva_sucursal.setTabOrder(self.btn_btn_agregar, self.lista_sucursales)
 
     def retranslateUi(self, Nueva_sucursal):
         _translate = QtCore.QCoreApplication.translate
@@ -242,3 +263,4 @@ class Ui_Nueva_sucursal(object):
         self.btn_btn_eliminar.setText(_translate("Nueva_sucursal", "Eliminar"))
         self.btn_btn_actualizar.setText(_translate("Nueva_sucursal", "Actualizar"))
         self.btn_btn_agregar.setText(_translate("Nueva_sucursal", "Agregar"))
+import iconsdvg_rc

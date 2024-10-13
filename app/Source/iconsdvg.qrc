@@ -1,5 +1,7 @@
 <RCC>
   <qresource>
+    <file>Icons/IconosSVG/borrador.png</file>
+    <file>Icons/IconosSVG/sucursales.png</file>
     <file>Icons/IconosSVG/productos.png</file>
     <file>Icons/IconosSVG/logo_devrous.png</file>
     <file>Icons/IconosSVG/compras.png</file>
