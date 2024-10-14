@@ -19,6 +19,7 @@ class SucursalesController(QWidget):
         self.ui.lista_sucursales.itemClicked.connect(self.obtenerId)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
+        self.ui.btn_btn_actualizar.clicked.connect(self.actualizar)
         self.listar_sucursales()
         self.id_sucursal = None
 
@@ -143,3 +144,31 @@ class SucursalesController(QWidget):
                         print(f"Error al eliminar la sucursal : {e}")
         self.limpiar()
         self.listar_sucursales()
+
+    def actualizar(self):
+        sucursalId = self.id_sucursal
+        datos = self.obtener_datos_campos()  # Asumo que esto retorna los campos correctamente
+        
+        # Verifica que todos los campos estén completos
+        if any(value == '' for value in datos.values()):
+            Mensaje().mensaje_informativo("Error: Todos los campos deben estar completos")
+            return
+        
+        # Iniciar la conexión a la base de datos
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():  # La transacción comienza aquí
+                try:
+                    # Actualizar la sucursal sin hacer commit aún
+                    sucursal_actualizada, actualizado = SucursalesModel(session).actualizar(sucursalId, **datos)
+                    
+                    # Validar si la actualización fue exitosa
+                    if actualizado:
+                        Mensaje().mensaje_informativo("Sucursal actualizada con éxito")
+                    else:
+                        Mensaje().mensaje_alerta("No se pudo actualizar la sucursal")
+                    
+                    # Aquí es donde el commit ocurrirá automáticamente si todo sale bien
+                except Exception as e:
+                    Mensaje().mensaje_critico(f"Error al actualizar la sucursal: {e}")
+                    # Si ocurre una excepción, la transacción se hará rollback automáticamente

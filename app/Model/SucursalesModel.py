@@ -43,7 +43,6 @@ class SucursalesModel:
         except Exception as e:
             print(e)
 
-    
     def obtener_todo(self):
         try:
             sucursales = self.session.query(Sucursales).all()
@@ -62,4 +61,28 @@ class SucursalesModel:
         except Exception as e:
             print(f'Error al eliminar el sucursal: {e}')
             return False
-            
+    
+    def actualizar(self, 
+                id,
+                nombre_sucursal,
+                codigo_postal,
+                ciudad,
+                estado,
+                pais,
+                num_telefono,
+                direccion):
+        try:
+            sucursal = self.session.query(Sucursales).filter_by(id = id).first()
+            if sucursal:
+                sucursal.nombre_sucursal = nombre_sucursal
+                sucursal.codigo_postal = codigo_postal
+                sucursal.ciudad = ciudad
+                sucursal.estado = estado
+                sucursal.pais = pais
+                sucursal.num_telefono = num_telefono
+                sucursal.direccion = direccion
+                return sucursal, True
+            else:
+                return None, False
+        except Exception as e:
+            return None, False

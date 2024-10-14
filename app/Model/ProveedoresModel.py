@@ -160,9 +160,6 @@ class ProveedoresModel:
             else:
                 # Si no se proporciona representante_id, eliminar los representantes existentes
                 proveedor.representantes.clear()
-
-            # Guardar los cambios en la sesión
-            self.session.commit()
             print(f'Proveedor con ID {proveedor_id} actualizado con éxito.')
             return proveedor_id  # Retorna el ID del proveedor actualizado
         except Exception as e:

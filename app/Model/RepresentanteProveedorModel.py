@@ -23,13 +23,11 @@ class RepresentanteProveedorModel:
         
         if representante:
             # Itera sobre los argumentos keyword (kwargs) para actualizar los atributos
-            for key, value in kwargs.items():
-                if hasattr(representante, key) and value is not None:
-                    setattr(representante, key, value)
-            
             try:
-                # Intenta guardar los cambios en la sesión
-                self.session.commit()
+                for key, value in kwargs.items():
+                    if hasattr(representante, key) and value is not None:
+                        setattr(representante, key, value)
+                
                 print("Datos del representante actualizados con éxito.")
                 return representante.id
             except Exception as e:

@@ -186,9 +186,6 @@ class Departamentos(Base):
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
     nombre = Column(String(150))
     descripcion = Column(Text)
-    sucursal_id = Column(
-        BigInteger, ForeignKey("Sucursales.id")
-    )  # Clave foránea a Sucursales
     empleados = relationship(
         "Empleados", back_populates="departamento"
     )  # Relación con la tabla de empleados
