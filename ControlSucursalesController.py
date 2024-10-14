@@ -9,7 +9,7 @@ from app.Controller.DepartamentosController import DepartamentosController
 from app.Controller.PuestosController import PuestosController
 
 class ControlSucursalesController(QWidget):
-    listar_sucursales = pyqtSignal()
+    listar_sucursales = pyqtSignal(set)
     listar_departamentos = pyqtSignal()
     def __init__(self):
         super().__init__()
@@ -32,15 +32,23 @@ class ControlSucursalesController(QWidget):
 
         #funciones-iniciales:
         self.listar_sucursales.connect(self.departamentos.listar_sucursales_existentes)
+        self.listar_departamentos.connect(self.departamentos.listar_departamentos)
 
     def formulario_sucursales(self):
         self.ui.contenedor_paginas.setCurrentWidget(self.sucursales)
     
     def formulario_departamentos(self):
-        self.listar_sucursales.emit()
-        self.ui.contenedor_paginas.setCurrentWidget(self.departamentos)
+        if self.ui.contenedor_paginas.currentWidget() != self.departamentos:
+            self.listar_sucursales.emit(set())
+            self.listar_departamentos.emit()
+            self.ui.contenedor_paginas.setCurrentWidget(self.departamentos)
     
     def formulario_puestos(self):
         self.ui.contenedor_paginas.setCurrentWidget(self.puestos)
 
 
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ui = ControlSucursalesController()
+    ui.show()
+    sys.exit(app.exec())

@@ -79,7 +79,9 @@ class Permisos(Base):
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
     nombre = Column(String(255), unique=True)
     descripcion = Column(Text)
-    roles = relationship("Roles", secondary=rol_permiso, back_populates="permisos")
+    roles = relationship(
+        "Roles", secondary=rol_permiso, back_populates="permisos", 
+        )
 
 
 # Apartado de Roles
@@ -88,7 +90,9 @@ class Roles(Base):
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
     nombre = Column(String(150), unique=True)
     descripcion = Column(Text)
-    permisos = relationship("Permisos", secondary=rol_permiso, back_populates="roles")
+    permisos = relationship(
+        "Permisos", secondary=rol_permiso, back_populates="roles", 
+        )
     usuarios = relationship("Usuarios", back_populates="rol")
 
 
@@ -174,10 +178,10 @@ class Sucursales(Base):
     num_telefono = Column(String(15))
     direccion = Column(Text)
     productos = relationship(
-        "Productos", secondary=sucursal_producto, back_populates="sucursales"
+        "Productos", secondary=sucursal_producto, back_populates="sucursales", 
     )
     departamentos = relationship(
-        "Departamentos", secondary=departamento_sucursal, back_populates="sucursales"
+        "Departamentos", secondary=departamento_sucursal, back_populates="sucursales", 
     )  # Relación muchos a muchos con Departamentos
 
 
@@ -193,7 +197,7 @@ class Departamentos(Base):
         "Puestos", back_populates="departamento"
     )  # Relación uno a muchos con Puestos
     sucursales = relationship(
-        "Sucursales", secondary=departamento_sucursal, back_populates="departamentos"
+        "Sucursales", secondary=departamento_sucursal, back_populates="departamentos", 
     )  # Relación muchos a muchos con Sucursales
 
 
@@ -225,10 +229,10 @@ class Productos(Base):
     notas = Column(Text)
     categoria = Column(String(55))
     sucursales = relationship(
-        "Sucursales", secondary=sucursal_producto, back_populates="productos"
+        "Sucursales", secondary=sucursal_producto, back_populates="productos", 
     )
     proveedores = relationship(
-        "Proveedores", secondary=producto_proveedor, back_populates="productos"
+        "Proveedores", secondary=producto_proveedor, back_populates="productos", 
     )
     detalles_compras = relationship("Detalles_compras", back_populates="producto")
     detalles_ventas = relationship("Detalles_ventas", back_populates="producto")
@@ -253,7 +257,7 @@ class Proveedores(Base):
     correo = Column(String(255))
     telefono = Column(String(15))
     productos = relationship(
-        "Productos", secondary=producto_proveedor, back_populates="proveedores"
+        "Productos", secondary=producto_proveedor, back_populates="proveedores", 
     )
     representantes = relationship(
         "Representantes_proveedores", back_populates="proveedor", uselist=True
@@ -262,6 +266,7 @@ class Proveedores(Base):
         "Categorias_proveedores",
         secondary=proveedor_categoria,
         back_populates="proveedores",
+        
     )
     compras = relationship("Compras", back_populates="proveedor")
 
@@ -289,7 +294,7 @@ class Categorias_proveedores(Base):
     nombre = Column(String(100))
     descripcion = Column(Text)
     proveedores = relationship(
-        "Proveedores", secondary=proveedor_categoria, back_populates="categorias"
+        "Proveedores", secondary=proveedor_categoria, back_populates="categorias", 
     )
 
 
