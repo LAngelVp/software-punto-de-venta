@@ -118,6 +118,8 @@ class Puestos(Base):
     horas_laborales = Column(Float)
     dias_laborales = Column(Text)
     descripcion_puesto = Column(Text)
+    hora_entrada = Column(Time)
+    hora_salida = Column(Time)
     empleados = relationship("Empleados", back_populates="puesto")
     departamento_id = Column(
         BigInteger, ForeignKey("Departamentos.id")

@@ -64,3 +64,16 @@ class DepartamentosModel:
                 return False
         except Exception as e:
             return False
+        
+    def actualizar_departamento(self,
+                                id, 
+                                nombre,
+                                descripcion = None):
+        departamento = self.session.query(Departamentos).filter(id == id).first()
+        if departamento:
+            departamento.nombre = nombre
+            departamento.descripcion = descripcion
+            self.session.flush()
+            return departamento, True
+        else:
+            return None, False

@@ -18,6 +18,7 @@ class DepartamentosController(QWidget):
         #botones:
         self.ui.btn_btn_guardar.clicked.connect(self.guardar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
+        self.ui.btn_btn_actualizar.clicked.connect(self.actualizar)
         self.ui.btn_btn_vincular.clicked.connect(self.vincular_sucursal)
         self.ui.btn_btn_desvincular.clicked.connect(self.desvincular_sucursal)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
@@ -48,10 +49,14 @@ class DepartamentosController(QWidget):
             # Limpiar QPlainTextEdit
             elif isinstance(campo, QPlainTextEdit):
                 campo.clear()
+
         self.id_departamento = None
+        self.ui.lista_sucursalesvinculadas.clear()
+        self.sucursales_seleccionadas.clear()
+        self.sucursales_seleccionadas_existentes.clear()
+
         self.listar_sucursales_existentes(set())
         self.listar_departamentos()
-        self.ui.lista_sucursalesvinculadas.clear()
 
     def campos(self):
         return{
@@ -105,19 +110,63 @@ class DepartamentosController(QWidget):
         departamentoId = self.id_departamento
         if departamentoId is not None:
             try:
-                with Conexion_base_datos() as db:
-                    session = db.abrir_sesion()
-                    with session.begin():
-                        departamento_eliminado = DepartamentosModel(session).eliminar_departamento(departamentoId)
-                        if departamento_eliminado:
-                            Mensaje().mensaje_informativo('Departamento eliminado')
-                        else:
-                            print('no se pudo eliminar')
-                            return
+                respuesta = Mensaje().mensaje_pregunta('Estas seguro de eliminar el departamento?')
+                if respuesta == QMessageBox.Yes:
+                    with Conexion_base_datos() as db:
+                        session = db.abrir_sesion()
+                        with session.begin():
+                            departamento_eliminado = DepartamentosModel(session).eliminar_departamento(departamentoId)
+                            if departamento_eliminado:
+                                Mensaje().mensaje_informativo('Departamento eliminado')
+                            else:
+                                print('no se pudo eliminar')
+                                return
+                else:
+                    return
             except Exception as e:
                 print(f'error al eliminar: {e}')
             
             self.limpiar()
+
+    def actualizar(self):
+        departamentoId = self.id_departamento
+        nuevos_datos = self.obtener_contenido_campos()
+
+        if not self.validar(nuevos_datos):
+            Mensaje().mensaje_alerta('No puedes dejar campos de nombre y descripcion vacios')
+            return
+        sucursales_seleccionadas = self.sucursales_seleccionadas
+        respuesta = Mensaje().mensaje_pregunta('Estas seguro de actualizar el departamento')
+        if respuesta == QMessageBox.Yes:
+            try:
+                with Conexion_base_datos() as db:
+                    session = db.abrir_sesion()
+                    with session.begin():
+                        departamento_actualizado, respuesta = DepartamentosModel(session).actualizar_departamento(departamentoId, **nuevos_datos)
+                        if respuesta == False:
+                            Mensaje().mensaje_alerta('El departamento no fue encontrado')
+                            return
+                        sucursales_relacionadas = {
+                            sucursal.id for sucursal in departamento_actualizado.sucursales
+                        }
+                        nuevas_sucursales = set(sucursales_seleccionadas)
+
+                        # Añadir las nuevas sucursales que no estaban en la lista actual
+                        for sucursal_id in nuevas_sucursales - sucursales_relacionadas:
+                            sucursal = SucursalesModel(session).obtener_sucursal_por_id(sucursal_id)
+                            if sucursal:
+                                departamento_actualizado.sucursales.append(sucursal)
+
+                        # Eliminar las sucursales que ya no están seleccionadas
+                        for sucursal_id in sucursales_relacionadas - nuevas_sucursales:
+                            sucursal = SucursalesModel(session).obtener_sucursal_por_id(sucursal_id)
+                            if sucursal:
+                                departamento_actualizado.sucursales.remove(sucursal)
+
+            except Exception as e:
+                print(f'Error al actualizar el departamento: {e}')
+
+            self.limpiar()# Confirmar los cambios
 
     def vincular_sucursal(self):
         sucursal_seleccionada = self.ui.lista_sucursalesexistentes.currentItem()
