@@ -10,13 +10,27 @@ class PuestoModel:
     def crear_puesto(self, nombre,salario,horas_laborales,dias_laborales,descripcion_puesto, hora_entrada, hora_salida, departamento_id):
             puesto = self.session.query(Puestos).filter_by(nombre =  nombre).first()
             if  puesto:
-                return puesto.id
+                return puesto, False
             else:
                 nuevo_puesto = Puestos(nombre = nombre, salario = salario, horas_laborales = horas_laborales,  dias_laborales = dias_laborales, descripcion_puesto = descripcion_puesto, hora_entrada = hora_entrada, hora_salida = hora_salida, departamento_id = departamento_id)
 
                 self.session.add(nuevo_puesto)
                 self.session.flush()
-                return nuevo_puesto.id
+                return nuevo_puesto, True
+            
+    def obtener_todos(self):
+        return self.session.query(Puestos).all()
+            
+    def eliminar_puesto(self, id):
+        try:
+            resultado = self.session.query(Puestos).filter_by(id = id).delete()
+            if resultado > 0:
+                return True
+        except Exception as e:
+            print(e)
+            return  False
+
+            
 
 
         

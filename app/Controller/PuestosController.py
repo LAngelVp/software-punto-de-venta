@@ -1,9 +1,11 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from .MensajesAlertasController import Mensaje
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..View.UserInterfacePy.UI_ADMINISTRAR_PUESTOS import Ui_Formulario_puestos
 from ..Model.PuestoModel import PuestoModel
+from ..Model.DepartamentosModel import DepartamentosModel
 
 
 class PuestosController(QWidget):
@@ -22,8 +24,6 @@ class PuestosController(QWidget):
         self.ui.btn_btn_agregar.clicked.connect(self.agregar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
         self.ui.btn_btn_buscarpuesto.clicked.connect(self.buscar_puesto)
-        self.ui.btn_btn_vincular.clicked.connect(self.vincular_departamento)
-        self.ui.btn_btn_desvincular.clicked.connect(self.desvincular_departamento)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
 
         # señales principales: 
@@ -36,7 +36,10 @@ class PuestosController(QWidget):
         self.ui.cajaopcion_domingo.stateChanged.connect(self.comprobar_caja_verificacion)
 
         # // variables globales:
-        self.diasLaborales = set()
+        self.diasLaborales = []
+        self.diccionario_departamentos = set()
+        self.diccionario_puestos = set()
+        self.id_departamento = None
 
 
     #funciones:
@@ -44,7 +47,7 @@ class PuestosController(QWidget):
         sender = self.sender()
         if state == Qt.Checked:
             if sender.text() not in self.diasLaborales:
-                self.diasLaborales.add(sender.text())
+                self.diasLaborales.append(sender.text())
         else:
             if sender.text() in self.diasLaborales:
                 self.diasLaborales.remove(sender.text())
@@ -64,38 +67,150 @@ class PuestosController(QWidget):
         
 
     def agregar(self):
-        diasLaborales = self.diasLaborales
+        diasLaborales = ', '.join(self.diasLaborales)
         datos = self.obtener_contenido_campos()
-        print(datos)
+
+        departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
+        
+        if self.diccionario_departamentos:
+            for index, nombre in self.diccionario_departamentos.items():
+                if nombre == departamento_seleccionado:
+                    self.id_departamento = index
+                    break
         if not self.validar(datos):
             print ("No se agregaron los campos")
             return
+        
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
-                puesto, agregado = PuestoModel(session).crear_puesto(
-                    nombre=datos['nombre'],
-                    salario=datos['salario'],
-                    horas_laborales=datos['horas_laborales'],
-                    dias_laborales=diasLaborales,
-                    descripcion=datos['descripcion'],
-                    hora_entrada=datos['hora_entrada'],
-                    hora_salida=datos['hora_salida'],
-                )
-
-
-
+                try:
+                    puesto, agregado = PuestoModel(session).crear_puesto(
+                        nombre=datos['nombre'],
+                        salario=datos['salario'],
+                        horas_laborales=datos['horas_laborales'],
+                        dias_laborales=diasLaborales,
+                        descripcion_puesto=datos['descripcion_puesto'],
+                        hora_entrada=datos['hora_entrada'],
+                        hora_salida=datos['hora_salida'],
+                        departamento_id=self.id_departamento
+                    )
+                    if agregado == True:
+                        Mensaje().mensaje_informativo("Se registro con exito")
+                    else:
+                        Mensaje().mensaje_advertencia("No se pudo registrar")
+                except Exception as e:
+                    Mensaje().mensaje_critico(f'Surgio un error : {e}')
+    
     def eliminar(self):
         pass
 
     def buscar_puesto(self):
         pass
 
-    def vincular_departamento(self):
-        pass
+    def listar_departamentos(self):
+        try:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    departamentos = DepartamentosModel(session).obtener_todos()
+                    if departamentos is not None:
+                        self.diccionario_departamentos = {
+                            depa.id: depa.nombre for depa in departamentos
+                        }
+                        print(self.diccionario_departamentos)
+                        self.ui.cajaopciones_departamentos.clear()
+                        self.ui.cajaopciones_departamentos.addItems(self.diccionario_departamentos.values())
 
-    def desvincular_departamento(self):
-        pass
+        except Exception as e:
+            print(e)
+
+    def listar_puestos(self):
+        try:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    puestos = PuestoModel(session).obtener_todos()
+                    if puestos is not None:
+                        self.llenar_tabla_clientes(puestos)
+                        print(self.diccionario_puestos)
+
+        except Exception as e:
+            print(e)
+
+    def llenar_tabla_clientes(self, puestos):
+        try:
+            # Verificar si la tabla está inicializada
+            if self.ui.tabla_listapuestos is None:
+                print("El widget tabla_puestos no está disponible.")
+                return
+
+            # Inicializar el modelo de la tabla si no existe
+            if not hasattr(self, 'model'):
+                self.model = QStandardItemModel()
+
+            
+            
+            # Limpiar el modelo antes de llenarlo con nuevos datos
+            self.model.clear()
+            # Verificar si clientes es None o una lista vacía
+            if puestos is None or len(puestos) == 0:
+                self.model.setHorizontalHeaderLabels([
+                    "Id",
+                    "Nombre",
+                    "Salario",
+                    "Horas Laborales",
+                    "Dias Laborales",
+                    "Descripcion",
+                    "Hora de Entrada",
+                    "Hora de Salida"
+                    ])
+                self.ui.tabla_listapuestos.setModel(self.model) 
+                print("No se recibieron datos de clientes o la lista está vacía.")
+                return
+            
+            nombre_columnas = [
+                "Id",
+                "Nombre",
+                "Salario",
+                "Horas Laborales",
+                "Dias Laborales",
+                "Descripcion",
+                "Hora de Entrada",
+                "Hora de Salida"
+            ]
+            self.model.setHorizontalHeaderLabels(nombre_columnas)
+            
+            # Llenar el modelo con datos de clientes
+            for puesto in puestos:
+                if puesto is not None:
+                    row_data = [
+                        str(puesto.id),
+                        puesto.nombre,
+                        str(puesto.salario),
+                        str(puesto.horas_laborales),
+                        puesto.dias_laborales,
+                        puesto.descripcion_puesto,
+                        puesto.hora_entrada,
+                        puesto.hora_salida
+                    ]
+                else:
+                    # Usar campos vacíos si no hay datos de cliente físico
+                    row_data = [""] * len(nombre_columnas)
+
+                items = [QStandardItem(str(item)) for item in row_data]
+                self.model.appendRow(items)
+
+            # Asignar el modelo a la tabla
+            self.ui.tabla_listapuestos.setModel(self.model)
+            self.ui.tabla_listapuestos.setColumnHidden(0, True)
+
+        except Exception as e:
+            print(e)
+            print(f'No se logro hacer mostrar la tabla {e}')
+
+        self.ui.tabla_clientes.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
+        self.clientes = None
 
     def campos(self):
         return{

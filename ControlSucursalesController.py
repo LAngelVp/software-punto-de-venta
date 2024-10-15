@@ -11,6 +11,7 @@ from app.Controller.PuestosController import PuestosController
 class ControlSucursalesController(QWidget):
     listar_sucursales = pyqtSignal(set)
     listar_departamentos = pyqtSignal()
+    listar_departamentos_puestos = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_Control_SucursalesDepartamentosPuestos()
@@ -33,6 +34,8 @@ class ControlSucursalesController(QWidget):
         #funciones-iniciales:
         self.listar_sucursales.connect(self.departamentos.listar_sucursales_existentes)
         self.listar_departamentos.connect(self.departamentos.listar_departamentos)
+        self.listar_departamentos_puestos.connect(self.puestos.listar_departamentos)
+        self.listar_departamentos_puestos.connect(self.puestos.listar_puestos)
 
     def formulario_sucursales(self):
         self.ui.contenedor_paginas.setCurrentWidget(self.sucursales)
@@ -44,7 +47,9 @@ class ControlSucursalesController(QWidget):
             self.ui.contenedor_paginas.setCurrentWidget(self.departamentos)
     
     def formulario_puestos(self):
-        self.ui.contenedor_paginas.setCurrentWidget(self.puestos)
+        if self.ui.contenedor_paginas.currentWidget() != self.puestos:
+            self.listar_departamentos_puestos.emit()
+            self.ui.contenedor_paginas.setCurrentWidget(self.puestos)
 
 
 if __name__ == "__main__":
