@@ -20,6 +20,14 @@ class PuestoModel:
             
     def obtener_todos(self):
         return self.session.query(Puestos).all()
+    
+    def obtener_puesto_por_id(self, id_elemento):
+        puesto = self.session.query(Puestos).filter(Puestos.id == id_elemento).first()
+        if puesto is not None:
+            return  puesto, True
+        else:
+            return None, False
+
             
     def eliminar_puesto(self, id):
         try:

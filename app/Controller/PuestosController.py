@@ -9,6 +9,7 @@ from ..Model.DepartamentosModel import DepartamentosModel
 
 
 class PuestosController(QWidget):
+    elemento_seleccionado = pyqtSignal(str)
     def __init__(self):
         super().__init__()
         self.ui = Ui_Formulario_puestos()
@@ -26,7 +27,7 @@ class PuestosController(QWidget):
         self.ui.btn_btn_buscarpuesto.clicked.connect(self.buscar_puesto)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
 
-        # señales principales: 
+        # señales principales:
         self.ui.cajaopcion_lunes.stateChanged.connect(self.comprobar_caja_verificacion)
         self.ui.cajaopcion_martes.stateChanged.connect(self.comprobar_caja_verificacion)
         self.ui.cajaopcion_miercoles.stateChanged.connect(self.comprobar_caja_verificacion)
@@ -35,14 +36,21 @@ class PuestosController(QWidget):
         self.ui.cajaopcion_sabado.stateChanged.connect(self.comprobar_caja_verificacion)
         self.ui.cajaopcion_domingo.stateChanged.connect(self.comprobar_caja_verificacion)
 
+        #// señal de seleccion de id
+        self.elemento_seleccionado.connect(self.mostrar_datos_elemento)
+
         # // variables globales:
         self.diasLaborales = []
         self.diccionario_departamentos = set()
         self.diccionario_puestos = set()
         self.id_departamento = None
+        self.id_elemento_seleccionado = None
+        self.puestos = None
+        self.seleccion_conectada = False
 
 
     #funciones:
+    
     def comprobar_caja_verificacion(self, state):
         sender = self.sender()
         if state == Qt.Checked:
@@ -53,25 +61,36 @@ class PuestosController(QWidget):
                 self.diasLaborales.remove(sender.text())
 
     def limpiar(self):
+
         for cajaVerificacion in self.findChildren(QCheckBox):
             cajaVerificacion.setChecked(False)
-        
+
         for tiempo in self.findChildren(QTimeEdit):
             tiempo.setTime(QTime(0,0))
-        
+
         for cajaTexto in self.findChildren(QLineEdit):
             cajaTexto.clear()
-        
+
         for cajaDecimal in self.findChildren(QDoubleSpinBox):
             cajaDecimal.setValue(0)
-        
+
+        self.diasLaborales = []
+        self.diccionario_departamentos.clear()
+        self.diccionario_puestos.clear()
+        self.id_departamento = None
+        self.id_elemento_seleccionado = None
+        self.puestos = None
+        self.seleccion_conectada = False
+
+        self.listar_puestos()
+
 
     def agregar(self):
         diasLaborales = ', '.join(self.diasLaborales)
         datos = self.obtener_contenido_campos()
 
         departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
-        
+
         if self.diccionario_departamentos:
             for index, nombre in self.diccionario_departamentos.items():
                 if nombre == departamento_seleccionado:
@@ -80,7 +99,7 @@ class PuestosController(QWidget):
         if not self.validar(datos):
             print ("No se agregaron los campos")
             return
-        
+
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -98,12 +117,25 @@ class PuestosController(QWidget):
                     if agregado == True:
                         Mensaje().mensaje_informativo("Se registro con exito")
                     else:
-                        Mensaje().mensaje_advertencia("No se pudo registrar")
+                        Mensaje().mensaje_alerta("No se pudo registrar")
                 except Exception as e:
-                    Mensaje().mensaje_critico(f'Surgio un error : {e}')
-    
+                    print(f'Surgio un error : {e}')
+
+        self.limpiar()
     def eliminar(self):
-        pass
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                try:
+                    respuesta = PuestoModel(session).eliminar_puesto(self.id_elemento_seleccionado)
+                    if respuesta == True:
+                        Mensaje().mensaje_informativo("Se elimino con exito")
+                    else:
+                        Mensaje().mensaje_advertencia("No se pudo eliminar")
+                except Exception as e:
+                    print(f'Surgio un error : {e}')
+
+        self.limpiar()
 
     def buscar_puesto(self):
         pass
@@ -130,15 +162,13 @@ class PuestosController(QWidget):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    puestos = PuestoModel(session).obtener_todos()
-                    if puestos is not None:
-                        self.llenar_tabla_clientes(puestos)
-                        print(self.diccionario_puestos)
-
+                    self.puestos = PuestoModel(session).obtener_todos()
+                    if self.puestos is not None:
+                        self.llenar_tabla(self.puestos)
         except Exception as e:
             print(e)
 
-    def llenar_tabla_clientes(self, puestos):
+    def llenar_tabla(self, puestos):
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_listapuestos is None:
@@ -149,8 +179,8 @@ class PuestosController(QWidget):
             if not hasattr(self, 'model'):
                 self.model = QStandardItemModel()
 
-            
-            
+
+
             # Limpiar el modelo antes de llenarlo con nuevos datos
             self.model.clear()
             # Verificar si clientes es None o una lista vacía
@@ -165,10 +195,10 @@ class PuestosController(QWidget):
                     "Hora de Entrada",
                     "Hora de Salida"
                     ])
-                self.ui.tabla_listapuestos.setModel(self.model) 
+                self.ui.tabla_listapuestos.setModel(self.model)
                 print("No se recibieron datos de clientes o la lista está vacía.")
                 return
-            
+
             nombre_columnas = [
                 "Id",
                 "Nombre",
@@ -180,7 +210,7 @@ class PuestosController(QWidget):
                 "Hora de Salida"
             ]
             self.model.setHorizontalHeaderLabels(nombre_columnas)
-            
+
             # Llenar el modelo con datos de clientes
             for puesto in puestos:
                 if puesto is not None:
@@ -205,12 +235,75 @@ class PuestosController(QWidget):
             self.ui.tabla_listapuestos.setModel(self.model)
             self.ui.tabla_listapuestos.setColumnHidden(0, True)
 
+            # Desconectar la señal antes de conectar
+            if self.seleccion_conectada:
+                self.ui.tabla_listapuestos.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla)
+                self.seleccion_conectada = False  # Actualizar el estado
+
+            # Conectar la señal a la función que obtiene el ID del elemento seleccionado
+            self.ui.tabla_listapuestos.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
+            self.seleccion_conectada = True  # Marcar como conectada
         except Exception as e:
-            print(e)
             print(f'No se logro hacer mostrar la tabla {e}')
 
-        self.ui.tabla_clientes.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
-        self.clientes = None
+        self.puestos = None
+
+    def obtener_id_elemento_tabla(self, current, previus):
+        
+        # Verifica si la celda seleccionada está en la primera columna
+        if current.column() > 0:  # Verifica si es la primera columna
+            indice_fila = current.row()
+            elemento = self.model.item(indice_fila, 0)
+            if elemento is not None:
+                self.id_elemento_seleccionado = None
+                self.id_elemento_seleccionado = elemento.text()
+                self.elemento_seleccionado.emit(self.id_elemento_seleccionado)
+            else:
+                return
+
+    def mostrar_datos_elemento(self, id_elemento_seleccionado):
+        id_elemento = id_elemento_seleccionado
+        print(f'elemento - {id_elemento}')
+        datos = self.campos()
+        cajas_verificacion = self.cajas_dias_laborales()
+        if id_elemento is not None:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    try:
+                        elemento_seleccionado, estado = PuestoModel(session).obtener_puesto_por_id(id_elemento)
+                        if estado == True:
+                            datos['nombre'].setText(elemento_seleccionado.nombre)
+                            datos['salario'].setValue(float(elemento_seleccionado.salario))
+                            datos['horas_laborales'].setValue(float(elemento_seleccionado.horas_laborales))
+                            datos['descripcion_puesto'].setPlainText(elemento_seleccionado.descripcion_puesto)
+                            datos['hora_entrada'].setTime(QTime(elemento_seleccionado.hora_entrada))
+                            datos['hora_salida'].setTime(QTime(elemento_seleccionado.hora_salida))
+
+                            if elemento_seleccionado.departamento:
+                                departamento_nombre = elemento_seleccionado.departamento.nombre
+                                # Obtén una referencia al QComboBox
+                                caja_departamento = self.ui.cajaopciones_departamentos  # Esto debe ser el objeto QComboBox
+
+                                # Encuentra el índice del departamento en el combo box
+                                indice = caja_departamento.findText(departamento_nombre)
+                                if indice != -1:
+                                    # Eliminar el elemento si existe
+                                    caja_departamento.removeItem(indice)
+
+                                # Insertar el nuevo departamento en la posición 0
+                                caja_departamento.insertItem(0, departamento_nombre)
+                                caja_departamento.setCurrentIndex(0)
+
+                            if elemento_seleccionado.dias_laborales is not None:
+                                for dia, checkbox in cajas_verificacion.items():
+                                    checkbox.setChecked(dia in elemento_seleccionado.dias_laborales)
+
+                            
+                    except Exception as e:
+                        print(e)
+        
+
 
     def campos(self):
         return{
@@ -222,6 +315,17 @@ class PuestosController(QWidget):
             'hora_salida':self.ui.tiempo_horasalida,
         }
     
+    def cajas_dias_laborales(self):
+        return {
+            'Lunes': self.ui.cajaopcion_lunes,
+            'Martes': self.ui.cajaopcion_martes,
+            'Miércoles': self.ui.cajaopcion_miercoles,
+            'Jueves': self.ui.cajaopcion_jueves,
+            'Viernes': self.ui.cajaopcion_viernes,
+            'Sábado': self.ui.cajaopcion_sabado,
+            'Domingo': self.ui.cajaopcion_domingo
+        }
+
     def obtener_contenido_campos(self):
         return {
             nombre: self.obtener_valor(widget)
