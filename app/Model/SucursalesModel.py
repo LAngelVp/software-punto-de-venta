@@ -86,3 +86,13 @@ class SucursalesModel:
                 return None, False
         except Exception as e:
             return None, False
+    
+    def filtrar_nombre(self, texto):
+        try:
+            texto_busqueda = f"%{texto}%"
+            sucursales = self.session.query(Sucursales).filter(Sucursales.nombre_sucursal.ilike(texto_busqueda)).all()
+            if sucursales:
+                return sucursales, True
+            return None, False
+        except Exception as e:
+            return None, False

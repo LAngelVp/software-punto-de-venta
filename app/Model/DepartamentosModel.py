@@ -77,3 +77,13 @@ class DepartamentosModel:
             return departamento, True
         else:
             return None, False
+        
+    def filtrar_nombre(self, texto):
+        try:
+            texto_busqueda = f"%{texto}%"
+            resultado = self.session.query(Departamentos).filter(Departamentos.nombre.ilike(texto_busqueda)).all()
+            if resultado:
+                return resultado, True
+            return None, False
+        except Exception as e:
+            return None, False

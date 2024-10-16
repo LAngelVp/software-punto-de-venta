@@ -24,7 +24,6 @@ class PuestosController(QWidget):
         #botones:
         self.ui.btn_btn_agregar.clicked.connect(self.agregar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
-        self.ui.btn_btn_buscarpuesto.clicked.connect(self.buscar_puesto)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
 
         # señales principales:
@@ -75,12 +74,10 @@ class PuestosController(QWidget):
             cajaDecimal.setValue(0)
 
         self.diasLaborales = []
-        self.diccionario_departamentos.clear()
         self.diccionario_puestos.clear()
         self.id_departamento = None
         self.id_elemento_seleccionado = None
         self.puestos = None
-        self.seleccion_conectada = False
 
         self.listar_puestos()
 
@@ -92,9 +89,12 @@ class PuestosController(QWidget):
         departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
 
         if self.diccionario_departamentos:
+            print(f'lista del departamento en la lista {self.diccionario_departamentos}')
             for index, nombre in self.diccionario_departamentos.items():
                 if nombre == departamento_seleccionado:
                     self.id_departamento = index
+                    print(f'id del departamento en la lista {self.id_departamento}')
+                    print(f'nombre del departamento en la lista {nombre}')
                     break
         if not self.validar(datos):
             print ("No se agregaron los campos")
@@ -131,14 +131,11 @@ class PuestosController(QWidget):
                     if respuesta == True:
                         Mensaje().mensaje_informativo("Se elimino con exito")
                     else:
-                        Mensaje().mensaje_advertencia("No se pudo eliminar")
+                        Mensaje().mensaje_alerta("No se pudo eliminar")
                 except Exception as e:
                     print(f'Surgio un error : {e}')
 
         self.limpiar()
-
-    def buscar_puesto(self):
-        pass
 
     def listar_departamentos(self):
         try:
@@ -263,7 +260,6 @@ class PuestosController(QWidget):
 
     def mostrar_datos_elemento(self, id_elemento_seleccionado):
         id_elemento = id_elemento_seleccionado
-        print(f'elemento - {id_elemento}')
         datos = self.campos()
         cajas_verificacion = self.cajas_dias_laborales()
         if id_elemento is not None:
@@ -271,6 +267,8 @@ class PuestosController(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
+                        print(f'elemento - {id_elemento}')
+                        print(self.diccionario_departamentos)
                         elemento_seleccionado, estado = PuestoModel(session).obtener_puesto_por_id(id_elemento)
                         if estado == True:
                             datos['nombre'].setText(elemento_seleccionado.nombre)
@@ -279,6 +277,7 @@ class PuestosController(QWidget):
                             datos['descripcion_puesto'].setPlainText(elemento_seleccionado.descripcion_puesto)
                             datos['hora_entrada'].setTime(QTime(elemento_seleccionado.hora_entrada))
                             datos['hora_salida'].setTime(QTime(elemento_seleccionado.hora_salida))
+
 
                             if elemento_seleccionado.departamento:
                                 departamento_nombre = elemento_seleccionado.departamento.nombre
@@ -294,12 +293,11 @@ class PuestosController(QWidget):
                                 # Insertar el nuevo departamento en la posición 0
                                 caja_departamento.insertItem(0, departamento_nombre)
                                 caja_departamento.setCurrentIndex(0)
-
+                                
                             if elemento_seleccionado.dias_laborales is not None:
                                 for dia, checkbox in cajas_verificacion.items():
                                     checkbox.setChecked(dia in elemento_seleccionado.dias_laborales)
 
-                            
                     except Exception as e:
                         print(e)
         

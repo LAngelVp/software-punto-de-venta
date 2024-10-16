@@ -25,6 +25,7 @@ class DepartamentosController(QWidget):
 
         # señales:
         self.ui.lista_departamentosexistentes.itemClicked.connect(self.obtenerId)
+        self.ui.txt_buscardepartamento.returnPressed.connect(self.buscar)
         
 
         #// variables globales:
@@ -40,6 +41,14 @@ class DepartamentosController(QWidget):
 
     
     #funciones:
+    def buscar(self):
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                self.departamentos, estado = DepartamentosModel(session).filtrar_nombre(self.ui.txt_buscardepartamento.text())
+                if estado == True:
+                    self.ui.lista_puestosasignados.clear()
+                    self.listar_departamentos(self.departamentos)
     def limpiar(self):
         datos = self.campos()
         for campo in datos.values():
@@ -56,7 +65,7 @@ class DepartamentosController(QWidget):
         self.sucursales_seleccionadas_existentes.clear()
 
         self.listar_sucursales_existentes(set())
-        self.listar_departamentos()
+        self.obtener_departamentos()
 
     def campos(self):
         return{
@@ -250,19 +259,42 @@ class DepartamentosController(QWidget):
         except Exception as e:
             print(f'Error al listar las sucursales : {e}')
     
-    def listar_departamentos(self):
+    def obtener_departamentos(self):
         self.ui.lista_departamentosexistentes.clear()
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 try:
                     self.departamentos = DepartamentosModel(session).obtener_todos()
-                    print(self.departamentos)
+                    if self.departamentos is not None:
+                        self.listar_departamentos(self.departamentos)
                 except Exception as e:
                     Mensaje().mensaje_alerta("Error al obtener departamentos")
-            if self.departamentos:
-                print("tiene depas")
-                for  departamento in self.departamentos:
+            
+        except Exception as e:
+            print(f'Error al listar las sucursales : {e}')
+
+    def listar_puestos_asignados(self, puestos):
+        if puestos is not None:
+            self.ui.lista_puestosasignados.clear()
+            for  puesto in puestos:
+                # Crear un QListWidgetItem
+                item = QListWidgetItem(puesto.nombre)
+                
+                # Establecer el ícono en el ítem
+                item.setIcon(self.iconDepartamento)
+                item.setData(Qt.UserRole, puesto.id)
+                
+                # Agregar el ítem a la lista
+                self.ui.lista_puestosasignados.addItem(item)
+        else:
+            self.ui.lista_puestosasignados.clear()
+
+
+    def listar_departamentos(self, departamentos):
+        if departamentos:
+                self.ui.lista_departamentosexistentes.clear()
+                for  departamento in departamentos:
                     # Crear un QListWidgetItem
                     item = QListWidgetItem(departamento.nombre)
                     
@@ -272,8 +304,8 @@ class DepartamentosController(QWidget):
                     
                     # Agregar el ítem a la lista
                     self.ui.lista_departamentosexistentes.addItem(item)
-        except Exception as e:
-            print(f'Error al listar las sucursales : {e}')
+        else:
+            self.ui.lista_departamentosexistentes.clear()
 
     def obtenerId(self, item):
         self.id_departamento = item.data(Qt.UserRole)
@@ -310,6 +342,7 @@ class DepartamentosController(QWidget):
                         # Actualizar lista de sucursales existentes
                         self.ui.lista_sucursalesexistentes.clear()
                         self.listar_sucursales_existentes(self.sucursales_seleccionadas)
+                        self.listar_puestos_asignados(departamento.puestos)
 
                         print(f'sucursales seleccionadas - {self.sucursales_seleccionadas}')
                         print(f'sucursales existentes - {self.sucursales_seleccionadas_existentes}')

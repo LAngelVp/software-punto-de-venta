@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>749</width>
+    <width>763</width>
     <height>449</height>
    </rect>
   </property>
@@ -155,14 +155,14 @@ QScrollBar::handle:horizontal {
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0" alignment="Qt::AlignHCenter">
+      <item row="1" column="0" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="etiquetasubtitulo_sucursales">
         <property name="text">
          <string>Sucursales</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
+      <item row="2" column="0">
        <widget class="QListWidget" name="lista_sucursales">
         <property name="minimumSize">
          <size>
@@ -175,6 +175,23 @@ QScrollBar::handle:horizontal {
           <width>16777215</width>
           <height>16777215</height>
          </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QListWidget" name="lista_departamentosasociados"/>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLineEdit" name="txt_buscarsucursales">
+        <property name="placeholderText">
+         <string> Buscar Sucursal</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="etiquetasubtitulo_departamentosasociados">
+        <property name="text">
+         <string>Departamentos</string>
         </property>
        </widget>
       </item>

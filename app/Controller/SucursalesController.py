@@ -8,6 +8,7 @@ from ..DataBase.conexionBD import *
 from ..View.UserInterfacePy.UI_CONTROL_SUCURSALES import *
 from .MensajesAlertasController import *
 from ..Model.SucursalesModel import SucursalesModel
+from ..Model.DepartamentosModel import DepartamentosModel
 
 class SucursalesController(QWidget):
     signal_sucursal_agregada = pyqtSignal()
@@ -20,8 +21,24 @@ class SucursalesController(QWidget):
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
         self.ui.btn_btn_actualizar.clicked.connect(self.actualizar)
-        self.listar_sucursales()
+
+
+        # señales:
+        self.ui.txt_buscarsucursales.returnPressed.connect(self.buscar_sucursal)
+        self.obtener_sucursales()
         self.id_sucursal = None
+        self.sucursales = None
+
+
+    def buscar_sucursal(self):
+        nombre_sucursal = self.ui.txt_buscarsucursales.text()
+        print(nombre_sucursal)
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                self.sucursales, estado = SucursalesModel(session).filtrar_nombre(nombre_sucursal)
+                if estado == True:
+                    self.listar_sucursales(self.sucursales)
 
     def limpiar(self):
         for campo in self.campos_nomales().values():
@@ -84,10 +101,10 @@ class SucursalesController(QWidget):
                     Mensaje().mensaje_alerta(f'Error al agregar la sucursal: {e}')
         
         # Listar sucursales después de agregar
-        self.listar_sucursales()
+        self.obtener_sucursales()
         self.limpiar()
                         
-    def listar_sucursales(self):
+    def obtener_sucursales(self):
         sucursales = None
         self.ui.lista_sucursales.clear()
         self.icon = QIcon(':/Icons/Bootstrap/building-fill-check.svg')
@@ -99,18 +116,25 @@ class SucursalesController(QWidget):
                 except Exception as e:
                     Mensaje().mensaje_alerta("Error al obtener sucursales")
             if sucursales:
-                for  sucursal in sucursales:
-                    # Crear un QListWidgetItem
-                    item = QListWidgetItem(sucursal.nombre_sucursal)
-                    
-                    # Establecer el ícono en el ítem
-                    item.setIcon(self.icon)
-                    item.setData(Qt.UserRole, sucursal.id)
-                    
-                    # Agregar el ítem a la lista
-                    self.ui.lista_sucursales.addItem(item)
+                self.listar_sucursales(sucursales)
         except Exception as e:
             print(f'Error al listar las sucursales : {e}')
+
+    def listar_sucursales(self, sucursales):
+        if sucursales:
+            print(sucursales)
+            self.ui.lista_sucursales.clear()
+            for  sucursal in sucursales:
+                print(f'nombre de la sucu- {sucursal}')
+                # Crear un QListWidgetItem
+                item = QListWidgetItem(sucursal.nombre_sucursal)
+                
+                # Establecer el ícono en el ítem
+                item.setIcon(self.icon)
+                item.setData(Qt.UserRole, sucursal.id)
+                
+                # Agregar el ítem a la lista
+                self.ui.lista_sucursales.addItem(item)
 
     def obtenerId(self, item):
         self.id_sucursal = item.data(Qt.UserRole)
@@ -127,8 +151,27 @@ class SucursalesController(QWidget):
                         self.ui.txt_pais.setText(sucursal.pais)  # Aquí debe ser `pais`
                         self.ui.txt_ntelefono.setText(sucursal.num_telefono)  # Aquí debe ser `num_telefono`
                         self.ui.txtlargo_direccion.setPlainText(sucursal.direccion)
+                        self.listar_departamentos_asignados(sucursal.departamentos)
                 except Exception as e:
                     print(f'Error al obtener sucursal: {e}')
+
+    def listar_departamentos_asignados(self, departamentos):
+        if departamentos:
+            print(departamentos)
+            self.ui.lista_departamentosasociados.clear()
+            for  nombre in departamentos:
+                print(f'nombre de la sucu- {nombre}')
+                # Crear un QListWidgetItem
+                item = QListWidgetItem(nombre.nombre)
+                
+                # Establecer el ícono en el ítem
+                item.setIcon(self.icon)
+                item.setData(Qt.UserRole, nombre.id)
+                
+                # Agregar el ítem a la lista
+                self.ui.lista_departamentosasociados.addItem(item)
+        else:
+            self.ui.lista_departamentosasociados.clear()
             
     def eliminar(self):
         sucursalId = self.id_sucursal

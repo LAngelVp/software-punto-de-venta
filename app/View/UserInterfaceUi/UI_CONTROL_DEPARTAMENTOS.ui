@@ -49,6 +49,8 @@ border-radius: 5px;
 padding-left:5px;
 padding-right: 5px;
 height:25px;
+margin-left: 3px;
+margin-right:3px;
 }
 [objectName*=&quot;btn_btn_&quot;]:hover{
 background: #2196F3;
@@ -159,6 +161,43 @@ QScrollBar::handle:horizontal {
       <property name="verticalSpacing">
        <number>15</number>
       </property>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="btn_btn_guardar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Guardar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QPushButton" name="btn_btn_eliminar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Eliminar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="btn_btn_actualizar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Actualizar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="etiquetaTitulo">
+        <property name="text">
+         <string>Departamentos</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="1">
        <spacer name="horizontalSpacer">
         <property name="orientation">
@@ -172,14 +211,7 @@ QScrollBar::handle:horizontal {
         </property>
        </spacer>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="etiquetaTitulo">
-        <property name="text">
-         <string>Departamentos</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="4">
+      <item row="1" column="0" colspan="6">
        <widget class="QFrame" name="contenedor_formulario">
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -188,7 +220,54 @@ QScrollBar::handle:horizontal {
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="3">
+         <item row="3" column="5" rowspan="5" colspan="3">
+          <widget class="QListWidget" name="lista_departamentosexistentes"/>
+         </item>
+         <item row="5" column="0" colspan="4">
+          <widget class="QPlainTextEdit" name="txtlargo_descripciondepartamento">
+           <property name="cursor" stdset="0">
+            <cursorShape>IBeamCursor</cursorShape>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="etiqueta_descripciondepartamento">
+           <property name="text">
+            <string>Descripcion del departamento:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="etiquetasubtitulo_sucursalesexistentes">
+           <property name="text">
+            <string>Sucursales existentes:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="etiqueta_nombredepartamento">
+           <property name="text">
+            <string>Nombre del departamento:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="0">
+          <widget class="QListWidget" name="lista_sucursalesexistentes"/>
+         </item>
+         <item row="1" column="2">
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="1" column="3">
           <widget class="QPushButton" name="btn_btn_limpiar">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
@@ -208,7 +287,7 @@ QScrollBar::handle:horizontal {
            </property>
           </widget>
          </item>
-         <item row="5" column="2" colspan="2">
+         <item row="6" column="2" colspan="2">
           <widget class="QLabel" name="etiquetasubtitulo_sucursalesvinculadas">
            <property name="text">
             <string>Sucusales vinculadas</string>
@@ -218,57 +297,10 @@ QScrollBar::handle:horizontal {
            </property>
           </widget>
          </item>
-         <item row="6" column="2" colspan="2">
+         <item row="7" column="2" colspan="2">
           <widget class="QListWidget" name="lista_sucursalesvinculadas"/>
          </item>
-         <item row="2" column="0" colspan="4">
-          <widget class="QLineEdit" name="txt_nombredepartamento"/>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="etiqueta_descripciondepartamento">
-           <property name="text">
-            <string>Descripcion del departamento:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QLabel" name="etiquetasubtitulo_sucursalesexistentes">
-           <property name="text">
-            <string>Sucursales existentes:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QListWidget" name="lista_sucursalesexistentes"/>
-         </item>
-         <item row="7" column="6">
-          <widget class="QPushButton" name="btn_btn_guardar">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>Guardar</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="etiqueta_nombredepartamento">
-           <property name="text">
-            <string>Nombre del departamento:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="7">
-          <widget class="QPushButton" name="btn_btn_eliminar">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>Eliminar</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="1">
+         <item row="7" column="1">
           <widget class="QFrame" name="contenedor_botonesvincular">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
@@ -314,43 +346,30 @@ QScrollBar::handle:horizontal {
            </layout>
           </widget>
          </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer_2">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+         <item row="3" column="8" rowspan="5">
+          <widget class="QListWidget" name="lista_puestosasignados"/>
          </item>
-         <item row="4" column="0" colspan="4">
-          <widget class="QPlainTextEdit" name="txtlargo_descripciondepartamento">
-           <property name="cursor" stdset="0">
-            <cursorShape>IBeamCursor</cursorShape>
-           </property>
-          </widget>
+         <item row="2" column="0" colspan="3">
+          <widget class="QLineEdit" name="txt_nombredepartamento"/>
          </item>
-         <item row="7" column="5" alignment="Qt::AlignRight">
-          <widget class="QPushButton" name="btn_btn_actualizar">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
+         <item row="2" column="8">
+          <widget class="QLabel" name="etiquetasubtitulo_puestosasignados">
            <property name="text">
-            <string>Actualizar</string>
+            <string>Puestos Asignados</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="5" rowspan="5" colspan="3">
-          <widget class="QListWidget" name="lista_departamentosexistentes"/>
-         </item>
-         <item row="0" column="5">
+         <item row="2" column="5">
           <widget class="QLabel" name="etiquetasubtitulo_departamentosexistentes">
            <property name="text">
             <string>Departamentos existentes</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="5" colspan="4">
+          <widget class="QLineEdit" name="txt_buscardepartamento">
+           <property name="placeholderText">
+            <string> Buscar Departamento</string>
            </property>
           </widget>
          </item>

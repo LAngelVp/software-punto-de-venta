@@ -1,7 +1,7 @@
 from sqlite3 import IntegrityError
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from .BaseDatosModel import Puestos
+from .BaseDatosModel import Puestos, Empleados
 
 class PuestoModel:
     def __init__(self,session):
@@ -31,7 +31,12 @@ class PuestoModel:
             
     def eliminar_puesto(self, id):
         try:
-            resultado = self.session.query(Puestos).filter_by(id = id).delete()
+            empleado_asociados = self.session.query(Empleados).filter(Empleados.puesto_id == id).all()
+            if  empleado_asociados:
+                for empleado in empleado_asociados:
+                    empleado.puesto_id = None
+
+            resultado = self.session.query(Puestos).filter(Puestos.id == id).delete()
             if resultado > 0:
                 return True
         except Exception as e:

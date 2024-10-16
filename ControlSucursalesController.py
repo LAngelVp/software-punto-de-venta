@@ -33,7 +33,7 @@ class ControlSucursalesController(QWidget):
 
         #funciones-iniciales:
         self.listar_sucursales.connect(self.departamentos.listar_sucursales_existentes)
-        self.listar_departamentos.connect(self.departamentos.listar_departamentos)
+        self.listar_departamentos.connect(self.departamentos.obtener_departamentos)
         self.listar_departamentos_puestos.connect(self.puestos.listar_departamentos)
         self.listar_departamentos_puestos.connect(self.puestos.listar_puestos)
 
