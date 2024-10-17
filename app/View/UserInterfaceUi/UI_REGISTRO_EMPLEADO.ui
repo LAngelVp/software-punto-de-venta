@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1214</width>
-    <height>673</height>
+    <height>652</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,10 @@
   <property name="styleSheet">
    <string notr="true">#RegistroAdministrador{
 background: #fffefb;
+}
+#contenedor_baja{
+background:#EE1D52;
+border-radius:5px;
 }
 #widget_cabecera_ventana{
 	background-color: #0077CC;
@@ -88,6 +92,17 @@ padding: 2px;
 [objectName^=&quot;decimal_&quot;]::focus{
 border-bottom: 2px solid #00668c;
 }
+[objectName^=&quot;numero_&quot;]{
+border: none;
+border-bottom: 1px solid #3b3c3d;
+border-radius: 4px;
+background-color: #F5F5F5;
+font-size: 14px;
+padding: 2px;
+}
+[objectName^=&quot;numero_&quot;]::focus{
+border-bottom: 2px solid #00668c;
+}
 [objectName^=&quot;opcion_&quot;]{
 font-size: 14px;
 font-family:Arial;
@@ -122,8 +137,8 @@ padding-right:5px;
 [objectName^=&quot;txtlargo_&quot;]{
 	font-family: Arial;
 	font-size: 14px;
-	max-height: 110px;
-	min-height: 110px;
+	max-height: 100px;
+	min-height: 100px;
 border-radius: 4px;
 background-color: #F5F5F5;
 border: 1px solid #787878;
@@ -159,7 +174,11 @@ padding-right:5px;
 [objectName^=&quot;fecha_&quot;]::focus{
 border-bottom: 2px solid #00668c;
 }
-
+#fecha_baja{
+background: transparent;
+color:#fffefb;
+border:none;
+}
 [objectName^=&quot;Button&quot;]{
 	font-family: Arial;
 	font-size: 14px;
@@ -457,16 +476,6 @@ border-bottom: 2px solid #00668c;
       <item>
        <widget class="QWidget" name="widget_4" native="true">
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QLabel" name="etiquetaTitulo_agregarpersona">
-           <property name="text">
-            <string>REGISTRO DE PERSONAL</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="2">
           <widget class="QWidget" name="widget_5" native="true">
            <property name="maximumSize">
@@ -591,30 +600,51 @@ border-bottom: 2px solid #00668c;
            </layout>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="QWidget" name="widget_diaslaborales" native="true">
-           <property name="minimumSize">
-            <size>
-             <width>200</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>200</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_10">
-            <item row="0" column="0">
-             <widget class="QLabel" name="etiquetasubtitulo_diaslaborales">
-              <property name="text">
-               <string>Dias Laborales</string>
+         <item row="1" column="0">
+          <widget class="QWidget" name="widget_3" native="true">
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="7" column="1">
+             <widget class="QLineEdit" name="txt_usuario_iniciosesion">
+              <property name="placeholderText">
+               <string>Usuario de inicio de sesión</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="16" column="0">
-             <spacer name="verticalSpacer_3">
+            <item row="7" column="3">
+             <widget class="QLabel" name="etiqueta_rol_usuario">
+              <property name="text">
+               <string>Rol del usuario:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2">
+             <widget class="QLineEdit" name="txt_contrasenia_usuario_iniciosesion">
+              <property name="echoMode">
+               <enum>QLineEdit::Password</enum>
+              </property>
+              <property name="placeholderText">
+               <string>Contraseña de inicio de sesión</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="7">
+             <widget class="QPlainTextEdit" name="txtlargo_direccion_completa">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="placeholderText">
+               <string>Dirección completa y datos de referencia.</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0" colspan="2">
+             <spacer name="verticalSpacer_2">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
               </property>
@@ -626,160 +656,150 @@ border-bottom: 2px solid #00668c;
               </property>
              </spacer>
             </item>
-            <item row="5" column="0">
-             <widget class="QCheckBox" name="opcion_jueves">
-              <property name="text">
-               <string>Jueves</string>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="0">
-             <widget class="QDateEdit" name="fecha_fechacontratacion">
-              <property name="calendarPopup">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QCheckBox" name="opcion_lunes">
-              <property name="text">
-               <string>Lunes</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
-             <widget class="QCheckBox" name="opcion_sabado">
-              <property name="text">
-               <string>Sabado</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QCheckBox" name="opcion_viernes">
-              <property name="text">
-               <string>Viernes</string>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="0">
-             <widget class="QLabel" name="etiqueta_fechacontratacion">
-              <property name="text">
-               <string>Fecha de contratación:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="opcion_domingo">
-              <property name="text">
-               <string>Domingo</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QCheckBox" name="opcion_martes">
-              <property name="text">
-               <string>Martes</string>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QCheckBox" name="opcion_miercoles">
-              <property name="text">
-               <string>Miercoles</string>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0">
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="etiqueta_horaslaborales">
-              <property name="text">
-               <string>T. Horas laborales:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0">
-             <widget class="QDoubleSpinBox" name="decimal_horas_laboralestotales">
-              <property name="suffix">
-               <string> Horas</string>
-              </property>
-              <property name="maximum">
-               <double>9999.989999999999782</double>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="etiqueta_salario">
-              <property name="text">
-               <string>Salario:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="0">
-             <widget class="QDoubleSpinBox" name="decimal_salario">
-              <property name="prefix">
-               <string>$ </string>
-              </property>
-              <property name="suffix">
-               <string> pesos</string>
-              </property>
-              <property name="maximum">
-               <double>999999999.990000009536743</double>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QWidget" name="widget_3" native="true">
-           <layout class="QGridLayout" name="gridLayout_9">
-            <item row="6" column="0">
-             <widget class="QLabel" name="etiquetasubtitulo_datos_uniciosesion">
-              <property name="text">
-               <string>Datos de inicio de sesión</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="2">
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0">
-             <layout class="QGridLayout" name="gridLayout_7">
-              <property name="sizeConstraint">
-               <enum>QLayout::SetDefaultConstraint</enum>
-              </property>
-             </layout>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="etiquetasubtitulo_direccion">
-              <property name="text">
-               <string>Dirección exacta</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
+            <item row="1" column="6" rowspan="2">
              <layout class="QGridLayout" name="gridLayout_8"/>
             </item>
-            <item row="0" column="0" colspan="4">
+            <item row="2" column="0" colspan="6">
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="4" column="0" colspan="7">
+               <widget class="QLabel" name="etiquetasubtitulo_descripcionpuesto">
+                <property name="text">
+                 <string>Descripción del puesto</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QLineEdit" name="txt_rfc">
+                <property name="placeholderText">
+                 <string>Rfc</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="9" column="0" colspan="7">
+               <widget class="QPlainTextEdit" name="txtlargo_descripcion_puesto">
+                <property name="placeholderText">
+                 <string>Ingresa la descripción del puesto</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="4">
+               <widget class="QLineEdit" name="txt_nexterior">
+                <property name="placeholderText">
+                 <string>N-Exterior</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="5">
+               <widget class="QLineEdit" name="txt_ninterior">
+                <property name="placeholderText">
+                 <string>N-Interior</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QLineEdit" name="txt_numerosegurosicial">
+                <property name="placeholderText">
+                 <string>Número seguro social</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2" colspan="2">
+               <widget class="QLineEdit" name="txt_correoelectronico">
+                <property name="placeholderText">
+                 <string>Correo electronico</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2" colspan="2">
+               <widget class="QLineEdit" name="txt_avenidas">
+                <property name="placeholderText">
+                 <string>Avenida/s</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="5">
+               <widget class="QLineEdit" name="txt_ciudad">
+                <property name="placeholderText">
+                 <string>Ciudad</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="txt_colonia">
+                <property name="placeholderText">
+                 <string>Colonia</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLineEdit" name="txt_codigopostal">
+                <property name="placeholderText">
+                 <string>Codigo Postal</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="6">
+               <widget class="QLineEdit" name="txt_estado">
+                <property name="placeholderText">
+                 <string>Estado</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="txt_pais">
+                <property name="placeholderText">
+                 <string>Pais</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" colspan="7">
+               <widget class="Line" name="line_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="4" colspan="2">
+               <widget class="QLineEdit" name="txt_calles">
+                <property name="placeholderText">
+                 <string>Calle/s</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="6">
+               <widget class="QLineEdit" name="txt_numerotelefono">
+                <property name="placeholderText">
+                 <string>Número de telefono</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="0" colspan="6">
              <layout class="QGridLayout" name="gridLayout">
               <item row="0" column="4">
                <widget class="QLineEdit" name="txt_apellidom">
@@ -872,18 +892,93 @@ border-bottom: 2px solid #00668c;
               </item>
              </layout>
             </item>
-            <item row="5" column="0" colspan="4">
-             <widget class="QPlainTextEdit" name="txtlargo_direccion_completa">
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="placeholderText">
-               <string>Dirección completa y datos de referencia.</string>
+            <item row="6" column="0" colspan="2">
+             <widget class="QLabel" name="etiquetasubtitulo_datos_uniciosesion">
+              <property name="text">
+               <string>Datos de inicio de sesión</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="0">
-             <spacer name="verticalSpacer_2">
+            <item row="7" column="5">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::MinimumExpanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0">
+             <layout class="QGridLayout" name="gridLayout_7">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+             </layout>
+            </item>
+            <item row="3" column="0" colspan="7">
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="4">
+             <widget class="QComboBox" name="cajaopciones_rol_usuario"/>
+            </item>
+            <item row="4" column="0" colspan="6">
+             <widget class="QLabel" name="etiquetasubtitulo_direccion">
+              <property name="text">
+               <string>Dirección exacta</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="etiquetaTitulo_agregarpersona">
+           <property name="text">
+            <string>REGISTRO DE PERSONAL</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QWidget" name="widget_diaslaborales" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_10">
+            <item row="13" column="0" colspan="2">
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="18" column="0">
+             <spacer name="verticalSpacer_3">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
               </property>
@@ -895,189 +990,196 @@ border-bottom: 2px solid #00668c;
               </property>
              </spacer>
             </item>
-            <item row="7" column="0" rowspan="2">
-             <layout class="QGridLayout" name="gridLayout_5">
-              <item row="0" column="0">
-               <widget class="QLineEdit" name="txt_usuario_iniciosesion">
-                <property name="placeholderText">
-                 <string>Usuario de inicio de sesión</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLineEdit" name="txt_contrasenia_usuario_iniciosesion">
-                <property name="echoMode">
-                 <enum>QLineEdit::Password</enum>
-                </property>
-                <property name="placeholderText">
-                 <string>Usuario de inicio de sesión</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item row="3" column="0" colspan="4">
-             <widget class="Line" name="line_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="17" column="0">
+             <widget class="QSpinBox" name="numero_antiguedadyear">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="suffix">
+               <string> Años</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="maximum">
+               <number>99999</number>
               </property>
              </widget>
             </item>
-            <item row="2" column="0" colspan="4">
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="4" column="0" colspan="7">
-               <widget class="QLabel" name="etiquetasubtitulo_descripcionpuesto">
-                <property name="text">
-                 <string>Descripción del puesto</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0" colspan="2">
-               <widget class="QLineEdit" name="txt_rfc">
-                <property name="placeholderText">
-                 <string>Rfc</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="9" column="0" colspan="7">
-               <widget class="QPlainTextEdit" name="txtlargo_descripcion_puesto">
-                <property name="placeholderText">
-                 <string>Ingresa la descripción del puesto</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="4">
-               <widget class="QLineEdit" name="txt_nexterior">
-                <property name="placeholderText">
-                 <string>N-Exterior</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="5">
-               <widget class="QLineEdit" name="txt_ninterior">
-                <property name="placeholderText">
-                 <string>N-Interior</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="4">
-               <widget class="QLineEdit" name="txt_numerosegurosicial">
-                <property name="placeholderText">
-                 <string>Número seguro social</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="5">
-               <widget class="QLineEdit" name="txt_ciudad">
-                <property name="placeholderText">
-                 <string>Ciudad</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2" colspan="2">
-               <widget class="QLineEdit" name="txt_correoelectronico">
-                <property name="placeholderText">
-                 <string>Correo electronico</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2" colspan="2">
-               <widget class="QLineEdit" name="txt_avenidas">
-                <property name="placeholderText">
-                 <string>Avenida/s</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLineEdit" name="txt_colonia">
-                <property name="placeholderText">
-                 <string>Colonia</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLineEdit" name="txt_codigopostal">
-                <property name="placeholderText">
-                 <string>Codigo Postal</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="6">
-               <widget class="QLineEdit" name="txt_estado">
-                <property name="placeholderText">
-                 <string>Estado</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLineEdit" name="txt_pais">
-                <property name="placeholderText">
-                 <string>Pais</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="4" colspan="2">
-               <widget class="QLineEdit" name="txt_calles">
-                <property name="placeholderText">
-                 <string>Calle/s</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="6">
-               <widget class="QLineEdit" name="txt_numerotelefono">
-                <property name="placeholderText">
-                 <string>Número de telefono</string>
-                </property>
-                <property name="clearButtonEnabled">
-                 <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0" colspan="7">
-               <widget class="Line" name="line_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="17" column="1">
+             <widget class="QSpinBox" name="numero_antiguedadmes">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="suffix">
+               <string> Meses</string>
+              </property>
+             </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="etiqueta_rol_usuario">
+            <item row="17" column="2">
+             <widget class="QSpinBox" name="numero_antiguedaddias">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="suffix">
+               <string> Días</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="0" colspan="3">
+             <widget class="QDateEdit" name="fecha_fechacontratacion">
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0" colspan="3">
+             <widget class="QLabel" name="etiqueta_fechacontratacion">
               <property name="text">
-               <string>Rol del usuario:</string>
+               <string>Fecha de contratación:</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="1">
-             <widget class="QComboBox" name="cajaopciones_rol_usuario"/>
+            <item row="12" column="0" colspan="3">
+             <widget class="QDoubleSpinBox" name="decimal_salario">
+              <property name="prefix">
+               <string>$ </string>
+              </property>
+              <property name="suffix">
+               <string> pesos</string>
+              </property>
+              <property name="maximum">
+               <double>999999999.990000009536743</double>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0" colspan="3">
+             <widget class="QLabel" name="etiqueta_salario">
+              <property name="text">
+               <string>Salario:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0" colspan="3">
+             <widget class="QDoubleSpinBox" name="decimal_horas_laboralestotales">
+              <property name="suffix">
+               <string> Horas</string>
+              </property>
+              <property name="maximum">
+               <double>9999.989999999999782</double>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0" colspan="3">
+             <widget class="QLabel" name="etiqueta_horaslaborales">
+              <property name="text">
+               <string>T. Horas laborales:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0" colspan="3">
+             <widget class="QCheckBox" name="opcion_sabado">
+              <property name="text">
+               <string>Sabado</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0" colspan="3">
+             <widget class="QCheckBox" name="opcion_viernes">
+              <property name="text">
+               <string>Viernes</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="3">
+             <widget class="QCheckBox" name="opcion_jueves">
+              <property name="text">
+               <string>Jueves</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0" colspan="3">
+             <widget class="QCheckBox" name="opcion_miercoles">
+              <property name="text">
+               <string>Miercoles</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" colspan="3">
+             <widget class="QCheckBox" name="opcion_martes">
+              <property name="text">
+               <string>Martes</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="3">
+             <widget class="QCheckBox" name="opcion_lunes">
+              <property name="text">
+               <string>Lunes</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" colspan="3">
+             <widget class="QCheckBox" name="opcion_domingo">
+              <property name="text">
+               <string>Domingo</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="3">
+             <widget class="QLabel" name="etiquetasubtitulo_diaslaborales">
+              <property name="text">
+               <string>Dias Laborales</string>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="0" colspan="3">
+             <widget class="QLabel" name="etiqueta_antiguedad">
+              <property name="text">
+               <string>Antigüedad</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QFrame" name="contenedor_baja">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QLabel" name="etiqueta_baja">
+              <property name="text">
+               <string>Baja:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QDateEdit" name="fecha_baja">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -1112,9 +1214,6 @@ border-bottom: 2px solid #00668c;
   <tabstop>txt_ninterior</tabstop>
   <tabstop>txtlargo_descripcion_puesto</tabstop>
   <tabstop>txtlargo_direccion_completa</tabstop>
-  <tabstop>txt_usuario_iniciosesion</tabstop>
-  <tabstop>txt_contrasenia_usuario_iniciosesion</tabstop>
-  <tabstop>cajaopciones_rol_usuario</tabstop>
   <tabstop>opcion_domingo</tabstop>
   <tabstop>opcion_lunes</tabstop>
   <tabstop>opcion_martes</tabstop>

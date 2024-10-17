@@ -93,13 +93,13 @@ class SucursalesController(QWidget):
                         if sucursal.nombre_sucursal == datos['nombre_sucursal']:
                             Mensaje().mensaje_informativo('El nombre de la sucursal que intentas agregar ya existe.')
                             return
-                    self.signal_sucursal_agregada.emit()
                     Mensaje().mensaje_informativo('Se ha agregado la sucursal con éxito')
-
                 except Exception as e:
                     # Manejo de errores
                     Mensaje().mensaje_alerta(f'Error al agregar la sucursal: {e}')
+                    return
         
+        self.signal_sucursal_agregada.emit()
         # Listar sucursales después de agregar
         self.obtener_sucursales()
         self.limpiar()
@@ -185,8 +185,10 @@ class SucursalesController(QWidget):
                         print("Sucursal eliminada con éxito")
                 except Exception as e:
                         print(f"Error al eliminar la sucursal : {e}")
+
+        self.signal_sucursal_agregada.emit()
         self.limpiar()
-        self.listar_sucursales()
+        self.obtener_sucursales()
 
     def actualizar(self):
         sucursalId = self.id_sucursal
@@ -215,3 +217,5 @@ class SucursalesController(QWidget):
                 except Exception as e:
                     Mensaje().mensaje_critico(f"Error al actualizar la sucursal: {e}")
                     # Si ocurre una excepción, la transacción se hará rollback automáticamente
+        self.limpiar()
+        self.obtener_sucursales()

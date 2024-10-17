@@ -174,9 +174,6 @@ class Ui_Control_departamentos(object):
         self.txtlargo_descripciondepartamento.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.txtlargo_descripciondepartamento.setObjectName("txtlargo_descripciondepartamento")
         self.gridLayout_4.addWidget(self.txtlargo_descripciondepartamento, 5, 0, 1, 4)
-        self.etiqueta_descripciondepartamento = QtWidgets.QLabel(self.contenedor_formulario)
-        self.etiqueta_descripciondepartamento.setObjectName("etiqueta_descripciondepartamento")
-        self.gridLayout_4.addWidget(self.etiqueta_descripciondepartamento, 4, 0, 1, 1)
         self.etiquetasubtitulo_sucursalesexistentes = QtWidgets.QLabel(self.contenedor_formulario)
         self.etiquetasubtitulo_sucursalesexistentes.setObjectName("etiquetasubtitulo_sucursalesexistentes")
         self.gridLayout_4.addWidget(self.etiquetasubtitulo_sucursalesexistentes, 6, 0, 1, 1)
@@ -242,11 +239,26 @@ class Ui_Control_departamentos(object):
         self.txt_buscardepartamento = QtWidgets.QLineEdit(self.contenedor_formulario)
         self.txt_buscardepartamento.setObjectName("txt_buscardepartamento")
         self.gridLayout_4.addWidget(self.txt_buscardepartamento, 1, 5, 1, 4)
+        self.etiqueta_descripciondepartamento = QtWidgets.QLabel(self.contenedor_formulario)
+        self.etiqueta_descripciondepartamento.setObjectName("etiqueta_descripciondepartamento")
+        self.gridLayout_4.addWidget(self.etiqueta_descripciondepartamento, 4, 0, 1, 4)
         self.gridLayout_2.addWidget(self.contenedor_formulario, 1, 0, 1, 6)
         self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
 
         self.retranslateUi(Control_departamentos)
         QtCore.QMetaObject.connectSlotsByName(Control_departamentos)
+        Control_departamentos.setTabOrder(self.txt_nombredepartamento, self.txtlargo_descripciondepartamento)
+        Control_departamentos.setTabOrder(self.txtlargo_descripciondepartamento, self.btn_btn_vincular)
+        Control_departamentos.setTabOrder(self.btn_btn_vincular, self.btn_btn_desvincular)
+        Control_departamentos.setTabOrder(self.btn_btn_desvincular, self.lista_sucursalesexistentes)
+        Control_departamentos.setTabOrder(self.lista_sucursalesexistentes, self.lista_sucursalesvinculadas)
+        Control_departamentos.setTabOrder(self.lista_sucursalesvinculadas, self.btn_btn_limpiar)
+        Control_departamentos.setTabOrder(self.btn_btn_limpiar, self.txt_buscardepartamento)
+        Control_departamentos.setTabOrder(self.txt_buscardepartamento, self.lista_departamentosexistentes)
+        Control_departamentos.setTabOrder(self.lista_departamentosexistentes, self.lista_puestosasignados)
+        Control_departamentos.setTabOrder(self.lista_puestosasignados, self.btn_btn_guardar)
+        Control_departamentos.setTabOrder(self.btn_btn_guardar, self.btn_btn_actualizar)
+        Control_departamentos.setTabOrder(self.btn_btn_actualizar, self.btn_btn_eliminar)
 
     def retranslateUi(self, Control_departamentos):
         _translate = QtCore.QCoreApplication.translate
@@ -255,7 +267,6 @@ class Ui_Control_departamentos(object):
         self.btn_btn_eliminar.setText(_translate("Control_departamentos", "Eliminar"))
         self.btn_btn_actualizar.setText(_translate("Control_departamentos", "Actualizar"))
         self.etiquetaTitulo.setText(_translate("Control_departamentos", "Departamentos"))
-        self.etiqueta_descripciondepartamento.setText(_translate("Control_departamentos", "Descripcion del departamento:"))
         self.etiquetasubtitulo_sucursalesexistentes.setText(_translate("Control_departamentos", "Sucursales existentes:"))
         self.etiqueta_nombredepartamento.setText(_translate("Control_departamentos", "Nombre del departamento:"))
         self.etiquetasubtitulo_sucursalesvinculadas.setText(_translate("Control_departamentos", "Sucusales vinculadas"))
@@ -264,5 +275,6 @@ class Ui_Control_departamentos(object):
         self.etiquetasubtitulo_puestosasignados.setText(_translate("Control_departamentos", "Puestos Asignados"))
         self.etiquetasubtitulo_departamentosexistentes.setText(_translate("Control_departamentos", "Departamentos existentes"))
         self.txt_buscardepartamento.setPlaceholderText(_translate("Control_departamentos", " Buscar Departamento"))
+        self.etiqueta_descripciondepartamento.setText(_translate("Control_departamentos", "Descripcion del departamento:"))
 from ...Source import ibootstrap_rc
 from ...Source import iconsdvg_rc

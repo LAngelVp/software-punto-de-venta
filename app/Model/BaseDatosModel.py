@@ -143,6 +143,7 @@ class Empleados(Base):
     correo_electronico = Column(String(150), nullable=True, unique=True)
     numero_seguro_social = Column(String(13), nullable=False, unique=True)
     fecha_contratacion = Column(Date, nullable=False)
+    fecha_despido = Column(Date, nullable=True)
     ciudad = Column(String(100), nullable=True)
     codigo_postal = Column(String(100), nullable=True)
     estado = Column(String(100), nullable=True)

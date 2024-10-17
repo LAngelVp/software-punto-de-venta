@@ -465,9 +465,9 @@ background-color:none;
           <widget class="QComboBox" name="cajaopciones_departamentos"/>
          </item>
          <item row="12" column="0" alignment="Qt::AlignLeft">
-          <widget class="QPushButton" name="btn_btn_permisos">
+          <widget class="QPushButton" name="btn_btn_roles">
            <property name="text">
-            <string>Asignar permisos</string>
+            <string>Asignar Rol</string>
            </property>
           </widget>
          </item>
@@ -508,6 +508,29 @@ background-color:none;
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txt_nombrepuesto</tabstop>
+  <tabstop>decimal_salario</tabstop>
+  <tabstop>decimal_horaslaborales</tabstop>
+  <tabstop>tiempo_horaentrada</tabstop>
+  <tabstop>tiempo_horasalida</tabstop>
+  <tabstop>txtlargo_descripcionpuesto</tabstop>
+  <tabstop>cajaopciones_departamentos</tabstop>
+  <tabstop>cajaopcion_lunes</tabstop>
+  <tabstop>cajaopcion_martes</tabstop>
+  <tabstop>cajaopcion_miercoles</tabstop>
+  <tabstop>cajaopcion_jueves</tabstop>
+  <tabstop>cajaopcion_viernes</tabstop>
+  <tabstop>cajaopcion_sabado</tabstop>
+  <tabstop>cajaopcion_domingo</tabstop>
+  <tabstop>btn_btn_roles</tabstop>
+  <tabstop>btn_btn_limpiar</tabstop>
+  <tabstop>btn_btn_actualizar</tabstop>
+  <tabstop>btn_btn_eliminar</tabstop>
+  <tabstop>btn_btn_agregar</tabstop>
+  <tabstop>txt_buscarpuesto</tabstop>
+  <tabstop>tabla_listapuestos</tabstop>
+ </tabstops>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
   <include location="../../Source/iconsdvg.qrc"/>

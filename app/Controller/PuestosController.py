@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 from .MensajesAlertasController import Mensaje
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..View.UserInterfacePy.UI_ADMINISTRAR_PUESTOS import Ui_Formulario_puestos
+from .RolesPermisosController import ControlRolesController
 from ..Model.PuestoModel import PuestoModel
 from ..Model.DepartamentosModel import DepartamentosModel
 
@@ -25,6 +26,7 @@ class PuestosController(QWidget):
         self.ui.btn_btn_agregar.clicked.connect(self.agregar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
+        self.ui.btn_btn_roles.clicked.connect(self.roles)
 
         # señales principales:
         self.ui.cajaopcion_lunes.stateChanged.connect(self.comprobar_caja_verificacion)
@@ -49,6 +51,10 @@ class PuestosController(QWidget):
 
 
     #funciones:
+
+    def roles(self):
+        self.ventana_roles = ControlRolesController()
+        self.ventana_roles.show()
     
     def comprobar_caja_verificacion(self, state):
         sender = self.sender()
@@ -183,7 +189,6 @@ class PuestosController(QWidget):
             # Verificar si clientes es None o una lista vacía
             if puestos is None or len(puestos) == 0:
                 self.model.setHorizontalHeaderLabels([
-                    "Id",
                     "Nombre",
                     "Salario",
                     "Horas Laborales",

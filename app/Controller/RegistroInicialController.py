@@ -11,8 +11,8 @@ from app.DataBase.conexionBD import Conexion_base_datos
 from app.View.UserInterfacePy.UI_REGISTRO_EMPLEADO import *
 from app.Model.ValidacionesModel import Validaciones
 from app.Model.EmpleadoModel import EmpleadosModel
-from ..Model.RolesyPermisosModel import RolesModel, PermisosModel
-from ..Model.UsuarioModel import UsuarioModel
+from app.Model.RolesyPermisosModel import RolesModel, PermisosModel
+from app.Model.UsuarioModel import UsuarioModel
 from app.Model.PuestoModel import PuestoModel
 from app.Model.DepartamentosModel import DepartamentosModel
 from app.Model.SucursalesModel import SucursalesModel
@@ -41,6 +41,7 @@ class Registro_personal_inicial(QWidget):
             }
             
         ''')
+        self.ui.contenedor_baja.setVisible(False)
         self.puesto_inicial = "ADMINISTRADOR"
         self.permiso_administrador = "ADMINISTRADOR"
         self.departamento_administrador = "ADMINISTRADOR"
@@ -280,8 +281,8 @@ class Registro_personal_inicial(QWidget):
 
     def agregar_sucursal(self):
         self.ui_sucursales = SucursalesController()
-        self.ui_sucursales.show()
         self.ui_sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
+        self.ui_sucursales.show()
 
     def listar_sucursales(self):
         self.ui.cajaopciones_sucursales.clear()

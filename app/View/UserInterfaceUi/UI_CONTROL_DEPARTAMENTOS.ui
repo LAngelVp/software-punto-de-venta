@@ -230,13 +230,6 @@ QScrollBar::handle:horizontal {
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="etiqueta_descripciondepartamento">
-           <property name="text">
-            <string>Descripcion del departamento:</string>
-           </property>
-          </widget>
-         </item>
          <item row="6" column="0">
           <widget class="QLabel" name="etiquetasubtitulo_sucursalesexistentes">
            <property name="text">
@@ -373,6 +366,13 @@ QScrollBar::handle:horizontal {
            </property>
           </widget>
          </item>
+         <item row="4" column="0" colspan="4">
+          <widget class="QLabel" name="etiqueta_descripciondepartamento">
+           <property name="text">
+            <string>Descripcion del departamento:</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -381,6 +381,21 @@ QScrollBar::handle:horizontal {
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>txt_nombredepartamento</tabstop>
+  <tabstop>txtlargo_descripciondepartamento</tabstop>
+  <tabstop>btn_btn_vincular</tabstop>
+  <tabstop>btn_btn_desvincular</tabstop>
+  <tabstop>lista_sucursalesexistentes</tabstop>
+  <tabstop>lista_sucursalesvinculadas</tabstop>
+  <tabstop>btn_btn_limpiar</tabstop>
+  <tabstop>txt_buscardepartamento</tabstop>
+  <tabstop>lista_departamentosexistentes</tabstop>
+  <tabstop>lista_puestosasignados</tabstop>
+  <tabstop>btn_btn_guardar</tabstop>
+  <tabstop>btn_btn_actualizar</tabstop>
+  <tabstop>btn_btn_eliminar</tabstop>
+ </tabstops>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
   <include location="../../Source/iconsdvg.qrc"/>

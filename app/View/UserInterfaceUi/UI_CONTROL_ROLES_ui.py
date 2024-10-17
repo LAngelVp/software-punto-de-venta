@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Control_Roles_Permisos(object):
     def setupUi(self, Control_Roles_Permisos):
         Control_Roles_Permisos.setObjectName("Control_Roles_Permisos")
-        Control_Roles_Permisos.resize(792, 534)
-        Control_Roles_Permisos.setMinimumSize(QtCore.QSize(600, 450))
-        Control_Roles_Permisos.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        Control_Roles_Permisos.resize(700, 534)
+        Control_Roles_Permisos.setMinimumSize(QtCore.QSize(400, 0))
+        Control_Roles_Permisos.setMaximumSize(QtCore.QSize(800, 16777215))
         Control_Roles_Permisos.setStyleSheet("#Control_Roles_Permisos{\n"
 "background: #fffefb;\n"
 "}\n"
@@ -42,6 +42,12 @@ class Ui_Control_Roles_Permisos(object):
 "font-family:Arial;\n"
 "}\n"
 "[objectName*=\"etiquetasubtitulo_\"]{\n"
+"font-size:14px;\n"
+"color: #1d1c1c;\n"
+"font-weight: bold;\n"
+"font-family:Arial;\n"
+"}\n"
+"[objectName*=\"etiqueta_\"]{\n"
 "font-size:14px;\n"
 "color: #1d1c1c;\n"
 "font-weight: bold;\n"
@@ -201,7 +207,7 @@ class Ui_Control_Roles_Permisos(object):
         self.contenedor_permisos.setWidgetResizable(True)
         self.contenedor_permisos.setObjectName("contenedor_permisos")
         self.contenedor_permisosscroll = QtWidgets.QWidget()
-        self.contenedor_permisosscroll.setGeometry(QtCore.QRect(0, 0, 709, 318))
+        self.contenedor_permisosscroll.setGeometry(QtCore.QRect(0, 0, 617, 318))
         self.contenedor_permisosscroll.setObjectName("contenedor_permisosscroll")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.contenedor_permisosscroll)
         self.gridLayout_6.setObjectName("gridLayout_6")
@@ -330,6 +336,36 @@ class Ui_Control_Roles_Permisos(object):
         self.retranslateUi(Control_Roles_Permisos)
         self.contenedor_funcionesroles.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Control_Roles_Permisos)
+        Control_Roles_Permisos.setTabOrder(self.txt_nombrerol, self.tabla_listaroles)
+        Control_Roles_Permisos.setTabOrder(self.tabla_listaroles, self.btn_btn_modificarrol)
+        Control_Roles_Permisos.setTabOrder(self.btn_btn_modificarrol, self.btn_btn_eliminarrol)
+        Control_Roles_Permisos.setTabOrder(self.btn_btn_eliminarrol, self.btn_btn_buscar)
+        Control_Roles_Permisos.setTabOrder(self.btn_btn_buscar, self.txt_nombrerol_2)
+        Control_Roles_Permisos.setTabOrder(self.txt_nombrerol_2, self.txt_descripcionrol)
+        Control_Roles_Permisos.setTabOrder(self.txt_descripcionrol, self.opcion_crearventa)
+        Control_Roles_Permisos.setTabOrder(self.opcion_crearventa, self.opcion_eliminarventa)
+        Control_Roles_Permisos.setTabOrder(self.opcion_eliminarventa, self.opcion_modificarventa)
+        Control_Roles_Permisos.setTabOrder(self.opcion_modificarventa, self.opcion_crearcompra)
+        Control_Roles_Permisos.setTabOrder(self.opcion_crearcompra, self.opcion_eliminarcompra)
+        Control_Roles_Permisos.setTabOrder(self.opcion_eliminarcompra, self.opcion_modificarcompra)
+        Control_Roles_Permisos.setTabOrder(self.opcion_modificarcompra, self.opcion_crearproducto)
+        Control_Roles_Permisos.setTabOrder(self.opcion_crearproducto, self.opcion_eliminarproducto)
+        Control_Roles_Permisos.setTabOrder(self.opcion_eliminarproducto, self.opcion_modificarproducto)
+        Control_Roles_Permisos.setTabOrder(self.opcion_modificarproducto, self.opcion_crearempleado)
+        Control_Roles_Permisos.setTabOrder(self.opcion_crearempleado, self.opcion_eliminarempleado)
+        Control_Roles_Permisos.setTabOrder(self.opcion_eliminarempleado, self.opcion_modificarempleado)
+        Control_Roles_Permisos.setTabOrder(self.opcion_modificarempleado, self.opcion_crearproveedor)
+        Control_Roles_Permisos.setTabOrder(self.opcion_crearproveedor, self.opcion_eliminarproveedor)
+        Control_Roles_Permisos.setTabOrder(self.opcion_eliminarproveedor, self.opcion_modificarproveedor)
+        Control_Roles_Permisos.setTabOrder(self.opcion_modificarproveedor, self.opcion_crearcliente)
+        Control_Roles_Permisos.setTabOrder(self.opcion_crearcliente, self.opcion_eliminarcliente)
+        Control_Roles_Permisos.setTabOrder(self.opcion_eliminarcliente, self.opcion_modificarcliente)
+        Control_Roles_Permisos.setTabOrder(self.opcion_modificarcliente, self.opcion_crearsucursal)
+        Control_Roles_Permisos.setTabOrder(self.opcion_crearsucursal, self.opcion_eliminarsucursal)
+        Control_Roles_Permisos.setTabOrder(self.opcion_eliminarsucursal, self.opcion_modificarsucursal)
+        Control_Roles_Permisos.setTabOrder(self.opcion_modificarsucursal, self.btn_btn_agregar)
+        Control_Roles_Permisos.setTabOrder(self.btn_btn_agregar, self.contenedor_permisos)
+        Control_Roles_Permisos.setTabOrder(self.contenedor_permisos, self.contenedor_funcionesroles)
 
     def retranslateUi(self, Control_Roles_Permisos):
         _translate = QtCore.QCoreApplication.translate
