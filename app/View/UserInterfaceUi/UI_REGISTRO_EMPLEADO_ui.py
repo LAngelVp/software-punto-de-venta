@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_REGISTRO_EMPLEADO.ui'
+# Form implementation generated from reading ui file 'c:\Users\Ing. Angel Perez\Documents\projects\software-punto-de-venta\app\View\UserInterfaceUi\UI_REGISTRO_EMPLEADO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_RegistroAdministrador(object):
     def setupUi(self, RegistroAdministrador):
         RegistroAdministrador.setObjectName("RegistroAdministrador")
-        RegistroAdministrador.resize(1214, 652)
+        RegistroAdministrador.resize(1090, 623)
         RegistroAdministrador.setStyleSheet("#RegistroAdministrador{\n"
 "background: #fffefb;\n"
 "}\n"
@@ -658,7 +658,10 @@ class Ui_RegistroAdministrador(object):
         RegistroAdministrador.setTabOrder(self.txt_nexterior, self.txt_ninterior)
         RegistroAdministrador.setTabOrder(self.txt_ninterior, self.txtlargo_descripcion_puesto)
         RegistroAdministrador.setTabOrder(self.txtlargo_descripcion_puesto, self.txtlargo_direccion_completa)
-        RegistroAdministrador.setTabOrder(self.txtlargo_direccion_completa, self.opcion_domingo)
+        RegistroAdministrador.setTabOrder(self.txtlargo_direccion_completa, self.txt_usuario_iniciosesion)
+        RegistroAdministrador.setTabOrder(self.txt_usuario_iniciosesion, self.txt_contrasenia_usuario_iniciosesion)
+        RegistroAdministrador.setTabOrder(self.txt_contrasenia_usuario_iniciosesion, self.cajaopciones_rol_usuario)
+        RegistroAdministrador.setTabOrder(self.cajaopciones_rol_usuario, self.opcion_domingo)
         RegistroAdministrador.setTabOrder(self.opcion_domingo, self.opcion_lunes)
         RegistroAdministrador.setTabOrder(self.opcion_lunes, self.opcion_martes)
         RegistroAdministrador.setTabOrder(self.opcion_martes, self.opcion_miercoles)
@@ -668,7 +671,10 @@ class Ui_RegistroAdministrador(object):
         RegistroAdministrador.setTabOrder(self.opcion_sabado, self.decimal_horas_laboralestotales)
         RegistroAdministrador.setTabOrder(self.decimal_horas_laboralestotales, self.decimal_salario)
         RegistroAdministrador.setTabOrder(self.decimal_salario, self.fecha_fechacontratacion)
-        RegistroAdministrador.setTabOrder(self.fecha_fechacontratacion, self.cajaopciones_sucursales)
+        RegistroAdministrador.setTabOrder(self.fecha_fechacontratacion, self.numero_antiguedadyear)
+        RegistroAdministrador.setTabOrder(self.numero_antiguedadyear, self.numero_antiguedadmes)
+        RegistroAdministrador.setTabOrder(self.numero_antiguedadmes, self.numero_antiguedaddias)
+        RegistroAdministrador.setTabOrder(self.numero_antiguedaddias, self.cajaopciones_sucursales)
         RegistroAdministrador.setTabOrder(self.cajaopciones_sucursales, self.Button_nuevasucursal)
         RegistroAdministrador.setTabOrder(self.Button_nuevasucursal, self.cajaopciones_departamentos)
         RegistroAdministrador.setTabOrder(self.cajaopciones_departamentos, self.cajaopciones_puestos)
@@ -676,9 +682,10 @@ class Ui_RegistroAdministrador(object):
         RegistroAdministrador.setTabOrder(self.tiempo_horaentrada, self.tiempo_horasalida)
         RegistroAdministrador.setTabOrder(self.tiempo_horasalida, self.Button_aceptar)
         RegistroAdministrador.setTabOrder(self.Button_aceptar, self.Button_cancelar)
-        RegistroAdministrador.setTabOrder(self.Button_cancelar, self.btc_cerrar)
-        RegistroAdministrador.setTabOrder(self.btc_cerrar, self.btc_minimizar)
-        RegistroAdministrador.setTabOrder(self.btc_minimizar, self.btc_maximizar)
+        RegistroAdministrador.setTabOrder(self.Button_cancelar, self.btc_maximizar)
+        RegistroAdministrador.setTabOrder(self.btc_maximizar, self.btc_minimizar)
+        RegistroAdministrador.setTabOrder(self.btc_minimizar, self.btc_cerrar)
+        RegistroAdministrador.setTabOrder(self.btc_cerrar, self.fecha_baja)
 
     def retranslateUi(self, RegistroAdministrador):
         _translate = QtCore.QCoreApplication.translate

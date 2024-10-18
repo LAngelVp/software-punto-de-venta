@@ -36,7 +36,10 @@ class DepartamentosModel:
     def obtener_todos(self):
         try:
             departamentos =  self.session.query(Departamentos).all()
-            return departamentos
+            if departamentos:
+                return departamentos, True
+            else:
+                return None, False
         except Exception as e:
             return None
 
