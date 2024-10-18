@@ -17,6 +17,9 @@
    <string notr="true">#Control_Clientes{
 background: #fffefb;
 }
+[objectName^=&quot;wpc_&quot;]{
+background-color: #fffefb;
+}
 #label_wp_titulo_clientes{
 background-color: #023375;
 min-height: 40px;
@@ -49,8 +52,9 @@ background-color: #fffefb;
 max-width:400px;
 }
 #etiqueta_iconobuscar{
-image: url(:/Icons/Bootstrap/search.svg);
-min-width:25px;
+image: url(:/iconosAzules/Icons/iconos/Azul/buscar_persona_azul.svg);
+min-width:35px;
+min-height:25px;
 }
 [objectName^=&quot;btn_btn_&quot;]{
 background-color: #00619a;
@@ -833,8 +837,14 @@ border-bottom: 2px solid #00668c;
                      <string/>
                     </property>
                     <property name="icon">
-                     <iconset resource="../../Source/ibootstrap.qrc">
-                      <normaloff>:/Icons/Bootstrap/plus-square.svg</normaloff>:/Icons/Bootstrap/plus-square.svg</iconset>
+                     <iconset resource="../../Source/iconosSVG.qrc">
+                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -981,8 +991,14 @@ border-bottom: 2px solid #00668c;
                      <string/>
                     </property>
                     <property name="icon">
-                     <iconset resource="../../Source/ibootstrap.qrc">
-                      <normaloff>:/Icons/Bootstrap/plus-square.svg</normaloff>:/Icons/Bootstrap/plus-square.svg</iconset>
+                     <iconset resource="../../Source/iconosSVG.qrc">
+                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -1324,8 +1340,14 @@ border-bottom: 2px solid #00668c;
                      <string/>
                     </property>
                     <property name="icon">
-                     <iconset resource="../../Source/ibootstrap.qrc">
-                      <normaloff>:/Icons/Bootstrap/plus-square.svg</normaloff>:/Icons/Bootstrap/plus-square.svg</iconset>
+                     <iconset resource="../../Source/iconosSVG.qrc">
+                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -1678,8 +1700,14 @@ border-bottom: 2px solid #00668c;
                      <string/>
                     </property>
                     <property name="icon">
-                     <iconset resource="../../Source/ibootstrap.qrc">
-                      <normaloff>:/Icons/Bootstrap/plus-square.svg</normaloff>:/Icons/Bootstrap/plus-square.svg</iconset>
+                     <iconset resource="../../Source/iconosSVG.qrc">
+                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -1870,7 +1898,17 @@ cursor: pointer-hand;
          <item row="0" column="3">
           <widget class="QPushButton" name="btn_btn_limpiarcampos">
            <property name="text">
-            <string>Limpiar Campos</string>
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/iconsdvg.qrc">
+             <normaloff>:/Icons/IconosSVG/borrador.png</normaloff>:/Icons/IconosSVG/borrador.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -1892,16 +1930,16 @@ cursor: pointer-hand;
             <bool>false</bool>
            </property>
            <property name="text">
-            <string> Actualizar</string>
+            <string>Actualizar</string>
            </property>
            <property name="icon">
-            <iconset resource="../../Source/ibootstrap.qrc">
-             <normaloff>:/Icons/Bootstrap/check-lg.svg</normaloff>:/Icons/Bootstrap/check-lg.svg</iconset>
+            <iconset resource="../../Source/iconosSVG.qrc">
+             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
              <width>25</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
            <property name="checkable">
@@ -1921,16 +1959,16 @@ cursor: pointer-hand;
             <cursorShape>PointingHandCursor</cursorShape>
            </property>
            <property name="text">
-            <string> Eliminar</string>
+            <string>Eliminar</string>
            </property>
            <property name="icon">
-            <iconset resource="../../Source/ibootstrap.qrc">
-             <normaloff>:/Icons/Bootstrap/x-octagon.svg</normaloff>:/Icons/Bootstrap/x-octagon.svg</iconset>
+            <iconset resource="../../Source/iconosSVG.qrc">
+             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_persona_blanco.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
              <width>25</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
           </widget>
@@ -1953,16 +1991,16 @@ cursor: pointer-hand;
             <bool>false</bool>
            </property>
            <property name="text">
-            <string> Agregar cliente</string>
+            <string>Agregar cliente</string>
            </property>
            <property name="icon">
-            <iconset resource="../../Source/ibootstrap.qrc">
-             <normaloff>:/Icons/Bootstrap/person-add.svg</normaloff>:/Icons/Bootstrap/person-add.svg</iconset>
+            <iconset resource="../../Source/iconosSVG.qrc">
+             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_persona_blanco.svg</iconset>
            </property>
            <property name="iconSize">
             <size>
              <width>25</width>
-             <height>20</height>
+             <height>25</height>
             </size>
            </property>
           </widget>
@@ -2050,6 +2088,8 @@ cursor: pointer-hand;
  </tabstops>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconsdvg.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
  </resources>
  <connections/>
 </ui>

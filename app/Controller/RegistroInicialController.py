@@ -12,16 +12,26 @@ from app.View.UserInterfacePy.UI_REGISTRO_EMPLEADO import *
 from app.Controller.MensajesAlertasController import Mensaje
 from app.Model.ValidacionesModel import Validaciones
 from app.Model.EmpleadoModel import EmpleadosModel
-from app.Model.RolesyPermisosModel import RolesModel, PermisosModel
+from app.Model.GruposyPermisosModel import RolesModel, PermisosModel
 from app.Model.UsuarioModel import UsuarioModel
 from app.Model.PuestoModel import PuestoModel
 from app.Model.DepartamentosModel import DepartamentosModel
 from app.Model.SucursalesModel import SucursalesModel
+from app.Controller.AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+
 from app.Controller.SucursalesController import SucursalesController
+from app.Controller.DepartamentosController import DepartamentosController
+from app.Controller.PuestosController import PuestosController
 
 
 
 class Registro_personal_inicial(QWidget):
+    listar_sucursales_signal = pyqtSignal()
+    listar_departamentos_signal = pyqtSignal()
+    listar_puestos_signal = pyqtSignal()
+    listar_depas_en_puestos_signal = pyqtSignal()
+    listar_sucursales_en_departamentos_signal = pyqtSignal()
+    tabla_puestos = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_RegistroAdministrador()
@@ -59,6 +69,8 @@ class Registro_personal_inicial(QWidget):
         self.ui.btc_maximizar.clicked.connect(self.maximizar)
         self.ui.Button_nuevasucursal.clicked.connect(self.agregar_sucursal)
         self.ui.Button_aceptar.clicked.connect(self.almacenar_informacion)
+        self.ui.Button_agregardepartamento.clicked.connect(self.ventana_departamentos)
+        self.ui.Button_agregarpuesto.clicked.connect(self.ventana_puestos)
 #señales de las casillas de verificacion:
         self.ui.opcion_domingo.stateChanged.connect(self.checkbox_checked)
         self.ui.opcion_lunes.stateChanged.connect(self.checkbox_checked)
@@ -70,18 +82,104 @@ class Registro_personal_inicial(QWidget):
 #// agregar elementos:
         self.ui.cajaopciones_estadocvil.addItems(['Soltero/a','Casado/a','Viudo/a','Divorciado/a','Union libre'])
 #// variables globales:
-        self.papel_administrador = 'ADMINISTRADOR'
-        self.departamento_administrador = 'DUEÑO'
         self.drag_start_position = None
         self.dias_laborales = []
         self.file_name = '' # ALMACENAMOS LA FOTO
+        self.departamentos = DepartamentosController()
+        self.puestos = PuestosController()
+        self.sucursales = SucursalesController()
         
 #funciones principales:
-        self.opciones_roles()
+        self.listar_grupo_permisos_rol()
         self.ingresar_validaciones()
+        self.listar_departamentos()
+        self.listar_puestos()
+        self.listar_sucursales()
         self.listar_sucursales()
 
+# señales y slots:
+        self.listar_sucursales_signal.connect(self.sucursales.obtener_sucursales)
+        self.listar_departamentos_signal.connect(self.departamentos.obtener_departamentos)
+        self.listar_puestos_signal.connect(self.puestos.listar_puestos)
+        self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
+        self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
+        
+
 # FUNCIONES GENERALES:
+    #// VENTANA DE SUCURSAL:
+    def agregar_sucursal(self):
+        self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
+        self.listar_sucursales_signal.emit()
+        self.sucursales.show()
+
+    def ventana_departamentos(self):
+        self.departamentos.signal_departamento_agregado.connect(self.listar_departamentos)
+        self.listar_sucursales_en_departamentos_signal.emit()
+        self.listar_departamentos_signal.emit()
+        self.departamentos.show()
+    
+    def ventana_puestos(self):
+        self.puestos.signal_puesto_agregado.connect(self.listar_puestos)
+        self.listar_depas_en_puestos_signal.emit()
+        self.listar_puestos_signal.emit()
+        self.puestos.show()
+
+    def listar_sucursales(self):
+        self.ui.cajaopciones_sucursales.clear()
+        sucursales = None
+        try:
+            with Conexion_base_datos() as db:
+                session = db.session
+                sucursales = SucursalesModel(session).obtener_todo()
+            if sucursales:
+                for sucursal in sucursales:
+                    self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_sucursales)
+        except Exception as e:
+            print(f"Error al obtener sucursales: {e}")
+
+    def listar_grupo_permisos_rol(self):
+        self.ui.cajaopciones_rol_usuario.clear()
+        grupo_permiso = None
+        try:
+            with Conexion_base_datos() as db:
+                session = db.session
+                grupo_permiso, estado = RolesModel(session).obtener_todos()
+            if estado:
+                for grupo in grupo_permiso:
+                    self.ui.cajaopciones_rol_usuario.addItem(grupo.nombre)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_rol_usuario)
+        except Exception as e:
+            print(f"Error al obtener sucursales: {e}")
+
+    def listar_departamentos(self):
+        self.ui.cajaopciones_departamentos.clear()
+        departamentos = None
+        try:
+            with Conexion_base_datos() as db:
+                session = db.session
+                departamentos, estado = DepartamentosModel(session).obtener_todos()
+            if departamentos:
+                for departamento in departamentos:
+                    self.ui.cajaopciones_departamentos.addItem(departamento.nombre)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_departamentos)
+        except Exception as e:
+            print(f"Error al obtener sucursales: {e}")
+
+    def listar_puestos(self):
+        self.ui.cajaopciones_puestos.clear()
+        puestos = None
+        try:
+            with Conexion_base_datos() as db:
+                session = db.session
+                puestos, estado = PuestoModel(session).obtener_todos()
+            if puestos:
+                for puesto in puestos:
+                    self.ui.cajaopciones_puestos.addItem(puesto.nombre)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
+        except Exception as e:
+            print(f"Error al obtener sucursales: {e}")
+
     def cargar_imagen(self, event):
         options = QFileDialog.Options()
         self.file_name, _ = QFileDialog.getOpenFileName(self, 'SELECCIONA UNA IMAGEN', ' ', 'Archivo de Imagen (*.png *.jpg *.jpeg);; Todos los archivos (*)', options=options)
@@ -91,37 +189,6 @@ class Registro_personal_inicial(QWidget):
             self.ui.label_fotousuario.setPixmap(pixmap)
             self.ui.label_fotousuario.setScaledContents(True)
             self.ui.label_fotousuario.adjustSize()
-
-    def opciones_roles(self):
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                try:
-                    roles, estado_rol = RolesModel(session).obtener_todos()
-                    departamentos, estado_depa = DepartamentosModel(session).obtener_todos()
-                    puestos, estado_puesto = PuestoModel(session).obtener_todos()
-
-                    if estado_rol:
-                        self.ui.cajaopciones_rol_usuario.clear()
-                        nombres_roles = [rol.nombre for rol in roles]
-                        self.ui.cajaopciones_rol_usuario.addItems(nombres_roles)
-                    else:
-                        self.ui.cajaopciones_rol_usuario.addItem(self.papel_administrador)
-                    if estado_depa:
-                        self.ui.cajaopciones_departamentos.clear()
-                        nombre_departamentos = [departamento.nombre for departamento in departamentos]
-                        self.ui.cajaopciones_rol_usuario.addItems(nombre_departamentos)
-                    else:
-                        self.ui.cajaopciones_departamentos.addItem(self.departamento_administrador)
-                    
-                    if estado_puesto:
-                        self.ui.cajaopciones_puestos.clear()
-                        nombre_puesto = [puesto.nombre for puesto in puestos]
-                        self.ui.cajaopciones_puestos.addItems(nombre_puesto)
-                    else:
-                        self.ui.cajaopciones_puestos.addItem(self.papel_administrador)
-                except Exception as e:
-                    print(e)
         
     def ingresar_validaciones(self):
         self.ui.txt_nombre.setValidator(Validaciones().get_text_validator)
@@ -138,7 +205,6 @@ class Registro_personal_inicial(QWidget):
         self.ui.txt_numerotelefono.setValidator(Validaciones().get_phone_validator)
         self.ui.txt_usuario_iniciosesion.setValidator(Validaciones().get_text_validator)
         self.ui.txt_contrasenia_usuario_iniciosesion.setValidator(Validaciones().get_password_validator)
-
 
     def campos(self):
         return {
@@ -173,6 +239,7 @@ class Registro_personal_inicial(QWidget):
             "password_usuario": self.ui.txt_contrasenia_usuario_iniciosesion,
             "rol": self.ui.cajaopciones_rol_usuario
         }
+    
     def obtener_datos(self):
         datos = {}
         campos = self.campos()
@@ -280,24 +347,7 @@ class Registro_personal_inicial(QWidget):
         else:
             print("Datos no válidos. No se almacenará la información.")
 
-#// VENTANA DE SUCURSAL:
-    def agregar_sucursal(self):
-        self.ui_sucursales = SucursalesController()
-        self.ui_sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
-        self.ui_sucursales.show()
 
-    def listar_sucursales(self):
-        self.ui.cajaopciones_sucursales.clear()
-        sucursales = None
-        try:
-            with Conexion_base_datos() as db:
-                session = db.session
-                sucursales = SucursalesModel(session).obtener_todo()
-            if sucursales:
-                for sucursal in sucursales:
-                    self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal)
-        except Exception as e:
-            print(f"Error al obtener sucursales: {e}")
     
     def abrir_inicio(self):
         from app.Controller.InicioDeSesionController import Login  # Mover la importación aquí

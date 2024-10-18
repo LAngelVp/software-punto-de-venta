@@ -78,7 +78,6 @@ class Permisos(Base):
     __tablename__ = "Permisos"
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
     nombre = Column(String(255), unique=True)
-    descripcion = Column(Text)
     roles = relationship(
         "Roles", secondary=rol_permiso, back_populates="permisos", 
         )

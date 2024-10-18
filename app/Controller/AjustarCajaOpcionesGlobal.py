@@ -4,18 +4,22 @@ class AjustarCajaOpciones:
         pass
 
     def ajustar_cajadeopciones(self, caja_opciones):
-        # Calcular el ancho máximo basado en los elementos
-        tamaño_maximo_ancho = 0
-        for i in range(caja_opciones.count()):
-            ancho_de_item = caja_opciones.fontMetrics().width(caja_opciones.itemText(i))
-            tamaño_maximo_ancho = max(tamaño_maximo_ancho, ancho_de_item)
-
         # Usar un QListView para la vista del combo box
-        vista_de_la_lista = QListView()
-        caja_opciones.setView(vista_de_la_lista)
+        vista_lista = QListView()
+        vista_lista.setStyleSheet("""
+        QListView { background: #F5F5F5; }
+        """)
+        caja_opciones.setView(vista_lista)
 
-        # Ajustar el ancho del QListView al tamaño del contenido
-        vista_de_la_lista.setFixedWidth(tamaño_maximo_ancho + 40)  # Ajusta el ancho del menú desplegable
+        # Obtener el ancho del combo box
+        ancho_combo = caja_opciones.width()
 
-        # (Opcional) Ajustar el tamaño de la lista según el número de elementos
-        # vista_de_la_lista.setMinimumHeight(caja_opciones.sizeHint().height() * min(caja_opciones.count(), 5))  # Mostrar hasta 5 elementos
+        # Calcular el ancho máximo basado en los elementos
+        max_ancho = max(
+            caja_opciones.fontMetrics().width(caja_opciones.itemText(i))
+            for i in range(caja_opciones.count())
+        )
+
+        # Establecer el ancho del QListView
+        # Tomar el mayor entre el ancho del combo box y el ancho máximo
+        vista_lista.setFixedWidth(max(ancho_combo, max_ancho))

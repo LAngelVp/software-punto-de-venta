@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\DesktopPosWithPython\app\View\UserInterfaceUi\UI_CONTROL_COMPRAS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_COMPRAS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -97,7 +97,6 @@ class Ui_control_compras(object):
 "font-family: Arial;\n"
 "font-size: 16px;\n"
 "font-weight: bold;\n"
-"width: 100px;\n"
 "height: 25px;\n"
 "margin-left: 5px;\n"
 "margin-right: 5px;\n"
@@ -292,8 +291,9 @@ class Ui_control_compras(object):
         self.btn_btn_buscar = QtWidgets.QToolButton(self.frame)
         self.btn_btn_buscar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/search.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/buscar_filas_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_buscar.setIcon(icon)
+        self.btn_btn_buscar.setIconSize(QtCore.QSize(25, 25))
         self.btn_btn_buscar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.btn_btn_buscar.setObjectName("btn_btn_buscar")
         self.gridLayout_4.addWidget(self.btn_btn_buscar, 3, 10, 1, 1)
@@ -370,6 +370,7 @@ class Ui_control_compras(object):
         self.btn_btn_buscar_2 = QtWidgets.QToolButton(self.frame_3)
         self.btn_btn_buscar_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_buscar_2.setIcon(icon)
+        self.btn_btn_buscar_2.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_buscar_2.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.btn_btn_buscar_2.setObjectName("btn_btn_buscar_2")
         self.gridLayout_8.addWidget(self.btn_btn_buscar_2, 3, 9, 1, 1)
@@ -405,10 +406,20 @@ class Ui_control_compras(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.btn_btn_agregar = QtWidgets.QToolButton(self.frame_2)
         self.btn_btn_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_documento_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_agregar.setIcon(icon3)
+        self.btn_btn_agregar.setIconSize(QtCore.QSize(24, 24))
+        self.btn_btn_agregar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.btn_btn_agregar.setObjectName("btn_btn_agregar")
         self.horizontalLayout_2.addWidget(self.btn_btn_agregar)
         self.btn_btn_eliminar = QtWidgets.QToolButton(self.frame_2)
         self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_eliminar.setIcon(icon4)
+        self.btn_btn_eliminar.setIconSize(QtCore.QSize(24, 24))
+        self.btn_btn_eliminar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
         self.horizontalLayout_2.addWidget(self.btn_btn_eliminar)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -443,3 +454,4 @@ class Ui_control_compras(object):
         self.btn_btn_agregar.setText(_translate("control_compras", "Agregar"))
         self.btn_btn_eliminar.setText(_translate("control_compras", "Eliminar"))
 import ibootstrap_rc
+import iconosSVG_rc

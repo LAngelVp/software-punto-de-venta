@@ -96,7 +96,6 @@ color: #fffefb;
 font-family: Arial;
 font-size: 16px;
 font-weight: bold;
-width: 100px;
 height: 25px;
 margin-left: 5px;
 margin-right: 5px;
@@ -438,8 +437,14 @@ padding-right:5px;
                    <string>Buscar</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../Source/ibootstrap.qrc">
-                    <normaloff>:/Icons/Bootstrap/search.svg</normaloff>:/Icons/Bootstrap/search.svg</iconset>
+                   <iconset resource="../../Source/iconosSVG.qrc">
+                    <normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_filas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_filas_blanco.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
                   </property>
                   <property name="toolButtonStyle">
                    <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -633,8 +638,14 @@ padding-right:5px;
                    <string>Buscar</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="../../Source/ibootstrap.qrc">
-                    <normaloff>:/Icons/Bootstrap/search.svg</normaloff>:/Icons/Bootstrap/search.svg</iconset>
+                   <iconset resource="../../Source/iconosSVG.qrc">
+                    <normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_filas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_filas_blanco.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
                   </property>
                   <property name="toolButtonStyle">
                    <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -733,6 +744,19 @@ padding-right:5px;
               <property name="text">
                <string>Agregar</string>
               </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_documento_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_documento_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextBesideIcon</enum>
+              </property>
              </widget>
             </item>
             <item>
@@ -742,6 +766,19 @@ padding-right:5px;
               </property>
               <property name="text">
                <string>Eliminar</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextBesideIcon</enum>
               </property>
              </widget>
             </item>
@@ -771,6 +808,7 @@ padding-right:5px;
  </widget>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
  </resources>
  <connections/>
 </ui>

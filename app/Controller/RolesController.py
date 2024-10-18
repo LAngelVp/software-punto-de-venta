@@ -5,7 +5,7 @@ from PyQt5.QtGui import *
 from ..View.UserInterfacePy.UI_CONTROL_ROLES import *
 from  ..View.UserInterfacePy.UI_NUEVO_ROL import *
 
-from ...RegistroInicialController import *
+# from ...RegistroInicialController import *
 
 class Control_rol(QWidget):
     def __init__(self):

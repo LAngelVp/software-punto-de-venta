@@ -19,7 +19,16 @@ class PuestoModel:
                 return nuevo_puesto, True
             
     def obtener_todos(self):
-        return self.session.query(Puestos).all()
+        try:
+            puestos = self.session.query(Puestos).all()
+            if puestos:
+                print('roles')
+                return puestos, True
+            else:
+                print('no hay roles')
+                return [], False
+        except Exception as e:
+            return None
     
     def obtener_puesto_por_id(self, id_elemento):
         puesto = self.session.query(Puestos).filter(Puestos.id == id_elemento).first()

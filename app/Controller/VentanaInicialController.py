@@ -6,7 +6,7 @@ from app.Source.img import *
 from app.Source.iconsdvg_rc import *
 from PyQt5.QtWidgets import QApplication, QWidget
 from app.View.UserInterfacePy.UI_BIENVENIDA import *
-from ...RegistroInicialController import Registro_personal_inicial
+from .RegistroInicialController import Registro_personal_inicial
 
 class Inicio_principal(QWidget):
     def __init__(self):

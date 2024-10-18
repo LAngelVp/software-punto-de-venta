@@ -9,7 +9,7 @@ from app.Source.iconos import *
 from app.Source.img import *
 from app.Source.ibootstrap import *
 from app.Model.CreadencialesUsuarioModel import *
-from ...SistemaPrincipalController import SistemaPrincipal
+from .SistemaPrincipalController import SistemaPrincipal
 
 
 class Login(QWidget):

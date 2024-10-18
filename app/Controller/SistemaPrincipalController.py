@@ -13,7 +13,7 @@ from app.Controller.EmpleadosController import *
 from app.Controller.VentaController import *
 from app.Controller.VentasController import *
 from app.Controller.ProductosController import *
-from ControlSucursalesController import *
+from app.Controller.ControlSucursalesController import *
 
 
 

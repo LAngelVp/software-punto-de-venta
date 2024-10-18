@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\DesktopPosWithPython\app\View\UserInterfaceUi\UI_CONTROL_CLIENTES.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_CLIENTES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -17,6 +17,9 @@ class Ui_Control_Clientes(object):
         Control_Clientes.resize(1307, 1126)
         Control_Clientes.setStyleSheet("#Control_Clientes{\n"
 "background: #fffefb;\n"
+"}\n"
+"[objectName^=\"wpc_\"]{\n"
+"background-color: #fffefb;\n"
 "}\n"
 "#label_wp_titulo_clientes{\n"
 "background-color: #023375;\n"
@@ -50,8 +53,9 @@ class Ui_Control_Clientes(object):
 "max-width:400px;\n"
 "}\n"
 "#etiqueta_iconobuscar{\n"
-"image: url(:/Icons/Bootstrap/search.svg);\n"
-"min-width:25px;\n"
+"image: url(:/iconosAzules/Icons/iconos/Azul/buscar_persona_azul.svg);\n"
+"min-width:35px;\n"
+"min-height:25px;\n"
 "}\n"
 "[objectName^=\"btn_btn_\"]{\n"
 "background-color: #00619a;\n"
@@ -474,8 +478,9 @@ class Ui_Control_Clientes(object):
         self.btn_btn_nuevacategoriaFisico.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_nuevacategoriaFisico.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/plus-square.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_nuevacategoriaFisico.setIcon(icon)
+        self.btn_btn_nuevacategoriaFisico.setIconSize(QtCore.QSize(20, 20))
         self.btn_btn_nuevacategoriaFisico.setObjectName("btn_btn_nuevacategoriaFisico")
         self.gridLayout_5.addWidget(self.btn_btn_nuevacategoriaFisico, 11, 5, 1, 1)
         self.txt_ocupacion_fisico = QtWidgets.QLineEdit(self.wpc_clientes_clienteFisico)
@@ -534,6 +539,7 @@ class Ui_Control_Clientes(object):
         self.btn_btn_nuevaareanegocio_fisico.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_nuevaareanegocio_fisico.setText("")
         self.btn_btn_nuevaareanegocio_fisico.setIcon(icon)
+        self.btn_btn_nuevaareanegocio_fisico.setIconSize(QtCore.QSize(20, 20))
         self.btn_btn_nuevaareanegocio_fisico.setObjectName("btn_btn_nuevaareanegocio_fisico")
         self.gridLayout_5.addWidget(self.btn_btn_nuevaareanegocio_fisico, 11, 2, 1, 1)
         self.txt_curp_fisico = QtWidgets.QLineEdit(self.wpc_clientes_clienteFisico)
@@ -672,6 +678,7 @@ class Ui_Control_Clientes(object):
         self.btn_btn_nuevacategoriaMoral.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_nuevacategoriaMoral.setText("")
         self.btn_btn_nuevacategoriaMoral.setIcon(icon)
+        self.btn_btn_nuevacategoriaMoral.setIconSize(QtCore.QSize(20, 20))
         self.btn_btn_nuevacategoriaMoral.setObjectName("btn_btn_nuevacategoriaMoral")
         self.gridLayout_2.addWidget(self.btn_btn_nuevacategoriaMoral, 5, 6, 1, 1)
         self.etiqueta_wpc_telefono_moral = QtWidgets.QLabel(self.wpc_contenedor_clienteMoral)
@@ -813,6 +820,7 @@ class Ui_Control_Clientes(object):
         self.btn_btn_areasnegocio_moral.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_areasnegocio_moral.setText("")
         self.btn_btn_areasnegocio_moral.setIcon(icon)
+        self.btn_btn_areasnegocio_moral.setIconSize(QtCore.QSize(20, 20))
         self.btn_btn_areasnegocio_moral.setObjectName("btn_btn_areasnegocio_moral")
         self.gridLayout_2.addWidget(self.btn_btn_areasnegocio_moral, 8, 3, 1, 1)
         self.cajaopciones_areasnegocio_moral = QtWidgets.QComboBox(self.wpc_contenedor_clienteMoral)
@@ -894,6 +902,11 @@ class Ui_Control_Clientes(object):
         spacerItem4 = QtWidgets.QSpacerItem(768, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_10.addItem(spacerItem4, 0, 4, 1, 1)
         self.btn_btn_limpiarcampos = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
+        self.btn_btn_limpiarcampos.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_limpiarcampos.setIcon(icon1)
+        self.btn_btn_limpiarcampos.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_limpiarcampos.setObjectName("btn_btn_limpiarcampos")
         self.gridLayout_10.addWidget(self.btn_btn_limpiarcampos, 0, 3, 1, 1)
         self.btn_btn_cliente_modificar = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
@@ -901,20 +914,20 @@ class Ui_Control_Clientes(object):
         self.btn_btn_cliente_modificar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_cliente_modificar.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.btn_btn_cliente_modificar.setAutoFillBackground(False)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/check-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_cliente_modificar.setIcon(icon1)
-        self.btn_btn_cliente_modificar.setIconSize(QtCore.QSize(25, 20))
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_cliente_modificar.setIcon(icon2)
+        self.btn_btn_cliente_modificar.setIconSize(QtCore.QSize(25, 25))
         self.btn_btn_cliente_modificar.setCheckable(False)
         self.btn_btn_cliente_modificar.setObjectName("btn_btn_cliente_modificar")
         self.gridLayout_10.addWidget(self.btn_btn_cliente_modificar, 0, 2, 1, 1)
         self.btn_btn_cliente_eliminar = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
         self.btn_btn_cliente_eliminar.setMinimumSize(QtCore.QSize(0, 25))
         self.btn_btn_cliente_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/x-octagon.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_cliente_eliminar.setIcon(icon2)
-        self.btn_btn_cliente_eliminar.setIconSize(QtCore.QSize(25, 20))
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_persona_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_cliente_eliminar.setIcon(icon3)
+        self.btn_btn_cliente_eliminar.setIconSize(QtCore.QSize(25, 25))
         self.btn_btn_cliente_eliminar.setObjectName("btn_btn_cliente_eliminar")
         self.gridLayout_10.addWidget(self.btn_btn_cliente_eliminar, 0, 1, 1, 1)
         self.btn_btn_cliente_agregar = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
@@ -922,10 +935,10 @@ class Ui_Control_Clientes(object):
         self.btn_btn_cliente_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_cliente_agregar.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.btn_btn_cliente_agregar.setAutoFillBackground(False)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/person-add.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_cliente_agregar.setIcon(icon3)
-        self.btn_btn_cliente_agregar.setIconSize(QtCore.QSize(25, 20))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_persona_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_cliente_agregar.setIcon(icon4)
+        self.btn_btn_cliente_agregar.setIconSize(QtCore.QSize(25, 25))
         self.btn_btn_cliente_agregar.setObjectName("btn_btn_cliente_agregar")
         self.gridLayout_10.addWidget(self.btn_btn_cliente_agregar, 0, 0, 1, 1)
         self.gridLayout_9.addWidget(self.wpc_menu_opciones_clientes, 1, 0, 1, 2)
@@ -1100,8 +1113,9 @@ class Ui_Control_Clientes(object):
         self.etiqueta_comentarios_cliente_moral.setText(_translate("Control_Clientes", "Comentarios"))
         self.txt_buscarcliente.setPlaceholderText(_translate("Control_Clientes", "Nombre del cliente"))
         self.label_wp_titulo_clientes.setText(_translate("Control_Clientes", "ADMINISTRACIÓN DE CLIENTES"))
-        self.btn_btn_limpiarcampos.setText(_translate("Control_Clientes", "Limpiar Campos"))
-        self.btn_btn_cliente_modificar.setText(_translate("Control_Clientes", " Actualizar"))
-        self.btn_btn_cliente_eliminar.setText(_translate("Control_Clientes", " Eliminar"))
-        self.btn_btn_cliente_agregar.setText(_translate("Control_Clientes", " Agregar cliente"))
+        self.btn_btn_cliente_modificar.setText(_translate("Control_Clientes", "Actualizar"))
+        self.btn_btn_cliente_eliminar.setText(_translate("Control_Clientes", "Eliminar"))
+        self.btn_btn_cliente_agregar.setText(_translate("Control_Clientes", "Agregar cliente"))
 import ibootstrap_rc
+import iconosSVG_rc
+import iconsdvg_rc

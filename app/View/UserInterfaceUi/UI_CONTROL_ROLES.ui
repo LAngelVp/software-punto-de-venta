@@ -320,16 +320,79 @@ background-color:none;
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-266</y>
                   <width>617</width>
-                  <height>318</height>
+                  <height>518</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_6">
-                 <item row="6" column="4">
-                  <widget class="QCheckBox" name="opcion_eliminarcliente">
+                 <item row="8" column="4">
+                  <widget class="QLabel" name="etiquetasubtitulo_puestos">
+                   <property name="text">
+                    <string>Puestos</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="17" column="0">
+                  <widget class="QCheckBox" name="opcion_modificargrupopermisos">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="14" column="0">
+                  <widget class="QLabel" name="etiquetasubtitulo_grupopermisos">
+                   <property name="text">
+                    <string>Grupo de permisos</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="14" column="2">
+                  <widget class="QLabel" name="etiquetasubtitulo_transacciones">
+                   <property name="text">
+                    <string>Transacciones</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="18" column="0">
+                  <widget class="QLabel" name="etiquetasubtitulo_usuarios">
+                   <property name="text">
+                    <string>Usuarios</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="16" column="2">
+                  <widget class="QCheckBox" name="opcion_eliminartransacciones">
                    <property name="text">
                     <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="15" column="4">
+                  <widget class="QCheckBox" name="opcion_crearturnos">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="15" column="0">
+                  <widget class="QCheckBox" name="opcion_creargrupopermisos">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="15" column="2">
+                  <widget class="QCheckBox" name="opcion_creartrasacciones">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="4">
+                  <widget class="QLabel" name="etiquetasubtitulo_cliente">
+                   <property name="text">
+                    <string>Clientes</string>
                    </property>
                   </widget>
                  </item>
@@ -344,6 +407,13 @@ background-color:none;
                   <widget class="QLabel" name="etiquetasubtitulo_empleado">
                    <property name="text">
                     <string>Empleados</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="4">
+                  <widget class="QCheckBox" name="opcion_eliminarcliente">
+                   <property name="text">
+                    <string>Eliminar</string>
                    </property>
                   </widget>
                  </item>
@@ -382,12 +452,144 @@ background-color:none;
                    </property>
                   </widget>
                  </item>
-                 <item row="2" column="4">
-                  <widget class="QCheckBox" name="opcion_eliminarproducto">
+                 <item row="8" column="2">
+                  <widget class="QLabel" name="etiquetasubtitulo_departamentos">
+                   <property name="text">
+                    <string>Departamentos</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="4">
+                  <widget class="QCheckBox" name="opcion_modificarpuesto">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="4">
+                  <widget class="QCheckBox" name="opcion_eliminarpuesto">
                    <property name="text">
                     <string>Eliminar</string>
                    </property>
                   </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QLabel" name="etiquetasubtitulo_proveedor">
+                   <property name="text">
+                    <string>Proveedores</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="2">
+                  <widget class="QCheckBox" name="opcion_crearproveedor">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="0">
+                  <widget class="QCheckBox" name="opcion_eliminarsucursal">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="4">
+                  <widget class="QCheckBox" name="opcion_modificarcliente">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="0">
+                  <widget class="QLabel" name="etiquetasubtitulo_sucursal">
+                   <property name="text">
+                    <string>Sucursales</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="2">
+                  <widget class="QCheckBox" name="opcion_modificarproveedor">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="2">
+                  <widget class="QCheckBox" name="opcion_eliminarproveedor">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="4">
+                  <widget class="QCheckBox" name="opcion_crearcliente">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="0">
+                  <widget class="QCheckBox" name="opcion_crearsucursal">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QCheckBox" name="opcion_eliminarventa">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="4">
+                  <widget class="QCheckBox" name="opcion_crearproducto">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="4">
+                  <widget class="QCheckBox" name="opcion_crearpuestos">
+                   <property name="text">
+                    <string>Crear</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
+                  <widget class="QCheckBox" name="opcion_modificarempleado">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="QCheckBox" name="opcion_eliminarempleado">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="2">
+                  <widget class="QCheckBox" name="opcion_modificarcompra">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="12" column="4">
+                  <spacer name="verticalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
                  </item>
                  <item row="12" column="2">
                   <spacer name="verticalSpacer_2">
@@ -409,6 +611,13 @@ background-color:none;
                    </property>
                   </widget>
                  </item>
+                 <item row="2" column="4">
+                  <widget class="QCheckBox" name="opcion_eliminarproducto">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="0" column="4">
                   <widget class="QLabel" name="etiquetasubtitulo_producto">
                    <property name="text">
@@ -416,18 +625,12 @@ background-color:none;
                    </property>
                   </widget>
                  </item>
-                 <item row="12" column="4">
-                  <spacer name="verticalSpacer_3">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
+                 <item row="3" column="0">
+                  <widget class="QCheckBox" name="opcion_modificarventa">
+                   <property name="text">
+                    <string>Modificar</string>
                    </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>20</width>
-                     <height>40</height>
-                    </size>
-                   </property>
-                  </spacer>
+                  </widget>
                  </item>
                  <item row="12" column="0">
                   <spacer name="verticalSpacer">
@@ -442,27 +645,6 @@ background-color:none;
                    </property>
                   </spacer>
                  </item>
-                 <item row="0" column="3" rowspan="14">
-                  <widget class="Line" name="line_3">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1" rowspan="14">
-                  <widget class="Line" name="line_2">
-                   <property name="orientation">
-                    <enum>Qt::Vertical</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QCheckBox" name="opcion_modificarventa">
-                   <property name="text">
-                    <string>Modificar</string>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="3" column="4">
                   <widget class="QCheckBox" name="opcion_modificarproducto">
                    <property name="text">
@@ -470,108 +652,94 @@ background-color:none;
                    </property>
                   </widget>
                  </item>
-                 <item row="3" column="2">
-                  <widget class="QCheckBox" name="opcion_modificarcompra">
-                   <property name="text">
-                    <string>Modificar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="0">
-                  <widget class="QCheckBox" name="opcion_modificarempleado">
-                   <property name="text">
-                    <string>Modificar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="0">
-                  <widget class="QCheckBox" name="opcion_eliminarempleado">
-                   <property name="text">
-                    <string>Eliminar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="4">
-                  <widget class="QCheckBox" name="opcion_modificarcliente">
-                   <property name="text">
-                    <string>Modificar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="6" column="2">
-                  <widget class="QCheckBox" name="opcion_eliminarproveedor">
-                   <property name="text">
-                    <string>Eliminar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="2">
-                  <widget class="QCheckBox" name="opcion_modificarproveedor">
-                   <property name="text">
-                    <string>Modificar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="0">
-                  <widget class="QLabel" name="etiquetasubtitulo_sucursal">
-                   <property name="text">
-                    <string>Sucursales</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="0">
-                  <widget class="QCheckBox" name="opcion_eliminarventa">
-                   <property name="text">
-                    <string>Eliminar</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="4">
-                  <widget class="QCheckBox" name="opcion_crearcliente">
+                 <item row="9" column="2">
+                  <widget class="QCheckBox" name="opcion_creardepartamento">
                    <property name="text">
                     <string>Crear</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="9" column="0">
-                  <widget class="QCheckBox" name="opcion_crearsucursal">
-                   <property name="text">
-                    <string>Crear</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="4">
-                  <widget class="QCheckBox" name="opcion_crearproducto">
-                   <property name="text">
-                    <string>Crear</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="4" column="2">
-                  <widget class="QLabel" name="etiquetasubtitulo_proveedor">
-                   <property name="text">
-                    <string>Proveedores</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="10" column="0">
-                  <widget class="QCheckBox" name="opcion_eliminarsucursal">
+                 <item row="10" column="2">
+                  <widget class="QCheckBox" name="opcion_eliminardepartamento">
                    <property name="text">
                     <string>Eliminar</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="2">
-                  <widget class="QCheckBox" name="opcion_crearproveedor">
+                 <item row="11" column="2">
+                  <widget class="QCheckBox" name="opcion_modificardepartamento">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="16" column="4">
+                  <widget class="QCheckBox" name="opcion_eliminarturnos">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="17" column="2">
+                  <widget class="QCheckBox" name="opcion_modificartransacciones">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="20" column="0">
+                  <widget class="QCheckBox" name="opcion_eliminarusuarios">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="14" column="4">
+                  <widget class="QLabel" name="etiquetasubtitulo_turnos">
+                   <property name="text">
+                    <string>Turnos</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="16" column="0">
+                  <widget class="QCheckBox" name="opcion_eliminargrupopermisos">
+                   <property name="text">
+                    <string>Eliminar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="17" column="4">
+                  <widget class="QCheckBox" name="opcion_modificarturnos">
+                   <property name="text">
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="19" column="0">
+                  <widget class="QCheckBox" name="opcion_crearusuarios">
                    <property name="text">
                     <string>Crear</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="4">
-                  <widget class="QLabel" name="etiquetasubtitulo_cliente">
+                 <item row="21" column="0">
+                  <widget class="QCheckBox" name="opcion_modificarusuarios">
                    <property name="text">
-                    <string>Clientes</string>
+                    <string>Modificar</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1" rowspan="22">
+                  <widget class="Line" name="line_2">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="3" rowspan="22">
+                  <widget class="Line" name="line_3">
+                   <property name="orientation">
+                    <enum>Qt::Vertical</enum>
                    </property>
                   </widget>
                  </item>

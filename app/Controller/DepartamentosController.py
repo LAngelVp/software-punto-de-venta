@@ -9,7 +9,7 @@ from ..Model.SucursalesModel import SucursalesModel
 from ..Model.DepartamentosModel import DepartamentosModel
 
 class DepartamentosController(QWidget):
-    
+    signal_departamento_agregado = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_Control_departamentos()
@@ -112,7 +112,7 @@ class DepartamentosController(QWidget):
 
         except Exception as e:
             Mensaje().mensaje_critico(f'error al guardar: {e}')
-        
+        self.signal_departamento_agregado.emit()
         self.limpiar()  # Actualizar la lista de departamentos
 
     def eliminar(self):
@@ -134,7 +134,7 @@ class DepartamentosController(QWidget):
                     return
             except Exception as e:
                 print(f'error al eliminar: {e}')
-            
+            self.signal_departamento_agregado.emit()
             self.limpiar()
 
     def actualizar(self):
@@ -241,7 +241,7 @@ class DepartamentosController(QWidget):
             item.setData(Qt.UserRole, sucursal.id)
             self.ui.lista_sucursalesexistentes.addItem(item)
 
-    def listar_sucursales_existentes(self, sucursales_vinculadas):
+    def listar_sucursales_existentes(self, sucursales_vinculadas = set()):
         self.ui.lista_sucursalesexistentes.clear()
         try:
             with Conexion_base_datos() as db:
@@ -265,11 +265,13 @@ class DepartamentosController(QWidget):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 try:
-                    self.departamentos = DepartamentosModel(session).obtener_todos()
-                    if self.departamentos is not None:
-                        self.listar_departamentos(self.departamentos)
+                    self.departamentos, estado = DepartamentosModel(session).obtener_todos()
+                    if estado:
+                        for i in  self.departamentos:
+                            print(i.nombre)
                 except Exception as e:
                     Mensaje().mensaje_alerta("Error al obtener departamentos")
+                self.listar_departamentos(self.departamentos)
             
         except Exception as e:
             print(f'Error al listar las sucursales : {e}')
@@ -286,6 +288,7 @@ class DepartamentosController(QWidget):
                 item.setData(Qt.UserRole, puesto.id)
                 
                 # Agregar el ítem a la lista
+                
                 self.ui.lista_puestosasignados.addItem(item)
         else:
             self.ui.lista_puestosasignados.clear()
@@ -303,6 +306,7 @@ class DepartamentosController(QWidget):
                     item.setData(Qt.UserRole, departamento.id)
                     
                     # Agregar el ítem a la lista
+                    print(departamento.id)
                     self.ui.lista_departamentosexistentes.addItem(item)
         else:
             self.ui.lista_departamentosexistentes.clear()

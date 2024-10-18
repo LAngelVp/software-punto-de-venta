@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="iconosBlancos">
+    <file>Icons/iconos/Blanco/agregar_documento_blanco.svg</file>
+    <file>Icons/iconos/Blanco/buscar_filas_blanco.svg</file>
+    <file>Icons/iconos/Blanco/actualizar_blanco.svg</file>
+    <file>Icons/iconos/Blanco/agregar_blanco.svg</file>
+    <file>Icons/iconos/Blanco/agregar_persona_blanco.svg</file>
+    <file>Icons/iconos/Blanco/eliminar_blanco.svg</file>
+    <file>Icons/iconos/Blanco/eliminar_persona_blanco.svg</file>
+    <file>Icons/iconos/Blanco/flecha_izquierda_blanco.svg</file>
+    <file>Icons/iconos/Blanco/flecha_right_blanco.svg</file>
+    <file>Icons/iconos/Blanco/guardar_blanco.svg</file>
+  </qresource>
+  <qresource prefix="iconosAzules">
+    <file>Icons/iconos/Azul/buscar_persona_azul.svg</file>
+  </qresource>
+</RCC>

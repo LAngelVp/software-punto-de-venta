@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1090</width>
+    <width>1092</width>
     <height>623</height>
    </rect>
   </property>
@@ -485,10 +485,24 @@ border-bottom: 2px solid #00668c;
             </size>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
-            <item row="10" column="0">
-             <widget class="QLabel" name="etiqueta_horasalida">
+            <item row="6" column="0">
+             <widget class="QLabel" name="etiqueta_puesto">
               <property name="text">
-               <string>Hora salida</string>
+               <string>Puesto</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="etiqueta_departamento">
+              <property name="text">
+               <string>Departamento</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_fotousuario">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -499,17 +513,64 @@ border-bottom: 2px solid #00668c;
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
+            <item row="1" column="1">
+             <widget class="QPushButton" name="Button_nuevasucursal">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
              <widget class="QComboBox" name="cajaopciones_sucursales"/>
             </item>
-            <item row="9" column="0">
+            <item row="5" column="0" colspan="2">
+             <widget class="QComboBox" name="cajaopciones_departamentos"/>
+            </item>
+            <item row="7" column="0" colspan="2">
+             <widget class="QComboBox" name="cajaopciones_puestos"/>
+            </item>
+            <item row="8" column="0" colspan="2">
+             <widget class="QLabel" name="etiqueta_horaentrada">
+              <property name="text">
+               <string>Hora entrada</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0" colspan="2">
              <widget class="QTimeEdit" name="tiempo_horaentrada">
               <property name="calendarPopup">
                <bool>true</bool>
               </property>
              </widget>
             </item>
-            <item row="12" column="0">
+            <item row="10" column="0" colspan="2">
+             <widget class="QLabel" name="etiqueta_horasalida">
+              <property name="text">
+               <string>Hora salida</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0" colspan="2">
+             <widget class="QTimeEdit" name="tiempo_horasalida">
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0" colspan="2">
              <spacer name="verticalSpacer">
               <property name="orientation">
                <enum>Qt::Vertical</enum>
@@ -522,7 +583,7 @@ border-bottom: 2px solid #00668c;
               </property>
              </spacer>
             </item>
-            <item row="13" column="0">
+            <item row="13" column="0" colspan="2">
              <layout class="QGridLayout" name="gridLayout_2">
               <property name="spacing">
                <number>0</number>
@@ -549,51 +610,43 @@ border-bottom: 2px solid #00668c;
               </item>
              </layout>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_fotousuario">
+            <item row="4" column="1">
+             <widget class="QPushButton" name="Button_agregardepartamento">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="text">
                <string/>
               </property>
-             </widget>
-            </item>
-            <item row="11" column="0">
-             <widget class="QTimeEdit" name="tiempo_horasalida">
-              <property name="calendarPopup">
-               <bool>true</bool>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
               </property>
              </widget>
             </item>
-            <item row="7" column="0">
-             <widget class="QComboBox" name="cajaopciones_puestos"/>
-            </item>
-            <item row="8" column="0">
-             <widget class="QLabel" name="etiqueta_horaentrada">
-              <property name="text">
-               <string>Hora entrada</string>
+            <item row="6" column="1">
+             <widget class="QPushButton" name="Button_agregarpuesto">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
               </property>
-             </widget>
-            </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="etiqueta_departamento">
               <property name="text">
-               <string>Departamento</string>
+               <string/>
               </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="etiqueta_puesto">
-              <property name="text">
-               <string>Puesto</string>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</iconset>
               </property>
-             </widget>
-            </item>
-            <item row="5" column="0">
-             <widget class="QComboBox" name="cajaopciones_departamentos"/>
-            </item>
-            <item row="3" column="0">
-             <widget class="QPushButton" name="Button_nuevasucursal">
-              <property name="text">
-               <string>Nueva Sucursal</string>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -1231,7 +1284,6 @@ border-bottom: 2px solid #00668c;
   <tabstop>numero_antiguedadmes</tabstop>
   <tabstop>numero_antiguedaddias</tabstop>
   <tabstop>cajaopciones_sucursales</tabstop>
-  <tabstop>Button_nuevasucursal</tabstop>
   <tabstop>cajaopciones_departamentos</tabstop>
   <tabstop>cajaopciones_puestos</tabstop>
   <tabstop>tiempo_horaentrada</tabstop>
@@ -1245,9 +1297,8 @@ border-bottom: 2px solid #00668c;
  </tabstops>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
-  <include location="../../Source/iconos.qrc"/>
   <include location="../../Source/iconsdvg.qrc"/>
-  <include location="../../Source/img.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
  </resources>
  <connections/>
 </ui>

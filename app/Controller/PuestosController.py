@@ -10,6 +10,7 @@ from ..Model.DepartamentosModel import DepartamentosModel
 
 
 class PuestosController(QWidget):
+    signal_puesto_agregado =  pyqtSignal()
     elemento_seleccionado = pyqtSignal(str)
     def __init__(self):
         super().__init__()
@@ -126,8 +127,8 @@ class PuestosController(QWidget):
                         Mensaje().mensaje_alerta("No se pudo registrar")
                 except Exception as e:
                     print(f'Surgio un error : {e}')
-
         self.limpiar()
+        self.signal_puesto_agregado.emit()
     def eliminar(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -140,15 +141,15 @@ class PuestosController(QWidget):
                         Mensaje().mensaje_alerta("No se pudo eliminar")
                 except Exception as e:
                     print(f'Surgio un error : {e}')
-
         self.limpiar()
+        self.signal_puesto_agregado.emit()
 
     def listar_departamentos(self):
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    departamentos = DepartamentosModel(session).obtener_todos()
+                    departamentos, estado = DepartamentosModel(session).obtener_todos()
                     if departamentos is not None:
                         self.diccionario_departamentos = {
                             depa.id: depa.nombre for depa in departamentos
@@ -165,8 +166,9 @@ class PuestosController(QWidget):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    self.puestos = PuestoModel(session).obtener_todos()
-                    if self.puestos is not None:
+                    self.puestos, estado = PuestoModel(session).obtener_todos()
+                    if estado:
+                        print("holla")
                         self.llenar_tabla(self.puestos)
         except Exception as e:
             print(e)
