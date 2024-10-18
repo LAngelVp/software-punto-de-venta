@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_ROLES.ui'
+# Form implementation generated from reading ui file 'c:\Users\Ing. Angel Perez\Documents\projects\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_ROLES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #

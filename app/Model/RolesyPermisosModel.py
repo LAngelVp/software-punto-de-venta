@@ -50,9 +50,11 @@ class RolesModel:
             return None
 
     def obtener_todos(self):
-        # Obtener todos los roles
         try:
             roles_todos = self.session.query(Roles).all()
-            return roles_todos
+            if roles_todos:
+                return roles_todos, True
+            else:
+                return [], False
         except Exception as e:
             return None

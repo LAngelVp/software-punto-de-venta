@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from ..View.UserInterfacePy.UI_CONTROL_EMPLEADOS import *
 from .RolesController import *
-from .RegistroInicialController import *
+from ...RegistroInicialController import *
 
 
 class Empleados(QWidget):

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1214</width>
-    <height>652</height>
+    <width>1090</width>
+    <height>623</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1214,6 +1214,9 @@ border-bottom: 2px solid #00668c;
   <tabstop>txt_ninterior</tabstop>
   <tabstop>txtlargo_descripcion_puesto</tabstop>
   <tabstop>txtlargo_direccion_completa</tabstop>
+  <tabstop>txt_usuario_iniciosesion</tabstop>
+  <tabstop>txt_contrasenia_usuario_iniciosesion</tabstop>
+  <tabstop>cajaopciones_rol_usuario</tabstop>
   <tabstop>opcion_domingo</tabstop>
   <tabstop>opcion_lunes</tabstop>
   <tabstop>opcion_martes</tabstop>
@@ -1224,6 +1227,9 @@ border-bottom: 2px solid #00668c;
   <tabstop>decimal_horas_laboralestotales</tabstop>
   <tabstop>decimal_salario</tabstop>
   <tabstop>fecha_fechacontratacion</tabstop>
+  <tabstop>numero_antiguedadyear</tabstop>
+  <tabstop>numero_antiguedadmes</tabstop>
+  <tabstop>numero_antiguedaddias</tabstop>
   <tabstop>cajaopciones_sucursales</tabstop>
   <tabstop>Button_nuevasucursal</tabstop>
   <tabstop>cajaopciones_departamentos</tabstop>
@@ -1232,9 +1238,10 @@ border-bottom: 2px solid #00668c;
   <tabstop>tiempo_horasalida</tabstop>
   <tabstop>Button_aceptar</tabstop>
   <tabstop>Button_cancelar</tabstop>
-  <tabstop>btc_cerrar</tabstop>
-  <tabstop>btc_minimizar</tabstop>
   <tabstop>btc_maximizar</tabstop>
+  <tabstop>btc_minimizar</tabstop>
+  <tabstop>btc_cerrar</tabstop>
+  <tabstop>fecha_baja</tabstop>
  </tabstops>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
