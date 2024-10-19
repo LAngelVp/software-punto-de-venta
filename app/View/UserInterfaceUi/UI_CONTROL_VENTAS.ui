@@ -49,9 +49,9 @@ background:#68a67d;
 background:#EE1D52;
 }
 #etiqueta_buscar{
-image: url(:/Icons/Bootstrap/search.svg);
-min-width:20px;
-min-height:20px;
+image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);
+min-width:25px;
+min-height:25px;
 }
 [objectName*=&quot;txt_&quot;]{
 font-size: 14px;
@@ -206,21 +206,51 @@ background-color:none;
               <item>
                <widget class="QPushButton" name="btn_btn_agregar">
                 <property name="text">
-                 <string>Agregar</string>
+                 <string>AGREGAR</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../Source/iconosSVG.qrc">
+                  <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="btn_btn_eliminar">
                 <property name="text">
-                 <string>Eliminar</string>
+                 <string>ELIMINAR</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../Source/iconosSVG.qrc">
+                  <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="btn_btn_modificar">
                 <property name="text">
-                 <string>Modificar</string>
+                 <string>MODIFICAR</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../Source/iconosSVG.qrc">
+                  <normaloff>:/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>24</width>
+                  <height>24</height>
+                 </size>
                 </property>
                </widget>
               </item>
@@ -301,6 +331,7 @@ background-color:none;
  </widget>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
  </resources>
  <connections/>
 </ui>

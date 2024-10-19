@@ -54,7 +54,7 @@ class Ui_Principal_sistema(object):
 "background-color: rgb(204, 203, 200);\n"
 "}\n"
 "#label_fotousuario{\n"
-"image: url(:/Icons/SVG/DrawKit(1).svg);\n"
+"image: url(:/Icons/IconosSVG/perfil.png);\n"
 "max-height:40px;\n"
 "min-height:40px;\n"
 "background-repeat: no-repeat;\n"
@@ -295,6 +295,4 @@ class Ui_Principal_sistema(object):
         self.btn_btn_sucursales.setToolTip(_translate("Principal_sistema", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Administrador de Sucursales</span></p></body></html>"))
         self.btn_mas_opciones.setToolTip(_translate("Principal_sistema", "Más Opciones"))
 from ...Source import ibootstrap_rc
-from ...Source import iconos_rc
 from ...Source import iconsdvg_rc
-from ...Source import img_rc

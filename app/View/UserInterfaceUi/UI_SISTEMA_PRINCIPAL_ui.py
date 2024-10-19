@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Ing. Angel Perez\Documents\projects\software-punto-de-venta\app\View\UserInterfaceUi\UI_SISTEMA_PRINCIPAL.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_SISTEMA_PRINCIPAL.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -54,7 +54,7 @@ class Ui_Principal_sistema(object):
 "background-color: rgb(204, 203, 200);\n"
 "}\n"
 "#label_fotousuario{\n"
-"image: url(:/Icons/SVG/DrawKit(1).svg);\n"
+"image: url(:/Icons/IconosSVG/perfil.png);\n"
 "max-height:40px;\n"
 "min-height:40px;\n"
 "background-repeat: no-repeat;\n"
@@ -295,6 +295,4 @@ class Ui_Principal_sistema(object):
         self.btn_btn_sucursales.setToolTip(_translate("Principal_sistema", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Administrador de Sucursales</span></p></body></html>"))
         self.btn_mas_opciones.setToolTip(_translate("Principal_sistema", "Más Opciones"))
 import ibootstrap_rc
-import iconos_rc
 import iconsdvg_rc
-import img_rc

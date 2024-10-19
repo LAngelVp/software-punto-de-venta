@@ -28,10 +28,7 @@ class Ui_Bienvenida(object):
 "font-weight:bold;\n"
 "font-size: 22px;\n"
 "}\n"
-"#etiqueta_imagen{\n"
-"image: url(:/Icons/IconosSVG/ilustracion_hombre_con_computadora.png);\n"
-"\n"
-"}")
+"")
         self.gridLayout = QtWidgets.QGridLayout(Bienvenida)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
@@ -54,6 +51,8 @@ class Ui_Bienvenida(object):
         self.etiqueta_imagen.setGeometry(QtCore.QRect(30, 0, 381, 251))
         self.etiqueta_imagen.setStyleSheet("")
         self.etiqueta_imagen.setText("")
+        self.etiqueta_imagen.setPixmap(QtGui.QPixmap(":/Icons/IconosSVG/ilustracion_hombre_con_computadora.png"))
+        self.etiqueta_imagen.setScaledContents(True)
         self.etiqueta_imagen.setObjectName("etiqueta_imagen")
         self.etiqueta_titulo = QtWidgets.QLabel(self.contenedor)
         self.etiqueta_titulo.setGeometry(QtCore.QRect(24, 0, 401, 31))

@@ -37,10 +37,7 @@ font-family: Arial;
 font-weight:bold;
 font-size: 22px;
 }
-#etiqueta_imagen{
-image: url(:/Icons/IconosSVG/ilustracion_hombre_con_computadora.png);
-
-}</string>
+</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -88,6 +85,12 @@ color:#1d1c1c;
       </property>
       <property name="text">
        <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap resource="../../Source/iconsdvg.qrc">:/Icons/IconosSVG/ilustracion_hombre_con_computadora.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
       </property>
      </widget>
      <widget class="QLabel" name="etiqueta_titulo">

@@ -14,21 +14,27 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Bienvenida(object):
     def setupUi(self, Bienvenida):
         Bienvenida.setObjectName("Bienvenida")
-        Bienvenida.resize(443, 226)
+        Bienvenida.resize(450, 250)
+        Bienvenida.setMinimumSize(QtCore.QSize(450, 250))
+        Bienvenida.setMaximumSize(QtCore.QSize(450, 250))
         Bienvenida.setStyleSheet("#Bienvenida{\n"
+"background-color: #fffefb;\n"
+"}\n"
+"#contenedor{\n"
 "background-color: #fffefb;\n"
 "}\n"
 "#etiqueta_titulo{\n"
 "font-family: Arial;\n"
 "font-weight:bold;\n"
 "font-size: 22px;\n"
-"}")
+"}\n"
+"")
         self.gridLayout = QtWidgets.QGridLayout(Bienvenida)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
-        self.widget = QtWidgets.QWidget(Bienvenida)
-        self.widget.setStyleSheet("#btn_btn_registrar{\n"
+        self.contenedor = QtWidgets.QWidget(Bienvenida)
+        self.contenedor.setStyleSheet("#btn_btn_registrar{\n"
 "background-color: rgb(0, 97, 154);\n"
 "border-radius: 5px;\n"
 "color:#fffefb;\n"
@@ -40,25 +46,26 @@ class Ui_Bienvenida(object):
 "background-color:#fffefb;\n"
 "color:#1d1c1c;\n"
 "}")
-        self.widget.setObjectName("widget")
-        self.etiqueta_imagen = QtWidgets.QLabel(self.widget)
-        self.etiqueta_imagen.setGeometry(QtCore.QRect(160, 40, 131, 131))
-        self.etiqueta_imagen.setStyleSheet("image: url(:/imagenes/Designer.jpeg);\n"
-"border-radius: 5px;")
+        self.contenedor.setObjectName("contenedor")
+        self.etiqueta_imagen = QtWidgets.QLabel(self.contenedor)
+        self.etiqueta_imagen.setGeometry(QtCore.QRect(30, 0, 381, 251))
+        self.etiqueta_imagen.setStyleSheet("")
         self.etiqueta_imagen.setText("")
+        self.etiqueta_imagen.setPixmap(QtGui.QPixmap(":/Icons/IconosSVG/ilustracion_hombre_con_computadora.png"))
+        self.etiqueta_imagen.setScaledContents(True)
         self.etiqueta_imagen.setObjectName("etiqueta_imagen")
-        self.etiqueta_titulo = QtWidgets.QLabel(self.widget)
-        self.etiqueta_titulo.setGeometry(QtCore.QRect(20, 7, 401, 31))
+        self.etiqueta_titulo = QtWidgets.QLabel(self.contenedor)
+        self.etiqueta_titulo.setGeometry(QtCore.QRect(24, 0, 401, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(1)
+        font.setPointSize(-1)
         font.setBold(True)
         font.setWeight(75)
         self.etiqueta_titulo.setFont(font)
         self.etiqueta_titulo.setAlignment(QtCore.Qt.AlignCenter)
         self.etiqueta_titulo.setObjectName("etiqueta_titulo")
-        self.btn_btn_registrar = QtWidgets.QPushButton(self.widget)
-        self.btn_btn_registrar.setGeometry(QtCore.QRect(110, 173, 231, 31))
+        self.btn_btn_registrar = QtWidgets.QPushButton(self.contenedor)
+        self.btn_btn_registrar.setGeometry(QtCore.QRect(110, 210, 231, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(True)
@@ -67,7 +74,18 @@ class Ui_Bienvenida(object):
         self.btn_btn_registrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_registrar.setStyleSheet("")
         self.btn_btn_registrar.setObjectName("btn_btn_registrar")
-        self.gridLayout.addWidget(self.widget, 1, 0, 1, 1)
+        self.label = QtWidgets.QLabel(self.contenedor)
+        self.label.setGeometry(QtCore.QRect(340, 80, 91, 31))
+        self.label.setStyleSheet("")
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap(":/Icons/IconosSVG/logo_devrous.png"))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.etiqueta_imagen.raise_()
+        self.btn_btn_registrar.raise_()
+        self.etiqueta_titulo.raise_()
+        self.label.raise_()
+        self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
 
         self.retranslateUi(Bienvenida)
         QtCore.QMetaObject.connectSlotsByName(Bienvenida)
@@ -78,3 +96,4 @@ class Ui_Bienvenida(object):
         self.etiqueta_titulo.setText(_translate("Bienvenida", "Bienvenido a tu sistema de negocios"))
         self.btn_btn_registrar.setText(_translate("Bienvenida", "Comencemos a Trabajar"))
 from ...Source import ibootstrap_rc
+from ...Source import iconsdvg_rc

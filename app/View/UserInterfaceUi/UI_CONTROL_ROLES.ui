@@ -201,7 +201,7 @@ background-color:none;
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>Buscar</string>
+                <string>BUSCAR</string>
                </property>
               </widget>
              </item>
@@ -254,14 +254,34 @@ background-color:none;
           <item row="2" column="4" alignment="Qt::AlignRight">
            <widget class="QPushButton" name="btn_btn_eliminarrol">
             <property name="text">
-             <string>Eliminar</string>
+             <string>ELIMINAR</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../Source/iconosSVG.qrc">
+              <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
             </property>
            </widget>
           </item>
           <item row="2" column="3">
            <widget class="QPushButton" name="btn_btn_modificarrol">
             <property name="text">
-             <string>Modificar</string>
+             <string>MODIFICAR</string>
+            </property>
+            <property name="icon">
+             <iconset resource="../../Source/iconosSVG.qrc">
+              <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -300,7 +320,17 @@ background-color:none;
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
                <property name="text">
-                <string>Guardar</string>
+                <string>GUARDAR</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../../Source/iconosSVG.qrc">
+                 <normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -320,7 +350,7 @@ background-color:none;
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-266</y>
+                  <y>0</y>
                   <width>617</width>
                   <height>518</height>
                  </rect>
@@ -819,6 +849,8 @@ background-color:none;
   <tabstop>contenedor_permisos</tabstop>
   <tabstop>contenedor_funcionesroles</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../../Source/iconosSVG.qrc"/>
+ </resources>
  <connections/>
 </ui>

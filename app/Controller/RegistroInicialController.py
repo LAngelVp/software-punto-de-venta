@@ -133,7 +133,7 @@ class Registro_personal_inicial(QWidget):
                 sucursales = SucursalesModel(session).obtener_todo()
             if sucursales:
                 for sucursal in sucursales:
-                    self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal)
+                    self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal, sucursal.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_sucursales)
         except Exception as e:
             print(f"Error al obtener sucursales: {e}")
@@ -147,7 +147,7 @@ class Registro_personal_inicial(QWidget):
                 grupo_permiso, estado = RolesModel(session).obtener_todos()
             if estado:
                 for grupo in grupo_permiso:
-                    self.ui.cajaopciones_rol_usuario.addItem(grupo.nombre)
+                    self.ui.cajaopciones_rol_usuario.addItem(grupo.nombre, grupo.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_rol_usuario)
         except Exception as e:
             print(f"Error al obtener sucursales: {e}")
@@ -161,7 +161,7 @@ class Registro_personal_inicial(QWidget):
                 departamentos, estado = DepartamentosModel(session).obtener_todos()
             if departamentos:
                 for departamento in departamentos:
-                    self.ui.cajaopciones_departamentos.addItem(departamento.nombre)
+                    self.ui.cajaopciones_departamentos.addItem(departamento.nombre, departamento.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_departamentos)
         except Exception as e:
             print(f"Error al obtener sucursales: {e}")
@@ -175,7 +175,8 @@ class Registro_personal_inicial(QWidget):
                 puestos, estado = PuestoModel(session).obtener_todos()
             if puestos:
                 for puesto in puestos:
-                    self.ui.cajaopciones_puestos.addItem(puesto.nombre)
+                    self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto.id)
+
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
         except Exception as e:
             print(f"Error al obtener sucursales: {e}")
@@ -280,41 +281,12 @@ class Registro_personal_inicial(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        id_permiso = PermisosModel(session).crear_permiso(
-                            nombre = datos["puesto"],
-                            descripcion = ''
-                            )
-                    
-                        id_rol = RolesModel(session).crear_Rol(
-                            nombre = datos["rol"], 
-                            descripcion = '',
-                            permisos = [id_permiso]
-                            )
-                        
-                        nombre_sucursal = self.ui.cajaopciones_sucursales.currentText()
-                        id_sucursal = SucursalesModel(session).obtener_sucursal_id(nombre_sucursal)
-                        
-                        id_departamento = DepartamentosModel(session).agregar_departamento(
-                            nombre = datos['departamento'],
-                            descripcion = '',
-                            sucursal_id = id_sucursal
-                        )
-
-                        id_puesto = PuestoModel(session).crear_puesto(
-                            nombre = datos['puesto'],
-                            salario = datos['salario'],
-                            horas_laborales = datos['horas_laborales'],
-                            dias_laborales = self.dias_laborales_str,
-                            descripcion_puesto = datos['descripcion_puesto'],
-                            departamento_id = id_departamento
-                        )
-
                         id_usuario = UsuarioModel(session).crear_usuario(
                             usuario = datos['usuario'],
                             password = datos['password_usuario'],
                             fecha_creacion = fecha_actual,
                             fecha_actualizacion = fecha_actual,
-                            rol_id = id_rol)
+                            rol_id = self.ui.cajaopciones_rol_usuario.currentData())
                     
                         EmpleadosModel(session).crear_empleado(
                             nombre = datos['nombre'],
@@ -337,18 +309,17 @@ class Registro_personal_inicial(QWidget):
                             hora_entrada=datos['hora_entrada'],
                             hora_salida=datos['hora_salida'],
                             foto = self.file_name,
-                            puesto_id = id_puesto,
+                            puesto_id = self.ui.cajaopciones_puestos.currentData(),
                             usuario_id=id_usuario,
-                            departamento_id = id_departamento
+                            departamento_id = self.ui.cajaopciones_departamentos.currentData()
                         )
+                        self.close()
                         self.abrir_inicio()
                     except Exception as e:
                         print(e)
         else:
             print("Datos no válidos. No se almacenará la información.")
 
-
-    
     def abrir_inicio(self):
         from app.Controller.InicioDeSesionController import Login  # Mover la importación aquí
         self.login_window = Login()  # Crear instancia de Login
@@ -389,8 +360,8 @@ class Registro_personal_inicial(QWidget):
         # Resetea drag_start_position al soltar el botón del mouse
         self.drag_start_position = None
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ui = Registro_personal_inicial()
-    ui.show()
-    sys.exit(app.exec())
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     ui = Registro_personal_inicial()
+#     ui.show()
+#     sys.exit(app.exec())

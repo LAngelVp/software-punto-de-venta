@@ -523,7 +523,7 @@ border-bottom: 2px solid #00668c;
               </property>
               <property name="icon">
                <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</iconset>
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -620,7 +620,7 @@ border-bottom: 2px solid #00668c;
               </property>
               <property name="icon">
                <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</iconset>
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -640,7 +640,7 @@ border-bottom: 2px solid #00668c;
               </property>
               <property name="icon">
                <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Mas_blanco.svg</iconset>
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
               </property>
               <property name="iconSize">
                <size>

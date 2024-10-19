@@ -161,10 +161,10 @@ class Empleados(Base):
     turnos = relationship("Turnos", back_populates="empleado")
     departamento_id = Column(
         BigInteger, ForeignKey("Departamentos.id")
-    )  # Clave foránea hacia Departamentos
+    )
     departamento = relationship(
         "Departamentos", back_populates="empleados"
-    )  # Relación inversa
+    )
 
 
 class Sucursales(Base):

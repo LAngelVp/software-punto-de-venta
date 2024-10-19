@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Ing. Angel Perez\Documents\projects\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_SUCURSALES.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_SUCURSALES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,11 +14,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Nueva_sucursal(object):
     def setupUi(self, Nueva_sucursal):
         Nueva_sucursal.setObjectName("Nueva_sucursal")
-        Nueva_sucursal.resize(749, 449)
+        Nueva_sucursal.resize(763, 449)
         Nueva_sucursal.setMinimumSize(QtCore.QSize(0, 0))
         Nueva_sucursal.setMaximumSize(QtCore.QSize(16777215, 16777215))
         Nueva_sucursal.setStyleSheet("#Nueva_sucursal{\n"
 "background: #fffefb;\n"
+"}\n"
+"#etiqueta_buscar{\n"
+"image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);\n"
+"min-width: 25px;\n"
+"min-height: 25px;\n"
 "}\n"
 "[objectName*=\"contenedor_\"]{\n"
 "background: #fffefb;\n"
@@ -141,16 +146,32 @@ class Ui_Nueva_sucursal(object):
         self.contenedor_lista.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_lista.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor_lista.setObjectName("contenedor_lista")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.contenedor_lista)
-        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.contenedor_lista)
+        self.gridLayout_4.setObjectName("gridLayout_4")
         self.etiquetasubtitulo_sucursales = QtWidgets.QLabel(self.contenedor_lista)
         self.etiquetasubtitulo_sucursales.setObjectName("etiquetasubtitulo_sucursales")
-        self.gridLayout_3.addWidget(self.etiquetasubtitulo_sucursales, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
+        self.gridLayout_4.addWidget(self.etiquetasubtitulo_sucursales, 1, 0, 1, 1)
+        self.etiquetasubtitulo_departamentosasociados = QtWidgets.QLabel(self.contenedor_lista)
+        self.etiquetasubtitulo_departamentosasociados.setObjectName("etiquetasubtitulo_departamentosasociados")
+        self.gridLayout_4.addWidget(self.etiquetasubtitulo_departamentosasociados, 1, 1, 1, 1)
         self.lista_sucursales = QtWidgets.QListWidget(self.contenedor_lista)
         self.lista_sucursales.setMinimumSize(QtCore.QSize(0, 0))
         self.lista_sucursales.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.lista_sucursales.setObjectName("lista_sucursales")
-        self.gridLayout_3.addWidget(self.lista_sucursales, 1, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.lista_sucursales, 2, 0, 1, 1)
+        self.lista_departamentosasociados = QtWidgets.QListWidget(self.contenedor_lista)
+        self.lista_departamentosasociados.setObjectName("lista_departamentosasociados")
+        self.gridLayout_4.addWidget(self.lista_departamentosasociados, 2, 1, 1, 1)
+        self.gridLayout_3 = QtWidgets.QGridLayout()
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.etiqueta_buscar = QtWidgets.QLabel(self.contenedor_lista)
+        self.etiqueta_buscar.setText("")
+        self.etiqueta_buscar.setObjectName("etiqueta_buscar")
+        self.gridLayout_3.addWidget(self.etiqueta_buscar, 0, 0, 1, 1)
+        self.txt_buscarsucursales = QtWidgets.QLineEdit(self.contenedor_lista)
+        self.txt_buscarsucursales.setObjectName("txt_buscarsucursales")
+        self.gridLayout_3.addWidget(self.txt_buscarsucursales, 0, 1, 1, 1)
+        self.gridLayout_4.addLayout(self.gridLayout_3, 0, 0, 1, 2)
         self.gridLayout.addWidget(self.contenedor_lista, 0, 1, 1, 1)
         self.contenedor = QtWidgets.QFrame(Nueva_sucursal)
         self.contenedor.setMinimumSize(QtCore.QSize(350, 0))
@@ -159,6 +180,9 @@ class Ui_Nueva_sucursal(object):
         self.contenedor.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor.setObjectName("contenedor")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.contenedor)
+        self.gridLayout_2.setContentsMargins(0, -1, 0, 0)
+        self.gridLayout_2.setHorizontalSpacing(0)
+        self.gridLayout_2.setVerticalSpacing(5)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.etiqueta_ciudad = QtWidgets.QLabel(self.contenedor)
         self.etiqueta_ciudad.setObjectName("etiqueta_ciudad")
@@ -210,24 +234,39 @@ class Ui_Nueva_sucursal(object):
         self.contenedor_botones.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor_botones.setObjectName("contenedor_botones")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_botones)
+        self.horizontalLayout.setContentsMargins(0, -1, 0, -1)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.btn_btn_eliminar = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_eliminar.setIcon(icon)
+        self.btn_btn_eliminar.setIconSize(QtCore.QSize(20, 20))
         self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
         self.horizontalLayout.addWidget(self.btn_btn_eliminar)
         self.btn_btn_actualizar = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_actualizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_actualizar.setIcon(icon1)
+        self.btn_btn_actualizar.setIconSize(QtCore.QSize(20, 20))
         self.btn_btn_actualizar.setObjectName("btn_btn_actualizar")
         self.horizontalLayout.addWidget(self.btn_btn_actualizar)
         self.btn_btn_agregar = QtWidgets.QPushButton(self.contenedor_botones)
         self.btn_btn_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_agregar.setIcon(icon2)
+        self.btn_btn_agregar.setIconSize(QtCore.QSize(20, 20))
         self.btn_btn_agregar.setObjectName("btn_btn_agregar")
         self.horizontalLayout.addWidget(self.btn_btn_agregar)
         self.gridLayout_2.addWidget(self.contenedor_botones, 9, 0, 1, 4)
         self.btn_btn_limpiar = QtWidgets.QPushButton(self.contenedor)
         self.btn_btn_limpiar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_limpiar.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_limpiar.setIcon(icon)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_limpiar.setIcon(icon3)
         self.btn_btn_limpiar.setIconSize(QtCore.QSize(25, 25))
         self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
         self.gridLayout_2.addWidget(self.btn_btn_limpiar, 0, 3, 1, 1)
@@ -252,6 +291,8 @@ class Ui_Nueva_sucursal(object):
         _translate = QtCore.QCoreApplication.translate
         Nueva_sucursal.setWindowTitle(_translate("Nueva_sucursal", "Form"))
         self.etiquetasubtitulo_sucursales.setText(_translate("Nueva_sucursal", "Sucursales"))
+        self.etiquetasubtitulo_departamentosasociados.setText(_translate("Nueva_sucursal", "Departamentos"))
+        self.txt_buscarsucursales.setPlaceholderText(_translate("Nueva_sucursal", " Buscar Sucursal"))
         self.etiqueta_ciudad.setText(_translate("Nueva_sucursal", "Ciudad"))
         self.etiqueta_ntelefono.setText(_translate("Nueva_sucursal", "Num. Telefono"))
         self.etiquetaTitulo_sucursal.setText(_translate("Nueva_sucursal", "Nueva Sucursal"))
@@ -260,7 +301,8 @@ class Ui_Nueva_sucursal(object):
         self.etiqueta_nombre.setText(_translate("Nueva_sucursal", "Nombre"))
         self.etiqueta_codigopostal.setText(_translate("Nueva_sucursal", "Codigo Postal"))
         self.etiqueta_pais.setText(_translate("Nueva_sucursal", "Pais"))
-        self.btn_btn_eliminar.setText(_translate("Nueva_sucursal", "Eliminar"))
-        self.btn_btn_actualizar.setText(_translate("Nueva_sucursal", "Actualizar"))
-        self.btn_btn_agregar.setText(_translate("Nueva_sucursal", "Agregar"))
+        self.btn_btn_eliminar.setText(_translate("Nueva_sucursal", "ELIMINAR"))
+        self.btn_btn_actualizar.setText(_translate("Nueva_sucursal", "ACTUALIZAR"))
+        self.btn_btn_agregar.setText(_translate("Nueva_sucursal", "AGREGAR"))
+import iconosSVG_rc
 import iconsdvg_rc

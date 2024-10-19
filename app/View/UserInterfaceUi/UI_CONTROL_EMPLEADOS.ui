@@ -71,7 +71,7 @@ text-align: center;
 text-transform: uppercase;
 color: #fffefb;
 }
-*[objectName*=&quot;btn_btn&quot;]:hover{
+[objectName*=&quot;btn_btn&quot;]:hover{
 background-color: #2196F3;
 }
 #btn_btn_eliminar:hover{
@@ -80,7 +80,34 @@ background-color:#EE1D52;
 #btn_btn_agregar:hover{
 background-color: #68a67d;
 }
-#tabla_listaempleados QScrollBar:vertical {
+[objectName^=&quot;cajaopciones_&quot;]{
+border: none;
+border-bottom: 1px solid rgb(29, 28, 28);
+borde-radius: 5px;
+padding: 2px;
+background-color: #f5f4f1;
+borde-radius: 5px;
+font-size: 12px;
+width:87px;
+}
+[objectName^=&quot;cajaopciones_&quot;]::drop-down{
+subcontrol-origin: padding;
+subcontrol-position: top right;
+padding-right:5px;
+width: 20%;
+border-left-width: 1px;
+borde-radius: 5px;
+background-color: #f5f4f1;
+}
+[objectName^=&quot;cajaopciones_&quot;]::down-arrow{
+image: url(:/Icons/Bootstrap/filter-left.svg);
+width: 17%;
+height: 17%;
+padding-left:5px;
+padding-right:5px;
+}
+
+[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
     border: 1px solid gray;
     background:#023375;
     width: 5px;
@@ -88,40 +115,40 @@ border-radius:2px;
     margin: 22px 0 22px 0; 
 }
 
-#tabla_listaempleados QScrollBar::handle:vertical {
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
     background: #023375;  /* Color del &quot;manejador&quot; */
     min-height: 20px;  /* Altura mínima del manejador */
 }
 
-#tabla_listaempleados QScrollBar::add-line:vertical,
-#tabla_listaempleados QScrollBar::sub-line:vertical {
+[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
+[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
 background-color:none;
 }
 
-#tabla_listaempleados QScrollBar::handle:horizontal {
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
     background: #023375;  /* Color del &quot;manejador&quot; horizontal */
     height: 5px;  /* Altura de la barra horizontal */
 	border-radius: 2px;
 }
 
-#tabla_listaempleados QScrollBar:horizontal {
+[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
     background: #023375;
     height: 5px;  /* Altura de la barra */
 	border-radius: 2px;
 }
-#tabla_listaempleados QHeaderView::section {
+[objectName*=&quot;tabla_&quot;] QHeaderView::section {
     background-color: #023375;  /* Color de fondo de los encabezados */
     color: white;  /* Color del texto */
     padding: 5px;  /* Espaciado interno */
     border: 1px solid gray;  /* Borde de los encabezados */
 }
 
-#tabla_listaempleados QHeaderView::horizontal {
+[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
     background-color: #023375;  /* Color de fondo de los encabezados horizontales */
     color: white;  /* Color del texto */
 }
 
-#tabla_listaempleados QHeaderView::vertical {
+[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
     background-color: #023375;  /* Color de fondo de los encabezados verticales */
     color: white;  /* Color del texto */
 }</string>
@@ -162,7 +189,7 @@ background-color:none;
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QFrame" name="contenedorprincipal">
+    <widget class="QFrame" name="contenedor">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -186,7 +213,7 @@ background-color:none;
        <number>0</number>
       </property>
       <item row="1" column="1">
-       <widget class="QWidget" name="widget" native="true">
+       <widget class="QWidget" name="contenedor_cuerpo" native="true">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -247,7 +274,7 @@ background-color:none;
              <number>5</number>
             </property>
             <item row="1" column="2">
-             <widget class="QComboBox" name="comboBox">
+             <widget class="QComboBox" name="cajaopciones_departamento">
               <property name="sizeAdjustPolicy">
                <enum>QComboBox::AdjustToContents</enum>
               </property>
@@ -262,8 +289,14 @@ background-color:none;
                <string/>
               </property>
               <property name="icon">
-               <iconset resource="../../Source/ibootstrap.qrc">
-                <normaloff>:/Icons/Bootstrap/search.svg</normaloff>:/Icons/Bootstrap/search.svg</iconset>
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -308,7 +341,7 @@ background-color:none;
        </widget>
       </item>
       <item row="0" column="0" colspan="2" alignment="Qt::AlignTop">
-       <widget class="QFrame" name="panel_controles">
+       <widget class="QFrame" name="contenedor_botones">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -375,6 +408,19 @@ background-color:none;
               <property name="text">
                <string>Agregar</string>
               </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextBesideIcon</enum>
+              </property>
              </widget>
             </item>
             <item>
@@ -384,6 +430,39 @@ background-color:none;
               </property>
               <property name="text">
                <string>Eliminar</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+              <property name="toolButtonStyle">
+               <enum>Qt::ToolButtonTextBesideIcon</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_btn_editarempleado">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>EDItar</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
               </property>
              </widget>
             </item>
@@ -405,6 +484,16 @@ background-color:none;
               <property name="text">
                <string>Control de Roles</string>
               </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/grupo_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/grupo_persona_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>25</width>
+                <height>25</height>
+               </size>
+              </property>
              </widget>
             </item>
            </layout>
@@ -420,6 +509,7 @@ background-color:none;
  </widget>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
  </resources>
  <connections/>
 </ui>

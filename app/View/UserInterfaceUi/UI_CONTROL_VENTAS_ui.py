@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\DesktopPosWithPython\app\View\UserInterfaceUi\UI_CONTROL_VENTAS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_VENTAS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -50,9 +50,9 @@ class Ui_Control_Ventas(object):
 "background:#EE1D52;\n"
 "}\n"
 "#etiqueta_buscar{\n"
-"image: url(:/Icons/Bootstrap/search.svg);\n"
-"min-width:20px;\n"
-"min-height:20px;\n"
+"image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);\n"
+"min-width:25px;\n"
+"min-height:25px;\n"
 "}\n"
 "[objectName*=\"txt_\"]{\n"
 "font-size: 14px;\n"
@@ -146,12 +146,24 @@ class Ui_Control_Ventas(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.btn_btn_agregar = QtWidgets.QPushButton(self.contenedor_controles)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_agregar.setIcon(icon)
+        self.btn_btn_agregar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_agregar.setObjectName("btn_btn_agregar")
         self.horizontalLayout.addWidget(self.btn_btn_agregar)
         self.btn_btn_eliminar = QtWidgets.QPushButton(self.contenedor_controles)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_eliminar.setIcon(icon1)
+        self.btn_btn_eliminar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
         self.horizontalLayout.addWidget(self.btn_btn_eliminar)
         self.btn_btn_modificar = QtWidgets.QPushButton(self.contenedor_controles)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_modificar.setIcon(icon2)
+        self.btn_btn_modificar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_modificar.setObjectName("btn_btn_modificar")
         self.horizontalLayout.addWidget(self.btn_btn_modificar)
         self.gridLayout_3.addLayout(self.horizontalLayout, 0, 0, 1, 1)
@@ -195,8 +207,9 @@ class Ui_Control_Ventas(object):
         _translate = QtCore.QCoreApplication.translate
         Control_Ventas.setWindowTitle(_translate("Control_Ventas", "Form"))
         self.etiquetaTitulo_ventas.setText(_translate("Control_Ventas", "ADMINISTRACIÓN DE VENTAS"))
-        self.btn_btn_agregar.setText(_translate("Control_Ventas", "Agregar"))
-        self.btn_btn_eliminar.setText(_translate("Control_Ventas", "Eliminar"))
-        self.btn_btn_modificar.setText(_translate("Control_Ventas", "Modificar"))
+        self.btn_btn_agregar.setText(_translate("Control_Ventas", "AGREGAR"))
+        self.btn_btn_eliminar.setText(_translate("Control_Ventas", "ELIMINAR"))
+        self.btn_btn_modificar.setText(_translate("Control_Ventas", "MODIFICAR"))
         self.btn_btn_buscar.setText(_translate("Control_Ventas", "Buscar"))
 import ibootstrap_rc
+import iconosSVG_rc

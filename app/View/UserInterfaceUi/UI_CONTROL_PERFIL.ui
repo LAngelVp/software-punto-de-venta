@@ -288,7 +288,7 @@ border-bottom: 2px solid #00668c;
                  <property name="font">
                   <font>
                    <family>Arial</family>
-                   <pointsize>1</pointsize>
+                   <pointsize>-1</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -306,7 +306,7 @@ border-bottom: 2px solid #00668c;
                  <property name="font">
                   <font>
                    <family>Arial</family>
-                   <pointsize>1</pointsize>
+                   <pointsize>-1</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -324,7 +324,7 @@ border-bottom: 2px solid #00668c;
                  <property name="font">
                   <font>
                    <family>Arial</family>
-                   <pointsize>1</pointsize>
+                   <pointsize>-1</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -358,7 +358,7 @@ border-bottom: 2px solid #00668c;
                  <property name="font">
                   <font>
                    <family>Arial</family>
-                   <pointsize>1</pointsize>
+                   <pointsize>-1</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -407,20 +407,6 @@ background:none;</string>
                 <widget class="Line" name="line_3">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="2">
-                <widget class="QLabel" name="etiquetaTitulo_datosempleo">
-                 <property name="text">
-                  <string>Datos del empleo</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="etiqueta_departamento">
-                 <property name="text">
-                  <string>Departamento</string>
                  </property>
                 </widget>
                </item>
@@ -478,13 +464,6 @@ background:none;</string>
                  </property>
                 </widget>
                </item>
-               <item row="7" column="0" colspan="2">
-                <widget class="QLabel" name="etiqueta_descripcionpuesto">
-                 <property name="text">
-                  <string>Descripción del Puesto</string>
-                 </property>
-                </widget>
-               </item>
                <item row="8" column="0" colspan="4">
                 <widget class="QPlainTextEdit" name="txtlargo_descripcionpuesto">
                  <property name="maximumSize">
@@ -502,13 +481,6 @@ background:none;</string>
                 <widget class="Line" name="line_2">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="10" column="0" colspan="2">
-                <widget class="QLabel" name="etiquetaTitulo_datosusuario">
-                 <property name="text">
-                  <string>Datos sobre el usuario</string>
                  </property>
                 </widget>
                </item>
@@ -536,14 +508,42 @@ background:none;</string>
                  </property>
                 </widget>
                </item>
-               <item row="3" column="1" colspan="3">
-                <widget class="QLineEdit" name="txt_puesto"/>
-               </item>
-               <item row="2" column="1" colspan="3">
-                <widget class="QLineEdit" name="txt_departamento"/>
-               </item>
                <item row="6" column="1" colspan="3">
                 <widget class="QLineEdit" name="txt_diaslaborales"/>
+               </item>
+               <item row="10" column="0" colspan="4">
+                <widget class="QLabel" name="etiquetaTitulo_datosusuario">
+                 <property name="text">
+                  <string>Datos sobre el usuario</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="7" column="0" colspan="4">
+                <widget class="QLabel" name="etiqueta_descripcionpuesto">
+                 <property name="text">
+                  <string>Descripción del Puesto</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2" colspan="2">
+                <widget class="QLineEdit" name="txt_departamento"/>
+               </item>
+               <item row="3" column="2" colspan="2">
+                <widget class="QLineEdit" name="txt_puesto"/>
+               </item>
+               <item row="1" column="0" colspan="4">
+                <widget class="QLabel" name="etiquetaTitulo_datosempleo">
+                 <property name="text">
+                  <string>Datos del empleo</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="etiqueta_departamento">
+                 <property name="text">
+                  <string>Departamento</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -641,7 +641,7 @@ background:none;</string>
               <property name="font">
                <font>
                 <family>Arial</family>
-                <pointsize>1</pointsize>
+                <pointsize>-1</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -907,8 +907,14 @@ background:none;</string>
                <string>Guardar cambios</string>
               </property>
               <property name="icon">
-               <iconset resource="../../Source/ibootstrap.qrc">
-                <normaloff>:/Icons/Bootstrap/check-square.svg</normaloff>:/Icons/Bootstrap/check-square.svg</iconset>
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
               </property>
               <property name="autoRepeat">
                <bool>true</bool>
@@ -972,6 +978,7 @@ background:none;</string>
  </widget>
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
  </resources>
  <connections/>
 </ui>

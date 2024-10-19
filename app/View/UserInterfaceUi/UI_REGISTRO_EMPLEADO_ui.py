@@ -355,7 +355,7 @@ class Ui_RegistroAdministrador(object):
         self.Button_nuevasucursal.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Button_nuevasucursal.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Mas_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Button_nuevasucursal.setIcon(icon3)
         self.Button_nuevasucursal.setIconSize(QtCore.QSize(24, 24))
         self.Button_nuevasucursal.setObjectName("Button_nuevasucursal")

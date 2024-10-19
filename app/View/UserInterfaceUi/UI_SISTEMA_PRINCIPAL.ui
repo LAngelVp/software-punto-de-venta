@@ -53,7 +53,7 @@ max-width:70px;
 background-color: rgb(204, 203, 200);
 }
 #label_fotousuario{
-image: url(:/Icons/SVG/DrawKit(1).svg);
+image: url(:/Icons/IconosSVG/perfil.png);
 max-height:40px;
 min-height:40px;
 background-repeat: no-repeat;
@@ -565,8 +565,6 @@ qproperty-iconSize: 20px 20px;
  <resources>
   <include location="../../Source/iconsdvg.qrc"/>
   <include location="../../Source/ibootstrap.qrc"/>
-  <include location="../../Source/iconos.qrc"/>
-  <include location="../../Source/img.qrc"/>
  </resources>
  <connections/>
 </ui>
