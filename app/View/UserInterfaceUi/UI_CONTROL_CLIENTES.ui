@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1307</width>
-    <height>1126</height>
+    <width>1199</width>
+    <height>1147</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,6 @@ min-width:600px;
 #wpc_contenedor_clienteMoral{
 max-width:800px;
 }
-
 #wpc_menu_opciones_clientes{
 min-height: 40px
 }
@@ -60,16 +59,10 @@ min-height:25px;
 background-color: #00619a;
 border: none;
 border-radius: 5px;
-min-height: 25px;
 color: #fffefb;
 font-weight: bold;
 font-family: Arial;
 font-size: 14px;
-padding-left: 4px;
-padding-right:4px;
-}
-[objectName*=&quot;btn_btn_nueva&quot;]{
-padding:0px;
 }
 [objectName*=&quot;btn_btn_&quot;]:hover{
 background-color: #2196F3;
@@ -400,6 +393,21 @@ border-bottom: 2px solid #00668c;
                <string notr="true"/>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
                <item row="0" column="2" alignment="Qt::AlignHCenter">
                 <widget class="QLabel" name="label_wpc_fotocliente">
                  <property name="minimumSize">
@@ -630,34 +638,22 @@ border-bottom: 2px solid #00668c;
                </item>
                <item row="0" column="0" rowspan="3">
                 <widget class="QWidget" name="wpc_clientes_clienteFisico" native="true">
-                 <layout class="QGridLayout" name="gridLayout_5">
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
-                  </property>
-                  <item row="5" column="4" colspan="2">
-                   <widget class="QDateEdit" name="fecha_fechanacimiento">
-                    <property name="calendarPopup">
-                     <bool>true</bool>
+                 <layout class="QGridLayout" name="gridLayout_8">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_nombre_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Nombre</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_codigopostal_fisico"/>
-                  </item>
-                  <item row="4" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_calles_fisico">
+                  <item row="0" column="1">
+                   <widget class="QLineEdit" name="txt_nombre_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -666,8 +662,28 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_ciudad_fisico"/>
+                  <item row="0" column="2">
+                   <widget class="QLabel" name="etiqueta_wpc_correo_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Correo Electronico</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="3">
+                   <widget class="QLineEdit" name="txt_correo_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
                   </item>
                   <item row="1" column="0">
                    <widget class="QLabel" name="etiqueta_wpc_ApellidoP_fisico">
@@ -682,15 +698,18 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="3">
-                   <widget class="QLabel" name="etiqueta_codigopostal_fisico">
-                    <property name="text">
-                     <string>Codigo Postal</string>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="txt_apellidop_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="3">
-                   <widget class="QLabel" name="etiqueta_wpc_calles_fisico">
+                  <item row="1" column="2">
+                   <widget class="QLabel" name="etiqueta_wpc__telefono_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -698,89 +717,12 @@ border-bottom: 2px solid #00668c;
                      </size>
                     </property>
                     <property name="text">
-                     <string>Calle o entra calles</string>
+                     <string>Num. Telefono</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="0">
-                   <widget class="QLabel" name="etiqueta_pais_fisico">
-                    <property name="text">
-                     <string>Pais</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="3">
-                   <widget class="QLabel" name="etiqueta_wpc_ine_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Num. INE</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="etiqueta_rfc_fisico">
-                    <property name="text">
-                     <string>RFC</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLabel" name="etiqueta_estado_fisico">
-                    <property name="text">
-                     <string>Estado</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="3">
-                   <widget class="QLabel" name="etiqueta_wpc_nacimiento_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Fecha Nacimiento</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="3">
-                   <widget class="QLabel" name="etiqueta_categoriaFisico">
-                    <property name="text">
-                     <string>Clasificación Cliente</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="13" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_comentarios_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Comentarios</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="3">
-                   <widget class="QLabel" name="etiqueta_ciudad_fisico">
-                    <property name="text">
-                     <string>Ciudad</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="13" column="1" colspan="5">
-                   <widget class="QPlainTextEdit" name="txtlargo_comentarioclientefisico"/>
-                  </item>
-                  <item row="8" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_ine_fisico">
+                  <item row="1" column="3">
+                   <widget class="QLineEdit" name="txt_telefono_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -802,54 +744,8 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="3">
-                   <widget class="QLabel" name="etiqueta_wpc_ocupacion_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Ocupación</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_nombre_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Nombre</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="5">
-                   <widget class="QPushButton" name="btn_btn_nuevacategoriaFisico">
-                    <property name="cursor">
-                     <cursorShape>PointingHandCursor</cursorShape>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../../Source/iconosSVG.qrc">
-                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_ocupacion_fisico">
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="txt_apellidom_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -858,13 +754,7 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="1" colspan="2">
-                   <widget class="QLineEdit" name="txt_pais_fisico"/>
-                  </item>
-                  <item row="4" column="1" colspan="2">
-                   <widget class="QLineEdit" name="txt_rfc_fisico"/>
-                  </item>
-                  <item row="2" column="3">
+                  <item row="2" column="2">
                    <widget class="QLabel" name="etiqueta_wpc_avenidas_fisico">
                     <property name="minimumSize">
                      <size>
@@ -880,8 +770,28 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="3">
-                   <widget class="QLabel" name="etiqueta_wpc__telefono_fisico">
+                  <item row="2" column="3">
+                   <widget class="QLineEdit" name="txt_avenidas_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="etiqueta_rfc_fisico">
+                    <property name="text">
+                     <string>RFC</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QLineEdit" name="txt_rfc_fisico"/>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QLabel" name="etiqueta_wpc_calles_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -889,12 +799,12 @@ border-bottom: 2px solid #00668c;
                      </size>
                     </property>
                     <property name="text">
-                     <string>Num. Telefono</string>
+                     <string>Calle o entra calles</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1" colspan="2">
-                   <widget class="QLineEdit" name="txt_apellidop_fisico">
+                  <item row="3" column="3">
+                   <widget class="QLineEdit" name="txt_calles_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -903,25 +813,18 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_correo_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="12" column="0">
-                   <widget class="QLabel" name="etiqueta_direccionadicional_fisico">
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="etiqueta_pais_fisico">
                     <property name="text">
-                     <string>Dirección Adicional</string>
+                     <string>Pais</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="3">
-                   <widget class="QLabel" name="etiqueta_wpc_correo_fisico">
+                  <item row="4" column="1">
+                   <widget class="QLineEdit" name="txt_pais_fisico"/>
+                  </item>
+                  <item row="4" column="2">
+                   <widget class="QLabel" name="etiqueta_wpc_nacimiento_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -929,24 +832,38 @@ border-bottom: 2px solid #00668c;
                      </size>
                     </property>
                     <property name="text">
-                     <string>Correo Electronico</string>
+                     <string>Fecha Nacimiento</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_estadocivil_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
+                  <item row="4" column="3">
+                   <widget class="QDateEdit" name="fecha_fechanacimiento">
+                    <property name="calendarPopup">
+                     <bool>true</bool>
                     </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="etiqueta_estado_fisico">
                     <property name="text">
-                     <string>Estado Civil</string>
+                     <string>Estado</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="0">
+                  <item row="5" column="1">
+                   <widget class="QLineEdit" name="txt_estado_fisico"/>
+                  </item>
+                  <item row="5" column="2">
+                   <widget class="QLabel" name="etiqueta_ciudad_fisico">
+                    <property name="text">
+                     <string>Ciudad</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="3">
+                   <widget class="QLineEdit" name="txt_ciudad_fisico"/>
+                  </item>
+                  <item row="6" column="0">
                    <widget class="QLabel" name="etiqueta_wpc_curp_fisico">
                     <property name="minimumSize">
                      <size>
@@ -959,50 +876,7 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="12" column="1" colspan="5">
-                   <widget class="QPlainTextEdit" name="txtlargo_direccionadicional_fisico"/>
-                  </item>
-                  <item row="11" column="0">
-                   <widget class="QLabel" name="etiqueta_area_negocio_fisico">
-                    <property name="text">
-                     <string>Area de Negocio</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_ingresos_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Nivel de ingresos</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="2">
-                   <widget class="QPushButton" name="btn_btn_nuevaareanegocio_fisico">
-                    <property name="cursor">
-                     <cursorShape>PointingHandCursor</cursorShape>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../../Source/iconosSVG.qrc">
-                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="1" colspan="2">
+                  <item row="6" column="1">
                    <widget class="QLineEdit" name="txt_curp_fisico">
                     <property name="minimumSize">
                      <size>
@@ -1012,69 +886,30 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="9" column="1" colspan="2">
-                   <widget class="QDoubleSpinBox" name="cajaDecimal_wpc_ingresosclienteFisico">
+                  <item row="6" column="2">
+                   <widget class="QLabel" name="etiqueta_codigopostal_fisico">
+                    <property name="text">
+                     <string>Codigo Postal</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="3">
+                   <widget class="QLineEdit" name="txt_codigopostal_fisico"/>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_estadocivil_fisico">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
                       <height>0</height>
                      </size>
                     </property>
-                    <property name="prefix">
-                     <string>$ </string>
-                    </property>
-                    <property name="suffix">
-                     <string/>
-                    </property>
-                    <property name="maximum">
-                     <double>99999999.989999994635582</double>
+                    <property name="text">
+                     <string>Estado Civil</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="1" colspan="2">
-                   <widget class="QLineEdit" name="txt_estado_fisico"/>
-                  </item>
-                  <item row="2" column="1" colspan="2">
-                   <widget class="QLineEdit" name="txt_apellidom_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1" colspan="2">
-                   <widget class="QLineEdit" name="txt_nombre_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_telefono_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="4" colspan="2">
-                   <widget class="QLineEdit" name="txt_avenidas_fisico">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="1" colspan="2">
+                  <item row="7" column="1">
                    <widget class="QComboBox" name="cajaopciones_estadocivil_fisico">
                     <item>
                      <property name="text">
@@ -1103,26 +938,186 @@ border-bottom: 2px solid #00668c;
                     </item>
                    </widget>
                   </item>
-                  <item row="11" column="1">
-                   <widget class="QComboBox" name="cajaopciones_areasnegocio_fisico">
-                    <property name="sizeAdjustPolicy">
-                     <enum>QComboBox::AdjustToContents</enum>
+                  <item row="7" column="2">
+                   <widget class="QLabel" name="etiqueta_wpc_ine_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
                     </property>
-                    <item>
-                     <property name="text">
-                      <string>Sin Área</string>
-                     </property>
-                    </item>
+                    <property name="text">
+                     <string>Num. INE</string>
+                    </property>
                    </widget>
                   </item>
-                  <item row="11" column="4">
-                   <widget class="QComboBox" name="cajaopciones_categoriaFisico">
-                    <item>
-                     <property name="text">
-                      <string>Sin Clasificación</string>
-                     </property>
-                    </item>
+                  <item row="7" column="3">
+                   <widget class="QLineEdit" name="txt_ine_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
                    </widget>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_ingresos_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Nivel de ingresos</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1">
+                   <widget class="QDoubleSpinBox" name="cajaDecimal_wpc_ingresosclienteFisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="prefix">
+                     <string>$ </string>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="maximum">
+                     <double>99999999.989999994635582</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="2">
+                   <widget class="QLabel" name="etiqueta_wpc_ocupacion_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Ocupación</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="3">
+                   <widget class="QLineEdit" name="txt_ocupacion_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="etiqueta_area_negocio_fisico">
+                    <property name="text">
+                     <string>Area de Negocio</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="1">
+                   <layout class="QGridLayout" name="gridLayout_5">
+                    <property name="horizontalSpacing">
+                     <number>2</number>
+                    </property>
+                    <property name="verticalSpacing">
+                     <number>0</number>
+                    </property>
+                    <item row="0" column="0">
+                     <widget class="QComboBox" name="cajaopciones_areasnegocio_fisico">
+                      <property name="sizeAdjustPolicy">
+                       <enum>QComboBox::AdjustToContents</enum>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>Sin Área</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QPushButton" name="btn_btn_nuevaareanegocio_fisico">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../../Source/iconosSVG.qrc">
+                        <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item row="9" column="2">
+                   <widget class="QLabel" name="etiqueta_categoriaFisico">
+                    <property name="text">
+                     <string>Clasificación Cliente</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="3">
+                   <layout class="QGridLayout" name="gridLayout_7">
+                    <item row="0" column="0">
+                     <widget class="QComboBox" name="cajaopciones_categoriaFisico">
+                      <item>
+                       <property name="text">
+                        <string>Sin Clasificación</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QPushButton" name="btn_btn_nuevacategoriaFisico">
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../../Source/iconosSVG.qrc">
+                        <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item row="10" column="0">
+                   <widget class="QLabel" name="etiqueta_direccionadicional_fisico">
+                    <property name="text">
+                     <string>Dirección Adicional</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="1" colspan="3">
+                   <widget class="QPlainTextEdit" name="txtlargo_direccionadicional_fisico"/>
+                  </item>
+                  <item row="11" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_comentarios_fisico">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Comentarios</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="1" colspan="3">
+                   <widget class="QPlainTextEdit" name="txtlargo_comentarioclientefisico"/>
                   </item>
                  </layout>
                 </widget>
@@ -1139,6 +1134,21 @@ border-bottom: 2px solid #00668c;
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_4">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
                <item row="0" column="1">
                 <widget class="QWidget" name="wpc_clientes_autorizacredito_moral" native="true">
                  <layout class="QFormLayout" name="formLayout_2">
@@ -1315,43 +1325,31 @@ border-bottom: 2px solid #00668c;
                    <height>16777215</height>
                   </size>
                  </property>
-                 <layout class="QGridLayout" name="gridLayout_2">
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="spacing">
-                   <number>5</number>
-                  </property>
-                  <item row="5" column="6">
-                   <widget class="QPushButton" name="btn_btn_nuevacategoriaMoral">
-                    <property name="cursor">
-                     <cursorShape>PointingHandCursor</cursorShape>
+                 <layout class="QGridLayout" name="gridLayout_15">
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_nombre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
                     </property>
                     <property name="text">
-                     <string/>
+                     <string>Nombre</string>
                     </property>
-                    <property name="icon">
-                     <iconset resource="../../Source/iconosSVG.qrc">
-                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
-                    </property>
-                    <property name="iconSize">
+                   </widget>
+                  </item>
+                  <item row="0" column="1" colspan="2">
+                   <widget class="QLineEdit" name="txt_nombre_empre_moral">
+                    <property name="minimumSize">
                      <size>
-                      <width>20</width>
-                      <height>20</height>
+                      <width>0</width>
+                      <height>0</height>
                      </size>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="4">
+                  <item row="0" column="3">
                    <widget class="QLabel" name="etiqueta_wpc_telefono_moral">
                     <property name="minimumSize">
                      <size>
@@ -1364,57 +1362,38 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="12" column="2">
-                   <widget class="QLineEdit" name="txt_nombre_repre_moral">
+                  <item row="0" column="4">
+                   <widget class="QLineEdit" name="txt_telefono_empre_moral">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
-                      <height>0</height>
+                      <height>17</height>
                      </size>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="4">
-                   <widget class="QLabel" name="etiqueta_categoriaMoral">
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="etiqueta_razonsocial_moral">
                     <property name="text">
-                     <string>Clasificación Cliente</string>
+                     <string>Razón Social</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="5">
-                   <widget class="QComboBox" name="cajaopciones_categoriaMoral">
-                    <item>
-                     <property name="text">
-                      <string>Sin Clasificación</string>
-                     </property>
-                    </item>
-                   </widget>
+                  <item row="1" column="1" colspan="2">
+                   <widget class="QLineEdit" name="txt_razonsocial_moral"/>
                   </item>
-                  <item row="12" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_representante_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
+                  <item row="1" column="3">
+                   <widget class="QLabel" name="etiqueta_nif_moral">
                     <property name="text">
-                     <string>Nombre representante</string>
+                     <string>NIF</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="13" column="2">
-                   <widget class="QLineEdit" name="txt_telefono_repre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
+                  <item row="1" column="4">
+                   <widget class="QLineEdit" name="txt_nif_moral"/>
                   </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_rfc_moral">
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_correo_moral">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -1422,11 +1401,21 @@ border-bottom: 2px solid #00668c;
                      </size>
                     </property>
                     <property name="text">
-                     <string>RFC</string>
+                     <string>Correo Electronico</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="4">
+                  <item row="2" column="1" colspan="2">
+                   <widget class="QLineEdit" name="txt_correo_empre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="3">
                    <widget class="QLabel" name="etiqueta_wpc_calles_moral">
                     <property name="minimumSize">
                      <size>
@@ -1436,6 +1425,16 @@ border-bottom: 2px solid #00668c;
                     </property>
                     <property name="text">
                      <string>Calle o entra calles</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="4">
+                   <widget class="QLineEdit" name="txt_calles_empre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>17</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -1452,46 +1451,17 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="13" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_telefono_representante_moral">
+                  <item row="3" column="1" colspan="2">
+                   <widget class="QLineEdit" name="txt_avenidas_empre_moral">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
                       <height>0</height>
                      </size>
                     </property>
-                    <property name="text">
-                     <string>Telefono</string>
-                    </property>
                    </widget>
                   </item>
-                  <item row="2" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_correo_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Correo Electronico</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="13" column="4">
-                   <widget class="QLabel" name="etiqueta_wpc_correo_repre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Correo electronico</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="4">
+                  <item row="3" column="3">
                    <widget class="QLabel" name="etiqueta_wpc_fechaconst_moral">
                     <property name="minimumSize">
                      <size>
@@ -1504,21 +1474,15 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="12" column="4">
-                   <widget class="QLabel" name="etiqueta_wpc_puesto_representante_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Puesto</string>
+                  <item row="3" column="4">
+                   <widget class="QDateEdit" name="fecha_fechaconstitucion">
+                    <property name="calendarPopup">
+                     <bool>true</bool>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QLabel" name="etiqueta_wpc_nombre_moral">
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_rfc_moral">
                     <property name="minimumSize">
                      <size>
                       <width>0</width>
@@ -1526,7 +1490,40 @@ border-bottom: 2px solid #00668c;
                      </size>
                     </property>
                     <property name="text">
-                     <string>Nombre</string>
+                     <string>RFC</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1" colspan="2">
+                   <widget class="QLineEdit" name="txt_rfc_empre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="3">
+                   <widget class="QLabel" name="etiqueta_wpc_sector_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Sector</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="4">
+                   <widget class="QLineEdit" name="txt_sector_empre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>17</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -1543,207 +1540,7 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="4">
-                   <widget class="QLabel" name="etiqueta_nif_moral">
-                    <property name="text">
-                     <string>NIF</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="0">
-                   <widget class="QLabel" name="etiqueta_areanegocio_moral">
-                    <property name="text">
-                     <string>Area de Negocio</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_nif_moral"/>
-                  </item>
-                  <item row="9" column="2" colspan="5">
-                   <widget class="QPlainTextEdit" name="txtlargo_direccionadicional_moral"/>
-                  </item>
-                  <item row="9" column="0">
-                   <widget class="QLabel" name="etiqueta_direccionadicional_moral">
-                    <property name="text">
-                     <string>Direcció Adicional</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_calles_empre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>17</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_sector_empre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>17</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="4">
-                   <widget class="QLabel" name="etiqueta_wpc_sector_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Sector</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="13" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_correo_repre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>17</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="5" colspan="2">
-                   <widget class="QDateEdit" name="fecha_fechaconstitucion">
-                    <property name="calendarPopup">
-                     <bool>true</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="12" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_puesto_repre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>17</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_telefono_empre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>17</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="4">
-                   <widget class="QLabel" name="etiqueta_estado_moral">
-                    <property name="text">
-                     <string>Estado</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="11" column="0" colspan="7">
-                   <widget class="Line" name="line">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLabel" name="etiqueta_pais_moral">
-                    <property name="text">
-                     <string>Pais</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_codigopostal_moral"/>
-                  </item>
-                  <item row="6" column="5" colspan="2">
-                   <widget class="QLineEdit" name="txt_estado_moral"/>
-                  </item>
-                  <item row="7" column="4">
-                   <widget class="QLabel" name="etiqueta_codigopostal_moral">
-                    <property name="text">
-                     <string>Codigo Postal</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QLabel" name="etiqueta_ciudad_moral">
-                    <property name="text">
-                     <string>Ciudad</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="etiqueta_razonsocial_moral">
-                    <property name="text">
-                     <string>Razón Social</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="1" colspan="3">
-                   <widget class="QLineEdit" name="txt_ciudad_moral"/>
-                  </item>
-                  <item row="8" column="3">
-                   <widget class="QPushButton" name="btn_btn_areasnegocio_moral">
-                    <property name="cursor">
-                     <cursorShape>PointingHandCursor</cursorShape>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../../Source/iconosSVG.qrc">
-                      <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="1" colspan="2">
-                   <widget class="QComboBox" name="cajaopciones_areasnegocio_moral">
-                    <item>
-                     <property name="text">
-                      <string>Sin Área</string>
-                     </property>
-                    </item>
-                   </widget>
-                  </item>
-                  <item row="6" column="1" colspan="3">
-                   <widget class="QLineEdit" name="txt_pais_moral"/>
-                  </item>
-                  <item row="2" column="1" colspan="3">
-                   <widget class="QLineEdit" name="txt_correo_empre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1" colspan="3">
-                   <widget class="QLineEdit" name="txt_rfc_empre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="1" colspan="3">
+                  <item row="5" column="1" colspan="2">
                    <widget class="QLineEdit" name="txt_pagina_empre_moral">
                     <property name="minimumSize">
                      <size>
@@ -1753,36 +1550,242 @@ border-bottom: 2px solid #00668c;
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1" colspan="3">
-                   <widget class="QLineEdit" name="txt_avenidas_empre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
+                  <item row="5" column="3">
+                   <widget class="QLabel" name="etiqueta_categoriaMoral">
+                    <property name="text">
+                     <string>Clasificación Cliente</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1" colspan="3">
-                   <widget class="QLineEdit" name="txt_nombre_empre_moral">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>0</height>
-                     </size>
+                  <item row="5" column="4">
+                   <layout class="QGridLayout" name="gridLayout_13">
+                    <item row="0" column="0">
+                     <widget class="QComboBox" name="cajaopciones_categoriaMoral">
+                      <item>
+                       <property name="text">
+                        <string>Sin Clasificación</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QPushButton" name="btn_btn_nuevacategoriaMoral">
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../../Source/iconosSVG.qrc">
+                        <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item row="6" column="0">
+                   <widget class="QLabel" name="etiqueta_pais_moral">
+                    <property name="text">
+                     <string>Pais</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1" colspan="3">
-                   <widget class="QLineEdit" name="txt_razonsocial_moral"/>
+                  <item row="6" column="1" colspan="2">
+                   <widget class="QLineEdit" name="txt_pais_moral"/>
                   </item>
-                  <item row="10" column="2" colspan="5">
-                   <widget class="QPlainTextEdit" name="txtlargo_comentarios_cliente_moral"/>
+                  <item row="6" column="3">
+                   <widget class="QLabel" name="etiqueta_estado_moral">
+                    <property name="text">
+                     <string>Estado</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="4">
+                   <widget class="QLineEdit" name="txt_estado_moral"/>
+                  </item>
+                  <item row="7" column="0">
+                   <widget class="QLabel" name="etiqueta_ciudad_moral">
+                    <property name="text">
+                     <string>Ciudad</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1" colspan="2">
+                   <widget class="QLineEdit" name="txt_ciudad_moral"/>
+                  </item>
+                  <item row="7" column="3">
+                   <widget class="QLabel" name="etiqueta_codigopostal_moral">
+                    <property name="text">
+                     <string>Codigo Postal</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="4">
+                   <widget class="QLineEdit" name="txt_codigopostal_moral"/>
+                  </item>
+                  <item row="8" column="0">
+                   <widget class="QLabel" name="etiqueta_areanegocio_moral">
+                    <property name="text">
+                     <string>Area de Negocio</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="1" colspan="2">
+                   <layout class="QGridLayout" name="gridLayout_2">
+                    <item row="0" column="0">
+                     <widget class="QComboBox" name="cajaopciones_areasnegocio_moral">
+                      <item>
+                       <property name="text">
+                        <string>Sin Área</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QPushButton" name="btn_btn_areasnegocio_moral">
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
+                      <property name="text">
+                       <string/>
+                      </property>
+                      <property name="icon">
+                       <iconset resource="../../Source/iconosSVG.qrc">
+                        <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>15</width>
+                        <height>15</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item row="9" column="0">
+                   <widget class="QLabel" name="etiqueta_direccionadicional_moral">
+                    <property name="text">
+                     <string>Direcció Adicional</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="9" column="2" colspan="3">
+                   <widget class="QPlainTextEdit" name="txtlargo_direccionadicional_moral"/>
                   </item>
                   <item row="10" column="0">
                    <widget class="QLabel" name="etiqueta_comentarios_cliente_moral">
                     <property name="text">
                      <string>Comentarios</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="2" colspan="3">
+                   <widget class="QPlainTextEdit" name="txtlargo_comentarios_cliente_moral"/>
+                  </item>
+                  <item row="11" column="0" colspan="5">
+                   <widget class="Line" name="line">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_representante_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Nombre representante</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="2">
+                   <widget class="QLineEdit" name="txt_nombre_repre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="3">
+                   <widget class="QLabel" name="etiqueta_wpc_puesto_representante_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Puesto</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="12" column="4">
+                   <widget class="QLineEdit" name="txt_puesto_repre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>17</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="13" column="0">
+                   <widget class="QLabel" name="etiqueta_wpc_telefono_representante_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Telefono</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="13" column="2">
+                   <widget class="QLineEdit" name="txt_telefono_repre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="13" column="3">
+                   <widget class="QLabel" name="etiqueta_wpc_correo_repre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>Correo electronico</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="13" column="4">
+                   <widget class="QLineEdit" name="txt_correo_repre_moral">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>17</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
@@ -1863,26 +1866,83 @@ qproperty-iconSize: 20px 20px;
 cursor: pointer-hand;
 }</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_10">
+        <layout class="QGridLayout" name="gridLayout_16">
          <property name="leftMargin">
-          <number>5</number>
+          <number>4</number>
          </property>
          <property name="topMargin">
-          <number>0</number>
+          <number>1</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>4</number>
          </property>
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <property name="horizontalSpacing">
-          <number>10</number>
-         </property>
-         <property name="verticalSpacing">
+         <property name="spacing">
           <number>0</number>
          </property>
-         <item row="0" column="4">
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="gridLayout_10">
+           <property name="horizontalSpacing">
+            <number>10</number>
+           </property>
+           <property name="verticalSpacing">
+            <number>0</number>
+           </property>
+           <item row="0" column="4">
+            <widget class="QPushButton" name="btn_btn_limpiarcampos">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="../../Source/iconsdvg.qrc">
+               <normaloff>:/Icons/IconosSVG/borrador.png</normaloff>:/Icons/IconosSVG/borrador.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="btn_btn_cliente_eliminar">
+             <property name="text">
+              <string>Eliminar</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../../Source/iconosSVG.qrc">
+               <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QPushButton" name="btn_btn_cliente_agregar">
+             <property name="text">
+              <string>Agregar</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../../Source/iconosSVG.qrc">
+               <normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</iconset>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="btn_btn_cliente_modificar">
+             <property name="text">
+              <string>Actualizar</string>
+             </property>
+             <property name="icon">
+              <iconset resource="../../Source/iconosSVG.qrc">
+               <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="1">
           <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -1894,116 +1954,6 @@ cursor: pointer-hand;
             </size>
            </property>
           </spacer>
-         </item>
-         <item row="0" column="3">
-          <widget class="QPushButton" name="btn_btn_limpiarcampos">
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="../../Source/iconsdvg.qrc">
-             <normaloff>:/Icons/IconosSVG/borrador.png</normaloff>:/Icons/IconosSVG/borrador.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>24</width>
-             <height>24</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QPushButton" name="btn_btn_cliente_modificar">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Actualizar</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../../Source/iconosSVG.qrc">
-             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="checkable">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="btn_btn_cliente_eliminar">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>Eliminar</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../../Source/iconosSVG.qrc">
-             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_persona_blanco.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="btn_btn_cliente_agregar">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>25</height>
-            </size>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="autoFillBackground">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Agregar cliente</string>
-           </property>
-           <property name="icon">
-            <iconset resource="../../Source/iconosSVG.qrc">
-             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_persona_blanco.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>25</width>
-             <height>25</height>
-            </size>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>
@@ -2033,8 +1983,6 @@ cursor: pointer-hand;
   <tabstop>txt_codigopostal_fisico</tabstop>
   <tabstop>txt_ine_fisico</tabstop>
   <tabstop>txt_ocupacion_fisico</tabstop>
-  <tabstop>btn_btn_nuevaareanegocio_fisico</tabstop>
-  <tabstop>btn_btn_nuevacategoriaFisico</tabstop>
   <tabstop>txtlargo_direccionadicional_fisico</tabstop>
   <tabstop>txtlargo_comentarioclientefisico</tabstop>
   <tabstop>casillaverificacion_wpc_credito_autorizado</tabstop>
@@ -2081,9 +2029,6 @@ cursor: pointer-hand;
   <tabstop>txt_correo_repre_moral</tabstop>
   <tabstop>txt_buscarcliente</tabstop>
   <tabstop>tabla_clientes</tabstop>
-  <tabstop>btn_btn_cliente_agregar</tabstop>
-  <tabstop>btn_btn_cliente_eliminar</tabstop>
-  <tabstop>btn_btn_cliente_modificar</tabstop>
   <tabstop>btn_btn_limpiarcampos</tabstop>
  </tabstops>
  <resources>
