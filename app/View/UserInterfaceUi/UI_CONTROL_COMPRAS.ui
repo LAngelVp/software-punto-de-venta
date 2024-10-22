@@ -17,6 +17,9 @@
    <string notr="true">#Control_empleados{
 background-color: #fffefb;
 }
+[objectName*=&quot;contenedor&quot;]{
+background-color: #fffefb;
+}
 #panel_controles{
 margin-bottom:20px;
 }
@@ -45,7 +48,7 @@ border: 1px solid;
 background-color: #fffefb;
 border: 1px solid;
 }
-*[objectName*=&quot;etiquetaTitulo&quot;]{
+[objectName*=&quot;etiquetaTitulo&quot;]{
 font-family: Arial;
 margin-left: 5px;
 margin-right: 5px;
@@ -250,7 +253,7 @@ padding-right:5px;
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QFrame" name="contenedorprincipal">
+    <widget class="QFrame" name="contenedor_principal">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
@@ -354,7 +357,7 @@ padding-right:5px;
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QFrame" name="frame">
+              <widget class="QFrame" name="contenedor_contenido">
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>
@@ -552,7 +555,7 @@ padding-right:5px;
               </widget>
              </item>
              <item row="0" column="0">
-              <widget class="QFrame" name="frame_3">
+              <widget class="QFrame" name="contenedor_contenidocompras_pendientes">
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
                </property>

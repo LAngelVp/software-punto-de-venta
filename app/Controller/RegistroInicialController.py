@@ -4,24 +4,24 @@ from datetime import datetime
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap, QRegExpValidator
-from app.Source.iconos import *
-from app.Source.img import *
-from app.Source.ibootstrap import *
-from app.DataBase.conexionBD import Conexion_base_datos
-from app.View.UserInterfacePy.UI_REGISTRO_EMPLEADO import *
-from app.Controller.MensajesAlertasController import Mensaje
-from app.Model.ValidacionesModel import Validaciones
-from app.Model.EmpleadoModel import EmpleadosModel
-from app.Model.GruposyPermisosModel import RolesModel, PermisosModel
-from app.Model.UsuarioModel import UsuarioModel
-from app.Model.PuestoModel import PuestoModel
-from app.Model.DepartamentosModel import DepartamentosModel
-from app.Model.SucursalesModel import SucursalesModel
-from app.Controller.AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+from ..Source.iconos_rc import *
+# from .Source.img import *
+from ..Source.ibootstrap_rc import *
+from ..DataBase.conexionBD import Conexion_base_datos
+from ..View.UserInterfacePy.UI_REGISTRO_EMPLEADO import *
+from .MensajesAlertasController import Mensaje
+from ..Model.ValidacionesModel import Validaciones
+from ..Model.EmpleadoModel import EmpleadosModel
+from ..Model.GruposyPermisosModel import RolesModel, PermisosModel
+from ..Model.UsuarioModel import UsuarioModel
+from ..Model.PuestoModel import PuestoModel
+from ..Model.DepartamentosModel import DepartamentosModel
+from ..Model.SucursalesModel import SucursalesModel
+from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 
-from app.Controller.SucursalesController import SucursalesController
-from app.Controller.DepartamentosController import DepartamentosController
-from app.Controller.PuestosController import PuestosController
+from .SucursalesController import SucursalesController
+from .DepartamentosController import DepartamentosController
+from .PuestosController import PuestosController
 
 
 
@@ -32,6 +32,7 @@ class Registro_personal_inicial(QWidget):
     listar_depas_en_puestos_signal = pyqtSignal()
     listar_sucursales_en_departamentos_signal = pyqtSignal()
     tabla_puestos = pyqtSignal()
+    registro_agregado_signal = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_RegistroAdministrador()
@@ -49,14 +50,6 @@ class Registro_personal_inicial(QWidget):
             }
             
         ''')
-        self.ui.contenedor_baja.setVisible(False)
-        self.ui.decimal_horas_laboralestotales.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.decimal_salario.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.tiempo_horaentrada.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.tiempo_horasalida.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.numero_antiguedadyear.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.numero_antiguedadmes.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.numero_antiguedaddias.setButtonSymbols(QSpinBox.NoButtons)
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
@@ -71,19 +64,10 @@ class Registro_personal_inicial(QWidget):
         self.ui.Button_aceptar.clicked.connect(self.almacenar_informacion)
         self.ui.Button_agregardepartamento.clicked.connect(self.ventana_departamentos)
         self.ui.Button_agregarpuesto.clicked.connect(self.ventana_puestos)
-#señales de las casillas de verificacion:
-        self.ui.opcion_domingo.stateChanged.connect(self.checkbox_checked)
-        self.ui.opcion_lunes.stateChanged.connect(self.checkbox_checked)
-        self.ui.opcion_martes.stateChanged.connect(self.checkbox_checked)
-        self.ui.opcion_miercoles.stateChanged.connect(self.checkbox_checked)
-        self.ui.opcion_jueves.stateChanged.connect(self.checkbox_checked)
-        self.ui.opcion_viernes.stateChanged.connect(self.checkbox_checked)
-        self.ui.opcion_sabado.stateChanged.connect(self.checkbox_checked)
 #// agregar elementos:
         self.ui.cajaopciones_estadocvil.addItems(['Soltero/a','Casado/a','Viudo/a','Divorciado/a','Union libre'])
 #// variables globales:
         self.drag_start_position = None
-        self.dias_laborales = []
         self.file_name = '' # ALMACENAMOS LA FOTO
         self.departamentos = DepartamentosController()
         self.puestos = PuestosController()
@@ -216,26 +200,27 @@ class Registro_personal_inicial(QWidget):
             "estado_civil": self.ui.cajaopciones_estadocvil,
             "curp": self.ui.txt_curp,
             "rfc": self.ui.txt_rfc,
+            "nivel_estudios": self.ui.cajaopciones_nivelacademico,
+            "carrera": self.ui.txt_carrera,
             "correo": self.ui.txt_correoelectronico,
             "nss": self.ui.txt_numerosegurosicial,
-            "avenidas": self.ui.txt_avenidas,
-            "calles": self.ui.txt_calles,
-            "num_interior": self.ui.txt_ninterior,
-            "num_exterior": self.ui.txt_nexterior,
             "fecha_contratacion": self.ui.fecha_fechacontratacion,
             "ciudad": self.ui.txt_ciudad,
             "cp": self.ui.txt_codigopostal,
             "estado": self.ui.txt_estado,
             "pais": self.ui.txt_pais,
             "num_telefono": self.ui.txt_numerotelefono,
+            "contacto_emergencia": self.ui.txt_contactoemergencia,
+            "parentesco_contacto_emergencia": self.ui.cajaopciones_parentesco,
+            "nombre_contacto_emergencia": self.ui.txt_nombrecontactoemergencia,
+            "calles": self.ui.txt_calles,
+            "avenidas": self.ui.txt_avenidas,
+            "num_interior": self.ui.txt_ninterior,
+            "num_exterior": self.ui.txt_nexterior,
+            "direccion_adicional": self.ui.txtlargo_direccion_completa,
+            "sucursal": self.ui.cajaopciones_sucursales,
             "puesto": self.ui.cajaopciones_puestos,
             "departamento": self.ui.cajaopciones_departamentos,
-            "hora_entrada": self.ui.tiempo_horaentrada,
-            "hora_salida": self.ui.tiempo_horasalida,
-            "salario": self.ui.decimal_salario,
-            "horas_laborales": self.ui.decimal_horas_laboralestotales,
-            "descripcion_puesto": self.ui.txtlargo_descripcion_puesto,
-            "direccion_adicional": self.ui.txtlargo_direccion_completa,
             "usuario": self.ui.txt_usuario_iniciosesion,
             "password_usuario": self.ui.txt_contrasenia_usuario_iniciosesion,
             "rol": self.ui.cajaopciones_rol_usuario
@@ -247,8 +232,6 @@ class Registro_personal_inicial(QWidget):
         for nombre, campo in campos.items():
             if isinstance(campo, QLineEdit):
                 datos[nombre] = campo.text().strip().upper()
-            elif isinstance(campo, QComboBox):
-                datos[nombre] = campo.currentText().strip().upper()
             elif isinstance(campo, QDateEdit):
                 datos[nombre] = campo.date().toString('yyyy-MM-dd')
             elif isinstance(campo, QTimeEdit):
@@ -274,7 +257,6 @@ class Registro_personal_inicial(QWidget):
         fecha_actual = datetime.now().date() # Obtener la fecha actual, al momento.
         # // obtenemos los datos de los campos
         datos = self.obtener_datos()
-        self.dias_laborales_str = ', '.join(self.dias_laborales)
 
         if self.validar_datos(datos):
             with Conexion_base_datos() as db:
@@ -289,34 +271,44 @@ class Registro_personal_inicial(QWidget):
                             rol_id = self.ui.cajaopciones_rol_usuario.currentData())
                     
                         EmpleadosModel(session).crear_empleado(
-                            nombre = datos['nombre'],
-                            apellido_paterno = datos['apellido_paterno'],
-                            apellido_materno = datos['apellido_materno'],
-                            fecha_nacimiento = datos['fecha_nacimiento'],
-                            estado_civil = datos['estado_civil'],
-                            curp = datos['curp'],
-                            rfc = datos['rfc'],
-                            correo = datos['correo'],
-                            nss = datos['nss'],
-                            fecha_contratacion = datos['fecha_contratacion'],
-                            ciudad = datos['ciudad'],
-                            cp = datos['cp'],
-                            estado = datos['estado'],
-                            pais = datos['pais'],
-                            numero_telefono = datos['num_telefono'],
-                            direccion = datos['direccion_adicional'],
-                            activo = True,
-                            hora_entrada=datos['hora_entrada'],
-                            hora_salida=datos['hora_salida'],
-                            foto = self.file_name,
-                            puesto_id = self.ui.cajaopciones_puestos.currentData(),
+                            nombre=datos['nombre'],
+                            apellido_paterno=datos['apellido_paterno'],
+                            apellido_materno=datos['apellido_materno'],
+                            fecha_nacimiento=datos['fecha_nacimiento'],
+                            estado_civil=self.ui.cajaopciones_estadocvil.currentText().strip().upper(),
+                            curp=datos['curp'],
+                            rfc=datos['rfc'],
+                            nivel_academico=self.ui.cajaopciones_nivelacademico.currentText().strip().upper(),
+                            carrera=datos["carrera"],
+                            correo_electronico=datos["correo"],
+                            numero_seguro_social=datos["nss"],
+                            fecha_contratacion=datos["fecha_contratacion"],
+                            fecha_despido=None,
+                            ciudad=datos["ciudad"],
+                            codigo_postal=datos["cp"],
+                            estado=datos["estado"],
+                            pais=datos["pais"],
+                            numero_telefonico=datos["num_telefono"],
+                            nombre_contacto=datos["nombre_contacto_emergencia"],
+                            contacto_emergencia=datos["contacto_emergencia"],
+                            parentesco_contacto=self.ui.cajaopciones_parentesco.currentText().strip().upper(),
+                            calles=datos["calles"],
+                            avenidas=datos["avenidas"],
+                            num_interior=datos["num_interior"],
+                            num_exterior=datos["num_exterior"],
+                            direccion_adicional=datos["direccion_adicional"],
+                            activo=True,
+                            foto=self.file_name,
+                            puesto_id=self.ui.cajaopciones_puestos.currentData(),
                             usuario_id=id_usuario,
-                            departamento_id = self.ui.cajaopciones_departamentos.currentData()
+                            departamento_id=self.ui.cajaopciones_departamentos.currentData(),
+                            sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                         )
                         self.close()
                         self.abrir_inicio()
                     except Exception as e:
                         print(e)
+            self.registro_agregado_signal.emit()
         else:
             print("Datos no válidos. No se almacenará la información.")
 

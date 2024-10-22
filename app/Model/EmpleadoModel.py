@@ -1,39 +1,56 @@
 import re
 from sqlalchemy.exc import IntegrityError
-from .BaseDatosModel import Empleados
+from .BaseDatosModel import Empleados, Departamentos, Puestos, Sucursales
 
 class EmpleadosModel:
     def __init__(self, session):
         self.session = session
 
-    def crear_empleado(self, nombre,apellido_paterno,apellido_materno, fecha_nacimiento, estado_civil, curp, rfc, correo, nss,fecha_contratacion, ciudad, cp, estado, pais, numero_telefono, direccion,activo, hora_entrada, hora_salida, foto=None, puesto_id=None, usuario_id=None, departamento_id=None):
+    def crear_empleado(self, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
+                         estado_civil, curp, rfc, nivel_academico, carrera, correo_electronico,
+                         numero_seguro_social, fecha_contratacion, fecha_despido, ciudad,
+                         codigo_postal, estado, pais, numero_telefonico, nombre_contacto,
+                         contacto_emergencia, parentesco_contacto, calles, avenidas,
+                         num_interior, num_exterior, direccion_adicional, activo, foto,
+                         puesto_id, usuario_id, departamento_id, sucursal_id):
         try:
             # Crear la instancia de empleado
+            
             nuevo_empleado = Empleados(
                 nombre=nombre,
-                apellido_paterno = apellido_paterno,
-                apellido_materno = apellido_materno,
+                apellido_paterno=apellido_paterno,
+                apellido_materno=apellido_materno,
                 fecha_nacimiento=fecha_nacimiento,
                 estado_civil=estado_civil,
                 curp=curp,
                 rfc=rfc,
-                correo_electronico=correo,
-                numero_seguro_social=nss,
-                fecha_contratacion = fecha_contratacion,
+                nivel_academico=nivel_academico,
+                carrera=carrera,
+                correo_electronico=correo_electronico,
+                numero_seguro_social=numero_seguro_social,
+                fecha_contratacion=fecha_contratacion,
+                fecha_despido=fecha_despido,
                 ciudad=ciudad,
-                codigo_postal=cp,
+                codigo_postal=codigo_postal,
                 estado=estado,
                 pais=pais,
-                numero_telefonico=numero_telefono,
-                direccion=direccion,
-                activo = activo,
-                hora_entrada = hora_entrada,
-                hora_salida = hora_salida,
+                numero_telefonico=numero_telefonico,
+                nombre_contacto=nombre_contacto,
+                contacto_emergencia=contacto_emergencia,
+                parentesco_contacto=parentesco_contacto,
+                calles=calles,
+                avenidas=avenidas,
+                num_interior=num_interior,
+                num_exterior=num_exterior,
+                direccion_adicional=direccion_adicional,
+                activo=activo,
                 foto=foto,
                 puesto_id=puesto_id,
                 usuario_id=usuario_id,
-                departamento_id = departamento_id
+                departamento_id=departamento_id,
+                sucursal_id=sucursal_id
             )
+            
             
             # Agregar a la sesión, pero no hacer commit aquí
             self.session.add(nuevo_empleado)
@@ -49,3 +66,22 @@ class EmpleadosModel:
         except Exception as e:
             print(f'Error general al insertar empleado: {e}')
             return None
+        
+    def obtener_empleados_detallados(self):
+        try:
+            # Obtener todos los empleados
+            
+            empleados = self.session.query(Empleados).\
+            outerjoin(Puestos).\
+            outerjoin(Departamentos).\
+            outerjoin(Sucursales).\
+            all()
+
+            if empleados:
+                return empleados, True
+            else:
+                print("No se encontraron empleados.")
+                return [], False
+        except Exception as e:
+            print("Error al obtener empleados:", e)
+            return [], False

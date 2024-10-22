@@ -139,6 +139,8 @@ class Empleados(Base):
     estado_civil = Column(String(30), nullable=False)
     curp = Column(String(18), nullable=False, unique=True)
     rfc = Column(String(13), nullable=False, unique=True)
+    nivel_academico = Column(String(50))
+    carrera = Column(String(255))
     correo_electronico = Column(String(150), nullable=True, unique=True)
     numero_seguro_social = Column(String(13), nullable=False, unique=True)
     fecha_contratacion = Column(Date, nullable=False)
@@ -148,10 +150,15 @@ class Empleados(Base):
     estado = Column(String(100), nullable=True)
     pais = Column(String(100), nullable=True)
     numero_telefonico = Column(String(20), nullable=True)
-    direccion = Column(String(255), nullable=True)
+    nombre_contacto =  Column(String(255), nullable=True)
+    contacto_emergencia = Column(String(20))
+    parentesco_contacto = Column(String(30))
+    calles =  Column(String(100), nullable=True)
+    avenidas = Column(String(100), nullable=True)
+    num_interior =  Column(String(10), nullable=True)
+    num_exterior = Column(String(10), nullable=True)
+    direccion_adicional = Column(Text, nullable=True)
     activo = Column(Boolean, nullable=False, default=True)
-    hora_entrada = Column(Time, nullable=True)
-    hora_salida = Column(Time, nullable=True)
     foto = Column(Text, nullable=True)
     puesto_id = Column(Integer, ForeignKey("Puestos.id"))
     puesto = relationship("Puestos", back_populates="empleados")
@@ -159,13 +166,10 @@ class Empleados(Base):
     usuario = relationship("Usuarios", back_populates="empleado")
     ventas = relationship("Ventas", back_populates="empleado")
     turnos = relationship("Turnos", back_populates="empleado")
-    departamento_id = Column(
-        BigInteger, ForeignKey("Departamentos.id")
-    )
-    departamento = relationship(
-        "Departamentos", back_populates="empleados"
-    )
-
+    departamento_id = Column(BigInteger, ForeignKey("Departamentos.id"))
+    departamento = relationship("Departamentos", back_populates="empleados")
+    sucursal_id = Column(Integer, ForeignKey("Sucursales.id"))
+    sucursal = relationship("Sucursales", back_populates="empleados")
 
 class Sucursales(Base):
     __tablename__ = "Sucursales"
@@ -184,7 +188,8 @@ class Sucursales(Base):
     )
     departamentos = relationship(
         "Departamentos", secondary=departamento_sucursal, back_populates="sucursales", 
-    )  # Relación muchos a muchos con Departamentos
+    )
+    empleados = relationship("Empleados", back_populates="sucursal")
 
 
 class Departamentos(Base):

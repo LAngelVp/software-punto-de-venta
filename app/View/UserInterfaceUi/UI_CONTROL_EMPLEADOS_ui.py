@@ -21,6 +21,9 @@ class Ui_Control_empleados(object):
 "#panel_controles{\n"
 "margin-bottom:20px;\n"
 "}\n"
+"[objectName*=\"contenedor\"]{\n"
+"background-color: #fffefb;\n"
+"}\n"
 "#label_we_titulo_empleado{\n"
 "background-color: rgb(3, 51, 116);\n"
 "color:#fffefb;\n"
@@ -177,13 +180,6 @@ class Ui_Control_empleados(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.contenedor_cuerpo)
         self.gridLayout_2.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.tabla_listaempleados = QtWidgets.QTableWidget(self.contenedor_cuerpo)
-        self.tabla_listaempleados.setMinimumSize(QtCore.QSize(0, 0))
-        self.tabla_listaempleados.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.tabla_listaempleados.setObjectName("tabla_listaempleados")
-        self.tabla_listaempleados.setColumnCount(0)
-        self.tabla_listaempleados.setRowCount(0)
-        self.gridLayout_2.addWidget(self.tabla_listaempleados, 1, 0, 1, 1)
         self.contenedor_cabeceraopcionbusqueda = QtWidgets.QFrame(self.contenedor_cuerpo)
         self.contenedor_cabeceraopcionbusqueda.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_cabeceraopcionbusqueda.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -218,6 +214,11 @@ class Ui_Control_empleados(object):
         self.txt_nombreempleado.setObjectName("txt_nombreempleado")
         self.gridLayout_4.addWidget(self.txt_nombreempleado, 1, 1, 1, 1)
         self.gridLayout_2.addWidget(self.contenedor_cabeceraopcionbusqueda, 0, 0, 1, 1, QtCore.Qt.AlignBottom)
+        self.tabla_listaempleados = QtWidgets.QTableView(self.contenedor_cuerpo)
+        self.tabla_listaempleados.setMinimumSize(QtCore.QSize(0, 0))
+        self.tabla_listaempleados.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.tabla_listaempleados.setObjectName("tabla_listaempleados")
+        self.gridLayout_2.addWidget(self.tabla_listaempleados, 1, 0, 1, 1)
         self.gridLayout_5.addWidget(self.contenedor_cuerpo, 1, 1, 1, 1)
         self.contenedor_botones = QtWidgets.QFrame(self.contenedor)
         self.contenedor_botones.setMinimumSize(QtCore.QSize(0, 0))
@@ -265,13 +266,6 @@ class Ui_Control_empleados(object):
         self.horizontalLayout_2.addWidget(self.btn_btn_editarempleado)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
-        self.btn_btn_controlroles = QtWidgets.QPushButton(self.frame_2)
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/grupo_persona_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_controlroles.setIcon(icon4)
-        self.btn_btn_controlroles.setIconSize(QtCore.QSize(25, 25))
-        self.btn_btn_controlroles.setObjectName("btn_btn_controlroles")
-        self.horizontalLayout_2.addWidget(self.btn_btn_controlroles)
         self.gridLayout_3.addWidget(self.frame_2, 0, 0, 1, 1, QtCore.Qt.AlignTop)
         self.gridLayout_5.addWidget(self.contenedor_botones, 0, 0, 1, 2, QtCore.Qt.AlignTop)
         self.gridLayout.addWidget(self.contenedor, 1, 0, 1, 1)
@@ -289,6 +283,5 @@ class Ui_Control_empleados(object):
         self.btn_btn_agregar.setText(_translate("Control_empleados", "Agregar"))
         self.btn_btn_eliminar.setText(_translate("Control_empleados", "Eliminar"))
         self.btn_btn_editarempleado.setText(_translate("Control_empleados", "EDItar"))
-        self.btn_btn_controlroles.setText(_translate("Control_empleados", "Control de Roles"))
 import ibootstrap_rc
 import iconosSVG_rc

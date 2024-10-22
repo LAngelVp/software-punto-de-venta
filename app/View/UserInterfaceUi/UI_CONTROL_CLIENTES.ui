@@ -1051,12 +1051,21 @@ border-bottom: 2px solid #00668c;
                         <height>16777215</height>
                        </size>
                       </property>
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
                       <property name="text">
                        <string/>
                       </property>
                       <property name="icon">
                        <iconset resource="../../Source/iconosSVG.qrc">
                         <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>10</width>
+                        <height>10</height>
+                       </size>
                       </property>
                      </widget>
                     </item>
@@ -1082,12 +1091,21 @@ border-bottom: 2px solid #00668c;
                     </item>
                     <item row="0" column="1">
                      <widget class="QPushButton" name="btn_btn_nuevacategoriaFisico">
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
                       <property name="text">
                        <string/>
                       </property>
                       <property name="icon">
                        <iconset resource="../../Source/iconosSVG.qrc">
                         <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                      </property>
+                      <property name="iconSize">
+                       <size>
+                        <width>10</width>
+                        <height>10</height>
+                       </size>
                       </property>
                      </widget>
                     </item>
@@ -1582,8 +1600,8 @@ border-bottom: 2px solid #00668c;
                       </property>
                       <property name="iconSize">
                        <size>
-                        <width>15</width>
-                        <height>15</height>
+                        <width>10</width>
+                        <height>10</height>
                        </size>
                       </property>
                      </widget>
@@ -1662,8 +1680,8 @@ border-bottom: 2px solid #00668c;
                       </property>
                       <property name="iconSize">
                        <size>
-                        <width>15</width>
-                        <height>15</height>
+                        <width>10</width>
+                        <height>10</height>
                        </size>
                       </property>
                      </widget>
@@ -1857,14 +1875,20 @@ border-bottom: 2px solid #00668c;
       </item>
       <item row="1" column="0" colspan="2">
        <widget class="QWidget" name="wpc_menu_opciones_clientes" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="styleSheet">
-         <string notr="true">[objectName^=&quot;btn_cliente&quot;]{
-font-size:12px;
-background-color: #cccbc8;
-border-radius:10px;
-qproperty-iconSize: 20px 20px;
-cursor: pointer-hand;
-}</string>
+         <string notr="true"/>
         </property>
         <layout class="QGridLayout" name="gridLayout_16">
          <property name="leftMargin">
@@ -1882,66 +1906,6 @@ cursor: pointer-hand;
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_10">
-           <property name="horizontalSpacing">
-            <number>10</number>
-           </property>
-           <property name="verticalSpacing">
-            <number>0</number>
-           </property>
-           <item row="0" column="4">
-            <widget class="QPushButton" name="btn_btn_limpiarcampos">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="../../Source/iconsdvg.qrc">
-               <normaloff>:/Icons/IconosSVG/borrador.png</normaloff>:/Icons/IconosSVG/borrador.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="btn_btn_cliente_eliminar">
-             <property name="text">
-              <string>Eliminar</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../../Source/iconosSVG.qrc">
-               <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="btn_btn_cliente_agregar">
-             <property name="text">
-              <string>Agregar</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../../Source/iconosSVG.qrc">
-               <normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</iconset>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QPushButton" name="btn_btn_cliente_modificar">
-             <property name="text">
-              <string>Actualizar</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../../Source/iconosSVG.qrc">
-               <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
          <item row="0" column="1">
           <spacer name="horizontalSpacer">
            <property name="orientation">
@@ -1950,10 +1914,105 @@ cursor: pointer-hand;
            <property name="sizeHint" stdset="0">
             <size>
              <width>768</width>
-             <height>20</height>
+             <height>5</height>
             </size>
            </property>
           </spacer>
+         </item>
+         <item row="0" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+          <widget class="QFrame" name="wpc_contenedor_botones">
+           <layout class="QGridLayout" name="gridLayout_10">
+            <property name="topMargin">
+             <number>1</number>
+            </property>
+            <property name="horizontalSpacing">
+             <number>10</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>0</number>
+            </property>
+            <item row="0" column="4">
+             <widget class="QPushButton" name="btn_btn_limpiarcampos">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconsdvg.qrc">
+                <normaloff>:/Icons/IconosSVG/borrador.png</normaloff>:/Icons/IconosSVG/borrador.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>16</width>
+                <height>16</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="btn_btn_cliente_eliminar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Eliminar</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>10</width>
+                <height>10</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QPushButton" name="btn_btn_cliente_agregar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Agregar</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>10</width>
+                <height>10</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QPushButton" name="btn_btn_cliente_modificar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string>Actualizar</string>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>10</width>
+                <height>10</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
          </item>
         </layout>
        </widget>

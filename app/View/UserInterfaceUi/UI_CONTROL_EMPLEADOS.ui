@@ -20,6 +20,9 @@ background-color: #fffefb;
 #panel_controles{
 margin-bottom:20px;
 }
+[objectName*=&quot;contenedor&quot;]{
+background-color: #fffefb;
+}
 #label_we_titulo_empleado{
 background-color: rgb(3, 51, 116);
 color:#fffefb;
@@ -230,22 +233,6 @@ background-color:none;
          <property name="sizeConstraint">
           <enum>QLayout::SetMinAndMaxSize</enum>
          </property>
-         <item row="1" column="0">
-          <widget class="QTableWidget" name="tabla_listaempleados">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0" alignment="Qt::AlignBottom">
           <widget class="QFrame" name="contenedor_cabeceraopcionbusqueda">
            <property name="frameShape">
@@ -335,6 +322,22 @@ background-color:none;
              </widget>
             </item>
            </layout>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QTableView" name="tabla_listaempleados">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
           </widget>
          </item>
         </layout>
@@ -478,23 +481,6 @@ background-color:none;
                </size>
               </property>
              </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="btn_btn_controlroles">
-              <property name="text">
-               <string>Control de Roles</string>
-              </property>
-              <property name="icon">
-               <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/grupo_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/grupo_persona_blanco.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>25</width>
-                <height>25</height>
-               </size>
-              </property>
-             </widget>
             </item>
            </layout>
           </widget>

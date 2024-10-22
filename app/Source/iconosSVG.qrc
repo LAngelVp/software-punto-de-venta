@@ -1,19 +1,19 @@
 <RCC>
   <qresource prefix="iconosBlancos">
-    <file>Icons/iconos/Blanco/dinero_blanco.svg</file>
-    <file>Icons/iconos/Blanco/grupo_persona_blanco.svg</file>
-    <file>Icons/iconos/Blanco/editar_blanco.svg</file>
-    <file>Icons/iconos/Blanco/buscar_persona_blanco.svg</file>
-    <file>Icons/iconos/Blanco/agregar_documento_blanco.svg</file>
-    <file>Icons/iconos/Blanco/buscar_filas_blanco.svg</file>
     <file>Icons/iconos/Blanco/actualizar_blanco.svg</file>
     <file>Icons/iconos/Blanco/agregar_blanco.svg</file>
+    <file>Icons/iconos/Blanco/agregar_documento_blanco.svg</file>
     <file>Icons/iconos/Blanco/agregar_persona_blanco.svg</file>
+    <file>Icons/iconos/Blanco/buscar_filas_blanco.svg</file>
+    <file>Icons/iconos/Blanco/buscar_persona_blanco.svg</file>
+    <file>Icons/iconos/Blanco/dinero_blanco.svg</file>
+    <file>Icons/iconos/Blanco/editar_blanco.svg</file>
     <file>Icons/iconos/Blanco/eliminar_blanco.svg</file>
     <file>Icons/iconos/Blanco/eliminar_persona_blanco.svg</file>
-    <file>Icons/iconos/Blanco/flecha_izquierda_blanco.svg</file>
-    <file>Icons/iconos/Blanco/guardar_blanco.svg</file>
     <file>Icons/iconos/Blanco/flecha_derecha_blanco.svg</file>
+    <file>Icons/iconos/Blanco/flecha_izquierda_blanco.svg</file>
+    <file>Icons/iconos/Blanco/grupo_persona_blanco.svg</file>
+    <file>Icons/iconos/Blanco/guardar_blanco.svg</file>
   </qresource>
   <qresource prefix="iconosAzules">
     <file>Icons/iconos/Azul/buscar_filas_azul.svg</file>

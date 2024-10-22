@@ -9,7 +9,7 @@ from app.Controller.ClientesController import Clientes
 from app.Controller.PerfilUsuarioController import *
 from app.Controller.ComprasController import *
 from app.Controller.ProveedoresController import Control_proveedores
-from app.Controller.EmpleadosController import *
+from app.Controller.EmpleadosController import EmpleadosController
 from app.Controller.VentaController import *
 from app.Controller.VentasController import *
 from app.Controller.ProductosController import *
@@ -31,7 +31,7 @@ class SistemaPrincipal(QWidget):
         self.p_venta = Venta()
         self.p_ventas = Ventas()
         self.p_compras = Compras()
-        self.p_empleados = Empleados()
+        self.p_empleados = EmpleadosController()
         self.p_proveedores = Control_proveedores()
         self.p_clientes = Clientes()
         self.p_perfil = Perfil()
@@ -46,7 +46,7 @@ class SistemaPrincipal(QWidget):
         self.ui.w_cuerpo_contenido.addWidget(self.p_ventas)
         self.ui.w_cuerpo_contenido.addWidget(self.p_productos)
 
-        self.ui.label_fotousuario.setCursor(QtCore.Qt.PointingHandCursor)
+        self.ui.label_fotousuario.setCursor(QtCore.Qt.PointingHandCursor) 
         self.ui.label_fotousuario.mousePressEvent = self.mostrar_perfil
         self.ui.btn_proceso_venta.clicked.connect(self.mostrar_venta)
         self.ui.btn_ventas.clicked.connect(self.mostrar_ventas)
@@ -59,9 +59,6 @@ class SistemaPrincipal(QWidget):
 
         self.ui.btc_cerrar_2.clicked.connect(lambda:  sys.exit())
         self.ui.btc_minimizar_2.clicked.connect(lambda:  self.showMinimized())
-
-
-
         
 
     def mostrar_perfil(self, event):

@@ -64,7 +64,6 @@ class Ui_Control_Clientes(object):
 "font-weight: bold;\n"
 "font-family: Arial;\n"
 "font-size: 14px;\n"
-"max-height:15px;\n"
 "}\n"
 "[objectName*=\"btn_btn_\"]:hover{\n"
 "background-color: #2196F3;\n"
@@ -79,7 +78,6 @@ class Ui_Control_Clientes(object):
 "font-family:Arial;\n"
 "font-size: 14px;\n"
 "font-weight:bold;\n"
-"max-height:15px;\n"
 "}\n"
 "\n"
 "[objectName*=\"btnRadio_wpc\"]{\n"
@@ -96,7 +94,6 @@ class Ui_Control_Clientes(object):
 "background: #F5F5F5;\n"
 "border-radius: 2px;\n"
 "color: #1d1c1c;\n"
-"max-height:15px;\n"
 "}\n"
 "[objectName*=\"txt_\"]::focus{\n"
 "border-bottom: 2px solid #00668c;\n"
@@ -553,11 +550,13 @@ class Ui_Control_Clientes(object):
         self.cajaopciones_areasnegocio_fisico.addItem("")
         self.gridLayout_5.addWidget(self.cajaopciones_areasnegocio_fisico, 0, 0, 1, 1)
         self.btn_btn_nuevaareanegocio_fisico = QtWidgets.QPushButton(self.wpc_clientes_clienteFisico)
-        self.btn_btn_nuevaareanegocio_fisico.setMaximumSize(QtCore.QSize(16777215, 15))
+        self.btn_btn_nuevaareanegocio_fisico.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.btn_btn_nuevaareanegocio_fisico.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_nuevaareanegocio_fisico.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_nuevaareanegocio_fisico.setIcon(icon)
+        self.btn_btn_nuevaareanegocio_fisico.setIconSize(QtCore.QSize(10, 10))
         self.btn_btn_nuevaareanegocio_fisico.setObjectName("btn_btn_nuevaareanegocio_fisico")
         self.gridLayout_5.addWidget(self.btn_btn_nuevaareanegocio_fisico, 0, 1, 1, 1)
         self.gridLayout_8.addLayout(self.gridLayout_5, 9, 1, 1, 1)
@@ -571,8 +570,10 @@ class Ui_Control_Clientes(object):
         self.cajaopciones_categoriaFisico.addItem("")
         self.gridLayout_7.addWidget(self.cajaopciones_categoriaFisico, 0, 0, 1, 1)
         self.btn_btn_nuevacategoriaFisico = QtWidgets.QPushButton(self.wpc_clientes_clienteFisico)
+        self.btn_btn_nuevacategoriaFisico.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_nuevacategoriaFisico.setText("")
         self.btn_btn_nuevacategoriaFisico.setIcon(icon)
+        self.btn_btn_nuevacategoriaFisico.setIconSize(QtCore.QSize(10, 10))
         self.btn_btn_nuevacategoriaFisico.setObjectName("btn_btn_nuevacategoriaFisico")
         self.gridLayout_7.addWidget(self.btn_btn_nuevacategoriaFisico, 0, 1, 1, 1)
         self.gridLayout_8.addLayout(self.gridLayout_7, 9, 3, 1, 1)
@@ -772,7 +773,7 @@ class Ui_Control_Clientes(object):
         self.btn_btn_nuevacategoriaMoral.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_nuevacategoriaMoral.setText("")
         self.btn_btn_nuevacategoriaMoral.setIcon(icon)
-        self.btn_btn_nuevacategoriaMoral.setIconSize(QtCore.QSize(15, 15))
+        self.btn_btn_nuevacategoriaMoral.setIconSize(QtCore.QSize(10, 10))
         self.btn_btn_nuevacategoriaMoral.setObjectName("btn_btn_nuevacategoriaMoral")
         self.gridLayout_13.addWidget(self.btn_btn_nuevacategoriaMoral, 0, 1, 1, 1)
         self.gridLayout_15.addLayout(self.gridLayout_13, 5, 4, 1, 1)
@@ -813,7 +814,7 @@ class Ui_Control_Clientes(object):
         self.btn_btn_areasnegocio_moral.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_areasnegocio_moral.setText("")
         self.btn_btn_areasnegocio_moral.setIcon(icon)
-        self.btn_btn_areasnegocio_moral.setIconSize(QtCore.QSize(15, 15))
+        self.btn_btn_areasnegocio_moral.setIconSize(QtCore.QSize(10, 10))
         self.btn_btn_areasnegocio_moral.setObjectName("btn_btn_areasnegocio_moral")
         self.gridLayout_2.addWidget(self.btn_btn_areasnegocio_moral, 0, 1, 1, 1)
         self.gridLayout_15.addLayout(self.gridLayout_2, 8, 1, 1, 2)
@@ -893,51 +894,57 @@ class Ui_Control_Clientes(object):
         self.label_wp_titulo_clientes.setObjectName("label_wp_titulo_clientes")
         self.gridLayout_9.addWidget(self.label_wp_titulo_clientes, 0, 0, 1, 2)
         self.wpc_menu_opciones_clientes = QtWidgets.QWidget(self.wpc_contenido_general)
-        self.wpc_menu_opciones_clientes.setStyleSheet("[objectName^=\"btn_cliente\"]{\n"
-"font-size:12px;\n"
-"background-color: #cccbc8;\n"
-"border-radius:10px;\n"
-"qproperty-iconSize: 20px 20px;\n"
-"cursor: pointer-hand;\n"
-"}")
+        self.wpc_menu_opciones_clientes.setMinimumSize(QtCore.QSize(0, 40))
+        self.wpc_menu_opciones_clientes.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.wpc_menu_opciones_clientes.setStyleSheet("")
         self.wpc_menu_opciones_clientes.setObjectName("wpc_menu_opciones_clientes")
         self.gridLayout_16 = QtWidgets.QGridLayout(self.wpc_menu_opciones_clientes)
         self.gridLayout_16.setContentsMargins(4, 1, 4, 0)
         self.gridLayout_16.setSpacing(0)
         self.gridLayout_16.setObjectName("gridLayout_16")
-        self.gridLayout_10 = QtWidgets.QGridLayout()
+        spacerItem4 = QtWidgets.QSpacerItem(768, 5, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_16.addItem(spacerItem4, 0, 1, 1, 1)
+        self.wpc_contenedor_botones = QtWidgets.QFrame(self.wpc_menu_opciones_clientes)
+        self.wpc_contenedor_botones.setObjectName("wpc_contenedor_botones")
+        self.gridLayout_10 = QtWidgets.QGridLayout(self.wpc_contenedor_botones)
+        self.gridLayout_10.setContentsMargins(-1, 1, -1, -1)
         self.gridLayout_10.setHorizontalSpacing(10)
         self.gridLayout_10.setVerticalSpacing(0)
         self.gridLayout_10.setObjectName("gridLayout_10")
-        self.btn_btn_limpiarcampos = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
+        self.btn_btn_limpiarcampos = QtWidgets.QPushButton(self.wpc_contenedor_botones)
+        self.btn_btn_limpiarcampos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_limpiarcampos.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_limpiarcampos.setIcon(icon1)
-        self.btn_btn_limpiarcampos.setIconSize(QtCore.QSize(20, 20))
+        self.btn_btn_limpiarcampos.setIconSize(QtCore.QSize(16, 16))
         self.btn_btn_limpiarcampos.setObjectName("btn_btn_limpiarcampos")
         self.gridLayout_10.addWidget(self.btn_btn_limpiarcampos, 0, 4, 1, 1)
-        self.btn_btn_cliente_eliminar = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
+        self.btn_btn_cliente_eliminar = QtWidgets.QPushButton(self.wpc_contenedor_botones)
+        self.btn_btn_cliente_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_cliente_eliminar.setIcon(icon2)
+        self.btn_btn_cliente_eliminar.setIconSize(QtCore.QSize(10, 10))
         self.btn_btn_cliente_eliminar.setObjectName("btn_btn_cliente_eliminar")
         self.gridLayout_10.addWidget(self.btn_btn_cliente_eliminar, 0, 1, 1, 1)
-        self.btn_btn_cliente_agregar = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
+        self.btn_btn_cliente_agregar = QtWidgets.QPushButton(self.wpc_contenedor_botones)
+        self.btn_btn_cliente_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_cliente_agregar.setIcon(icon3)
+        self.btn_btn_cliente_agregar.setIconSize(QtCore.QSize(10, 10))
         self.btn_btn_cliente_agregar.setObjectName("btn_btn_cliente_agregar")
         self.gridLayout_10.addWidget(self.btn_btn_cliente_agregar, 0, 0, 1, 1)
-        self.btn_btn_cliente_modificar = QtWidgets.QPushButton(self.wpc_menu_opciones_clientes)
+        self.btn_btn_cliente_modificar = QtWidgets.QPushButton(self.wpc_contenedor_botones)
+        self.btn_btn_cliente_modificar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_cliente_modificar.setIcon(icon4)
+        self.btn_btn_cliente_modificar.setIconSize(QtCore.QSize(10, 10))
         self.btn_btn_cliente_modificar.setObjectName("btn_btn_cliente_modificar")
         self.gridLayout_10.addWidget(self.btn_btn_cliente_modificar, 0, 3, 1, 1)
-        self.gridLayout_16.addLayout(self.gridLayout_10, 0, 0, 1, 1)
-        spacerItem4 = QtWidgets.QSpacerItem(768, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_16.addItem(spacerItem4, 0, 1, 1, 1)
+        self.gridLayout_16.addWidget(self.wpc_contenedor_botones, 0, 0, 1, 1, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.gridLayout_9.addWidget(self.wpc_menu_opciones_clientes, 1, 0, 1, 2)
         self.gridLayout.addWidget(self.wpc_contenido_general, 0, 0, 1, 1)
 
