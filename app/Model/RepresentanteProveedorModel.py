@@ -5,17 +5,25 @@ class RepresentanteProveedorModel:
         self.session = session
 
     def agregar_representante(self, nombre, apellido_paterno, apellido_materno, correo, telefono, puesto):
-        nuevo_representante = Representantes_proveedores(
-            nombre =  nombre,
-            apellido_paterno = apellido_paterno,
-            apellido_materno = apellido_materno,
-            correo = correo,
-            telefono = telefono,
-            puesto = puesto
-        )
-        self.session.add(nuevo_representante)
-        self.session.flush()
-        return nuevo_representante.id
+        try:
+            representante = self.session.query(Representantes_proveedores).filter(nombre == nombre, apellido_paterno == apellido_paterno, apellido_materno == apellido_materno).first()
+            if representante:
+                return representante, False
+            else:
+                nuevo_representante = Representantes_proveedores(
+                    nombre =  nombre,
+                    apellido_paterno = apellido_paterno,
+                    apellido_materno = apellido_materno,
+                    correo = correo,
+                    telefono = telefono,
+                    puesto = puesto
+                )
+                self.session.add(nuevo_representante)
+                self.session.flush()
+                return nuevo_representante, True
+        except Exception as e:
+            print(e)
+
     
     def actualizar_representante(self, id_representante, **kwargs):
         # Busca el representante en la base de datos usando su ID

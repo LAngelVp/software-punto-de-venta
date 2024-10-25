@@ -168,7 +168,6 @@ class PuestosController(QWidget):
                 with session.begin():
                     self.puestos, estado = PuestoModel(session).obtener_todos()
                     if estado:
-                        print("holla")
                         self.llenar_tabla(self.puestos)
         except Exception as e:
             print(e)
@@ -308,8 +307,6 @@ class PuestosController(QWidget):
                     except Exception as e:
                         print(e)
         
-
-
     def campos(self):
         return{
             'nombre': self.ui.txt_nombrepuesto,

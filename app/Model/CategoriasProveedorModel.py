@@ -21,7 +21,15 @@ class CategoriaProveedorModel:
             return nueva_categoria.id
         
     def obtener_todas(self):
-        return self.session.query(Categorias_proveedores).all()
+        try:
+            categorias = self.session.query(Categorias_proveedores).all()
+            if len(categorias) > 0:
+                return categorias, True
+            else:
+                return None, False
+        except Exception as e:
+            print(f"Error al obtener categorias: {e}")
+
     def obtener_id_por_nombre(self, nombre):
         try:
             categoria = self.session.query(Categorias_proveedores).filter_by(nombre = nombre).first()

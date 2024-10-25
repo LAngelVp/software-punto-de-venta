@@ -5,6 +5,8 @@ class ProveedoresModel:
         self.session = session
 
     def agregar_proveedor(self, 
+                        categoria_id,
+                        representante_id,
                         nombre,
                         pais,
                         estado, 
@@ -17,14 +19,12 @@ class ProveedoresModel:
                         rfc,
                         pagina_web,
                         correo,
-                        telefono,
-                        categoria_id,
-                        representante_id
+                        telefono
                         ):
         try:
             proveedor = self.session.query(Proveedores).filter_by(nombre = nombre).first()
             if proveedor:
-                return proveedor.id
+                return proveedor
             else:
                 nuevo_proveedor = Proveedores(
                     nombre = nombre,
@@ -49,7 +49,6 @@ class ProveedoresModel:
                             nuevo_proveedor.categorias.append(categoria)  # Asociar el objeto, no el id
                     except Exception as e:
                         print(f'Error al asociar categoría: {e}')
-                        self.session.rollback()
                         return None
 
                 elif representante_id:
@@ -72,14 +71,22 @@ class ProveedoresModel:
         try:
             proveedor = self.session.query(Proveedores).get(id)
             if proveedor is None:
-                raise ValueError(f"No se encontró un proveedor con ID: {id}")
-            return proveedor
+                print(f"No se encontró un proveedor con ID: {id}")
+                return proveedor, False
+            else:
+                return proveedor, True
         except Exception as e:
             print(f"Error al obtener proveedor por ID {id}: {str(e)}")  # Imprimir el error para depuración
             return None
 
     def obtener_proveedores(self):
-        return  self.session.query(Proveedores).all()
+        proveedores = self.session.query(Proveedores).all()
+        if len(proveedores) > 0:
+            return proveedores, True
+        else:
+            return  None, False
+
+
     
     def obtener_nombre_proveedor(self, texto):
         try:
@@ -91,6 +98,8 @@ class ProveedoresModel:
             pass
     
     def actualizar_proveedor(self, proveedor_id, 
+                            categoria_id,
+                            representante_id,
                             nombre,
                             pais,
                             estado, 
@@ -104,8 +113,7 @@ class ProveedoresModel:
                             pagina_web,
                             correo,
                             telefono,
-                            categoria_id,
-                            representante_id):
+                            ):
         try:
             # Buscar el proveedor por ID
             proveedor = self.session.query(Proveedores).get(proveedor_id)
@@ -148,9 +156,7 @@ class ProveedoresModel:
                 try:
                     representante = self.session.query(Representantes_proveedores).get(representante_id)
                     if representante:
-                        # Limpiar los representantes existentes y agregar el nuevo
-                        proveedor.representantes.clear()
-                        proveedor.representantes.append(representante)
+                        proveedor.representante = representante
                     else:
                         print(f'Representante con ID {representante_id} no encontrado.')
                 except Exception as e:
@@ -159,7 +165,7 @@ class ProveedoresModel:
                     return None
             else:
                 # Si no se proporciona representante_id, eliminar los representantes existentes
-                proveedor.representantes.clear()
+                proveedor.representante = None
             print(f'Proveedor con ID {proveedor_id} actualizado con éxito.')
             return proveedor_id  # Retorna el ID del proveedor actualizado
         except Exception as e:
@@ -170,9 +176,13 @@ class ProveedoresModel:
     def consultar_proveedor(self, nombre):
         try:
             proveedor = self.session.query(Proveedores).filter(Proveedores.nombre == nombre).first()
-            return proveedor
+            if proveedor is None:
+                return proveedor, False
+            else:
+                return proveedor, True
         except Exception as e:
             print(f'Error al consultar el proveedor: {e}')
+            return None, False
 
     def eliminar_proveedor(self, id):
         try:

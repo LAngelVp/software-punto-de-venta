@@ -263,11 +263,10 @@ class Proveedores(Base):
     pagina_web = Column(Text)
     correo = Column(String(255))
     telefono = Column(String(15))
+    representante_id = Column(Integer, ForeignKey("Representantes_proveedores.id"))  # Clave foránea
+    representante = relationship("Representantes_proveedores", back_populates="proveedores")  # Relación
     productos = relationship(
         "Productos", secondary=producto_proveedor, back_populates="proveedores", 
-    )
-    representantes = relationship(
-        "Representantes_proveedores", back_populates="proveedor", uselist=True
     )
     categorias = relationship(
         "Categorias_proveedores",
@@ -289,8 +288,7 @@ class Representantes_proveedores(Base):
     telefono = Column(String(15))
     correo = Column(String(255))
     puesto = Column(String(255))
-    proveedor_id = Column(Integer, ForeignKey("Proveedores.id"))
-    proveedor = relationship("Proveedores", back_populates="representantes")
+    proveedores = relationship("Proveedores", back_populates="representante")  # Relación inversa
 
 
 class Categorias_proveedores(Base):

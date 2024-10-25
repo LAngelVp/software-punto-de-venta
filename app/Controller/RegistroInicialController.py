@@ -156,7 +156,8 @@ class Registro_personal_inicial(QWidget):
         try:
             with Conexion_base_datos() as db:
                 session = db.session
-                puestos, estado = PuestoModel(session).obtener_todos()
+                with session.begin():
+                    puestos, estado = PuestoModel(session).obtener_todos()
             if puestos:
                 for puesto in puestos:
                     self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto.id)
