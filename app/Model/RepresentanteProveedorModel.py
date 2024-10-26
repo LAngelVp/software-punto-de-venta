@@ -6,7 +6,7 @@ class RepresentanteProveedorModel:
 
     def agregar_representante(self, nombre, apellido_paterno, apellido_materno, correo, telefono, puesto):
         try:
-            representante = self.session.query(Representantes_proveedores).filter(nombre == nombre, apellido_paterno == apellido_paterno, apellido_materno == apellido_materno).first()
+            representante = self.session.query(Representantes_proveedores).filter(Representantes_proveedores.nombre == nombre, Representantes_proveedores.apellido_paterno == apellido_paterno, Representantes_proveedores.apellido_materno == apellido_materno).first()
             if representante:
                 return representante, False
             else:
@@ -27,7 +27,7 @@ class RepresentanteProveedorModel:
     
     def actualizar_representante(self, id_representante, **kwargs):
         # Busca el representante en la base de datos usando su ID
-        representante = self.session.query(Representantes_proveedores).get(id_representante)
+        representante = self.session.query(Representantes_proveedores).filter(Representantes_proveedores.id == id_representante).first()
         
         if representante:
             # Itera sobre los argumentos keyword (kwargs) para actualizar los atributos

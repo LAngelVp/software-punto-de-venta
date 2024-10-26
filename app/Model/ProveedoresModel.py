@@ -39,7 +39,8 @@ class ProveedoresModel:
                     rfc = rfc,
                     pagina_web = pagina_web,
                     correo  = correo,
-                    telefono = telefono
+                    telefono = telefono,
+                    representante_id =  representante_id
                     )
                 
                 if categoria_id:
@@ -53,9 +54,9 @@ class ProveedoresModel:
 
                 elif representante_id:
                     try:
-                        representante = self.session.query(Representantes_proveedores).get(representante_id)
-                        if representante:
-                            nuevo_proveedor.representantes.append(representante)  # Asociar el objeto, no el id
+                        representante = self.session.query(Representantes_proveedores).filter(Representantes_proveedores.id == representante_id).first()
+                        if representante is not None:
+                            nuevo_proveedor.representante.append(representante)  # Asociar el objeto, no el id
                     except Exception as e:
                         print(f'Error al asociar representante: {e}')
                         self.session.rollback()
@@ -63,7 +64,7 @@ class ProveedoresModel:
 
                 self.session.add(nuevo_proveedor)
                 self.session.flush()
-                return  nuevo_proveedor.id
+                return  nuevo_proveedor
         except Exception as e:
             print(f'error en el proveedor {e}')
         

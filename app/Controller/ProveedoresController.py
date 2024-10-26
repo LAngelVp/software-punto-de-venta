@@ -44,7 +44,7 @@ class Control_proveedores(QWidget):
         self.proveedores = None
         self.id_proveedor = None
         self.id_categoria = None
-        self.id_representante = None
+        self.representante = None
         self.seleccion_conectada = None
         self.lista_categorias = {}
         self.mostrar_categorias()
@@ -99,6 +99,7 @@ class Control_proveedores(QWidget):
         self.ui.btnradio_representantefalse.setChecked(True)
         self.ui.btnradio_representantetrue.setChecked(False)
         self.id_proveedor = None
+        self.representante = None
         self.mostrar_categorias()
 
 #COMMENT FUNCION CORRECTA
@@ -179,12 +180,12 @@ class Control_proveedores(QWidget):
                             return
 
                         # Agregar representante
-                        represente, estado = RepresentanteProveedorModel(session).agregar_representante(**datos_representante)
-                        if represente is not None:
+                        self.represente, estado = RepresentanteProveedorModel(session).agregar_representante(**datos_representante)
+                        if self.represente is not None:
                         # Agregar proveedor con representante
                             ProveedoresModel(session).agregar_proveedor(
                                 categoria_id=categoria_id,
-                                representante_id=represente.id,
+                                representante_id=self.represente.id,
                                 **datos_proveedor
                             )
                             print("Proveedor y representante agregados con éxito.")
