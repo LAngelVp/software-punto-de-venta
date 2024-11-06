@@ -133,8 +133,8 @@ class Control_proveedores(QWidget):
         campos_vacios = [clave for clave, valor in datos.items() if not valor]
 
         if campos_vacios:
-            return None
-        return datos
+            return None, campos_vacios
+        return datos, None
     
     def obtener_datos_representante(self):
         datos = {
@@ -151,13 +151,19 @@ class Control_proveedores(QWidget):
         return datos
 #comment agregamos proveedor
     def control_agregar_proveedor(self):
-        datos_proveedor = self.obtener_datos_proveedor()
+        datos_proveedor, campos_vacios = self.obtener_datos_proveedor()
         datos_representante = self.obtener_datos_representante()
         categoria_nombre = self.ui.cajaopciones_categorias.currentText().strip()
 
         if not categoria_nombre:
             Mensaje().mensaje_alerta(cuerpo="La categoría no puede estar vacía.")
             return
+        
+        if datos_proveedor is None:
+            # Si los datos son None, mostramos una alerta con los campos vacíos
+            campos_faltantes = ', '.join(campos_vacios)  # Unir los nombres de los campos vacíos en un string
+            Mensaje().mensaje_alerta(f"Completa los siguientes campos: {campos_faltantes}.")
+            return  # Salir de la función si los datos no están completos
 
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -168,8 +174,9 @@ class Control_proveedores(QWidget):
                     if not categoria_id:
                         Mensaje().mensaje_alerta(cuerpo="La categoría seleccionada no existe.")
                         return
-                    
+
                     proveedor_existente, estado = ProveedoresModel(session).consultar_proveedor(datos_proveedor['nombre'])
+
                     if estado:
                         Mensaje().mensaje_informativo(cuerpo="El proveedor ya existe.")
                         return
@@ -193,11 +200,7 @@ class Control_proveedores(QWidget):
                             print("no se agrego el proveedor con reprentante")
                             return
                             
-                    elif self.ui.btnradio_representantefalse.isChecked():
-                        if not datos_proveedor:
-                            Mensaje().mensaje_alerta("Completa los datos del proveedor.")
-                            return
-
+                    if self.ui.btnradio_representantefalse.isChecked():
                         # Agregar proveedor sin representante
                         ProveedoresModel(session).agregar_proveedor(
                             categoria_id=categoria_id,
@@ -212,14 +215,16 @@ class Control_proveedores(QWidget):
         self.limpiar_campos()
 
     def listar_proveedores_tabla(self):
+        estado = False
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
-            try:
-                self.proveedores, estado = ProveedoresModel(session).obtener_proveedores()
-                if estado:
-                    self.llenar_tabla_proveedores(self.proveedores)
-            except Exception as e:
-                print(f"Error al listar proveedores: {e}")
+            with session.begin():
+                try:
+                    self.proveedores, estado = ProveedoresModel(session).obtener_proveedores()
+                except Exception as e:
+                    print(f"Error al listar proveedores: {e}")
+            
+            self.llenar_tabla_proveedores(self.proveedores)
 
     def llenar_tabla_proveedores(self, proveedores):
         try:
@@ -232,7 +237,8 @@ class Control_proveedores(QWidget):
                 self.model = QStandardItemModel()
             
             self.model.clear()
-            if proveedores is None or len(proveedores) == 0:
+
+            if proveedores is None:
                 self.model.setHorizontalHeaderLabels([
                     "Nombre",
                     "País",
@@ -288,8 +294,6 @@ class Control_proveedores(QWidget):
                         proveedor.correo,
                         proveedor.telefono
                     ]
-                else:
-                    row_data = [""] * len(nombre_columnas)
 
                 items = [QStandardItem(item) for item in row_data]
                 self.model.appendRow(items)
@@ -308,25 +312,29 @@ class Control_proveedores(QWidget):
 
         except Exception as e:
             print(e)
-            print(f'No se logro hacer la creacion del proveedor {e}')
+            print(f'No se logro hacer el listado de los proveedores: {e}')
 
-        self.proveedores = None
+        # self.proveedores = None
 
     def control_actualizar_proveedor(self):
-        datos_proveedor = self.obtener_datos_proveedor()  # Obtén los datos del proveedor
-        datos_representante = self.obtener_datos_representante()  # Obtén los datos del representante
-        categoria_nombre = self.ui.cajaopciones_categorias.currentText().strip()  # Nombre de la categoría
+        # Obtén los datos del proveedor y del representante
+        datos_proveedor = self.obtener_datos_proveedor()
+        datos_representante = self.obtener_datos_representante()
 
+        # Obtén el nombre de la categoría seleccionada
+        categoria_nombre = self.ui.cajaopciones_categorias.currentText().strip()
+
+        # Verifica si la categoría está vacía
         if not categoria_nombre:
             Mensaje().mensaje_alerta(cuerpo="La categoría no puede estar vacía.")
             return
 
-        if self.id_proveedor:  # Verifica si tienes un ID de proveedor para actualizar
+        if self.id_proveedor:  # Verifica si hay un ID de proveedor para actualizar
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        # Obtener la categoría por nombre y su ID
+                        # Obtener la categoría por su nombre
                         categoria_id = CategoriaProveedorModel(session).obtener_id_por_nombre(nombre=categoria_nombre)
                         if not categoria_id:
                             Mensaje().mensaje_alerta(cuerpo="La categoría seleccionada no existe.")
@@ -338,53 +346,54 @@ class Control_proveedores(QWidget):
                             Mensaje().mensaje_alerta(cuerpo="El proveedor no existe.")
                             return
 
-                        # Inicializar representante_id como None
+                        # Inicializar representante_dato como None
                         representante_dato = None
 
-                        # Verificar y manejar los representantes
+                        # Verificar si se ha marcado el proveedor con representante
                         if self.ui.btnradio_representantetrue.isChecked():
-                            # Si el proveedor tiene un representante, actualiza sus datos
+                            # Si el proveedor ya tiene un representante, se actualizan sus datos
                             if proveedor_modelo.representante:
-                                representante = proveedor_modelo.representante  # Supongo que solo hay un representante
-                                representante_dato = representante
+                                representante = proveedor_modelo.representante
+                                representante_dato = representante  # Asumimos que hay un solo representante
 
+                                # Verifica que ambos registros (proveedor y representante) estén completos
                                 if not datos_representante or not datos_proveedor:
                                     Mensaje().mensaje_alerta(cuerpo="Completa los registros.")
                                     return
 
-                                # Actualiza el representante existente
+                                # Actualizar los datos del representante
                                 RepresentanteProveedorModel(session).actualizar_representante(
-                                    id_representante=representante_dato.id,  # Asegúrate de pasar el ID
+                                    id_representante=representante_dato.id,
                                     **datos_representante
                                 )
                                 print("Datos del representante actualizados.")
 
                             else:
-                                # Si no tiene representante, agrega uno nuevo y lo asocia al proveedor
+                                # Si no tiene representante, se agrega uno nuevo
                                 if not datos_representante or not datos_proveedor:
                                     Mensaje().mensaje_alerta(cuerpo="Completa los registros.")
                                     return
                                 
-                                # Agrega un nuevo representante
+                                # Agregar un nuevo representante
                                 representante_dato, estado = RepresentanteProveedorModel(session).agregar_representante(**datos_representante)
                                 print("Nuevo representante agregado.")
 
                         elif self.ui.btnradio_representantefalse.isChecked():
-                            # Si el botón de radio de no tener representante está chequeado,
-                            # simplemente actualiza el proveedor sin representante
+                            # Si no se tiene representante, se indicará y solo se actualizarán los datos del proveedor
                             print("No se agregará un representante, solo se actualizará el proveedor.")
 
                         # Actualizar los datos del proveedor
                         ProveedoresModel(session).actualizar_proveedor(
                             proveedor_id=self.id_proveedor,
                             categoria_id=categoria_id,
-                            representante_id=representante_dato.id,
+                            representante_id=representante_dato.id if representante_dato else None,  # Usamos None si no hay representante
                             **datos_proveedor
                         )
                         print("Proveedor actualizado con éxito.")
 
                     except Exception as e:
                         session.rollback()
+                        # Añadir más detalles sobre el error
                         print(f'No se logró actualizar el proveedor: {e}')
 
             # Actualiza la tabla de proveedores y limpia los campos
@@ -480,14 +489,19 @@ class Control_proveedores(QWidget):
     def eliminar_proveedor(self):
         datos_proveedor = self.obtener_datos_proveedor()
         if not datos_proveedor:
-            Mensaje().mensaje_alerta("o haz seleccionado un proveedor de la tabla para eliminarlo.")
-
+            Mensaje().mensaje_alerta("No haz seleccionado un proveedor de la tabla para eliminarlo.")
+            return
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
-                ProveedoresModel(session).eliminar_proveedor(self.id_proveedor)
-                session.commit()
-                self.listar_proveedores_tabla()
+                with session.begin():
+                    respuesta = ProveedoresModel(session).eliminar_proveedor(self.id_proveedor)
+                    if not respuesta:
+                        Mensaje().mensaje_alerta("No se pudo eliminar el proveedor")
+                        return
+                    # Aquí después de la eliminación, actualizas la tabla
+                self.listar_proveedores_tabla()  # Recargar la lista de proveedores
+                self.limpiar_campos()
         except Exception as e:
             print(f"Error al eliminar proveedor: {e}")
 
