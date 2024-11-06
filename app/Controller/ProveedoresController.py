@@ -211,8 +211,8 @@ class Control_proveedores(QWidget):
                 except Exception as e:
                     print(f'No se logró agregar el proveedor: {e}')
 
-        # self.listar_proveedores_tabla()
-        # self.limpiar_campos()
+        self.listar_proveedores_tabla()
+        self.limpiar_campos()
 
     def listar_proveedores_tabla(self):
         estado = False
@@ -501,6 +501,7 @@ class Control_proveedores(QWidget):
                         return
                     # Aquí después de la eliminación, actualizas la tabla
                 self.listar_proveedores_tabla()  # Recargar la lista de proveedores
+                self.limpiar_campos()
         except Exception as e:
             print(f"Error al eliminar proveedor: {e}")
 
