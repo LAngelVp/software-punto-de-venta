@@ -273,7 +273,6 @@ class Control_proveedores(QWidget):
                 "Teléfono"
             ]
 
-            # self.model = QStandardItemModel()
             self.model.setHorizontalHeaderLabels(nombre_columnas)
 
             for proveedor in proveedores:
