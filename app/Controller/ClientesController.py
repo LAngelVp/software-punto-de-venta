@@ -30,9 +30,15 @@ class Clientes(QWidget):
         self.ui.cajaDecimal_porcentajeintereses_moral.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.cajaDecimal_porcentajedescuento_fisico.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.cajaDecimal_porcentajedescuento_moral.setButtonSymbols(QSpinBox.NoButtons)
+        self.ui.fecha_ultimoreporte_fisico.setButtonSymbols(QSpinBox.NoButtons)
+        self.ui.fecha_ultimoreporte_moral.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.btnRadio_wpc_clienteFisico.setChecked(self.clienteFisico)
         self.ui.cajaDecimal_wpc_limite_credito.setEnabled(False)
         self.ui.cajaDecimal_wpc_limite_credito_moral.setEnabled(False)
+        self.ui.cajaDecimal_porcentajedescuento_fisico.setEnabled(False)
+        self.ui.cajaDecimal_porcentajedescuento_moral.setEnabled(False)
+        self.ui.fecha_ultimoreporte_fisico.setEnabled(False)
+        self.ui.fecha_ultimoreporte_moral.setEnabled(False)
         self.ui.txt_estadodelcredito_fisico.setText("SIN AUTORIZAR")
         self.ui.txt_estadocredito_moral.setText("SIN AUTORIZAR")
         self.ui.fecha_fechaconstitucion.setDate(QDate.currentDate())
@@ -49,48 +55,50 @@ class Clientes(QWidget):
         self.id_clasificacion_del_cliente = None
         self._translate = QtCore.QCoreApplication.translate
         #----------------------------------
-        #// : FUNCIONES PRINCIPALES
+#// : FUNCIONES PRINCIPALES
         self.listar_areas()
         self.listar_categorias()
         self.tabla_listar_clientes()
         #------------------------------
-        #//: CARGAR FOTO DEL CLIENTE FISICO
+#//: CARGAR FOTO DEL CLIENTE FISICO
         self.ui.label_wpc_fotocliente.mousePressEvent = self.obtener_foto
         #------------------------------
-        #// : AUTORIZAR CREDITOS
+#// : AUTORIZAR CREDITOS
         self.ui.casillaverificacion_wpc_credito_autorizado.toggled.connect(self.autorizar_credito_fisico)
         self.ui.casillaverificacion_wpc_credito_autorizado_moral.toggled.connect(self.autorizar_credito_moral)
         #-----------------------------
-        #// : MOSTRAR FORMULARIOS
+#// : MOSTRAR FORMULARIOS
         self.ui.btnRadio_wpc_clienteMoral.toggled.connect(self.mostrar_contenedor_cliente_moral)
         self.ui.btnRadio_wpc_clienteFisico.toggled.connect(self.mostrar_contenedor_cliente_fisico)
         #------------------------------
-        #//: ACTIVAR CREDITOS
+#//: ACTIVAR CREDITOS
         self.ui.casillaverificacion_wpc_credito_autorizado.toggled.connect(self.activar_creditofisico)
         self.ui.casillaverificacion_wpc_credito_autorizado_moral.toggled.connect(self.activar_creditomoral)
+        self.ui.casillaverificacion_aplicadescuento_fisico.toggled.connect(self.activar_descuentofisico)
+        self.ui.casillaverificacion_aplicadescuento_moral.toggled.connect(self.activar_descuentomoral)
         #------------------------------
-        #// : AGREGAR AREA Y CATEGORIA
+#// : AGREGAR AREA Y CATEGORIA
         self.ui.btn_btn_nuevacategoriaFisico.clicked.connect(self.nueva_categoria)
         self.ui.btn_btn_nuevacategoriaMoral.clicked.connect(self.nueva_categoria)
         self.ui.btn_btn_nuevaareanegocio_fisico.clicked.connect(self.nueva_area_cliente_fisico)
         self.ui.btn_btn_areasnegocio_moral.clicked.connect(self.nueva_area_cliente_moral)
         #-----------------------------
-        #//: MOSTRAR DATOS DEL CLIENTES EN LOS CAMPOS
+#//: MOSTRAR DATOS DEL CLIENTES EN LOS CAMPOS
         self.cliente_seleccionado.connect(self.cargar_cliente)
         #----------------------------
-        #//: AGREGAR CLIENTES
+#//: AGREGAR CLIENTES
         self.ui.btn_btn_cliente_agregar.clicked.connect(self.agregar_cliente)
         #------------------------------
-        #//: LIMPIAR CAMPOS
+#//: LIMPIAR CAMPOS
         self.ui.btn_btn_limpiarcampos.clicked.connect(self.limpiar_campos)
         #------------------------------
-        #//: BUSCAR CLIENTES
+#//: BUSCAR CLIENTES
         self.ui.txt_buscarcliente.returnPressed.connect(self.buscar_cliente)
         #------------------------------
-        #//: ACTUALIZAR CLIENTES
+#//: ACTUALIZAR CLIENTES
         self.ui.btn_btn_cliente_modificar.clicked.connect(self.actualizar_clientes)
         #----------------------------
-        #// : eliminar clientes
+#// : eliminar clientes
         self.ui.btn_btn_cliente_eliminar.clicked.connect(self.eliminar_clientes)
     #FUNCIONES:-----------------
     def buscar_cliente(self):
@@ -102,13 +110,14 @@ class Clientes(QWidget):
                 if self.ui.btnRadio_wpc_clienteFisico.isChecked():
                     tipo_cliente = "FISICO"
                     modelo_cliente = Clientes_fisicos
+                    self.clientes = ClientesFisicosAndMorales(session).filtrar_clientes_fisicos_por_nombre(
+                        self.ui.txt_buscarcliente.text(), tipo_cliente, modelo_cliente)
                 else:
                     tipo_cliente = "MORAL"
                     modelo_cliente = Clientes_morales
+                    self.clientes = ClientesFisicosAndMorales(session).filtrar_clientes_morales_por_nombre(
+                        self.ui.txt_buscarcliente.text(), tipo_cliente, modelo_cliente)
                 
-                self.clientes = ClientesFisicosAndMorales(session).filtrar_clientes_por_nombre(
-                    self.ui.txt_buscarcliente.text(), tipo_cliente, modelo_cliente)
-
                 self.llenar_tabla_clientes(self.clientes)
             self.clientes = None
 
@@ -618,7 +627,7 @@ class Clientes(QWidget):
 
     def validacion_campos_cliente_moral(self, datos):
         campos_cliente_moral = [
-            "nombre", "razon social", "correo electronico empresa", "avenidas", "web", "pais", "ciudad", "numero telefono", "numero de identificacion fiscal", "calles", "sector", "estado", "codigo postal", "area de negocio", "fecha de constitucion", "clasificacion de cliente", "direccion adicional", "representante moral", "telefono representante", "puesto del representante", "correo electronico representante", "comentarios"
+            "nombre", "razon social", "correo electronico empresa", "rfc", "avenidas", "web", "pais", "ciudad", "numero telefono", "numero de identificacion fiscal", "calles", "sector", "estado", "codigo postal", "area de negocio", "fecha de constitucion", "clasificacion de cliente", "direccion adicional", "representante moral", "telefono representante", "puesto del representante", "correo electronico representante", "comentarios"
         ]
 
         for campo in campos_cliente_moral:
@@ -807,10 +816,15 @@ class Clientes(QWidget):
                             foto=self.foto_cliente
                             
                         )
-                        self.tabla_listar_clientes()
-                        self.limpiar_campos()
                     except Exception as e:
                         print(f'No se logro hacer la actualizacion del cliente fisico: ,  {e}')
+
+                if cliente:
+                    self.tabla_listar_clientes()
+                else:
+                    print('No se logro actualizar el cliente fisico')
+            self.limpiar_campos()
+            return
 
         elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
             datos = self.obtener_datos_cliente_moral()
@@ -838,7 +852,7 @@ class Clientes(QWidget):
                             codigo_postal=datos["codigo postal"],
                             direccion_adicional=datos["direccion adicional"],
                             entidad_legalizada=datos["entidad legalizada"],
-                            categoria_cliente_id=categoria_id,
+                            categoria_cliente_id=categoria_id.id,
                             credito=datos["credito autorizado"],
                             estado_credito=datos["estado del credito"],
                             limite_credito=datos["limite del credito"],
@@ -849,7 +863,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["descuento autorizado"],
                             porcentaje_descuento=datos["porcentaje del descuento"],
                             comentarios=datos["comentarios"],
-                            areas_de_negocios_id=area_cliente_id,
+                            areas_de_negocios_id=area_cliente_id.id,
                             razon_social=datos["razon social"],
                             fecha_constitucion=datos["fecha de constitucion"],
                             web=datos["web"],
@@ -860,10 +874,14 @@ class Clientes(QWidget):
                             correo_representante=datos['correo electronico representante'],
                             puesto_representante=datos['puesto del representante']
                             ) 
-                        self.tabla_listar_clientes()
-                        self.limpiar_campos()
                     except Exception as e:
                         print(f'No se logro hacer la actualizacion del cliente moral: {e}')
+                if cliente:
+                    self.tabla_listar_clientes()
+                else:
+                    print('No se logro hacer la actualizacion del cliente moral')
+            self.limpiar_campos()
+            return
 
     def eliminar_clientes(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
@@ -993,5 +1011,15 @@ class Clientes(QWidget):
         else:
             self.ui.cajaDecimal_wpc_limite_credito_moral.setEnabled(False)
 
-
+    def activar_descuentofisico(self):
+        if self.ui.casillaverificacion_aplicadescuento_fisico.isChecked():
+            self.ui.cajaDecimal_porcentajedescuento_fisico.setEnabled(True)
+        else:
+            self.ui.cajaDecimal_porcentajedescuento_fisico.setEnabled(False)
+    
+    def activar_descuentomoral(self):
+        if self.ui.casillaverificacion_aplicadescuento_moral.isChecked():
+            self.ui.cajaDecimal_porcentajedescuento_moral.setEnabled(True)
+        else:
+            self.ui.cajaDecimal_porcentajedescuento_moral.setEnabled(False)
         
