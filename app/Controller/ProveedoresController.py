@@ -318,7 +318,7 @@ class Control_proveedores(QWidget):
 
     def control_actualizar_proveedor(self):
         # Obtén los datos del proveedor y del representante
-        datos_proveedor = self.obtener_datos_proveedor()
+        datos_proveedor, campos_vacios = self.obtener_datos_proveedor()
         datos_representante = self.obtener_datos_representante()
 
         # Obtén el nombre de la categoría seleccionada
@@ -328,6 +328,12 @@ class Control_proveedores(QWidget):
         if not categoria_nombre:
             Mensaje().mensaje_alerta(cuerpo="La categoría no puede estar vacía.")
             return
+        
+        if datos_proveedor is None:
+            # Si los datos son None, mostramos una alerta con los campos vacíos
+            campos_faltantes = ', '.join(campos_vacios)  # Unir los nombres de los campos vacíos en un string
+            Mensaje().mensaje_alerta(f"Completa los siguientes campos: {campos_faltantes}.")
+            return  # Salir de la función si los datos no están completos
 
         if self.id_proveedor:  # Verifica si hay un ID de proveedor para actualizar
             with Conexion_base_datos() as db:
