@@ -116,7 +116,7 @@ class ClientesFisicosAndMorales:
         except Exception as e:
             print(f'error en la consulta:  {e}')
 
-    def filtrar_clientes_por_nombre(self, valor_buscado, tipo_cliente, modelo_tipo_cliente):
+    def filtrar_clientes_fisicos_por_nombre(self, valor_buscado, tipo_cliente, modelo_tipo_cliente):
         try:
             clientes_tabla_alias = aliased(modelo_tipo_cliente)  # Usar el modelo, no una cadena
             clientes = (self.session.query(Clientes, clientes_tabla_alias)
@@ -128,6 +128,23 @@ class ClientesFisicosAndMorales:
                                 clientes_tabla_alias.apellido_paterno.ilike(f'%{valor_buscado}%'),
                                 clientes_tabla_alias.apellido_materno.ilike(f'%{valor_buscado}%'),
                                 clientes_tabla_alias.curp.ilike(f'%{valor_buscado}%')
+                            )
+                        )
+                        .all()
+                    )
+            return clientes
+        except Exception as e:
+            print(f'Error en la consulta: {e}')
+    
+    def filtrar_clientes_morales_por_nombre(self, valor_buscado, tipo_cliente, modelo_tipo_cliente):
+        try:
+            clientes_tabla_alias = aliased(modelo_tipo_cliente)  # Usar el modelo, no una cadena
+            clientes = (self.session.query(Clientes, clientes_tabla_alias)
+                        .join(clientes_tabla_alias, Clientes.id == clientes_tabla_alias.id, isouter=True)
+                        .filter(Clientes.tipo_cliente == tipo_cliente)
+                        .filter(
+                            or_(
+                                Clientes.nombre.ilike(f'%{valor_buscado}%')
                             )
                         )
                         .all()
