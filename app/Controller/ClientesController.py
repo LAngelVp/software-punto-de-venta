@@ -401,7 +401,7 @@ class Clientes(QWidget):
                         self.clientes = ClientesFisicosAndMorales(session).mostrar_clientes_fisicos()    
                     else:
                         self.clientes = ClientesFisicosAndMorales(session).mostrar_clientes_morales()
-                    self.llenar_tabla_clientes(self.clientes)
+                self.llenar_tabla_clientes(self.clientes)
         except Exception as e:
             print(e)
         self.clientes = None
