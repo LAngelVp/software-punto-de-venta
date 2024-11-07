@@ -422,6 +422,12 @@ class Clientes(QWidget):
 
             # Obtener los encabezados según el tipo de cliente
             if self.ui.btnRadio_wpc_clienteFisico.isChecked():
+                if clientes is None:
+                    self.model.setHorizontalHeaderLabels([
+                        "Id", "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "CURP"
+                        ])
+                    self.ui.tabla_clientes.setModel(self.model)
+                    return
                 nombre_columnas = [
                     "Id", "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "CURP"
                 ]
@@ -430,6 +436,12 @@ class Clientes(QWidget):
                                 for cliente, cliente_fisico in clientes if cliente_fisico]
 
             elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
+                if clientes is None:
+                    self.model.setHorizontalHeaderLabels([
+                        "Id", "Nombre", "RFC", "RAZON SOCIAL", "NIF"
+                        ])
+                    self.ui.tabla_clientes.setModel(self.model)
+                    return
                 nombre_columnas = [
                     "Id", "Nombre", "RFC", "RAZON SOCIAL", "NIF"
                 ]
