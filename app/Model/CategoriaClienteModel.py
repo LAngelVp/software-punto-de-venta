@@ -8,12 +8,12 @@ class CategoriaClienteModel:
         try:
             categoria = self.session.query(Categorias_de_clientes).filter_by(nombre = nombre).first()
             if categoria:
-                return categoria.id
+                return categoria
             else:
                 categoria = Categorias_de_clientes(nombre = nombre, descripcion = descripcion)
                 self.session.add(categoria)
                 self.session.flush()
-                return categoria.id
+                return categoria
         except Exception as e:
             print(f"Error al agregar categoria: {e}")
 

@@ -42,6 +42,7 @@ class Clientes(QWidget):
         self.ui.contenedor_clientmoral.hide()
         #//: VARIABLES GLOBALES
         self.foto_cliente = None
+        self.seleccion_conectada = None
         self.clientes = None
         self.id_cliente = None
         self.id_area_del_cliente = None
@@ -135,8 +136,8 @@ class Clientes(QWidget):
                     elif isinstance(campo, QDateEdit):
                         campo.setDate(QDate.currentDate())
 
-                    self.listar_areas()
-                    self.listar_categorias()
+                self.listar_areas()
+                self.listar_categorias()
                 self.ui.label_wpc_fotocliente.setText(self._translate("Control_Clientes", "Imagen"))
 
                     
@@ -164,8 +165,8 @@ class Clientes(QWidget):
                     elif isinstance(campo, QDateEdit):
                         campo.setDate(QDate.currentDate())
 
-                    self.listar_areas()
-                    self.listar_categorias()
+                self.listar_areas()
+                self.listar_categorias()
         except Exception as e:
             print(f"Error al limpiar campos: {e}")
 
@@ -248,7 +249,7 @@ class Clientes(QWidget):
         }
 
     def cargar_cliente(self, id):
-        self.limpiar_campos()
+        # self.limpiar_campos()
         self.id_cliente = id
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -403,8 +404,7 @@ class Clientes(QWidget):
                         self.clientes = ClientesFisicosAndMorales(session).mostrar_clientes_morales()
                 self.llenar_tabla_clientes(self.clientes)
         except Exception as e:
-            print(e)
-        self.clientes = None
+            print(f"error al obtener los clientes: {e}")
 
     def llenar_tabla_clientes(self, clientes):
         try:
@@ -417,105 +417,53 @@ class Clientes(QWidget):
             if not hasattr(self, 'model'):
                 self.model = QStandardItemModel()
 
-            
-            
             # Limpiar el modelo antes de llenarlo con nuevos datos
             self.model.clear()
-            
-            # Establecer los encabezados para el modelo
+
+            # Obtener los encabezados según el tipo de cliente
             if self.ui.btnRadio_wpc_clienteFisico.isChecked():
-                # Verificar si clientes es None o una lista vacía
-                if clientes is None or len(clientes) == 0:
-                    self.model.clear()  # Limpiar el modelo
-                    self.model.setHorizontalHeaderLabels([
-                        "Id",
-                        "Nombre",
-                        "Apellido Paterno",
-                        "Apellido Materno",
-                        "RFC",
-                        "CURP"
-                        ])
-                    self.ui.tabla_clientes.setModel(self.model) 
-                    print("No se recibieron datos de clientes o la lista está vacía.")
-                    return
                 nombre_columnas = [
-                    "Id",
-                    "Nombre",
-                    "Apellido Paterno",
-                    "Apellido Materno",
-                    "RFC",
-                    "CURP"
+                    "Id", "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "CURP"
                 ]
-                self.model.setHorizontalHeaderLabels(nombre_columnas)
-                
-                # Llenar el modelo con datos de clientes
-                for cliente, cliente_fisico in clientes:
-                    if cliente_fisico is not None:
-                        row_data = [
-                            str(cliente.id),
-                            cliente.nombre,
-                            cliente_fisico.apellido_paterno,
-                            cliente_fisico.apellido_materno,
-                            cliente.rfc,
-                            cliente_fisico.curp
-                        ]
-                    else:
-                        # Usar campos vacíos si no hay datos de cliente físico
-                        row_data = [
-                            str(cliente.id), cliente.nombre, "", "", cliente.rfc, ""
-                        ]
+                data_columnas = [(cliente.id, cliente.nombre, cliente_fisico.apellido_paterno, 
+                                cliente_fisico.apellido_materno, cliente.rfc, cliente_fisico.curp)
+                                for cliente, cliente_fisico in clientes if cliente_fisico]
 
-                    items = [QStandardItem(item) for item in row_data]
-                    self.model.appendRow(items)
-
-            if self.ui.btnRadio_wpc_clienteMoral.isChecked():
-                # Verificar si clientes es None o una lista vacía
-                if clientes is None or len(clientes) == 0:
-                    self.model.clear()  # Limpiar el modelo
-                    self.model.setHorizontalHeaderLabels([
-                        "Id",
-                        "Nombre",
-                        "RFC",
-                        "RAZON SOCIAL",
-                        "NIF"
-                        ])
-                    self.ui.tabla_clientes.setModel(self.model) 
-                    print("No se recibieron datos de clientes o la lista está vacía.")
-                    return
+            elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
                 nombre_columnas = [
-                    "Id",
-                    "Nombre",
-                    "RFC",
-                    "RAZON SOCIAL",
-                    "NIF"
-
+                    "Id", "Nombre", "RFC", "RAZON SOCIAL", "NIF"
                 ]
-                self.model.setHorizontalHeaderLabels(nombre_columnas)
-                for row_index, (cliente, cliente_moral) in enumerate(clientes):
-                    if cliente_moral is not None:
-                        row_data = [
-                            str(cliente.id),
-                            cliente.nombre,
-                            cliente.rfc,
-                            cliente.razon_social,
-                            cliente.NIF
-                        ]
-                    else:
-                        # En caso de que no haya datos de cliente físico, usar campos vacíos
-                        row_data = [
-                            str(cliente.id), cliente.nombre, "", "", cliente.rfc, ""
-                        ]
-                    items = [QStandardItem(item) for item in row_data]
-                    self.model.appendRow(items)
+                data_columnas = [(cliente.id, cliente.nombre, cliente.rfc, cliente.razon_social, cliente.NIF)
+                                for cliente, cliente_moral in clientes if cliente_moral]
+
+            else:
+                print("No se ha seleccionado un tipo de cliente válido.")
+                return
+
+            # Configurar los encabezados
+            self.model.setHorizontalHeaderLabels(nombre_columnas)
+
+            # Agregar los datos al modelo
+            for row_data in data_columnas:
+                items = [QStandardItem(str(item)) for item in row_data]
+                self.model.appendRow(items)
 
             # Asignar el modelo a la tabla
             self.ui.tabla_clientes.setModel(self.model)
             self.ui.tabla_clientes.setColumnHidden(0, True)
-        except Exception as e:
-            print(e)
-            print(f'No se logro hacer mostrar la tabla {e}')
 
-        self.ui.tabla_clientes.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
+            # Desconectar la señal antes de conectar
+            if self.seleccion_conectada:
+                self.ui.tabla_clientes.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla)
+                self.seleccion_conectada = False
+
+            # Conectar la señal a la función que obtiene el ID del elemento seleccionado
+            self.ui.tabla_clientes.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
+            self.seleccion_conectada = True
+
+        except Exception as e:
+            print(f"Error al llenar la tabla de clientes: {e}")
+        
         self.clientes = None
 
     def obtener_id_elemento_tabla(self, current, previus):
@@ -572,7 +520,7 @@ class Clientes(QWidget):
                     "numero identificacion" : self.ui.txt_ine_fisico.text().strip().upper(),
                     "ocupacion" : self.ui.txt_ocupacion_fisico.text().strip().upper(),
                     "area de negocio" : self.ui.cajaopciones_areasnegocio_fisico.currentText().strip().upper(),
-                    "clasificacion cliente": self.ui.cajaopciones_areasnegocio_fisico.currentText().strip().upper(),
+                    "clasificacion cliente": self.ui.cajaopciones_categoriaFisico.currentText().strip().upper(),
                     "estado civil": self.ui.cajaopciones_estadocivil_fisico.currentText().strip().upper(),
                     "comentarios" : self.ui.txtlargo_comentarioclientefisico.toPlainText().strip().upper(),
                     "entidad legalizada" : self.ui.casillaverificacion_entidadlegalizada_fisico.isChecked(),
@@ -586,7 +534,6 @@ class Clientes(QWidget):
                     "aplica descuento" : self.ui.casillaverificacion_aplicadescuento_fisico.isChecked(),
                     "credito disponible" : self.ui.cajaDecimal_creditodisponible_fisico.value(),
                     "ingresos" : self.ui.cajaDecimal_wpc_ingresosclienteFisico.value(),
-                    
                 }
 
     def validacion_campos_cliente_fisico(self, datos):
@@ -707,7 +654,7 @@ class Clientes(QWidget):
                             codigo_postal=datos['codigo postal'], 
                             direccion_adicional=datos['direccion adicional'], 
                             entidad_legalizada=datos["entidad legalizada"], 
-                            categoria_cliente_id=id_categoria_cliente,
+                            categoria_cliente_id=id_categoria_cliente.id,
                             credito=datos["limite del credito"], 
                             estado_credito=datos["estado del credito"], 
                             limite_credito=limite_credito, 
@@ -719,7 +666,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["aplica descuento"],
                             porcentaje_descuento = datos["porcentaje del descuento"],
                             comentarios = datos["comentarios"],
-                            areas_de_negocios_id=id_area_de_negocio,
+                            areas_de_negocios_id=id_area_de_negocio.id,
                             apellido_paterno=datos['apellido paterno'], 
                             apellido_materno=datos['apellido materno'], 
                             curp=datos['curp'], 
@@ -765,7 +712,7 @@ class Clientes(QWidget):
                             codigo_postal=datos['codigo postal'], 
                             direccion_adicional=datos['direccion adicional'], 
                             entidad_legalizada=datos["entidad legalizada"], 
-                            categoria_cliente_id=id_categoria_cliente,
+                            categoria_cliente_id=id_categoria_cliente.id,
                             credito=datos["credito autorizado"], 
                             estado_credito=datos["estado del credito"], 
                             limite_credito=datos["limite del credito"], 
@@ -777,7 +724,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["descuento autorizado"], 
                             porcentaje_descuento = datos["porcentaje del descuento"],
                             comentarios = datos["comentarios"],
-                            areas_de_negocios_id=id_area_de_negocio,
+                            areas_de_negocios_id=id_area_de_negocio.id,
                             razon_social=datos["razon social"],
                             fecha_constitucion=datos["fecha de constitucion"],
                             web=datos["web"],
@@ -801,15 +748,16 @@ class Clientes(QWidget):
     def actualizar_clientes(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
             datos = self.obtener_datos_cliente_fisico()
+
+            if not self.validacion_campos_cliente_fisico(datos):
+                return
+
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
                         categoria_id = CategoriaClienteModel(session).agregar(datos["clasificacion cliente"])
-                        print(categoria_id)
                         area_cliente_id = AreaNegocioClientesModel(session).agregar_area(datos["area de negocio"])
-                        print(area_cliente_id)
-                        print(self.id_cliente)
                         cliente = ClientesFisicosAndMorales(session).actualizar_cliente_fisico(
                             id = self.id_cliente,
                             nombre = datos['nombre'],
@@ -824,7 +772,7 @@ class Clientes(QWidget):
                             codigo_postal=datos["codigo postal"],
                             direccion_adicional=datos["direccion adicional"],
                             entidad_legalizada=datos["entidad legalizada"],
-                            categoria_cliente_id=categoria_id,
+                            categoria_cliente_id=categoria_id.id,
                             credito=datos["credito autorizado"],
                             estado_credito=datos["estado del credito"],
                             limite_credito=datos["limite del credito"],
@@ -835,7 +783,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["aplica descuento"],
                             porcentaje_descuento=datos["porcentaje del descuento"],
                             comentarios=datos["comentarios"],
-                            areas_de_negocios_id=area_cliente_id,
+                            areas_de_negocios_id=area_cliente_id.id,
                             apellido_paterno=datos["apellido paterno"],
                             apellido_materno=datos["apellido materno"],
                             curp=datos["curp"],
@@ -854,6 +802,10 @@ class Clientes(QWidget):
 
         elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
             datos = self.obtener_datos_cliente_moral()
+
+            if not self.validacion_campos_cliente_moral(datos):
+                return
+            
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
@@ -891,7 +843,6 @@ class Clientes(QWidget):
                             web=datos["web"],
                             sector=datos["sector"],
                             nif=datos["numero de identificacion fiscal"],
-
                             nombre_representante=datos['representante moral'],
                             telefono_representante=datos['telefono representante'],
                             correo_representante=datos['correo electronico representante'],
