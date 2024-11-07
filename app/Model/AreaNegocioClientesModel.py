@@ -8,12 +8,12 @@ class AreaNegocioClientesModel:
         try:
             area = self.session.query(Areas_negocios).filter_by(nombre = nombre).first()
             if area:
-                return  area.id
+                return  area
             else:
                 area = Areas_negocios(nombre = nombre, descripcion = descripcion)
                 self.session.add(area)
                 self.session.flush()
-                return area.id
+                return area
         except Exception as e:
             print(f'error al insertar {e}')
 
