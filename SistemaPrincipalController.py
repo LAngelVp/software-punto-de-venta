@@ -14,7 +14,6 @@ from app.Controller.VentaController import *
 from app.Controller.VentasController import *
 from app.Controller.ProductosController import *
 from app.Controller.ControlSucursalesController import *
-### cambios menores
 
 
 class SistemaPrincipal(QWidget):
