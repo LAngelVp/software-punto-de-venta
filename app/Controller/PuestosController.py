@@ -28,6 +28,7 @@ class PuestosController(QWidget):
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
         self.ui.btn_btn_roles.clicked.connect(self.roles)
+        self.ui.btn_btn_actualizar.clicked.connect(self.actualizar)
 
         # señales principales:
         self.ui.cajaopcion_lunes.stateChanged.connect(self.comprobar_caja_verificacion)
@@ -143,6 +144,18 @@ class PuestosController(QWidget):
                     print(f'Surgio un error : {e}')
         self.limpiar()
         self.signal_puesto_agregado.emit()
+
+    def actualizar(self):
+        id_puesto = self.id_elemento_seleccionado
+        if id_puesto is not None:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    puesto, estado = PuestoModel(session).obtener_puesto_por_id(id_puesto)
+                    if estado:
+                        print(True)
+                        return
+                    print(False)
 
     def listar_departamentos(self):
         try:
