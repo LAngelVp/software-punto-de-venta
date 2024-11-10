@@ -17,7 +17,21 @@ class PuestoModel:
                 self.session.add(nuevo_puesto)
                 self.session.flush()
                 return nuevo_puesto, True
-            
+
+    def actualizar(self, id_elemento, nombre,salario,horas_laborales,dias_laborales,descripcion_puesto, hora_entrada, hora_salida, departamento_id):
+        puesto = self.session.query(Puestos).filter_by(id = id_elemento).first()
+        if puesto is not None:
+            puesto.nombre = nombre
+            puesto.salario = salario
+            puesto.horas_laborales = horas_laborales
+            puesto.dias_laborales = dias_laborales
+            puesto.descripcion_puesto = descripcion_puesto
+            puesto.hora_entrada = hora_entrada
+            puesto.hora_salida = hora_salida
+            puesto.departamento_id = departamento_id
+            return puesto, True
+        return None, False
+    
     def obtener_todos(self):
         try:
             puestos = self.session.query(Puestos).all()
@@ -37,7 +51,6 @@ class PuestoModel:
         else:
             return None, False
 
-            
     def eliminar_puesto(self, id):
         try:
             empleado_asociados = self.session.query(Empleados).filter(Empleados.puesto_id == id).all()
@@ -51,8 +64,3 @@ class PuestoModel:
         except Exception as e:
             print(e)
             return  False
-
-            
-
-
-        

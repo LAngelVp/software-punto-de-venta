@@ -7,6 +7,7 @@ from ..View.UserInterfacePy.UI_ADMINISTRAR_PUESTOS import Ui_Formulario_puestos
 from .RolesPermisosController import ControlRolesController
 from ..Model.PuestoModel import PuestoModel
 from ..Model.DepartamentosModel import DepartamentosModel
+from .FuncionesAuxiliares import quitar_acentos
 
 
 class PuestosController(QWidget):
@@ -66,6 +67,7 @@ class PuestosController(QWidget):
         else:
             if sender.text() in self.diasLaborales:
                 self.diasLaborales.remove(sender.text())
+        print(self.diasLaborales)
 
     def limpiar(self):
 
@@ -87,12 +89,12 @@ class PuestosController(QWidget):
         self.id_elemento_seleccionado = None
         self.puestos = None
 
-        self.listar_puestos()
-
+        
 
     def agregar(self):
         diasLaborales = ', '.join(self.diasLaborales)
         datos = self.obtener_contenido_campos()
+        print(f"Dias laborales: {self.diasLaborales}")
 
         departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
 
@@ -104,8 +106,14 @@ class PuestosController(QWidget):
                     print(f'id del departamento en la lista {self.id_departamento}')
                     print(f'nombre del departamento en la lista {nombre}')
                     break
-        if not self.validar(datos):
-            print ("No se agregaron los campos")
+        campos_vacios, estado_campos_vacios = self.validar(datos)
+        if not estado_campos_vacios or not self.diasLaborales:
+            lista_vacios = []
+            if estado_campos_vacios is False:
+                for campo in campos_vacios:
+                    lista_vacios.append(campo)
+            lista_vacios.append("Asignar dia laboral")
+            Mensaje().mensaje_alerta(f"No se realizo el registro, falta agregar los campos{lista_vacios}")
             return
 
         with Conexion_base_datos() as db:
@@ -122,14 +130,15 @@ class PuestosController(QWidget):
                         hora_salida=datos['hora_salida'],
                         departamento_id=self.id_departamento
                     )
-                    if agregado == True:
-                        Mensaje().mensaje_informativo("Se registro con exito")
-                    else:
-                        Mensaje().mensaje_alerta("No se pudo registrar")
                 except Exception as e:
                     print(f'Surgio un error : {e}')
-        self.limpiar()
+            if agregado:
+                Mensaje().mensaje_informativo("Se registro con exito")
+                self.listar_puestos()
+            else:
+                Mensaje().mensaje_alerta("No se pudo registrar")
         self.signal_puesto_agregado.emit()
+    
     def eliminar(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -147,15 +156,52 @@ class PuestosController(QWidget):
 
     def actualizar(self):
         id_puesto = self.id_elemento_seleccionado
+        diasLaborales = ', '.join(self.diasLaborales)
+        datos = self.obtener_contenido_campos()
+
+        departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
+
+        if self.diccionario_departamentos:
+            print(f'lista del departamento en la lista {self.diccionario_departamentos}')
+            for index, nombre in self.diccionario_departamentos.items():
+                if nombre == departamento_seleccionado:
+                    self.id_departamento = index
+                    print(f'id del departamento en la lista {self.id_departamento}')
+                    print(f'nombre del departamento en la lista {nombre}')
+                    break
+                
+        campos_vacios, estado_campos_vacios = self.validar(datos)
+        if not estado_campos_vacios or not self.diasLaborales:
+            lista_vacios = []
+            if estado_campos_vacios is False:
+                for campo in campos_vacios:
+                    lista_vacios.append(campo)
+            lista_vacios.append("Asignar dia laboral")
+            Mensaje().mensaje_alerta(f"No se logro la actualizacion, falta agregar los campos{lista_vacios}")
+            return
+
         if id_puesto is not None:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    puesto, estado = PuestoModel(session).obtener_puesto_por_id(id_puesto)
-                    if estado:
-                        print(True)
-                        return
-                    print(False)
+                    puesto, estado = PuestoModel(session).actualizar(
+                        id_elemento=id_puesto,
+                        nombre=datos['nombre'],
+                        salario=datos['salario'],
+                        horas_laborales=datos['horas_laborales'],
+                        dias_laborales=diasLaborales,
+                        descripcion_puesto=datos['descripcion_puesto'],
+                        hora_entrada=datos['hora_entrada'],
+                        hora_salida=datos['hora_salida'],
+                        departamento_id=self.id_departamento
+                    )
+                if estado:
+                    print("agregado")
+                    self.limpiar()
+                    self.signal_puesto_agregado.emit()
+                    self
+                    return
+                print("no agregado")
 
     def listar_departamentos(self):
         try:
@@ -315,11 +361,13 @@ class PuestosController(QWidget):
                                 
                             if elemento_seleccionado.dias_laborales is not None:
                                 for dia, checkbox in cajas_verificacion.items():
-                                    checkbox.setChecked(dia in elemento_seleccionado.dias_laborales)
+                                    print(dia, checkbox)
+                                    checkbox.setChecked(quitar_acentos(dia) in elemento_seleccionado.dias_laborales)
+                                    print (quitar_acentos(dia))
 
                     except Exception as e:
                         print(e)
-        
+
     def campos(self):
         return{
             'nombre': self.ui.txt_nombrepuesto,
@@ -362,5 +410,5 @@ class PuestosController(QWidget):
         campos_vacios = [nombre for nombre, valor in campos.items() if not valor]
         if campos_vacios:
             print(f'Tienes campos vacíos: {", ".join(campos_vacios)}')
-            return False
-        return True
+            return campos_vacios, False
+        return None, True

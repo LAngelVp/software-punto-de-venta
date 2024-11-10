@@ -16,7 +16,6 @@ from app.Controller.ProductosController import *
 from app.Controller.ControlSucursalesController import *
 
 
-
 class SistemaPrincipal(QWidget):
     def __init__(self):
         super().__init__()
