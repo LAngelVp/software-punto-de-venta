@@ -24,6 +24,7 @@ class SistemaPrincipal(QWidget):
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.showFullScreen()
+        print("hola mundo")
         
         
         self.p_inicial = 0
