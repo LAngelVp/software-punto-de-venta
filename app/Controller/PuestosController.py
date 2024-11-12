@@ -39,6 +39,9 @@ class PuestosController(QWidget):
         self.ui.cajaopcion_viernes.stateChanged.connect(self.comprobar_caja_verificacion)
         self.ui.cajaopcion_sabado.stateChanged.connect(self.comprobar_caja_verificacion)
         self.ui.cajaopcion_domingo.stateChanged.connect(self.comprobar_caja_verificacion)
+        
+        # SEÑALES DE ENTER
+        self.ui.txt_buscarpuesto.returnPressed.connect(self.buscar_puesto)
 
         #// señal de seleccion de id
         self.elemento_seleccionado.connect(self.mostrar_datos_elemento)
@@ -54,6 +57,15 @@ class PuestosController(QWidget):
 
 
     #funciones:
+    
+    def buscar_puesto(self):
+        nombre_puesto = self.ui.txt_buscarpuesto.text()
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                self.puestos, estado = PuestoModel(session).filtrar_por_nombre(nombre_puesto)
+            if estado:
+                self.llenar_tabla(self.puestos)
 
     def roles(self):
         self.ventana_roles = ControlRolesController()
@@ -88,8 +100,6 @@ class PuestosController(QWidget):
         self.id_departamento = None
         self.id_elemento_seleccionado = None
         self.puestos = None
-
-        
 
     def agregar(self):
         diasLaborales = ', '.join(self.diasLaborales)

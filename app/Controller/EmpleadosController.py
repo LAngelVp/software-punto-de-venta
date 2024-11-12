@@ -8,15 +8,19 @@ from app.Controller.RegistroInicialController import Registro_personal_inicial
 from app.Controller.RolesController import *
 from app.DataBase.conexionBD import Conexion_base_datos
 from app.Model.EmpleadoModel import EmpleadosModel
-# from ...RegistroInicialController import *
 
 
 class EmpleadosController(QWidget):
+    registro_listar_puestos = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_Control_empleados()
         self.ui.setupUi(self)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_empleado)
+        
+        # SEÑALES: LISTAR PUESTOS EN EL REGISTRO INICIAL
+        self.ventana = Registro_personal_inicial()
+        self.registro_listar_puestos.connect(self.ventana.listar_puestos)
 
         self.seleccion_conectada = None
         # self.empleados = None
@@ -28,10 +32,10 @@ class EmpleadosController(QWidget):
         self.roles.show()
 
     def agregar_empleado(self):
-        self.ventana = Registro_personal_inicial()
+        
+        self.registro_listar_puestos.emit()
         self.ventana.registro_agregado_signal.connect(self.listar_empleados)
         self.ventana.show()
-
 
     def listar_empleados(self):
         with Conexion_base_datos() as db:
