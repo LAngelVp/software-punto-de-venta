@@ -158,9 +158,9 @@ class Registro_personal_inicial(QWidget):
                 session = db.session
                 with session.begin():
                     puestos, estado = PuestoModel(session).obtener_todos()
-            if puestos:
-                for puesto in puestos:
-                    self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto.id)
+                if estado:
+                    for puesto in puestos:
+                        self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto.id)
 
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
         except Exception as e:
