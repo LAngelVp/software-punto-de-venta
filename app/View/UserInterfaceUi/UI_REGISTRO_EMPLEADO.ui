@@ -116,6 +116,7 @@ padding: 2px;
 background-color: #F5F5F5;
 font-size: 14px;
 width:87px;
+color: #1d1c1c;
 }
 [objectName^=&quot;cajaopciones&quot;]::drop-down{
 subcontrol-origin: padding;
@@ -521,6 +522,9 @@ border-bottom: 2px solid #00668c;
                 </property>
                 <property name="showGroupSeparator" stdset="0">
                  <bool>false</bool>
+                </property>
+                <property name="displayFormat">
+                 <string>dd/MM/yyyy</string>
                 </property>
                 <property name="calendarPopup">
                  <bool>true</bool>
@@ -1099,6 +1103,9 @@ border-bottom: 2px solid #00668c;
               </item>
               <item row="1" column="0">
                <widget class="QDateEdit" name="fecha_fechacontratacion">
+                <property name="displayFormat">
+                 <string>dd/MM/yyyy</string>
+                </property>
                 <property name="calendarPopup">
                  <bool>true</bool>
                 </property>

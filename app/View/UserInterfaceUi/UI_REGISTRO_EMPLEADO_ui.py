@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_REGISTRO_EMPLEADO.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_REGISTRO_EMPLEADO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -117,6 +117,7 @@ class Ui_RegistroAdministrador(object):
 "background-color: #F5F5F5;\n"
 "font-size: 14px;\n"
 "width:87px;\n"
+"color: #1d1c1c;\n"
 "}\n"
 "[objectName^=\"cajaopciones\"]::drop-down{\n"
 "subcontrol-origin: padding;\n"
@@ -640,6 +641,7 @@ class Ui_RegistroAdministrador(object):
         self.txt_apellidom.setPlaceholderText(_translate("RegistroAdministrador", "Apellido Materno"))
         self.txt_nombre.setPlaceholderText(_translate("RegistroAdministrador", "Nombre"))
         self.etiqueta_estado_civil.setText(_translate("RegistroAdministrador", "Estado civil:"))
+        self.fecha_fechanacimiento.setDisplayFormat(_translate("RegistroAdministrador", "dd/MM/yyyy"))
         self.etiqueta_fecha_nacimiento.setText(_translate("RegistroAdministrador", "Fecha de nacimiento:"))
         self.txt_apellidop.setPlaceholderText(_translate("RegistroAdministrador", "Apellido Paterno"))
         self.txt_curp.setPlaceholderText(_translate("RegistroAdministrador", "Curp"))
@@ -686,6 +688,7 @@ class Ui_RegistroAdministrador(object):
         self.Button_aceptar.setText(_translate("RegistroAdministrador", "Aceptar"))
         self.Button_cancelar.setText(_translate("RegistroAdministrador", "Cancelar"))
         self.etiqueta_fechacontratacion.setText(_translate("RegistroAdministrador", "Fecha de contratación:"))
+        self.fecha_fechacontratacion.setDisplayFormat(_translate("RegistroAdministrador", "dd/MM/yyyy"))
 import ibootstrap_rc
 import iconosSVG_rc
 import iconsdvg_rc

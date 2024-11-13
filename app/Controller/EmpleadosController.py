@@ -8,7 +8,7 @@ from app.Controller.RegistroInicialController import Registro_personal_inicial
 from app.Controller.RolesController import *
 from app.DataBase.conexionBD import Conexion_base_datos
 from app.Model.EmpleadoModel import EmpleadosModel
-
+from .MensajesAlertasController import Mensaje
 
 class EmpleadosController(QWidget):
     registro_listar_puestos = pyqtSignal()
@@ -17,6 +17,8 @@ class EmpleadosController(QWidget):
         self.ui = Ui_Control_empleados()
         self.ui.setupUi(self)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_empleado)
+        self.ui.btn_btn_buscar.clicked.connect(self.buscar_empleado)
+        self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
         
         # SEÑALES: LISTAR PUESTOS EN EL REGISTRO INICIAL
         self.ventana = Registro_personal_inicial()
@@ -26,7 +28,29 @@ class EmpleadosController(QWidget):
         # self.empleados = None
 
         self.listar_empleados()
-    
+        # Conectar el evento de hover
+        self.ui.btn_btn_limpiar.setMouseTracking(True)
+        
+        
+    def limpiar(self):
+        self.ui.txt_idempleado.clear()
+        self.ui.txt_nombreempleado.clear()
+        
+        self.listar_empleados()
+        
+    def buscar_empleado(self):
+        id_empleado = self.ui.txt_idempleado.text()
+        nombre_empleado = self.ui.txt_nombreempleado.text()
+        if not id_empleado and not nombre_empleado:
+            Mensaje().mensaje_informativo("Para buscar a un empleado es necesario ingresar su ID o NOMBRE")
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                empleados, estado = EmpleadosModel(session).filtrar_empleados(id_empleado, nombre_empleado)
+            if estado:
+                self.llenar_tabla(empleados)
+                
     def roles(self):
         self.roles =  Control_rol()
         self.roles.show()
@@ -137,7 +161,7 @@ class EmpleadosController(QWidget):
 
             # Asignar el modelo a la tabla
             self.ui.tabla_listaempleados.setModel(self.model)
-            self.ui.tabla_listaempleados.setColumnHidden(0, True)
+            # self.ui.tabla_listaempleados.setColumnHidden(0, True)
 
             # Desconectar la señal antes de conectar
             if self.seleccion_conectada:

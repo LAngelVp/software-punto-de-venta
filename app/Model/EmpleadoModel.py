@@ -69,8 +69,6 @@ class EmpleadosModel:
         
     def obtener_empleados_detallados(self):
         try:
-            # Obtener todos los empleados
-            
             empleados = self.session.query(Empleados).\
             outerjoin(Puestos).\
             outerjoin(Departamentos).\
@@ -85,3 +83,20 @@ class EmpleadosModel:
         except Exception as e:
             print("Error al obtener empleados:", e)
             return [], False
+        
+    def filtrar_empleados(self, id = None, nombre = None):
+        consulta = self.session.query(Empleados).outerjoin(Puestos).outerjoin(Departamentos).outerjoin(Sucursales)
+    
+        # Si se pasa un `id`, agrega el filtro por `id`
+        if id:
+            consulta = consulta.filter(Empleados.id == id)
+        
+        # Si se pasa un `nombre`, agrega el filtro por `nombre`
+        if nombre:
+            consulta = consulta.filter(Empleados.nombre.ilike(f"%{nombre}%"))
+        
+        # Ejecuta la consulta y guarda los resultados
+        empleados = consulta.all()
+        if empleados:
+            return empleados, True
+        return None, False
