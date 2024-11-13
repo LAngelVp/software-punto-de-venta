@@ -132,9 +132,12 @@ class ClientesFisicosAndMorales:
                         )
                         .all()
                     )
-            return clientes
         except Exception as e:
             print(f'Error en la consulta: {e}')
+        if not clientes:
+            return None, False
+        else:
+            return clientes, True
     
     def filtrar_clientes_morales_por_nombre(self, valor_buscado, tipo_cliente, modelo_tipo_cliente):
         try:
@@ -149,9 +152,12 @@ class ClientesFisicosAndMorales:
                         )
                         .all()
                     )
-            return clientes
         except Exception as e:
             print(f'Error en la consulta: {e}')
+        if not clientes:
+            return None, False
+        else:
+            return clientes, True
 
     def actualizar_cliente_fisico(self, id, nombre, correo, rfc, telefono, pais, estado, ciudad, avenidas, calles, codigo_postal, direccion_adicional, entidad_legalizada, categoria_cliente_id, credito, estado_credito, limite_credito, porcentaje_interes, fecha_ultimo_reporte, credito_disponible, credito_utilizado, aplica_descuento, porcentaje_descuento, comentarios, areas_de_negocios_id, apellido_paterno, apellido_materno, curp, fecha_nacimiento, num_identificacion, ocupacion, ingresos, estado_civil, foto):
         try: 

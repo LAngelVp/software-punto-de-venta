@@ -110,15 +110,17 @@ class Clientes(QWidget):
                 if self.ui.btnRadio_wpc_clienteFisico.isChecked():
                     tipo_cliente = "FISICO"
                     modelo_cliente = Clientes_fisicos
-                    self.clientes = ClientesFisicosAndMorales(session).filtrar_clientes_fisicos_por_nombre(
+                    self.clientes, estado = ClientesFisicosAndMorales(session).filtrar_clientes_fisicos_por_nombre(
                         self.ui.txt_buscarcliente.text(), tipo_cliente, modelo_cliente)
                 else:
                     tipo_cliente = "MORAL"
                     modelo_cliente = Clientes_morales
-                    self.clientes = ClientesFisicosAndMorales(session).filtrar_clientes_morales_por_nombre(
+                    self.clientes, estado = ClientesFisicosAndMorales(session).filtrar_clientes_morales_por_nombre(
                         self.ui.txt_buscarcliente.text(), tipo_cliente, modelo_cliente)
-                
+            if estado:
                 self.llenar_tabla_clientes(self.clientes)
+            else:
+                print("no hay clientes")
             self.clientes = None
 
     def limpiar_campos(self):
