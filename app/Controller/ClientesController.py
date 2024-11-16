@@ -260,7 +260,6 @@ class Clientes(QWidget):
         }
 
     def cargar_cliente(self, id):
-        # self.limpiar_campos()
         self.id_cliente = id
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()

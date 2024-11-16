@@ -83,7 +83,14 @@ class EmpleadosModel:
         except Exception as e:
             print("Error al obtener empleados:", e)
             return [], False
-        
+
+    def eliminar_empleado(self, id):
+        empleado = self.session.query(Empleados).filter(Empleados.id == id).one_or_none()
+        if empleado:
+            self.session.delete(empleado)
+            return True
+        return False
+    
     def filtrar_empleados(self, id = None, nombre = None):
         consulta = self.session.query(Empleados).outerjoin(Puestos).outerjoin(Departamentos).outerjoin(Sucursales)
     
