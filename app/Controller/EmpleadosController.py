@@ -9,6 +9,7 @@ from app.Controller.RolesController import *
 from app.DataBase.conexionBD import Conexion_base_datos
 from app.Model.EmpleadoModel import EmpleadosModel
 from .MensajesAlertasController import Mensaje
+from ..Model.ValidacionesModel import Validaciones
 
 class EmpleadosController(QWidget):
     registro_listar_puestos = pyqtSignal()
@@ -16,22 +17,22 @@ class EmpleadosController(QWidget):
         super().__init__()
         self.ui = Ui_Control_empleados()
         self.ui.setupUi(self)
+        self.ui.txt_idempleado.setValidator(Validaciones().get_int_validator)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_empleado)
         self.ui.btn_btn_buscar.clicked.connect(self.buscar_empleado)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
+        self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_empleado)
+        self.ui.btn_btn_editarempleado.clicked.connect(self.editar_empleado_seleccionado)
         
         # SEÑALES: LISTAR PUESTOS EN EL REGISTRO INICIAL
         self.ventana = Registro_personal_inicial()
         self.registro_listar_puestos.connect(self.ventana.listar_puestos)
 
         self.seleccion_conectada = None
-        # self.empleados = None
+        self.id_empleado = None
 
         self.listar_empleados()
-        # Conectar el evento de hover
-        self.ui.btn_btn_limpiar.setMouseTracking(True)
-        
-        
+
     def limpiar(self):
         self.ui.txt_idempleado.clear()
         self.ui.txt_nombreempleado.clear()
@@ -44,6 +45,8 @@ class EmpleadosController(QWidget):
         if not id_empleado and not nombre_empleado:
             Mensaje().mensaje_informativo("Para buscar a un empleado es necesario ingresar su ID o NOMBRE")
             return
+        if id_empleado:
+            id_empleado = int(id_empleado)
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -56,27 +59,33 @@ class EmpleadosController(QWidget):
         self.roles.show()
 
     def agregar_empleado(self):
-        
         self.registro_listar_puestos.emit()
         self.ventana.registro_agregado_signal.connect(self.listar_empleados)
         self.ventana.show()
 
+    def eliminar_empleado(self):
+        if self.id_empleado:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    estado = EmpleadosModel(session).eliminar_empleado(self.id_empleado)
+                if estado:
+                    self.listar_empleados()
+                return
+            
+    def editar_empleado_seleccionado(self):
+        if self.id_empleado:
+            self.ventana.show()
+    
     def listar_empleados(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
                 try:
                     self.empleados, estado = EmpleadosModel(session).obtener_empleados_detallados()
-                    if estado == True:
-                        print("hay empleados")
-                        for i in self.empleados:
-                            print(i.nombre)
-                        self.llenar_tabla(self.empleados)
-                            
-                    if estado == False:
-                        print("no hay empleados")
                 except Exception as e:
                     print(e)
+            self.llenar_tabla(self.empleados)
 
     def llenar_tabla(self, empleados):
         try:
@@ -97,7 +106,6 @@ class EmpleadosController(QWidget):
                     "id", "nombre", "apellido_paterno", "apellido_materno", "fecha_nacimiento", "estado_civil", "curp", "rfc", "nivel_academico", "carrera", "correo_electronico", "numero_seguro_social", "fecha_contratacion", "fecha_despido", "ciudad", "codigo_postal", "estado", "pais", "numero_telefonico", "nombre_contacto", "contacto_emergencia", "parentesco_contacto", "calles", "avenidas", "num_interior", "num_exterior", "direccion_adicional", "activo"
                     ])
                 self.ui.tabla_listaempleados.setModel(self.model)
-                print("No se recibieron datos de empleados o la lista está vacía.")
                 return
 
             nombre_columnas = [
@@ -174,15 +182,14 @@ class EmpleadosController(QWidget):
         except Exception as e:
             print(f'No se logro hacer mostrar la tabla {e}')
 
-        self.empleados = None
-
-    def obtener_id_elemento_tabla(self):
-        pass
+    def obtener_id_elemento_tabla(self, current, previus):
+        if current.column() >= 0:
+            indice_fila = current.row()
+            self.id_empleado = self.model.item(indice_fila, 0).text()
 
     def obtencion_segura(atributo, default='Sin dato'):
         """Función auxiliar para obtener atributos de manera segura."""
         return atributo if atributo is not None else default
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
