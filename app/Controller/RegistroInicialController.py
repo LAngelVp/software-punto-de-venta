@@ -33,7 +33,7 @@ class Registro_personal_inicial(QWidget):
     listar_sucursales_en_departamentos_signal = pyqtSignal()
     tabla_puestos = pyqtSignal()
     registro_agregado_signal = pyqtSignal()
-    def __init__(self):
+    def __init__(self, id_empleado):
         super().__init__()
         self.ui = Ui_RegistroAdministrador()
         self.ui.setupUi(self)
@@ -88,9 +88,14 @@ class Registro_personal_inicial(QWidget):
         self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
         self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
         
+        if id_empleado:
+            self.cargar_datos_empleado()
+        
 
 # FUNCIONES GENERALES:
     #// VENTANA DE SUCURSAL:
+    def cargar_datos_empleado():
+        pass
     def agregar_sucursal(self):
         self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
         self.listar_sucursales_signal.emit()
