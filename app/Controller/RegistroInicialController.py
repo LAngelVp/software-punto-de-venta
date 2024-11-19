@@ -33,7 +33,7 @@ class Registro_personal_inicial(QWidget):
     listar_sucursales_en_departamentos_signal = pyqtSignal()
     tabla_puestos = pyqtSignal()
     registro_agregado_signal = pyqtSignal()
-    def __init__(self, id_empleado):
+    def __init__(self, id_empleado = None):
         super().__init__()
         self.ui = Ui_RegistroAdministrador()
         self.ui.setupUi(self)
@@ -65,13 +65,22 @@ class Registro_personal_inicial(QWidget):
         self.ui.Button_agregardepartamento.clicked.connect(self.ventana_departamentos)
         self.ui.Button_agregarpuesto.clicked.connect(self.ventana_puestos)
 #// agregar elementos:
-        self.ui.cajaopciones_estadocvil.addItems(['Soltero/a','Casado/a','Viudo/a','Divorciado/a','Union libre'])
+        self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
+        self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
+        self.parentesco_contacto = ['BISABUELO/A', 'ABUELO/A', 'MADRE', 'PADRE', 'TIO/A', 'ESPOSO/A', 'NIETO/A', 'HIJO/A', 'HERMANO/A', 'SOBRINO/A', 'PRIMO/A', 'CUÑADO/A' 'SUEGRO/A', 'YERNO', 'NUERA', 'OTRO']
+        
+        self.ui.cajaopciones_nivelacademico.addItems(self.niveles_academicos)
+        self.ui.cajaopciones_estadocvil.addItems(self.estados_civiles)
+        self.ui.cajaopciones_parentesco.addItems(self.parentesco_contacto)
+        
 #// variables globales:
         self.drag_start_position = None
         self.file_name = '' # ALMACENAMOS LA FOTO
         self.departamentos = DepartamentosController()
         self.puestos = PuestosController()
         self.sucursales = SucursalesController()
+        self.id_empleado = None
+        self.lista_puestos = []
         
 #funciones principales:
         self.listar_grupo_permisos_rol()
@@ -88,14 +97,92 @@ class Registro_personal_inicial(QWidget):
         self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
         self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
         
-        if id_empleado:
+        if id_empleado is not None:
             self.cargar_datos_empleado()
         
 
 # FUNCIONES GENERALES:
     #// VENTANA DE SUCURSAL:
-    def cargar_datos_empleado():
-        pass
+    def obtener_id(self, id_empleado = None):
+        if id_empleado is not None:
+            self.id_empleado = id_empleado
+            self.cargar_datos_empleado(self.id_empleado)
+            print(self.id_empleado)
+
+    def cargar_datos_empleado(self, id = None):
+        opciones_estado_civil = self.estados_civiles
+        opciones_niveles_academicos = self.niveles_academicos
+        opciones_parentesco = self.parentesco_contacto
+        if id is not None:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    empleado_existente, estado = EmpleadosModel(session).obtener_empleado_por_id(id=id)
+                if estado:
+                    self.ui.txt_nombre.setText(empleado_existente.nombre)
+                    self.ui.txt_apellidop.setText(empleado_existente.apellido_paterno)
+                    self.ui.txt_apellidom.setText(empleado_existente.apellido_materno)
+                    self.ui.fecha_fechanacimiento.setDate(empleado_existente.fecha_nacimiento)
+                    self.ui.txt_curp.setText(empleado_existente.curp)
+                    self.ui.txt_rfc.setText(empleado_existente.rfc)
+                    self.ui.txt_carrera.setText(empleado_existente.carrera)
+                    self.ui.txt_correoelectronico.setText(empleado_existente.correo_electronico)
+                    self.ui.txt_numerosegurosicial.setText(empleado_existente.numero_seguro_social)
+                    self.ui.fecha_fechacontratacion.setDate(empleado_existente.fecha_contratacion)
+                    
+                    self.ui.txt_ciudad.setText(empleado_existente.ciudad)
+                    self.ui.txt_codigopostal.setText(empleado_existente.codigo_postal)
+                    self.ui.txt_estado.setText(empleado_existente.estado)
+                    self.ui.txt_pais.setText(empleado_existente.pais)
+                    self.ui.txt_numerotelefono.setText(empleado_existente.numero_telefonico)
+                    self.ui.txt_nombrecontactoemergencia.setText(empleado_existente.nombre_contacto)
+                    self.ui.txt_contactoemergencia.setText(empleado_existente.contacto_emergencia)
+                    self.ui.txt_calles.setText(empleado_existente.calles)
+                    self.ui.txt_avenidas.setText(empleado_existente.avenidas)
+                    self.ui.txt_colonia.setText(empleado_existente.colonia)
+                    self.ui.txt_ninterior.setText(empleado_existente.num_interior)
+                    self.ui.txt_nexterior.setText(empleado_existente.num_exterior)
+                    self.ui.txtlargo_direccion_completa.setPlainText(empleado_existente.direccion_adicional)
+                    self.ui.label_fotousuario.setPixmap(QPixmap(empleado_existente.foto).scaled(self.ui.label_fotousuario.size()))
+                    self.file_name = empleado_existente.foto
+
+                    if empleado_existente.puesto:
+                        nombre = empleado_existente.puesto.nombre
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_puestos, nombre)
+                            
+                    if empleado_existente.parentesco_contacto:
+                        nombre = empleado_existente.parentesco_contacto
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_parentesco, nombre)
+                    
+                    if empleado_existente.nivel_academico:
+                        nombre = empleado_existente.nivel_academico
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_nivelacademico, nombre)
+                    
+                    if empleado_existente.estado_civil:
+                        nombre = empleado_existente.estado_civil
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
+
+    def caja_opciones_mover_elemento(self, caja_opciones, elemento_a_mover):
+        puestos = []
+        max_elementos = caja_opciones.count()
+        for i in range(max_elementos):
+            nombre_puesto = caja_opciones.itemText(i)
+            id_puesto = caja_opciones.itemData(i)
+            puestos.append((nombre_puesto, id_puesto))
+            
+        puesto_encontrado = False
+        for i, (nombre, id_puesto) in enumerate(puestos):
+            if nombre == elemento_a_mover:
+                puestos.pop(i)
+                puestos.insert(0, (nombre, id_puesto))
+                puesnto_encontrado = True
+                break
+        if puesnto_encontrado:
+            caja_opciones.clear()
+            for nombre, id_puesto in puestos:
+                caja_opciones.addItem(nombre, id_puesto)
+
+    
     def agregar_sucursal(self):
         self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
         self.listar_sucursales_signal.emit()
@@ -221,6 +308,7 @@ class Registro_personal_inicial(QWidget):
             "nombre_contacto_emergencia": self.ui.txt_nombrecontactoemergencia,
             "calles": self.ui.txt_calles,
             "avenidas": self.ui.txt_avenidas,
+            "colonia" : self.ui.txt_colonia,
             "num_interior": self.ui.txt_ninterior,
             "num_exterior": self.ui.txt_nexterior,
             "direccion_adicional": self.ui.txtlargo_direccion_completa,
@@ -277,6 +365,7 @@ class Registro_personal_inicial(QWidget):
                             rol_id = self.ui.cajaopciones_rol_usuario.currentData())
                     
                         EmpleadosModel(session).crear_empleado(
+                            id_empleado = self.id_empleado if self.id_empleado is not None else None,
                             nombre=datos['nombre'],
                             apellido_paterno=datos['apellido_paterno'],
                             apellido_materno=datos['apellido_materno'],
@@ -300,6 +389,7 @@ class Registro_personal_inicial(QWidget):
                             parentesco_contacto=self.ui.cajaopciones_parentesco.currentText().strip().upper(),
                             calles=datos["calles"],
                             avenidas=datos["avenidas"],
+                            colonia=datos["colonia"],
                             num_interior=datos["num_interior"],
                             num_exterior=datos["num_exterior"],
                             direccion_adicional=datos["direccion_adicional"],
@@ -313,7 +403,7 @@ class Registro_personal_inicial(QWidget):
                         self.close()
                         self.abrir_inicio()
                     except Exception as e:
-                        print(e)
+                        session.rollback()
             self.registro_agregado_signal.emit()
         else:
             print("Datos no válidos. No se almacenará la información.")
@@ -335,7 +425,8 @@ class Registro_personal_inicial(QWidget):
     
 #// funcionalidades de la ventana
     def cerrar(self):
-        self.close()
+        self.id_empleado = None
+        sys.exit()
 
     def maximizar(self):
         if self.isMaximized():
@@ -358,8 +449,3 @@ class Registro_personal_inicial(QWidget):
         # Resetea drag_start_position al soltar el botón del mouse
         self.drag_start_position = None
 
-# if __name__ == '__main__':
-#     app = QApplication(sys.argv)
-#     ui = Registro_personal_inicial()
-#     ui.show()
-#     sys.exit(app.exec())

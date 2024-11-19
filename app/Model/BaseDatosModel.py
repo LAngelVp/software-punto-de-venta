@@ -155,6 +155,7 @@ class Empleados(Base):
     parentesco_contacto = Column(String(30))
     calles =  Column(String(100), nullable=True)
     avenidas = Column(String(100), nullable=True)
+    colonia = Column(String(255))
     num_interior =  Column(String(10), nullable=True)
     num_exterior = Column(String(10), nullable=True)
     direccion_adicional = Column(Text, nullable=True)
