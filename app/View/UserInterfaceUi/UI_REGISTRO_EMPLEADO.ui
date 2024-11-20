@@ -524,7 +524,11 @@ border-bottom: 2px solid #00668c;
          <item row="0" column="7" alignment="Qt::AlignRight|Qt::AlignVCenter">
           <widget class="QLabel" name="etiqueta_status_empleado">
            <property name="text">
+<<<<<<< HEAD
             <string/>
+=======
+            <string>personal: ACTIVO</string>
+>>>>>>> 2a7082f (YA SE MUESTRA SI ESTA ACTIVO O NO)
            </property>
           </widget>
          </item>

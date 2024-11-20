@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="iconosBlancos">
+    <file>Icons/iconos/Blanco/mover.svg</file>
     <file>Icons/iconos/Blanco/actualizar_blanco.svg</file>
     <file>Icons/iconos/Blanco/agregar_blanco.svg</file>
     <file>Icons/iconos/Blanco/agregar_documento_blanco.svg</file>

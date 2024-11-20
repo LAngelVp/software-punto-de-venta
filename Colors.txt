@@ -6,7 +6,7 @@ pyuic5 UI_CONTROL_PROVEEDORES.ui -o ../userinterfacepy/UI_CONTROL_PROVEEDORES.py
 pyuic5 UI_CONTROL_VENTA.ui -o ../userinterfacepy/UI_CONTROL_VENTA.py
 pyuic5 UI_CREAR_ORDEN_DE_COMPRA.ui -o ../userinterfacepy/UI_CREAR_ORDEN_DE_COMPRA.py
 pyuic5 UI_INICIO_SESION.ui -o ../userinterfacepy/UI_INICIO_SESION.py
-pyuic5 UI_REGISTRO_EMPLEADO.ui -o ../userinterfacepy/UI_REGISTRO_EMPLEADO.py
+pyuic5 UI_REGISTRO_EMPLEADO.ui -o ../UserInterfacePy/UI_REGISTRO_EMPLEADO.py
 pyuic5 UI_SISTEMA_PRINCIPAL.ui -o ../userinterfacepy/UI_SISTEMA_PRINCIPAL.py
 pyuic5 UI_ADMINISTRAR_PUESTOS.ui -o ../userinterfacepy/UI_ADMINISTRAR_PUESTOS.py
 pyuic5 UI_NUEVA_CATEGORIA.ui -o ../userinterfacepy/UI_NUEVA_CATEGORIA.py
@@ -25,7 +25,7 @@ DROP SCHEMA public CASCADE;
 CREATE SCHEMA PUBLIC;
 GRANT ALL ON SCHEMA public TO public;
 
-rojo : #EE1D52
+rojo : #ee1d52
 azul enfasis : #023375
 etiquetas con enfasis : #fffefb
 color fondo base : #fffefb
