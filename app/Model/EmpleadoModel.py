@@ -125,6 +125,17 @@ class EmpleadosModel:
                 return empleado, True
             else:
                 return None, False
+    
+    def baja_empleado(self, id_empleado, estatus):
+        if not id_empleado or not estatus:
+            # return None, False
+            print("dato vacio")
+        
+        empleado = self.session.query(Empleados).filter(Empleados.id == id_empleado).first()
+        if empleado:
+            empleado.activo = estatus
+            return empleado, True
+    
     def actualizar_empleado(self, empleado_existente, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
                         estado_civil, curp, rfc, nivel_academico, carrera, correo_electronico,
                         numero_seguro_social, fecha_contratacion, fecha_despido, ciudad,

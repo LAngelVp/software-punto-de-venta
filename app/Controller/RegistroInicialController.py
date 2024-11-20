@@ -50,10 +50,13 @@ class Registro_personal_inicial(QWidget):
             }
             
         ''')
+        
         self.ui.contenedor_credencialesusuario.hide()
-        self.ui.etiqueta_status_empleado.hide()
         self.ui.btn_btn_bajapersona.hide()
         self.ui.btn_btn_recontratar.hide()
+        self.ui.etiqueta_status_empleado.hide()
+        self.ui.etiqueta_fechadespido.hide()
+        self.ui.fecha_fechadespido.hide()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
@@ -69,6 +72,8 @@ class Registro_personal_inicial(QWidget):
         self.ui.Button_agregardepartamento.clicked.connect(self.ventana_departamentos)
         self.ui.Button_agregarpuesto.clicked.connect(self.ventana_puestos)
         self.ui.opcion_usodelsistema.toggled.connect(self.mostrar_agregar_credenciales)
+        self.ui.btn_btn_bajapersona.clicked.connect(self.baja_empleado)
+        self.ui.btn_btn_recontratar.clicked.connect(self.alta_empleado)
 #// agregar elementos:
         self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
         self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
@@ -108,24 +113,46 @@ class Registro_personal_inicial(QWidget):
 
 # FUNCIONES GENERALES:
     #// VENTANA DE SUCURSAL:
+    def alta_empleado(self):
+        if self.id_empleado is None:
+            Mensaje().mensaje_informativo("No se logro dar de baja al empleado")
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                empleado, estatus = EmpleadosModel(session).baja_empleado(self.id_empleado, True)
+                if estatus:
+                    Mensaje().mensaje_informativo("Empleado dado de alta con exito")
+                    self.cerrar()
+            self.registro_agregado_signal.emit()
+            return
+        Mensaje().mensaje_informativo("Existio un error al dar de alta al empleado.")
+    def baja_empleado(self):
+        if self.id_empleado is None:
+            Mensaje().mensaje_informativo("No se logro dar de baja al empleado")
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                empleado, estatus = EmpleadosModel(session).baja_empleado(self.id_empleado, False)
+                if estatus:
+                    Mensaje().mensaje_informativo("Empleado dado de baja con exito")
+                    self.cerrar()
+            self.registro_agregado_signal.emit()
+            return
+        Mensaje().mensaje_informativo("Existio un error al dar de baja al empleado.")
     def mostrar_agregar_credenciales(self):
         if self.ui.opcion_usodelsistema.isChecked():
             self.ui.contenedor_credencialesusuario.show()
         else:
             self.ui.contenedor_credencialesusuario.hide()
+            
     def obtener_id(self, id_empleado = None):
         if id_empleado is not None:
             self.id_empleado = id_empleado
             self.ui.btn_btn_bajapersona.show()
             self.ui.btn_btn_recontratar.show()
             self.cargar_datos_empleado(self.id_empleado)
-
-            
-    def obtener_id(self, id_empleado = None):
-        if id_empleado is not None:
-            self.id_empleado = id_empleado
-            self.cargar_datos_empleado(self.id_empleado)
-            print(self.id_empleado)
 
     def cargar_datos_empleado(self, id = None):
         opciones_estado_civil = self.estados_civiles
@@ -191,6 +218,8 @@ class Registro_personal_inicial(QWidget):
                 background: #68a67d;  /* Verde para activo */
                 color: white;
             """)
+            self.ui.fecha_fechadespido.hide()
+            self.ui.etiqueta_fechadespido.hide()
         else:
         # Si estatus es falso, cambiar el estilo y mostrar el QLabel (si es necesario).
             self.ui.etiqueta_status_empleado.show()
@@ -199,6 +228,9 @@ class Registro_personal_inicial(QWidget):
                 background: #EE1D52;  /* Rojo para inactivo */
                 color: white;
             """)
+            self.ui.fecha_fechadespido.show()
+            self.ui.etiqueta_fechadespido.show()
+            self.ui.fecha_fechadespido.setEnabled(False)
     def caja_opciones_mover_elemento(self, caja_opciones, elemento_a_mover):
         puestos = []
         max_elementos = caja_opciones.count()
@@ -437,7 +469,7 @@ class Registro_personal_inicial(QWidget):
                             departamento_id=self.ui.cajaopciones_departamentos.currentData(),
                             sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                         )
-                        self.close()
+                        self.cerrar()
                         self.abrir_inicio()
                     except Exception as e:
                         session.rollback()
@@ -463,7 +495,7 @@ class Registro_personal_inicial(QWidget):
 #// funcionalidades de la ventana
     def cerrar(self):
         self.id_empleado = None
-        self.exit()
+        self.close()
 
     def maximizar(self):
         if self.isMaximized():
