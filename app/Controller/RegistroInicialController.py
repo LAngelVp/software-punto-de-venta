@@ -50,6 +50,10 @@ class Registro_personal_inicial(QWidget):
             }
             
         ''')
+        self.ui.contenedor_credencialesusuario.hide()
+        self.ui.etiqueta_status_empleado.hide()
+        self.ui.btn_btn_bajapersona.hide()
+        self.ui.btn_btn_recontratar.hide()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
@@ -64,6 +68,7 @@ class Registro_personal_inicial(QWidget):
         self.ui.Button_aceptar.clicked.connect(self.almacenar_informacion)
         self.ui.Button_agregardepartamento.clicked.connect(self.ventana_departamentos)
         self.ui.Button_agregarpuesto.clicked.connect(self.ventana_puestos)
+        self.ui.opcion_usodelsistema.toggled.connect(self.mostrar_agregar_credenciales)
 #// agregar elementos:
         self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
         self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
@@ -103,6 +108,19 @@ class Registro_personal_inicial(QWidget):
 
 # FUNCIONES GENERALES:
     #// VENTANA DE SUCURSAL:
+    def mostrar_agregar_credenciales(self):
+        if self.ui.opcion_usodelsistema.isChecked():
+            self.ui.contenedor_credencialesusuario.show()
+        else:
+            self.ui.contenedor_credencialesusuario.hide()
+    def obtener_id(self, id_empleado = None):
+        if id_empleado is not None:
+            self.id_empleado = id_empleado
+            self.ui.btn_btn_bajapersona.show()
+            self.ui.btn_btn_recontratar.show()
+            self.cargar_datos_empleado(self.id_empleado)
+
+            
     def obtener_id(self, id_empleado = None):
         if id_empleado is not None:
             self.id_empleado = id_empleado
@@ -161,7 +179,26 @@ class Registro_personal_inicial(QWidget):
                     if empleado_existente.estado_civil:
                         nombre = empleado_existente.estado_civil
                         self.caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
-
+                    
+                    self.mostrar_estatus_empleado(empleado_existente.activo)
+                    
+    def mostrar_estatus_empleado(self, estatus):
+        if estatus:
+            # Si estatus es verdadero, mostrar el QLabel y aplicar un estilo indicativo de "activo".
+            self.ui.etiqueta_status_empleado.show()
+            self.ui.etiqueta_status_empleado.setText("Estado: Activo")  # Puedes poner un texto visible
+            self.ui.etiqueta_status_empleado.setStyleSheet("""
+                background: #68a67d;  /* Verde para activo */
+                color: white;
+            """)
+        else:
+        # Si estatus es falso, cambiar el estilo y mostrar el QLabel (si es necesario).
+            self.ui.etiqueta_status_empleado.show()
+            self.ui.etiqueta_status_empleado.setText("Estado: Inactivo")  # Texto visible
+            self.ui.etiqueta_status_empleado.setStyleSheet("""
+                background: #EE1D52;  /* Rojo para inactivo */
+                color: white;
+            """)
     def caja_opciones_mover_elemento(self, caja_opciones, elemento_a_mover):
         puestos = []
         max_elementos = caja_opciones.count()
@@ -426,7 +463,7 @@ class Registro_personal_inicial(QWidget):
 #// funcionalidades de la ventana
     def cerrar(self):
         self.id_empleado = None
-        sys.exit()
+        self.exit()
 
     def maximizar(self):
         if self.isMaximized():

@@ -25,8 +25,8 @@ class EmpleadosController(QWidget):
         self.ui.btn_btn_editarempleado.clicked.connect(self.editar_empleado_seleccionado)
         
         # SEÑALES: LISTAR PUESTOS EN EL REGISTRO INICIAL
-        self.ventana = Registro_personal_inicial()
-        self.registro_listar_puestos.connect(self.ventana.listar_puestos)
+        # self.ventana = 
+        self.registro_listar_puestos.connect(Registro_personal_inicial().listar_puestos)
 
         self.seleccion_conectada = None
         self.id_empleado = None
@@ -58,6 +58,7 @@ class EmpleadosController(QWidget):
         self.roles.show()
 
     def agregar_empleado(self):
+        self.ventana = Registro_personal_inicial()
         self.registro_listar_puestos.emit()
         self.ventana.registro_agregado_signal.connect(self.listar_empleados)
         self.ventana.show()
@@ -75,6 +76,7 @@ class EmpleadosController(QWidget):
     def editar_empleado_seleccionado(self):
         if self.id_empleado:
             id = int(self.id_empleado)
+            self.ventana = Registro_personal_inicial()
             self.ventana.obtener_id(self.id_empleado)
             self.ventana.show()
             self.id_empleado = None
