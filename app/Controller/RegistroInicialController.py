@@ -121,6 +121,11 @@ class Registro_personal_inicial(QWidget):
             self.cargar_datos_empleado(self.id_empleado)
 
             
+    def obtener_id(self, id_empleado = None):
+        if id_empleado is not None:
+            self.id_empleado = id_empleado
+            self.cargar_datos_empleado(self.id_empleado)
+            print(self.id_empleado)
 
     def cargar_datos_empleado(self, id = None):
         opciones_estado_civil = self.estados_civiles
@@ -177,7 +182,6 @@ class Registro_personal_inicial(QWidget):
                     
                     self.mostrar_estatus_empleado(empleado_existente.activo)
                     
-                        
     def mostrar_estatus_empleado(self, estatus):
         if estatus:
             # Si estatus es verdadero, mostrar el QLabel y aplicar un estilo indicativo de "activo".
