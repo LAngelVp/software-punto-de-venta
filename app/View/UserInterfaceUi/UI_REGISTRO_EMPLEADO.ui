@@ -524,16 +524,15 @@ border-bottom: 2px solid #00668c;
          <item row="0" column="7" alignment="Qt::AlignRight|Qt::AlignVCenter">
           <widget class="QLabel" name="etiqueta_status_empleado">
            <property name="text">
-<<<<<<< HEAD
             <string/>
-=======
-            <string>personal: ACTIVO</string>
->>>>>>> 2a7082f (YA SE MUESTRA SI ESTA ACTIVO O NO)
            </property>
           </widget>
          </item>
          <item row="0" column="6" alignment="Qt::AlignRight">
           <widget class="QPushButton" name="btn_btn_bajapersona">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>dar de baja</string>
            </property>
@@ -1227,6 +1226,9 @@ border-bottom: 2px solid #00668c;
          </item>
          <item row="0" column="5" alignment="Qt::AlignRight">
           <widget class="QPushButton" name="btn_btn_recontratar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string>recontratar</string>
            </property>

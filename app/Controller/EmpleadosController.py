@@ -78,6 +78,7 @@ class EmpleadosController(QWidget):
             id = int(self.id_empleado)
             self.ventana = Registro_personal_inicial()
             self.ventana.obtener_id(self.id_empleado)
+            self.ventana.registro_agregado_signal.connect(self.listar_empleados)
             self.ventana.show()
             self.id_empleado = None
     
