@@ -36,7 +36,6 @@ class EmpleadosController(QWidget):
     def limpiar(self):
         self.ui.txt_idempleado.clear()
         self.ui.txt_nombreempleado.clear()
-        
         self.listar_empleados()
         
     def buscar_empleado(self):
@@ -75,7 +74,10 @@ class EmpleadosController(QWidget):
             
     def editar_empleado_seleccionado(self):
         if self.id_empleado:
+            id = int(self.id_empleado)
+            self.ventana.obtener_id(self.id_empleado)
             self.ventana.show()
+            self.id_empleado = None
     
     def listar_empleados(self):
         with Conexion_base_datos() as db:
@@ -181,6 +183,7 @@ class EmpleadosController(QWidget):
             self.seleccion_conectada = True  # Marcar como conectada
         except Exception as e:
             print(f'No se logro hacer mostrar la tabla {e}')
+        self.id_empleado = None
 
     def obtener_id_elemento_tabla(self, current, previus):
         if current.column() >= 0:
