@@ -4,16 +4,16 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from app.View.UserInterfacePy.UI_SISTEMA_PRINCIPAL import *
-from app.Controller.ClientesController import Clientes
-from app.Controller.PerfilUsuarioController import *
-from app.Controller.ComprasController import *
-from app.Controller.ProveedoresController import Control_proveedores
-from app.Controller.EmpleadosController import EmpleadosController
-from app.Controller.VentaController import *
-from app.Controller.VentasController import *
-from app.Controller.ProductosController import *
-from app.Controller.ControlSucursalesController import *
+from ..View.UserInterfacePy.UI_SISTEMA_PRINCIPAL import *
+from ..Controller.ClientesController import Clientes
+from ..Controller.PerfilUsuarioController import *
+from ..Controller.ComprasController import *
+from ..Controller.ProveedoresController import Control_proveedores
+from ..Controller.EmpleadosController import EmpleadosController
+from ..Controller.VentaController import *
+from ..Controller.VentasController import *
+from ..Controller.ProductosController import *
+from ..Controller.ControlSucursalesController import *
 
 
 class SistemaPrincipal(QWidget):

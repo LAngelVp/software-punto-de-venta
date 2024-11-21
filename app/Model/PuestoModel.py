@@ -48,7 +48,7 @@ class PuestoModel:
                 print('roles')
                 return puestos, True
             else:
-                print('no hay roles')
+                print('no hay puestos')
                 return [], False
         except Exception as e:
             return None

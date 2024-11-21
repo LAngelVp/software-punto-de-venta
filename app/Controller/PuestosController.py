@@ -236,8 +236,7 @@ class PuestosController(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     self.puestos, estado = PuestoModel(session).obtener_todos()
-                    if estado:
-                        self.llenar_tabla(self.puestos)
+                self.llenar_tabla(self.puestos)
         except Exception as e:
             print(e)
 
@@ -316,7 +315,7 @@ class PuestosController(QWidget):
             self.ui.tabla_listapuestos.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
             self.seleccion_conectada = True  # Marcar como conectada
         except Exception as e:
-            print(f'No se logro hacer mostrar la tabla {e}')
+            print(f'No se logro hacer mostrar la tabla PUESTOS {e}')
 
         self.puestos = None
 

@@ -1,9 +1,9 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from app.Source.iconos import *
-from app.Source.img import *
-from app.Source.iconsdvg_rc import *
+from ..Source.iconos_rc import *
+# from ..Source.img import *
+from ..Source.iconsdvg_rc import *
 from PyQt5.QtWidgets import QApplication, QWidget
 from app.View.UserInterfacePy.UI_BIENVENIDA import *
 from .RegistroInicialController import Registro_personal_inicial
@@ -19,6 +19,7 @@ class Inicio_principal(QWidget):
         
     def abrir_registro(self):
         self.registro = Registro_personal_inicial()
+        self.registro.variable_primer_registro = True
         self.registro.show()
         self.close()
     

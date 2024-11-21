@@ -10,6 +10,7 @@ from app.DataBase.conexionBD import Conexion_base_datos
 from app.Model.EmpleadoModel import EmpleadosModel
 from .MensajesAlertasController import Mensaje
 from ..Model.ValidacionesModel import Validaciones
+from .ComprobarValoresTablasController import Comprobacion
 
 class EmpleadosController(QWidget):
     registro_listar_puestos = pyqtSignal()
@@ -30,6 +31,7 @@ class EmpleadosController(QWidget):
 
         self.seleccion_conectada = None
         self.id_empleado = None
+        self.empleados = None
 
         self.listar_empleados()
 
@@ -140,7 +142,7 @@ class EmpleadosController(QWidget):
                         empleado.carrera,  # Carrera
                         empleado.correo_electronico,  # Correo electrónico
                         empleado.numero_seguro_social,  # Número de seguro social
-                        empleado.fecha_contratacion.strftime('%Y-%m-%d'),  # Fecha de contratación
+                        empleado.fecha_contratacion.strftime('%Y-%m-%d') if empleado.fecha_contratacion else '',  # Fecha de contratación
                         empleado.fecha_despido.strftime('%Y-%m-%d') if empleado.fecha_despido else '',  # Fecha de despido
                         empleado.ciudad,  # Ciudad
                         empleado.codigo_postal,  # Código postal
@@ -156,13 +158,13 @@ class EmpleadosController(QWidget):
                         empleado.num_exterior,  # Número exterior
                         empleado.direccion_adicional,  # Dirección adicional
                         str(empleado.activo),  # Estado activo
-                        empleado.puesto.nombre,  # Nombre del puesto
-                        str(empleado.puesto.salario),  # Salario
-                        str(empleado.puesto.horas_laborales),  # Horas laborales
-                        empleado.puesto.dias_laborales,  # Días laborales
-                        empleado.puesto.hora_entrada.strftime('%H:%M') if empleado.puesto.hora_entrada else '',  # Hora de entrada
-                        empleado.puesto.hora_salida.strftime('%H:%M') if empleado.puesto.hora_salida else '',  # Hora de salida
-                        empleado.departamento.nombre,  # Nombre del departamento
+                        empleado.puesto.nombre if empleado.puesto else '',  # Nombre del puesto
+                        str(empleado.puesto.salario) if empleado.puesto else '',  # Salario
+                        str(empleado.puesto.horas_laborales) if empleado.puesto else '',  # Horas laborales
+                        empleado.puesto.dias_laborales if empleado.puesto else '',  # Días laborales
+                        empleado.puesto.hora_entrada.strftime('%H:%M') if empleado.puesto else '',  # Hora de entrada
+                        empleado.puesto.hora_salida.strftime('%H:%M')  if empleado.puesto else '',  # Hora de salida
+                        empleado.departamento.nombre if empleado.departamento else '',  # Nombre del departamento
                         empleado.sucursal.nombre_sucursal if empleado.sucursal else '',  # Nombre de la sucursal
                     ]
                 else:
@@ -185,7 +187,7 @@ class EmpleadosController(QWidget):
             self.ui.tabla_listaempleados.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
             self.seleccion_conectada = True  # Marcar como conectada
         except Exception as e:
-            print(f'No se logro hacer mostrar la tabla {e}')
+            print(f'No se logro hacer mostrar la tabla EMPLEADOS {e}')
         self.id_empleado = None
 
     def obtener_id_elemento_tabla(self, current, previus):

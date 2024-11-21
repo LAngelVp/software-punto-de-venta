@@ -1,15 +1,14 @@
 import sys
 from sqlalchemy import MetaData, Table, select, func
-from app.DataBase.conexionBD import Conexion_base_datos
+from ..DataBase.conexionBD import Conexion_base_datos
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from app.View.UserInterfacePy.UI_INICIO_SESION import *
-from app.Source.iconos import *
-from app.Source.img import *
-from app.Source.ibootstrap import *
-from app.Model.CreadencialesUsuarioModel import *
-from ...SistemaPrincipalController import SistemaPrincipal
+from ..View.UserInterfacePy.UI_INICIO_SESION import *
+from ..Source.iconos_rc import *
+from ..Source.ibootstrap_rc import *
+from ..Model.CreadencialesUsuarioModel import *
+
 
 
 class Login(QWidget):
@@ -17,13 +16,7 @@ class Login(QWidget):
         super().__init__()
         self.ui = Ui_Inicio_Sesion()
         self.ui.setupUi(self)
-        self.ui.imgFormulario.setStyleSheet('border-image: url(:/Images/imgp.png); border-top-left-radius: 25px;')
-        self.ui.img_Login.setStyleSheet('image: url(:/Images/password.png)')
-        self.ui.imgFacebook.setStyleSheet('image: url(:/Icons/IconosSVG/facebook.svg)')
-        self.ui.imgLinkedin.setStyleSheet('image: url(:/Icons/IconosSVG/linkedin.svg)')
-        self.ui.imgWhatsapp.setStyleSheet('image: url(:/Icons/IconosSVG/whatsapp.svg)')
-        self.ui.img_User.setStyleSheet('image: url(:/Icons/Bootstrap/person-vcard.svg)')
-        self.ui.img_Password.setStyleSheet('image: url(:/Icons/Bootstrap/key.svg)')
+
 
         self.ui.imgFacebook.mousePressEvent = self.facebook()
         self.ui.imgLinkedin.mousePressEvent = self.linkedin()
@@ -42,6 +35,7 @@ class Login(QWidget):
         self.ui.btnAceptar.clicked.connect(self.ingresar)
 
     def ingresar(self):
+        from .SistemaPrincipalController import SistemaPrincipal
         usuario = self.ui.txt_User.text().strip().upper()
         password = self.ui.txt_Password.text().strip().upper()
         if hash_class().verificar_credenciales(usuario = usuario, contraseña = password):

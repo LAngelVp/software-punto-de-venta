@@ -13,13 +13,13 @@ class AjustarCajaOpciones:
 
         # Obtener el ancho del combo box
         ancho_combo = caja_opciones.width()
+        if caja_opciones.count() > 0:
+            # Calcular el ancho máximo basado en los elementos
+            max_ancho = max(
+                caja_opciones.fontMetrics().width(caja_opciones.itemText(i))
+                for i in range(caja_opciones.count())
+            )
 
-        # Calcular el ancho máximo basado en los elementos
-        max_ancho = max(
-            caja_opciones.fontMetrics().width(caja_opciones.itemText(i))
-            for i in range(caja_opciones.count())
-        )
-
-        # Establecer el ancho del QListView
-        # Tomar el mayor entre el ancho del combo box y el ancho máximo
-        vista_lista.setFixedWidth(max(ancho_combo, max_ancho))
+            # Establecer el ancho del QListView
+            # Tomar el mayor entre el ancho del combo box y el ancho máximo
+            vista_lista.setFixedWidth(max(ancho_combo, max_ancho))
