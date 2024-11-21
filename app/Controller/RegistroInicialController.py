@@ -23,6 +23,8 @@ from .SucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
 from .PuestosController import PuestosController
 
+import traceback
+
 
 
 class Registro_personal_inicial(QWidget):
@@ -91,6 +93,7 @@ class Registro_personal_inicial(QWidget):
         self.sucursales = SucursalesController()
         self.id_empleado = None
         self.lista_puestos = []
+        self.variable_primer_registro = False
         
 #funciones principales:
         self.listar_grupo_permisos_rol()
@@ -127,20 +130,27 @@ class Registro_personal_inicial(QWidget):
             self.registro_agregado_signal.emit()
             return
         Mensaje().mensaje_informativo("Existio un error al dar de alta al empleado.")
+    
     def baja_empleado(self):
+        fecha_actual = datetime.now().date().strftime("%Y/%m/%d")
+        print(fecha_actual, self.id_empleado)
         if self.id_empleado is None:
             Mensaje().mensaje_informativo("No se logro dar de baja al empleado")
             return
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
-                empleado, estatus = EmpleadosModel(session).baja_empleado(self.id_empleado, False)
-                if estatus:
-                    Mensaje().mensaje_informativo("Empleado dado de baja con exito")
-                    self.cerrar()
+                try:
+                    empleado, estatus = EmpleadosModel(session).baja_empleado(self.id_empleado, False, fecha_actual)
+                    if estatus:
+                        Mensaje().mensaje_informativo("Empleado dado de baja con exito")
+                        self.cerrar()
+                except Exception as e:
+                    print(e)
             self.registro_agregado_signal.emit()
             return
         Mensaje().mensaje_informativo("Existio un error al dar de baja al empleado.")
+    
     def mostrar_agregar_credenciales(self):
         if self.ui.opcion_usodelsistema.isChecked():
             self.ui.contenedor_credencialesusuario.show()
@@ -231,6 +241,7 @@ class Registro_personal_inicial(QWidget):
             self.ui.fecha_fechadespido.show()
             self.ui.etiqueta_fechadespido.show()
             self.ui.fecha_fechadespido.setEnabled(False)
+    
     def caja_opciones_mover_elemento(self, caja_opciones, elemento_a_mover):
         puestos = []
         max_elementos = caja_opciones.count()
@@ -251,7 +262,6 @@ class Registro_personal_inicial(QWidget):
             for nombre, id_puesto in puestos:
                 caja_opciones.addItem(nombre, id_puesto)
 
-    
     def agregar_sucursal(self):
         self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
         self.listar_sucursales_signal.emit()
@@ -295,7 +305,7 @@ class Registro_personal_inicial(QWidget):
                     self.ui.cajaopciones_rol_usuario.addItem(grupo.nombre, grupo.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_rol_usuario)
         except Exception as e:
-            print(f"Error al obtener sucursales: {e}")
+            print(f"Error al obtener grupos permisos roles: {e}")
 
     def listar_departamentos(self):
         self.ui.cajaopciones_departamentos.clear()
@@ -309,7 +319,7 @@ class Registro_personal_inicial(QWidget):
                     self.ui.cajaopciones_departamentos.addItem(departamento.nombre, departamento.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_departamentos)
         except Exception as e:
-            print(f"Error al obtener sucursales: {e}")
+            print(f"Error al obtener departamentos: {e}")
 
     def listar_puestos(self):
         self.ui.cajaopciones_puestos.clear()
@@ -322,10 +332,10 @@ class Registro_personal_inicial(QWidget):
                 if estado:
                     for puesto in puestos:
                         self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto.id)
+                    AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
 
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
         except Exception as e:
-            print(f"Error al obtener sucursales: {e}")
+            print(f"Error al obtener puestos: {e}")
 
     def cargar_imagen(self, event):
         options = QFileDialog.Options()
@@ -472,15 +482,22 @@ class Registro_personal_inicial(QWidget):
                         self.cerrar()
                         self.abrir_inicio()
                     except Exception as e:
+                        # Imprimir detalles del error con traceback
+                        print(f'Error tipo: {type(e)}')
+                        print(f'Error mensaje: {e}')
+                        print('Detalles del traceback:')
+                        traceback.print_exc()
                         session.rollback()
             self.registro_agregado_signal.emit()
         else:
             print("Datos no válidos. No se almacenará la información.")
 
     def abrir_inicio(self):
-        from app.Controller.InicioDeSesionController import Login  # Mover la importación aquí
-        self.login_window = Login()  # Crear instancia de Login
-        self.login_window.show()
+        if self.variable_primer_registro:
+            from app.Controller.InicioDeSesionController import Login  # Mover la importación aquí
+            self.login_window = Login()  # Crear instancia de Login
+            self.login_window.show()
+            self.variable_primer_registro = False
 
     def checkbox_checked(self, state):
         sender = self.sender()

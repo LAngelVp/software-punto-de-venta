@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="iconosBlancos">
+    <file>Icons/iconos/Blanco/datos_usuario.svg</file>
+    <file>Icons/iconos/Blanco/cerrar_blanco.svg</file>
+    <file>Icons/iconos/Blanco/password_blanco.svg</file>
+    <file>Icons/iconos/Blanco/minimizar_blanco.svg</file>
     <file>Icons/iconos/Blanco/mover.svg</file>
     <file>Icons/iconos/Blanco/actualizar_blanco.svg</file>
     <file>Icons/iconos/Blanco/agregar_blanco.svg</file>
@@ -18,6 +22,7 @@
     <file>Icons/iconos/Blanco/guardar_blanco.svg</file>
   </qresource>
   <qresource prefix="iconosAzules">
+    <file>Icons/iconos/Azul/inicio_sesion_azul.svg</file>
     <file>Icons/iconos/Azul/buscar_filas_azul.svg</file>
     <file>Icons/iconos/Azul/buscar_persona_azul.svg</file>
   </qresource>
