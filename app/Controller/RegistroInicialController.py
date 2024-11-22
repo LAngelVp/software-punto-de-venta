@@ -117,13 +117,14 @@ class Registro_personal_inicial(QWidget):
 # FUNCIONES GENERALES:
     #// VENTANA DE SUCURSAL:
     def alta_empleado(self):
+        fecha_actual = datetime.now().date().strftime("%Y/%m/%d")
         if self.id_empleado is None:
             Mensaje().mensaje_informativo("No se logro dar de baja al empleado")
             return
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
-                empleado, estatus = EmpleadosModel(session).baja_empleado(self.id_empleado, True)
+                empleado, estatus = EmpleadosModel(session).alta_empleado(self.id_empleado, True, fecha_actual)
                 if estatus:
                     Mensaje().mensaje_informativo("Empleado dado de alta con exito")
                     self.cerrar()

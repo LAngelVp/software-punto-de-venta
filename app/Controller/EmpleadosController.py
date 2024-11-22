@@ -177,6 +177,7 @@ class EmpleadosController(QWidget):
             # Asignar el modelo a la tabla
             self.ui.tabla_listaempleados.setModel(self.model)
             # self.ui.tabla_listaempleados.setColumnHidden(0, True)
+            self.ui.tabla_listaempleados.resizeColumnsToContents()
 
             # Desconectar la señal antes de conectar
             if self.seleccion_conectada:

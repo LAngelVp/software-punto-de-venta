@@ -17,6 +17,27 @@ class Inicio_principal(QWidget):
         self.setWindowIcon(QIcon(':/Icons/SVG/DrawKit(17).svg'))
         self.ui.btn_btn_registrar.clicked.connect(self.abrir_registro)
         
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
+        
+        
+        # # Obtener la pantalla primaria (pantalla donde está la ventana)
+        # screen = QApplication.primaryScreen()  # Obtiene la pantalla primaria
+        # screen_geometry = screen.availableGeometry()  # Geometría de la pantalla
+        # print(f'tamaño de la pantalla: {screen_geometry}')
+
+        # window_geometry = self.frameGeometry()  # Geometría de la ventana
+        # print(f'geometría de la ventana: {window_geometry}')
+
+        # # Calcular la posición para centrar la ventana
+        # x = (screen_geometry.width() - window_geometry.width()) // 2 + screen_geometry.x()
+        # y = (screen_geometry.height() - window_geometry.height()) // 2 + screen_geometry.y()
+
+        # # Mover la ventana al centro de la pantalla
+        # self.move(x, y)
+        # print(f'Posición de la ventana (x, y): ({x}, {y})')
+        
     def abrir_registro(self):
         self.registro = Registro_personal_inicial()
         self.registro.variable_primer_registro = True

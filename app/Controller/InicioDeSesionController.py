@@ -29,6 +29,10 @@ class Login(QWidget):
 
         self.ui.principal.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=35, xOffset=10, yOffset=0))
         self.ui.btnAceptar.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0))
+        
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
 
         self.ui.btnCerrar.clicked.connect(self.cerrar)
         self.ui.btnMinimizar.clicked.connect(self.minimizar)

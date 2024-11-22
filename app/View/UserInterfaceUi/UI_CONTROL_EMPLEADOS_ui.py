@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_EMPLEADOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_EMPLEADOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -218,6 +218,9 @@ class Ui_Control_empleados(object):
         self.tabla_listaempleados = QtWidgets.QTableView(self.contenedor_cuerpo)
         self.tabla_listaempleados.setMinimumSize(QtCore.QSize(0, 0))
         self.tabla_listaempleados.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.tabla_listaempleados.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tabla_listaempleados.setShowGrid(False)
+        self.tabla_listaempleados.setGridStyle(QtCore.Qt.NoPen)
         self.tabla_listaempleados.setObjectName("tabla_listaempleados")
         self.gridLayout_2.addWidget(self.tabla_listaempleados, 1, 0, 1, 1)
         self.gridLayout_5.addWidget(self.contenedor_cuerpo, 1, 1, 1, 1)
