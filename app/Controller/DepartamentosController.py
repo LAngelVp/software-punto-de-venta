@@ -14,6 +14,9 @@ class DepartamentosController(QWidget):
         super().__init__()
         self.ui = Ui_Control_departamentos()
         self.ui.setupUi(self)
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
 
         #botones:
         self.ui.btn_btn_guardar.clicked.connect(self.guardar)

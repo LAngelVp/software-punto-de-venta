@@ -16,6 +16,9 @@ class ControlSucursalesController(QWidget):
         super().__init__()
         self.ui = Ui_Control_SucursalesDepartamentosPuestos()
         self.ui.setupUi(self)
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
 
         self.sucursales = SucursalesController()
         self.departamentos = DepartamentosController()

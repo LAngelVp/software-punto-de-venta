@@ -11,6 +11,9 @@ class ControlRolesController(QWidget):
         super().__init__()
         self.ui = Ui_Control_Roles_Permisos()
         self.ui.setupUi(self)
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
 
         self.permisos = []
 

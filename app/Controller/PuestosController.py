@@ -17,6 +17,9 @@ class PuestosController(QWidget):
         super().__init__()
         self.ui = Ui_Formulario_puestos()
         self.ui.setupUi(self)
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
 
         #//: EDICION
         self.ui.decimal_salario.setButtonSymbols(QSpinBox.NoButtons)
