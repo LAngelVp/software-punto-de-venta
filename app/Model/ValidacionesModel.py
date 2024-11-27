@@ -3,15 +3,15 @@ from PyQt5.QtCore import QRegExp
 
 class Validaciones:
     def __init__(self):
-        self.REGEX_TEXT = QRegExp("[a-zA-ZñÑ ]+")
-        self.REGEX_CURP = QRegExp("[A-ZÑ0-9]{18}")
-        self.REGEX_RFC = QRegExp("[A-ZÑ0-9]{13}")
+        self.REGEX_TEXT = QRegExp("^[a-zA-ZñÑ ]+$")
+        self.REGEX_CURP = QRegExp("[A-ZÑ0-9]+")
+        self.REGEX_RFC = QRegExp("[A-ZÑ0-9]+")
         self.REGEX_EMAIL = QRegExp("[a-zA-Z0-9._%+-]+@[a-zA-ZñÑ0-9.-]+\\.[a-zA-Z]{2,4}")
-        self.REGEX_NSS = QRegExp("[0-9]{11}")
-        self.REGEX_PHONE = QRegExp("[0-9]{10}")
-        self.REGEX_PASSWORD = QRegExp("^[a-zA-ZñÑ0-9!@#$%^&*()\\-+=\\{\\}\\[\\]:;\"'<>,.?/|~`]{1,25}$")
+        self.REGEX_NSS = QRegExp("[0-9]+")
+        self.REGEX_PHONE = QRegExp("[0-9]+")
+        self.REGEX_PASSWORD = QRegExp("^[a-zA-ZñÑ0-9!@#$%^&*()\\-+=\\{\\}\\[\\]:;\"'<>,.?/|~`]$")
         self.REGEX_WEB = QRegExp("^(https?://)?(www\\.)?([a-zA-Z0-9-]+(\\.[a-zA-Z]{2,})+)(/[^\\s]*)?$")
-        self.VALIDATOR_INT = QIntValidator(0, 99999)
+        self.VALIDATOR_INT = QRegExp("^[0-9]+")
     @property
     def get_text_validator(self):
         return QRegExpValidator(self.REGEX_TEXT)
@@ -32,7 +32,7 @@ class Validaciones:
         return QRegExpValidator(self.REGEX_PHONE)
     @property
     def get_int_validator(self):
-        return self.VALIDATOR_INT
+        return QRegExpValidator(self.VALIDATOR_INT)
     @property
     def get_password_validator(self):
         return QRegExpValidator(self.REGEX_PASSWORD)

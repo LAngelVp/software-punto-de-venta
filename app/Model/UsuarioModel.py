@@ -40,27 +40,39 @@ class UsuarioModel:
             print(f"Error al crear el usuario: {e}")
             return None
         
-    def actualizar_usuario(self, usuario_existente):
+    def actualizar_usuario(self, id, nuevo_usuario, nuevo_password, fecha_actualizacion, nuevo_rol_id = None):
         # Aquí puedes actualizar los atributos del usuario según los parámetros que quieras cambiar
-        if usuario_existente:
-            # Actualizar los campos que desees
-            # Por ejemplo, actualizar la contraseña y la fecha de actualización
-            nueva_contraseña = hash_class().hashear_password(usuario_existente.contraseña)  # O la nueva contraseña si la quieres cambiar
-            usuario_existente.contraseña = nueva_contraseña
-            usuario_existente.fecha_actualizacion = datetime.datetime.now()  # O el valor de la fecha que desees
+        if id:
+            usuario = self.session.query(Usuarios).filter_by(id=id).first()
+            if usuario:
+                # Actualizar el nombre de usuario si se proporciona un nuevo nombre
+                if nuevo_usuario:
+                    usuario.usuario = nuevo_usuario  # Actualizamos el nombre de usuario
 
-            # Si hay un nuevo rol, puedes actualizarlo también
-            if usuario_existente.rol_id:
-                rol = self.session.query(Roles).filter_by(id=usuario_existente.rol_id).first()
-                if rol:
-                    usuario_existente.rol = rol  # Actualizar el rol si es necesario
-            
-            try:
-                self.session.commit()  # Realizamos el commit para guardar los cambios
-                print(f"Usuario {usuario_existente.usuario} actualizado con éxito.")
-            except Exception as e:
-                print(f"Error al actualizar el usuario: {e}")
-                self.session.rollback()  # Si ocurre un error, hacemos rollback
+                # Si se proporciona una nueva contraseña, actualizamos la contraseña
+                if nuevo_password:
+                    nueva_contraseña_hash = hash_class().hashear_password(nuevo_password)  # Hasheamos la nueva contraseña
+                    usuario.contraseña = nueva_contraseña_hash  # Actualizamos la contraseña
+
+                # Actualizar la fecha de actualización
+                usuario.fecha_actualizacion = fecha_actualizacion
+
+                # Si se proporciona un nuevo rol, lo actualizamos
+                if nuevo_rol_id:
+                    rol = self.session.query(Roles).filter_by(id=nuevo_rol_id).first()
+                    if rol:
+                        usuario.rol = rol  # Actualizamos el rol
+                    else:
+                        print(f"El rol con id {nuevo_rol_id} no existe.")
+                        return None  # Si el rol no existe, salimos de la función
+                return True
+            return False
         else:
             print("No se encontró el usuario para actualizar.")
-            
+
+    def eliminar(self, id):
+        usuario = self.session.query(Usuarios).filter_by(id=id).first()
+        if usuario:
+            self.session.delete(usuario)
+            return True
+        return False

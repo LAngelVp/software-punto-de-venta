@@ -59,10 +59,41 @@ class Registro_personal_inicial(QWidget):
         self.ui.etiqueta_status_empleado.hide()
         self.ui.etiqueta_fechadespido.hide()
         self.ui.fecha_fechadespido.hide()
+        self.ui.opcion_actualizar_datoscredenciales.hide()
+        self.ui.Button_actualizarcredenciales.hide()
+        self.ui.Button_eliminar_credenciales.hide()
+        self.ui.Button_actualizarcredenciales.setEnabled(False)
+        self.ui.Button_eliminar_credenciales.setEnabled(False)
+        # self.ui.txt_usuario_iniciosesion.setEnabled(False)
+        # self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(False)
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        
+#   // VALIDACIONES DE TAMAÑO:
+        self.ui.txt_nombre.setMaxLength(60)
+        self.ui.txt_apellidop.setMaxLength(60)
+        self.ui.txt_apellidom.setMaxLength(60)
+        self.ui.txt_curp.setMaxLength(18)
+        self.ui.txt_rfc.setMaxLength(13)
+        self.ui.txt_carrera.setMaxLength(255)
+        self.ui.txt_correoelectronico.setMaxLength(200)
+        self.ui.txt_numerosegurosicial.setMaxLength(13)
+        self.ui.txt_ciudad.setMaxLength(50)
+        self.ui.txt_codigopostal.setMaxLength(10)
+        self.ui.txt_estado.setMaxLength(50)
+        self.ui.txt_pais.setMaxLength(60)
+        self.ui.txt_numerotelefono.setMaxLength(20)
+        self.ui.txt_nombrecontactoemergencia.setMaxLength(120)
+        self.ui.txt_contactoemergencia.setMaxLength(20)
+        self.ui.txt_calles.setMaxLength(50)
+        self.ui.txt_avenidas.setMaxLength(50)
+        self.ui.txt_colonia.setMaxLength(50)
+        self.ui.txt_ninterior.setMaxLength(10)
+        self.ui.txt_nexterior.setMaxLength(10)
+        self.ui.txt_usuario_iniciosesion.setMaxLength(100)
+        self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(30)
 # señales: acciones de los botones
         self.ui.btc_cerrar.clicked.connect(lambda: self.close())
         self.ui.btc_minimizar.clicked.connect(lambda: self.showMinimized())
@@ -76,14 +107,21 @@ class Registro_personal_inicial(QWidget):
         self.ui.opcion_usodelsistema.toggled.connect(self.mostrar_agregar_credenciales)
         self.ui.btn_btn_bajapersona.clicked.connect(self.baja_empleado)
         self.ui.btn_btn_recontratar.clicked.connect(self.alta_empleado)
+        self.ui.Button_actualizarcredenciales.clicked.connect(self.actualizar_credenciales)
+        self.ui.Button_eliminar_credenciales.clicked.connect(self.eliminar_credenciales)
 #// agregar elementos:
         self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
         self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
         self.parentesco_contacto = ['BISABUELO/A', 'ABUELO/A', 'MADRE', 'PADRE', 'TIO/A', 'ESPOSO/A', 'NIETO/A', 'HIJO/A', 'HERMANO/A', 'SOBRINO/A', 'PRIMO/A', 'CUÑADO/A' 'SUEGRO/A', 'YERNO', 'NUERA', 'OTRO']
-        
+        self.generos = ["MASCULINO","FEMENINO", "NO BINARIO", "TRANSEXUAL", "INTERGÉNERO", "AGÉNERO", "OTRO"]
         self.ui.cajaopciones_nivelacademico.addItems(self.niveles_academicos)
+        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_nivelacademico)
         self.ui.cajaopciones_estadocvil.addItems(self.estados_civiles)
+        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_estadocvil)
         self.ui.cajaopciones_parentesco.addItems(self.parentesco_contacto)
+        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_parentesco)
+        self.ui.cajaopciones_genero.addItems(self.generos)
+        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_genero)
         
 #// variables globales:
         self.drag_start_position = None
@@ -116,6 +154,48 @@ class Registro_personal_inicial(QWidget):
 
 # FUNCIONES GENERALES:
     #// VENTANA DE SUCURSAL:
+    def permiso_actualizar_credenciales(self):
+        if self.ui.opcion_actualizar_datoscredenciales.isChecked():
+            self.ui.txt_usuario_iniciosesion.setEnabled(True)
+            self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(True)
+            self.ui.Button_actualizarcredenciales.setEnabled(True)
+            self.ui.Button_eliminar_credenciales.setEnabled(True)
+        else:
+            self.ui.txt_usuario_iniciosesion.setEnabled(False)
+            self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(False)
+            self.ui.Button_actualizarcredenciales.setEnabled(False)
+            self.ui.Button_eliminar_credenciales.setEnabled(False)
+            
+    def eliminar_credenciales(self):
+        id_empleado = self.id_empleado
+        if id_empleado is not None:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    credenciales = EmpleadosModel(session).eliminar_credenciales(id_empleado)
+                    if credenciales:
+                        Mensaje().mensaje_informativo("Se elimino el usuario del empleado.")
+                    else:
+                        Mensaje().mensaje_alerta("No se pudo eliminar el usuario del empleado. Por que no tiene uno asignado")
+    
+    def actualizar_credenciales(self):
+        id_empleado = self.id_empleado
+        usuario = self.ui.txt_usuario_iniciosesion.text()
+        password = self.ui.txt_contrasenia_usuario_iniciosesion.text()
+        fecha_actualizacion = datetime.now().date()
+        if id_empleado is None or usuario is None and password is None:
+            Mensaje().mensaje_informativo("Para actualizar las credenciales, debe de contener un nombre de uaurio y una contraseña.")
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                usuario = UsuarioModel(session).actualizar_usuario(id_empleado, usuario, password, fecha_actualizacion, None)
+            if usuario:
+                Mensaje().mensaje_informativo("Credenciales actualizadas con exito.")
+                self.cerrar()
+            else:
+                Mensaje().mensaje_informativo("Error al actualizar credenciales.")
+
     def alta_empleado(self):
         fecha_actual = datetime.now().date().strftime("%Y/%m/%d")
         if self.id_empleado is None:
@@ -218,6 +298,19 @@ class Registro_personal_inicial(QWidget):
                         nombre = empleado_existente.estado_civil
                         self.caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
                     
+                    if empleado_existente.genero:
+                        nombre = empleado_existente.genero
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_genero, nombre)
+                        
+                    if empleado_existente.usuario:
+                        self.ui.opcion_usodelsistema.setText("Cambiar Creadenciales")
+                        self.ui.opcion_actualizar_datoscredenciales.show()
+                        self.ui.Button_actualizarcredenciales.show()
+                        self.ui.Button_eliminar_credenciales.show()
+                        self.ui.txt_usuario_iniciosesion.setEnabled(False)
+                        self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(False)
+                        self.ui.opcion_actualizar_datoscredenciales.toggled.connect(self.permiso_actualizar_credenciales)
+                        
                     self.mostrar_estatus_empleado(empleado_existente.activo)
                     
     def mostrar_estatus_empleado(self, estatus):
@@ -363,7 +456,15 @@ class Registro_personal_inicial(QWidget):
         self.ui.txt_numerotelefono.setValidator(Validaciones().get_phone_validator)
         self.ui.txt_usuario_iniciosesion.setValidator(Validaciones().get_text_validator)
         self.ui.txt_contrasenia_usuario_iniciosesion.setValidator(Validaciones().get_password_validator)
-
+        self.ui.txt_carrera.setValidator(Validaciones().get_text_validator)
+        self.ui.txt_contactoemergencia.setValidator(Validaciones().get_phone_validator)
+        self.ui.txt_nombrecontactoemergencia.setValidator(Validaciones().get_text_validator)
+        self.ui.txt_avenidas.setValidator(Validaciones().get_text_validator)
+        self.ui.txt_calles.setValidator(Validaciones().get_text_validator)
+        self.ui.txt_colonia.setValidator(Validaciones().get_text_validator)
+        self.ui.txt_ninterior.setValidator(Validaciones().get_int_validator)
+        self.ui.txt_nexterior.setValidator(Validaciones().get_int_validator)
+        
     def campos(self):
         return {
             "nombre": self.ui.txt_nombre,
@@ -395,8 +496,6 @@ class Registro_personal_inicial(QWidget):
             "sucursal": self.ui.cajaopciones_sucursales,
             "puesto": self.ui.cajaopciones_puestos,
             "departamento": self.ui.cajaopciones_departamentos,
-            "usuario": self.ui.txt_usuario_iniciosesion,
-            "password_usuario": self.ui.txt_contrasenia_usuario_iniciosesion,
             "rol": self.ui.cajaopciones_rol_usuario
         }
     
@@ -414,6 +513,8 @@ class Registro_personal_inicial(QWidget):
                 datos[nombre] = campo.toPlainText().strip().upper()
             elif isinstance(campo, (QDoubleSpinBox, QSpinBox)):
                 datos[nombre] = campo.value()
+            elif isinstance(campo, QComboBox):
+                datos[nombre] = campo.currentText()
 
         return datos
 
@@ -437,13 +538,21 @@ class Registro_personal_inicial(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        id_usuario = UsuarioModel(session).crear_usuario(
-                            usuario = datos['usuario'],
-                            password = datos['password_usuario'],
-                            fecha_creacion = fecha_actual,
-                            fecha_actualizacion = fecha_actual,
-                            rol_id = self.ui.cajaopciones_rol_usuario.currentData())
-                    
+                        if self.ui.opcion_usodelsistema.isChecked():
+                            if self.id_empleado is not None:
+                                empleado, estado = EmpleadosModel(session).obtener_empleado_por_id(self.id_empleado)
+                                if empleado.usuario_id:
+                                    id_usuario = empleado.usuario_id
+                                else:
+                                    id_usuario = UsuarioModel(session).crear_usuario(
+                                        usuario = self.ui.txt_usuario_iniciosesion.text(),
+                                        password = self.ui.txt_contrasenia_usuario_iniciosesion.text(),
+                                        fecha_creacion = fecha_actual,
+                                        fecha_actualizacion = fecha_actual,
+                                        rol_id = self.ui.cajaopciones_rol_usuario.currentData())
+                        else:
+                            id_usuario = None
+                            
                         EmpleadosModel(session).crear_empleado(
                             id_empleado = self.id_empleado if self.id_empleado is not None else None,
                             nombre=datos['nombre'],
@@ -451,6 +560,7 @@ class Registro_personal_inicial(QWidget):
                             apellido_materno=datos['apellido_materno'],
                             fecha_nacimiento=datos['fecha_nacimiento'],
                             estado_civil=self.ui.cajaopciones_estadocvil.currentText().strip().upper(),
+                            genero=self.ui.cajaopciones_genero.currentText().strip().upper(),
                             curp=datos['curp'],
                             rfc=datos['rfc'],
                             nivel_academico=self.ui.cajaopciones_nivelacademico.currentText().strip().upper(),

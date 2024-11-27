@@ -8,6 +8,7 @@ from ..View.UserInterfacePy.UI_INICIO_SESION import *
 from ..Source.iconos_rc import *
 from ..Source.ibootstrap_rc import *
 from ..Model.CreadencialesUsuarioModel import *
+from ..Model.ValidacionesModel import Validaciones
 
 
 
@@ -33,6 +34,9 @@ class Login(QWidget):
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        
+        self.ui.txt_User.setValidator(Validaciones().get_text_validator)
+        self.ui.txt_Password.setValidator(Validaciones().get_password_validator)
 
         self.ui.btnCerrar.clicked.connect(self.cerrar)
         self.ui.btnMinimizar.clicked.connect(self.minimizar)
@@ -41,7 +45,7 @@ class Login(QWidget):
     def ingresar(self):
         from .SistemaPrincipalController import SistemaPrincipal
         usuario = self.ui.txt_User.text().strip().upper()
-        password = self.ui.txt_Password.text().strip().upper()
+        password = self.ui.txt_Password.text().strip()
         if hash_class().verificar_credenciales(usuario = usuario, contraseña = password):
             ventana =  SistemaPrincipal()
             self.close()

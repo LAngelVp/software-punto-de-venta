@@ -1,5 +1,6 @@
 import re
 from sqlalchemy.exc import IntegrityError
+from .UsuarioModel import UsuarioModel
 from .BaseDatosModel import Empleados, Departamentos, Puestos, Sucursales
 
 class EmpleadosModel:
@@ -7,22 +8,26 @@ class EmpleadosModel:
         self.session = session
 
     def crear_empleado(self, id_empleado, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
-                         estado_civil, curp, rfc, nivel_academico, carrera, correo_electronico,
+                         estado_civil, genero, curp, rfc, nivel_academico, carrera, correo_electronico,
                          numero_seguro_social, fecha_contratacion, fecha_despido, ciudad,
                          codigo_postal, estado, pais, numero_telefonico, nombre_contacto,
                          contacto_emergencia, parentesco_contacto, calles, avenidas, colonia,
                          num_interior, num_exterior, direccion_adicional, activo, foto,
                          puesto_id, usuario_id, departamento_id, sucursal_id):
         if id_empleado is not None:
-            empleado_existente = self.session.query(Empleados).filter(Empleados.id == id_empleado)
+            empleado_existente = self.session.query(Empleados).filter(Empleados.id == id_empleado).first()
+            if empleado_existente.usuario:
+                usuario_id = empleado_existente.usuario_id
             if empleado_existente:
-                self.actualizar_empleado(empleado_existente, nombre, apellido_paterno, apellido_materno, 
-                                      fecha_nacimiento, estado_civil, curp, rfc, nivel_academico, 
+                empleado_actualizado = self.actualizar_empleado(empleado_existente, nombre, apellido_paterno, apellido_materno, 
+                                      fecha_nacimiento, estado_civil, genero, curp, rfc, nivel_academico, 
                                       carrera, correo_electronico, numero_seguro_social, fecha_contratacion, 
                                       fecha_despido, ciudad, codigo_postal, estado, pais, numero_telefonico, 
                                       nombre_contacto, contacto_emergencia, parentesco_contacto, calles, avenidas, colonia, 
                                       num_interior, num_exterior, direccion_adicional, activo, foto, puesto_id, 
                                       usuario_id, departamento_id, sucursal_id)
+                if empleado_actualizado:
+                    return
         try:
             # Crear la instancia de empleado
             nuevo_empleado = Empleados(
@@ -31,6 +36,7 @@ class EmpleadosModel:
                 apellido_materno=apellido_materno,
                 fecha_nacimiento=fecha_nacimiento,
                 estado_civil=estado_civil,
+                genero=genero,
                 curp=curp,
                 rfc=rfc,
                 nivel_academico=nivel_academico,
@@ -150,19 +156,21 @@ class EmpleadosModel:
             return empleado, True
     
     def actualizar_empleado(self, empleado_existente, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
-                        estado_civil, curp, rfc, nivel_academico, carrera, correo_electronico,
+                        estado_civil, genero, curp, rfc, nivel_academico, carrera, correo_electronico,
                         numero_seguro_social, fecha_contratacion, fecha_despido, ciudad,
                         codigo_postal, estado, pais, numero_telefonico, nombre_contacto,
                         contacto_emergencia, parentesco_contacto, calles, avenidas, colonia,
                         num_interior, num_exterior, direccion_adicional, activo, foto,
                         puesto_id, usuario_id, departamento_id, sucursal_id):
         try:
+            print(usuario_id)
             # Actualizamos los campos que pueden haber cambiado
             empleado_existente.nombre = nombre
             empleado_existente.apellido_paterno = apellido_paterno
             empleado_existente.apellido_materno = apellido_materno
             empleado_existente.fecha_nacimiento = fecha_nacimiento
             empleado_existente.estado_civil = estado_civil
+            empleado_existente.genero = genero
             empleado_existente.curp = curp
             empleado_existente.rfc = rfc
             empleado_existente.nivel_academico = nivel_academico
@@ -188,11 +196,25 @@ class EmpleadosModel:
             empleado_existente.activo = activo
             empleado_existente.foto = foto
             empleado_existente.puesto_id = puesto_id
-            empleado_existente.usuario_id = usuario_id
+            empleado_existente.usuario_id = usuario_id if usuario_id is not None else empleado_existente.usuario_id
             empleado_existente.departamento_id = departamento_id
             empleado_existente.sucursal_id = sucursal_id
             
             print(f"Empleado con ID {empleado_existente.id} actualizado correctamente.")
+            return True
         except Exception as e:
             print(f"Error al actualizar el empleado: {e}")
             self.session.rollback()  # Si algo falla, revertimos los cambios
+
+    def eliminar_credenciales(self, id):
+        empleado = self.session.query(Empleados).filter(Empleados.id == id).first()
+        if empleado is not None:
+            if empleado.usuario is not None:
+                usuario = UsuarioModel(self.session).eliminar(empleado.usuario_id)
+            else:
+                return False
+            
+            empleado.usuario_id = None
+            return True
+        return False
+        
