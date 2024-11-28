@@ -64,8 +64,7 @@ class Registro_personal_inicial(QWidget):
         self.ui.Button_eliminar_credenciales.hide()
         self.ui.Button_actualizarcredenciales.setEnabled(False)
         self.ui.Button_eliminar_credenciales.setEnabled(False)
-        # self.ui.txt_usuario_iniciosesion.setEnabled(False)
-        # self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(False)
+        self.ui.Button_actualizar.hide()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
@@ -109,6 +108,7 @@ class Registro_personal_inicial(QWidget):
         self.ui.btn_btn_recontratar.clicked.connect(self.alta_empleado)
         self.ui.Button_actualizarcredenciales.clicked.connect(self.actualizar_credenciales)
         self.ui.Button_eliminar_credenciales.clicked.connect(self.eliminar_credenciales)
+        self.ui.Button_actualizar.clicked.connect(self.actualizar_empleado)
 #// agregar elementos:
         self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
         self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
@@ -281,6 +281,8 @@ class Registro_personal_inicial(QWidget):
                     self.ui.txtlargo_direccion_completa.setPlainText(empleado_existente.direccion_adicional)
                     self.ui.label_fotousuario.setPixmap(QPixmap(empleado_existente.foto).scaled(self.ui.label_fotousuario.size()))
                     self.file_name = empleado_existente.foto
+                    
+                    self.ui.Button_aceptar.show()
 
                     if empleado_existente.puesto:
                         nombre = empleado_existente.puesto.nombre
@@ -539,21 +541,17 @@ class Registro_personal_inicial(QWidget):
                 with session.begin():
                     try:
                         if self.ui.opcion_usodelsistema.isChecked():
-                            if self.id_empleado is not None:
-                                empleado, estado = EmpleadosModel(session).obtener_empleado_por_id(self.id_empleado)
-                                if empleado.usuario_id:
-                                    id_usuario = empleado.usuario_id
-                                else:
-                                    id_usuario = UsuarioModel(session).crear_usuario(
-                                        usuario = self.ui.txt_usuario_iniciosesion.text(),
-                                        password = self.ui.txt_contrasenia_usuario_iniciosesion.text(),
-                                        fecha_creacion = fecha_actual,
-                                        fecha_actualizacion = fecha_actual,
-                                        rol_id = self.ui.cajaopciones_rol_usuario.currentData())
+                            if self.id_empleado is None:
+                                id_usuario = UsuarioModel(session).crear_usuario(
+                                    usuario = self.ui.txt_usuario_iniciosesion.text(),
+                                    password = self.ui.txt_contrasenia_usuario_iniciosesion.text(),
+                                    fecha_creacion = fecha_actual,
+                                    fecha_actualizacion = fecha_actual,
+                                    rol_id = self.ui.cajaopciones_rol_usuario.currentData())
                         else:
                             id_usuario = None
                             
-                        EmpleadosModel(session).crear_empleado(
+                        empleado, estado = EmpleadosModel(session).crear_empleado(
                             id_empleado = self.id_empleado if self.id_empleado is not None else None,
                             nombre=datos['nombre'],
                             apellido_paterno=datos['apellido_paterno'],
@@ -590,8 +588,6 @@ class Registro_personal_inicial(QWidget):
                             departamento_id=self.ui.cajaopciones_departamentos.currentData(),
                             sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                         )
-                        self.cerrar()
-                        self.abrir_inicio()
                     except Exception as e:
                         # Imprimir detalles del error con traceback
                         print(f'Error tipo: {type(e)}')
@@ -599,10 +595,67 @@ class Registro_personal_inicial(QWidget):
                         print('Detalles del traceback:')
                         traceback.print_exc()
                         session.rollback()
-            self.registro_agregado_signal.emit()
+                if estado:
+                    Mensaje().mensaje_informativo("Registro exitoso")
+                    self.cerrar()
+                    self.registro_agregado_signal.emit()
+                    if self.id_empleado is None:
+                        self.abrir_inicio()
         else:
             print("Datos no válidos. No se almacenará la información.")
 
+    def actualizar_empleado(self):
+        id_empleado = self.id_empleado
+        datos = self.obtener_datos()
+
+        if self.validar_datos(datos) and id_empleado is not None:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    try:
+                        empleado, estado = EmpleadosModel(session).actualizar_empleado(
+                            id_empleado = self.id_empleado,
+                            nombre=datos['nombre'],
+                            apellido_paterno=datos['apellido_paterno'],
+                            apellido_materno=datos['apellido_materno'],
+                            fecha_nacimiento=datos['fecha_nacimiento'],
+                            estado_civil=self.ui.cajaopciones_estadocvil.currentText().strip().upper(),
+                            genero=self.ui.cajaopciones_genero.currentText().strip().upper(),
+                            curp=datos['curp'],
+                            rfc=datos['rfc'],
+                            nivel_academico=self.ui.cajaopciones_nivelacademico.currentText().strip().upper(),
+                            carrera=datos["carrera"],
+                            correo_electronico=datos["correo"],
+                            numero_seguro_social=datos["nss"],
+                            fecha_contratacion=datos["fecha_contratacion"],
+                            fecha_despido=None,
+                            ciudad=datos["ciudad"],
+                            codigo_postal=datos["cp"],
+                            estado=datos["estado"],
+                            pais=datos["pais"],
+                            numero_telefonico=datos["num_telefono"],
+                            nombre_contacto=datos["nombre_contacto_emergencia"],
+                            contacto_emergencia=datos["contacto_emergencia"],
+                            parentesco_contacto=self.ui.cajaopciones_parentesco.currentText().strip().upper(),
+                            calles=datos["calles"],
+                            avenidas=datos["avenidas"],
+                            colonia=datos["colonia"],
+                            num_interior=datos["num_interior"],
+                            num_exterior=datos["num_exterior"],
+                            direccion_adicional=datos["direccion_adicional"],
+                            foto=self.file_name,
+                            puesto_id=self.ui.cajaopciones_puestos.currentData(),
+                            departamento_id=self.ui.cajaopciones_departamentos.currentData(),
+                            sucursal_id=self.ui.cajaopciones_sucursales.currentData()
+                        )
+                    except Exception as e:
+                        print(f"Error al actualizar el empleado: {e}")
+                if estado:
+                    Mensaje().mensaje_informativo("Registro exitoso")
+                    self.cerrar()
+                    self.registro_agregado_signal.emit()
+        else:
+            print("Error al actualizar el empleado")
     def abrir_inicio(self):
         if self.variable_primer_registro:
             from app.Controller.InicioDeSesionController import Login  # Mover la importación aquí
