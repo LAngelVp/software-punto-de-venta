@@ -7,28 +7,17 @@ class EmpleadosModel:
     def __init__(self, session):
         self.session = session
 
-    def crear_empleado(self, id_empleado, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
+    def crear_empleado(self, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
                          estado_civil, genero, curp, rfc, nivel_academico, carrera, correo_electronico,
                          numero_seguro_social, fecha_contratacion, fecha_despido, ciudad,
                          codigo_postal, estado, pais, numero_telefonico, nombre_contacto,
                          contacto_emergencia, parentesco_contacto, calles, avenidas, colonia,
                          num_interior, num_exterior, direccion_adicional, activo, foto,
                          puesto_id, usuario_id, departamento_id, sucursal_id):
-        if id_empleado is not None:
-            empleado_existente = self.session.query(Empleados).filter(Empleados.id == id_empleado).first()
-            if empleado_existente.usuario:
-                usuario_id = empleado_existente.usuario_id
-            if empleado_existente:
-                empleado_actualizado = self.actualizar_empleado(empleado_existente, nombre, apellido_paterno, apellido_materno, 
-                                      fecha_nacimiento, estado_civil, genero, curp, rfc, nivel_academico, 
-                                      carrera, correo_electronico, numero_seguro_social, fecha_contratacion, 
-                                      fecha_despido, ciudad, codigo_postal, estado, pais, numero_telefonico, 
-                                      nombre_contacto, contacto_emergencia, parentesco_contacto, calles, avenidas, colonia, 
-                                      num_interior, num_exterior, direccion_adicional, activo, foto, puesto_id, 
-                                      usuario_id, departamento_id, sucursal_id)
-                if empleado_actualizado:
-                    return
         try:
+            empleado_existente = self.session.query((Empleados.curp == curp) | (Empleados.rfc == rfc)).first()
+            if empleado_existente is not None:
+                return None, False
             # Crear la instancia de empleado
             nuevo_empleado = Empleados(
                 nombre=nombre,
@@ -71,7 +60,7 @@ class EmpleadosModel:
             # Agregar a la sesión, pero no hacer commit aquí
             self.session.add(nuevo_empleado)
             self.session.flush()  # Generar el ID sin hacer commit
-            return nuevo_empleado.id
+            return nuevo_empleado, True
         
         except IntegrityError as e:
             mensaje_error = str(e.orig)
@@ -160,10 +149,9 @@ class EmpleadosModel:
                         numero_seguro_social, fecha_contratacion, fecha_despido, ciudad,
                         codigo_postal, estado, pais, numero_telefonico, nombre_contacto,
                         contacto_emergencia, parentesco_contacto, calles, avenidas, colonia,
-                        num_interior, num_exterior, direccion_adicional, activo, foto,
-                        puesto_id, usuario_id, departamento_id, sucursal_id):
+                        num_interior, num_exterior, direccion_adicional, foto,
+                        puesto_id, departamento_id, sucursal_id):
         try:
-            print(usuario_id)
             # Actualizamos los campos que pueden haber cambiado
             empleado_existente.nombre = nombre
             empleado_existente.apellido_paterno = apellido_paterno
@@ -193,10 +181,8 @@ class EmpleadosModel:
             empleado_existente.num_interior = num_interior
             empleado_existente.num_exterior = num_exterior
             empleado_existente.direccion_adicional = direccion_adicional
-            empleado_existente.activo = activo
             empleado_existente.foto = foto
             empleado_existente.puesto_id = puesto_id
-            empleado_existente.usuario_id = usuario_id if usuario_id is not None else empleado_existente.usuario_id
             empleado_existente.departamento_id = departamento_id
             empleado_existente.sucursal_id = sucursal_id
             
@@ -204,7 +190,9 @@ class EmpleadosModel:
             return True
         except Exception as e:
             print(f"Error al actualizar el empleado: {e}")
-            self.session.rollback()  # Si algo falla, revertimos los cambios
+            self.session.rollback()
+            return False
+        
 
     def eliminar_credenciales(self, id):
         empleado = self.session.query(Empleados).filter(Empleados.id == id).first()

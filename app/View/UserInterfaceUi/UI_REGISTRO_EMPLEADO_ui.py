@@ -213,6 +213,15 @@ class Ui_RegistroAdministrador(object):
 "[objectName^=\"Button\"]:hover{\n"
 "background: #2196F3;\n"
 "}\n"
+"#Button_actualizar{\n"
+"    border: none;\n"
+"    border-radius: 5px;\n"
+"    min-width: 45px;\n"
+"    width: 70px;\n"
+"    min-height: 30px;\n"
+"    height: 30px;\n"
+"    background-color: #00619a;\n"
+"}\n"
 "#Button_aceptar{\n"
 "    border: none;\n"
 "    border-radius: 5px;\n"
@@ -447,18 +456,6 @@ class Ui_RegistroAdministrador(object):
         self.Button_agregarpuesto.setIconSize(QtCore.QSize(24, 24))
         self.Button_agregarpuesto.setObjectName("Button_agregarpuesto")
         self.gridLayout_3.addWidget(self.Button_agregarpuesto, 6, 1, 1, 1)
-        self.gridLayout_2 = QtWidgets.QGridLayout()
-        self.gridLayout_2.setSpacing(0)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.Button_aceptar = QtWidgets.QToolButton(self.contenedor_datosderecha)
-        self.Button_aceptar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Button_aceptar.setObjectName("Button_aceptar")
-        self.gridLayout_2.addWidget(self.Button_aceptar, 0, 0, 1, 1)
-        self.Button_cancelar = QtWidgets.QToolButton(self.contenedor_datosderecha)
-        self.Button_cancelar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.Button_cancelar.setObjectName("Button_cancelar")
-        self.gridLayout_2.addWidget(self.Button_cancelar, 0, 1, 1, 1)
-        self.gridLayout_3.addLayout(self.gridLayout_2, 12, 0, 1, 2)
         spacerItem1 = QtWidgets.QSpacerItem(20, 203, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_3.addItem(spacerItem1, 11, 0, 1, 2)
         self.gridLayout_9 = QtWidgets.QGridLayout()
@@ -710,6 +707,24 @@ class Ui_RegistroAdministrador(object):
         self.verticalLayout_3.addWidget(self.contenedor_credencialesusuario)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacerItem3)
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setHorizontalSpacing(10)
+        self.gridLayout_2.setVerticalSpacing(0)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.Button_cancelar = QtWidgets.QToolButton(self.contenedor_datosizquierda)
+        self.Button_cancelar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.Button_cancelar.setObjectName("Button_cancelar")
+        self.gridLayout_2.addWidget(self.Button_cancelar, 0, 2, 1, 1, QtCore.Qt.AlignLeft)
+        self.Button_aceptar = QtWidgets.QToolButton(self.contenedor_datosizquierda)
+        self.Button_aceptar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.Button_aceptar.setObjectName("Button_aceptar")
+        self.gridLayout_2.addWidget(self.Button_aceptar, 0, 1, 1, 1, QtCore.Qt.AlignLeft)
+        self.Button_actualizar = QtWidgets.QPushButton(self.contenedor_datosizquierda)
+        self.Button_actualizar.setObjectName("Button_actualizar")
+        self.gridLayout_2.addWidget(self.Button_actualizar, 0, 0, 1, 1, QtCore.Qt.AlignLeft)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem4, 0, 3, 1, 1)
+        self.verticalLayout_3.addLayout(self.gridLayout_2)
         self.gridLayout_4.addWidget(self.contenedor_datosizquierda, 2, 0, 1, 7)
         self.verticalLayout_2.addWidget(self.contenedor_general)
         self.verticalLayout.addWidget(self.widget_contenedor)
@@ -769,8 +784,6 @@ class Ui_RegistroAdministrador(object):
         self.etiqueta_departamento.setText(_translate("RegistroAdministrador", "Departamento"))
         self.etiqueta_puesto.setText(_translate("RegistroAdministrador", "Puesto"))
         self.etiqueta_sucursal.setText(_translate("RegistroAdministrador", "Sucursal"))
-        self.Button_aceptar.setText(_translate("RegistroAdministrador", "Aceptar"))
-        self.Button_cancelar.setText(_translate("RegistroAdministrador", "Cancelar"))
         self.etiqueta_fechadespido.setText(_translate("RegistroAdministrador", "Fecha de despido"))
         self.fecha_fechacontratacion.setDisplayFormat(_translate("RegistroAdministrador", "dd/MM/yyyy"))
         self.etiqueta_fechacontratacion.setText(_translate("RegistroAdministrador", "Fecha de contratación:"))
@@ -812,6 +825,9 @@ class Ui_RegistroAdministrador(object):
         self.txt_contrasenia_usuario_iniciosesion.setPlaceholderText(_translate("RegistroAdministrador", "Contraseña de inicio de sesión"))
         self.Button_eliminar_credenciales.setText(_translate("RegistroAdministrador", "Eliminar"))
         self.opcion_actualizar_datoscredenciales.setText(_translate("RegistroAdministrador", "Actualizar Credenciales"))
+        self.Button_cancelar.setText(_translate("RegistroAdministrador", "Cancelar"))
+        self.Button_aceptar.setText(_translate("RegistroAdministrador", "Aceptar"))
+        self.Button_actualizar.setText(_translate("RegistroAdministrador", "Actualizar"))
 import ibootstrap_rc
 import iconosSVG_rc
 import iconsdvg_rc
