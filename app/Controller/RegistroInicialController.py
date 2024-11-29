@@ -64,6 +64,7 @@ class Registro_personal_inicial(QWidget):
         self.ui.Button_eliminar_credenciales.hide()
         self.ui.Button_actualizarcredenciales.setEnabled(False)
         self.ui.Button_eliminar_credenciales.setEnabled(False)
+        self.ui.fecha_fechacontratacion.setDate(QDate.currentDate())
         self.ui.Button_actualizar.hide()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
@@ -282,7 +283,9 @@ class Registro_personal_inicial(QWidget):
                     self.ui.label_fotousuario.setPixmap(QPixmap(empleado_existente.foto).scaled(self.ui.label_fotousuario.size()))
                     self.file_name = empleado_existente.foto
                     
-                    self.ui.Button_aceptar.show()
+                    self.ui.Button_aceptar.hide()
+                    self.ui.Button_actualizar.show()
+                    
 
                     if empleado_existente.puesto:
                         nombre = empleado_existente.puesto.nombre
@@ -313,10 +316,11 @@ class Registro_personal_inicial(QWidget):
                         self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(False)
                         self.ui.opcion_actualizar_datoscredenciales.toggled.connect(self.permiso_actualizar_credenciales)
                         
-                    self.mostrar_estatus_empleado(empleado_existente.activo)
+                    self.mostrar_estatus_empleado(empleado_existente)
                     
-    def mostrar_estatus_empleado(self, estatus):
-        if estatus:
+    def mostrar_estatus_empleado(self, empleado):
+        print(f'este es el estado: {empleado.activo}')
+        if empleado.activo:
             # Si estatus es verdadero, mostrar el QLabel y aplicar un estilo indicativo de "activo".
             self.ui.etiqueta_status_empleado.show()
             self.ui.etiqueta_status_empleado.setText("Estado: Activo")  # Puedes poner un texto visible
@@ -326,6 +330,7 @@ class Registro_personal_inicial(QWidget):
             """)
             self.ui.fecha_fechadespido.hide()
             self.ui.etiqueta_fechadespido.hide()
+            return
         else:
         # Si estatus es falso, cambiar el estilo y mostrar el QLabel (si es necesario).
             self.ui.etiqueta_status_empleado.show()
@@ -337,6 +342,7 @@ class Registro_personal_inicial(QWidget):
             self.ui.fecha_fechadespido.show()
             self.ui.etiqueta_fechadespido.show()
             self.ui.fecha_fechadespido.setEnabled(False)
+            self.ui.fecha_fechadespido.setDate(empleado.fecha_despido)
     
     def caja_opciones_mover_elemento(self, caja_opciones, elemento_a_mover):
         puestos = []
@@ -534,7 +540,8 @@ class Registro_personal_inicial(QWidget):
         fecha_actual = datetime.now().date() # Obtener la fecha actual, al momento.
         # // obtenemos los datos de los campos
         datos = self.obtener_datos()
-
+        empleado = None
+        estado = False
         if self.validar_datos(datos):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
@@ -550,9 +557,8 @@ class Registro_personal_inicial(QWidget):
                                     rol_id = self.ui.cajaopciones_rol_usuario.currentData())
                         else:
                             id_usuario = None
-                            
+
                         empleado, estado = EmpleadosModel(session).crear_empleado(
-                            id_empleado = self.id_empleado if self.id_empleado is not None else None,
                             nombre=datos['nombre'],
                             apellido_paterno=datos['apellido_paterno'],
                             apellido_materno=datos['apellido_materno'],
@@ -607,7 +613,8 @@ class Registro_personal_inicial(QWidget):
     def actualizar_empleado(self):
         id_empleado = self.id_empleado
         datos = self.obtener_datos()
-
+        empleado = None
+        estado = False
         if self.validar_datos(datos) and id_empleado is not None:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()

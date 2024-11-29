@@ -144,54 +144,58 @@ class EmpleadosModel:
             empleado.fecha_despido = None
             return empleado, True
     
-    def actualizar_empleado(self, empleado_existente, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
+    def actualizar_empleado(self,id_empleado, nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
                         estado_civil, genero, curp, rfc, nivel_academico, carrera, correo_electronico,
                         numero_seguro_social, fecha_contratacion, fecha_despido, ciudad,
                         codigo_postal, estado, pais, numero_telefonico, nombre_contacto,
                         contacto_emergencia, parentesco_contacto, calles, avenidas, colonia,
                         num_interior, num_exterior, direccion_adicional, foto,
                         puesto_id, departamento_id, sucursal_id):
+        if id_empleado is not None:
+            empleado = self.session.query(Empleados).filter(Empleados.id == id_empleado).first()
+            if empleado is None:
+                return None, False
         try:
             # Actualizamos los campos que pueden haber cambiado
-            empleado_existente.nombre = nombre
-            empleado_existente.apellido_paterno = apellido_paterno
-            empleado_existente.apellido_materno = apellido_materno
-            empleado_existente.fecha_nacimiento = fecha_nacimiento
-            empleado_existente.estado_civil = estado_civil
-            empleado_existente.genero = genero
-            empleado_existente.curp = curp
-            empleado_existente.rfc = rfc
-            empleado_existente.nivel_academico = nivel_academico
-            empleado_existente.carrera = carrera
-            empleado_existente.correo_electronico = correo_electronico
-            empleado_existente.numero_seguro_social = numero_seguro_social
-            empleado_existente.fecha_contratacion = fecha_contratacion
-            empleado_existente.fecha_despido = fecha_despido
-            empleado_existente.ciudad = ciudad
-            empleado_existente.codigo_postal = codigo_postal
-            empleado_existente.estado = estado
-            empleado_existente.pais = pais
-            empleado_existente.numero_telefonico = numero_telefonico
-            empleado_existente.nombre_contacto = nombre_contacto
-            empleado_existente.contacto_emergencia = contacto_emergencia
-            empleado_existente.parentesco_contacto = parentesco_contacto
-            empleado_existente.calles = calles
-            empleado_existente.avenidas = avenidas
-            empleado_existente.colonia = colonia
-            empleado_existente.num_interior = num_interior
-            empleado_existente.num_exterior = num_exterior
-            empleado_existente.direccion_adicional = direccion_adicional
-            empleado_existente.foto = foto
-            empleado_existente.puesto_id = puesto_id
-            empleado_existente.departamento_id = departamento_id
-            empleado_existente.sucursal_id = sucursal_id
+            empleado.nombre = nombre
+            empleado.apellido_paterno = apellido_paterno
+            empleado.apellido_materno = apellido_materno
+            empleado.fecha_nacimiento = fecha_nacimiento
+            empleado.estado_civil = estado_civil
+            empleado.genero = genero
+            empleado.curp = curp
+            empleado.rfc = rfc
+            empleado.nivel_academico = nivel_academico
+            empleado.carrera = carrera
+            empleado.correo_electronico = correo_electronico
+            empleado.numero_seguro_social = numero_seguro_social
+            empleado.fecha_contratacion = fecha_contratacion
+            empleado.fecha_despido = fecha_despido
+            empleado.ciudad = ciudad
+            empleado.codigo_postal = codigo_postal
+            empleado.estado = estado
+            empleado.pais = pais
+            empleado.numero_telefonico = numero_telefonico
+            empleado.nombre_contacto = nombre_contacto
+            empleado.contacto_emergencia = contacto_emergencia
+            empleado.parentesco_contacto = parentesco_contacto
+            empleado.calles = calles
+            empleado.avenidas = avenidas
+            empleado.colonia = colonia
+            empleado.num_interior = num_interior
+            empleado.num_exterior = num_exterior
+            empleado.direccion_adicional = direccion_adicional
+            empleado.foto = foto
+            empleado.puesto_id = puesto_id
+            empleado.departamento_id = departamento_id
+            empleado.sucursal_id = sucursal_id
             
-            print(f"Empleado con ID {empleado_existente.id} actualizado correctamente.")
-            return True
+            print(f"Empleado con ID {empleado.id} actualizado correctamente.")
+            return empleado, True
         except Exception as e:
             print(f"Error al actualizar el empleado: {e}")
             self.session.rollback()
-            return False
+            return None, False
         
 
     def eliminar_credenciales(self, id):
