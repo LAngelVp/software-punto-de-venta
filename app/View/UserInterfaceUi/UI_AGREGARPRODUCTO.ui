@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>contenedor_agregar_productos</class>
+ <widget class="QWidget" name="contenedor_agregar_productos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1189</width>
+    <height>825</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">[objectName*=&quot;contenedor&quot;]{
+background: #fffefb;
+}
+#etiqueta_barras{
+image: url(:/Icons/Bootstrap/upc-scan.svg);
+min-width:30px;
+}
+#etiqueta_titulo_ventana{
+background: #023375;
+font-size: 20px;
+max-height:40px;
+padding-left: 2px;
+color:#fffefb;
+font-weight:bold;
+}
+#etiqueta_fotoProducto{
+min-height: 200px;
+min-width:200px;
+}
+[objectName*=&quot;etiqueta&quot;]{
+font-size: 14px;
+font-weight:bold;
+font-family: &quot;Arial&quot;;
+}
+[objectName*=&quot;txt&quot;]{
+border-bottom:  1px solid #787878;
+border-radius: 3px;
+background: #F5F5F5;
+min-width:150px;
+}
+[objectName*=&quot;txt&quot;]:hover{
+border-bottom:  2px solid #023375;
+}
+[objectName*=&quot;txt&quot;]:focus{
+border-bottom:  2px solid #023375;
+}
+[objectName*=&quot;txtlargo&quot;]{
+max-height:100px;
+}
+
+
+
+
+[objectName*=&quot;cajaOpciones&quot;]{
+border: none;
+border-bottom: 1px solid #787878;
+borde-radius: 3px;
+padding: 2px;
+background-color: #F5F5F5;
+font-size: 12px;
+min-width:
+}
+[objectName*=&quot;cajaOpciones&quot;]::drop-down{
+subcontrol-origin: padding;
+subcontrol-position: top right;
+padding-right:5px;
+width: 20%;
+border-left-width: 1px;
+borde-radius: 3px;
+background-color: #F5F5F5;
+}
+[objectName*=&quot;cajaOpciones&quot;]::down-arrow{
+image: url(:/Icons/Bootstrap/filter-left.svg);
+width: 17%;
+height: 17%;
+padding-left:5px;
+padding-right:5px;
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor_general">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="etiqueta_titulo_ventana">
+        <property name="text">
+         <string>AGREGAR PRODUCTO</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="contenedor_informacion">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_3">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QScrollArea" name="contenedor_formulario_izquierda">
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="contenedor_scroll_formulario">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>1183</width>
+              <height>795</height>
+             </rect>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="0" column="0" colspan="2">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QLabel" name="etiqueta_codBarras">
+                 <property name="text">
+                  <string>Cod. Barras</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="txt_codBarras"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="etiqueta_barras">
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </item>
+             <item row="0" column="2" rowspan="7">
+              <widget class="QFrame" name="contenedor_formulario_derecha">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QFrame" name="contenedor_foto">
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_2">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="etiqueta_fotoProducto">
+                     <property name="text">
+                      <string>TextLabel</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>473</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QLabel" name="etiqueta_nombreProducto">
+                 <property name="text">
+                  <string>Nombre</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="txt_nombreProducto"/>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="1" rowspan="2">
+              <layout class="QGridLayout" name="gridLayout_4">
+               <item row="0" column="0">
+                <widget class="QLabel" name="etiqueta_fechaVencimiento">
+                 <property name="text">
+                  <string>Fecha Vencimiento</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QDateEdit" name="fecha_vencimientoProducto"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="etiqueta_fechaFabricacion">
+                 <property name="text">
+                  <string>Fecha Fabricación</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QDateEdit" name="fecha_fabricacionProducto"/>
+               </item>
+              </layout>
+             </item>
+             <item row="2" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QLabel" name="etiqueta_marca">
+                 <property name="text">
+                  <string>Marca</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="txt_marcaProducto"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="etiqueta_modelo">
+                 <property name="text">
+                  <string>Modelo</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="txt_modeloProducto"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="etiqueta_color">
+                 <property name="text">
+                  <string>Color</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="txt_colorProducto"/>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="0" colspan="2">
+              <layout class="QHBoxLayout" name="horizontalLayout_5">
+               <item>
+                <widget class="QLabel" name="etiqueta_material">
+                 <property name="text">
+                  <string>Material</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="txt_materialProducto"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="etiqueta_unidadMedida">
+                 <property name="text">
+                  <string>Unidad de Medida</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="cajaOpciones_unidadMedidaProducto">
+                 <property name="sizeAdjustPolicy">
+                  <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <item>
+                  <widget class="QLabel" name="etiqueta_dimensiones">
+                   <property name="text">
+                    <string>Dimensiones</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="decimal_largoDimensiones"/>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="etiqueta_espacioDimensiones">
+                   <property name="text">
+                    <string>-</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="decimal_altoDimensiones"/>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="etiqueta_espacioDimensiones_2">
+                   <property name="text">
+                    <string>-</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="decimal_anchoDimensiones"/>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item row="4" column="0" colspan="2">
+              <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,0,0,0,0">
+               <property name="sizeConstraint">
+                <enum>QLayout::SetMinimumSize</enum>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="etiqueta_costoInicialProducto">
+                 <property name="text">
+                  <string>Costo Inicial</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QDoubleSpinBox" name="decimal_costoInicialProducto"/>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="etiqueta_precioVentaProducto">
+                 <property name="text">
+                  <string>Precio Venta</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QDoubleSpinBox" name="decimal_percioVentaProducto"/>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="etiqueta_costoFinalProducto">
+                 <property name="text">
+                  <string>Costo Final</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="5">
+                <widget class="QDoubleSpinBox" name="decimal_costoFinalProducto"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="etiqueta_existenciaProducto">
+                 <property name="text">
+                  <string>Existencia</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QDoubleSpinBox" name="decimal_existenciaProducto"/>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="etiqueta_existenciaMinProducto">
+                 <property name="text">
+                  <string>Existencia Min.</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="3">
+                <widget class="QDoubleSpinBox" name="decimal_existenciaMinProducto"/>
+               </item>
+               <item row="1" column="4">
+                <widget class="QLabel" name="etiqueta_existenciaMaxProducto">
+                 <property name="text">
+                  <string>Existencia Max.</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="5">
+                <widget class="QDoubleSpinBox" name="decimal_existenciaMaxProducto"/>
+               </item>
+               <item row="2" column="0">
+                <widget class="QLabel" name="etiqueta_pesoProducto">
+                 <property name="text">
+                  <string>Peso</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QDoubleSpinBox" name="decimal_pesoProducto"/>
+               </item>
+              </layout>
+             </item>
+             <item row="6" column="0">
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="7" column="0" colspan="3">
+              <widget class="QFrame" name="contenedor_formulario_inferior">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_7">
+                <item row="0" column="0" alignment="Qt::AlignRight">
+                 <widget class="QFrame" name="frame_2">
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_6">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QPushButton" name="pushButton">
+                     <property name="text">
+                      <string>Agregar</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_2">
+                     <property name="text">
+                      <string>Actualizar</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_3">
+                     <property name="text">
+                      <string>Eliminar</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="5" column="0" colspan="2">
+              <layout class="QGridLayout" name="gridLayout_6">
+               <item row="0" column="0">
+                <widget class="QLabel" name="etiqueta_descripcionProducto">
+                 <property name="text">
+                  <string>Descripción</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPlainTextEdit" name="txtlargo_descripcionProducto"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="etiqueta_notasProducto">
+                 <property name="text">
+                  <string>Notas</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QPlainTextEdit" name="txtlargo_notasProducto"/>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
+ </resources>
+ <connections/>
+</ui>
