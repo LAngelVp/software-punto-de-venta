@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_contenedor_agregar_productos(object):
     def setupUi(self, contenedor_agregar_productos):
         contenedor_agregar_productos.setObjectName("contenedor_agregar_productos")
-        contenedor_agregar_productos.resize(1189, 825)
+        contenedor_agregar_productos.resize(1171, 566)
         contenedor_agregar_productos.setStyleSheet("[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
 "}\n"
@@ -43,7 +43,9 @@ class Ui_contenedor_agregar_productos(object):
 "border-bottom:  1px solid #787878;\n"
 "border-radius: 3px;\n"
 "background: #F5F5F5;\n"
-"min-width:150px;\n"
+"min-width:100px;\n"
+"font-size: 14px;\n"
+"font-family:\"Arial\";\n"
 "}\n"
 "[objectName*=\"txt\"]:hover{\n"
 "border-bottom:  2px solid #023375;\n"
@@ -54,8 +56,37 @@ class Ui_contenedor_agregar_productos(object):
 "[objectName*=\"txtlargo\"]{\n"
 "max-height:100px;\n"
 "}\n"
-"\n"
-"\n"
+"[objectName*=\"btn_btn\"]{\n"
+"border:none;\n"
+"font-size:14px;\n"
+"font-family:\"Arial\";\n"
+"font-weight:bold;\n"
+"padding: 5px;\n"
+"background: #00619a;\n"
+"color: #fffefb;\n"
+"border-radius: 4px;\n"
+"}\n"
+"#btn_btn_agregar_categoria{\n"
+"padding: 3px;\n"
+"}\n"
+"[objectName*=\"btn_btn\"]:hover{\n"
+"background:#2196F3;\n"
+"}\n"
+"[objectName*=\"btn_btn\"]:pressed{\n"
+"background:#1B80D0;\n"
+"}\n"
+"#btn_btn_agregar_producto:hover{\n"
+"background:#68a67d;\n"
+"}\n"
+"#btn_btn_agregar_producto:pressed{\n"
+"background:#578B69;\n"
+"}\n"
+"#btn_btn_eliminar_producto:hover{\n"
+"background:#ee1d52;\n"
+"}\n"
+"#btn_btn_eliminar_producto:pressed{\n"
+"background:#B13636;\n"
+"}\n"
 "\n"
 "\n"
 "[objectName*=\"cajaOpciones\"]{\n"
@@ -64,8 +95,9 @@ class Ui_contenedor_agregar_productos(object):
 "borde-radius: 3px;\n"
 "padding: 2px;\n"
 "background-color: #F5F5F5;\n"
-"font-size: 12px;\n"
-"min-width:\n"
+"font-size: 14px;\n"
+"min-width: 200px;\n"
+"font-family:\"Arial\";\n"
 "}\n"
 "[objectName*=\"cajaOpciones\"]::drop-down{\n"
 "subcontrol-origin: padding;\n"
@@ -83,7 +115,49 @@ class Ui_contenedor_agregar_productos(object):
 "padding-left:5px;\n"
 "padding-right:5px;\n"
 "}\n"
-"")
+"[objectName*=\"decimal\"]{\n"
+"min-width:100px;\n"
+"background: #F5F5F5;\n"
+"borde:none;\n"
+"border-radius: 2px;\n"
+"border-bottom: 1px solid #787878;\n"
+"padding: 0px 2px;\n"
+"font-size: 14px;\n"
+"font-family: \"Arial\";\n"
+"}\n"
+"[objectName*=\"decimal\"]:focus{\n"
+"border-bottom: 2px solid #023375;\n"
+"}\n"
+"\n"
+"\n"
+"[objectName*=\"fecha_\"]{\n"
+"border: none;\n"
+"border-bottom: 1px solid #3b3c3d;\n"
+"border-radius: 5px;\n"
+"padding: 2px;\n"
+"background-color: #f5f4f1;\n"
+"font-size: 14px;\n"
+"width:87px;\n"
+"}\n"
+"*[objectName*=\"fecha_\"]::drop-down{\n"
+"subcontrol-origin: padding;\n"
+"subcontrol-position: top right;\n"
+"padding-right:5px;\n"
+"width: 20%;\n"
+"border-left-width: 1px;\n"
+"borde-radius: 5px;\n"
+"background-color: #f5f4f1;\n"
+"}\n"
+"*[objectName*=\"fecha_\"]::down-arrow{\n"
+"image: url(:/Icons/Bootstrap/calendar2-date.svg);\n"
+"width: 17%;\n"
+"height: 17%;\n"
+"padding-left:5px;\n"
+"padding-right:5px;\n"
+"}\n"
+"*[objectName*=\"fecha_\"]::focus{\n"
+"border-bottom: 2px solid #00668c;\n"
+"}")
         self.gridLayout = QtWidgets.QGridLayout(contenedor_agregar_productos)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
@@ -111,7 +185,7 @@ class Ui_contenedor_agregar_productos(object):
         self.contenedor_formulario_izquierda.setWidgetResizable(True)
         self.contenedor_formulario_izquierda.setObjectName("contenedor_formulario_izquierda")
         self.contenedor_scroll_formulario = QtWidgets.QWidget()
-        self.contenedor_scroll_formulario.setGeometry(QtCore.QRect(0, 0, 1183, 795))
+        self.contenedor_scroll_formulario.setGeometry(QtCore.QRect(0, 0, 1165, 536))
         self.contenedor_scroll_formulario.setObjectName("contenedor_scroll_formulario")
         self.gridLayout_8 = QtWidgets.QGridLayout(self.contenedor_scroll_formulario)
         self.gridLayout_8.setObjectName("gridLayout_8")
@@ -129,7 +203,7 @@ class Ui_contenedor_agregar_productos(object):
         self.horizontalLayout.addWidget(self.etiqueta_barras)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.gridLayout_8.addLayout(self.horizontalLayout, 0, 0, 1, 2)
+        self.gridLayout_8.addLayout(self.horizontalLayout, 0, 0, 1, 1)
         self.contenedor_formulario_derecha = QtWidgets.QFrame(self.contenedor_scroll_formulario)
         self.contenedor_formulario_derecha.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_formulario_derecha.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -143,6 +217,11 @@ class Ui_contenedor_agregar_productos(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.contenedor_foto)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.etiqueta_fotoProducto = QtWidgets.QLabel(self.contenedor_foto)
+        self.etiqueta_fotoProducto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.etiqueta_fotoProducto.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.etiqueta_fotoProducto.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.etiqueta_fotoProducto.setTextFormat(QtCore.Qt.AutoText)
+        self.etiqueta_fotoProducto.setScaledContents(True)
         self.etiqueta_fotoProducto.setObjectName("etiqueta_fotoProducto")
         self.gridLayout_2.addWidget(self.etiqueta_fotoProducto, 0, 0, 1, 1)
         self.verticalLayout_2.addWidget(self.contenedor_foto)
@@ -157,6 +236,23 @@ class Ui_contenedor_agregar_productos(object):
         self.txt_nombreProducto = QtWidgets.QLineEdit(self.contenedor_scroll_formulario)
         self.txt_nombreProducto.setObjectName("txt_nombreProducto")
         self.horizontalLayout_2.addWidget(self.txt_nombreProducto)
+        self.horizontalLayout_7 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_7.setObjectName("horizontalLayout_7")
+        self.etiqueta_categoriaProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_categoriaProducto.setObjectName("etiqueta_categoriaProducto")
+        self.horizontalLayout_7.addWidget(self.etiqueta_categoriaProducto)
+        self.cajaOpciones_categoriaProducto = QtWidgets.QComboBox(self.contenedor_scroll_formulario)
+        self.cajaOpciones_categoriaProducto.setObjectName("cajaOpciones_categoriaProducto")
+        self.horizontalLayout_7.addWidget(self.cajaOpciones_categoriaProducto)
+        self.btn_btn_agregar_categoria = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
+        self.btn_btn_agregar_categoria.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_agregar_categoria.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_agregar_categoria.setIcon(icon)
+        self.btn_btn_agregar_categoria.setObjectName("btn_btn_agregar_categoria")
+        self.horizontalLayout_7.addWidget(self.btn_btn_agregar_categoria)
+        self.horizontalLayout_2.addLayout(self.horizontalLayout_7)
         self.gridLayout_8.addLayout(self.horizontalLayout_2, 1, 0, 1, 1)
         self.gridLayout_4 = QtWidgets.QGridLayout()
         self.gridLayout_4.setObjectName("gridLayout_4")
@@ -164,12 +260,18 @@ class Ui_contenedor_agregar_productos(object):
         self.etiqueta_fechaVencimiento.setObjectName("etiqueta_fechaVencimiento")
         self.gridLayout_4.addWidget(self.etiqueta_fechaVencimiento, 0, 0, 1, 1)
         self.fecha_vencimientoProducto = QtWidgets.QDateEdit(self.contenedor_scroll_formulario)
+        self.fecha_vencimientoProducto.setWrapping(False)
+        self.fecha_vencimientoProducto.setFrame(True)
+        self.fecha_vencimientoProducto.setButtonSymbols(QtWidgets.QAbstractSpinBox.UpDownArrows)
+        self.fecha_vencimientoProducto.setCorrectionMode(QtWidgets.QAbstractSpinBox.CorrectToPreviousValue)
+        self.fecha_vencimientoProducto.setCalendarPopup(True)
         self.fecha_vencimientoProducto.setObjectName("fecha_vencimientoProducto")
         self.gridLayout_4.addWidget(self.fecha_vencimientoProducto, 0, 1, 1, 1)
         self.etiqueta_fechaFabricacion = QtWidgets.QLabel(self.contenedor_scroll_formulario)
         self.etiqueta_fechaFabricacion.setObjectName("etiqueta_fechaFabricacion")
         self.gridLayout_4.addWidget(self.etiqueta_fechaFabricacion, 1, 0, 1, 1)
         self.fecha_fabricacionProducto = QtWidgets.QDateEdit(self.contenedor_scroll_formulario)
+        self.fecha_fabricacionProducto.setCalendarPopup(True)
         self.fecha_fabricacionProducto.setObjectName("fecha_fabricacionProducto")
         self.gridLayout_4.addWidget(self.fecha_fabricacionProducto, 1, 1, 1, 1)
         self.gridLayout_8.addLayout(self.gridLayout_4, 1, 1, 2, 1)
@@ -209,74 +311,13 @@ class Ui_contenedor_agregar_productos(object):
         self.cajaOpciones_unidadMedidaProducto.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
         self.cajaOpciones_unidadMedidaProducto.setObjectName("cajaOpciones_unidadMedidaProducto")
         self.horizontalLayout_5.addWidget(self.cajaOpciones_unidadMedidaProducto)
-        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
-        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.etiqueta_dimensiones = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_dimensiones.setObjectName("etiqueta_dimensiones")
-        self.horizontalLayout_4.addWidget(self.etiqueta_dimensiones)
-        self.decimal_largoDimensiones = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_largoDimensiones.setObjectName("decimal_largoDimensiones")
-        self.horizontalLayout_4.addWidget(self.decimal_largoDimensiones)
-        self.etiqueta_espacioDimensiones = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_espacioDimensiones.setObjectName("etiqueta_espacioDimensiones")
-        self.horizontalLayout_4.addWidget(self.etiqueta_espacioDimensiones)
-        self.decimal_altoDimensiones = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_altoDimensiones.setObjectName("decimal_altoDimensiones")
-        self.horizontalLayout_4.addWidget(self.decimal_altoDimensiones)
-        self.etiqueta_espacioDimensiones_2 = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_espacioDimensiones_2.setObjectName("etiqueta_espacioDimensiones_2")
-        self.horizontalLayout_4.addWidget(self.etiqueta_espacioDimensiones_2)
-        self.decimal_anchoDimensiones = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_anchoDimensiones.setObjectName("decimal_anchoDimensiones")
-        self.horizontalLayout_4.addWidget(self.decimal_anchoDimensiones)
-        self.horizontalLayout_5.addLayout(self.horizontalLayout_4)
+        self.etiqueta_presentacionProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_presentacionProducto.setObjectName("etiqueta_presentacionProducto")
+        self.horizontalLayout_5.addWidget(self.etiqueta_presentacionProducto)
+        self.cajaOpciones_presentacionProducto = QtWidgets.QComboBox(self.contenedor_scroll_formulario)
+        self.cajaOpciones_presentacionProducto.setObjectName("cajaOpciones_presentacionProducto")
+        self.horizontalLayout_5.addWidget(self.cajaOpciones_presentacionProducto)
         self.gridLayout_8.addLayout(self.horizontalLayout_5, 3, 0, 1, 2)
-        self.gridLayout_5 = QtWidgets.QGridLayout()
-        self.gridLayout_5.setSizeConstraint(QtWidgets.QLayout.SetMinimumSize)
-        self.gridLayout_5.setObjectName("gridLayout_5")
-        self.etiqueta_costoInicialProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_costoInicialProducto.setObjectName("etiqueta_costoInicialProducto")
-        self.gridLayout_5.addWidget(self.etiqueta_costoInicialProducto, 0, 0, 1, 1)
-        self.decimal_costoInicialProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_costoInicialProducto.setObjectName("decimal_costoInicialProducto")
-        self.gridLayout_5.addWidget(self.decimal_costoInicialProducto, 0, 1, 1, 1)
-        self.etiqueta_precioVentaProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_precioVentaProducto.setObjectName("etiqueta_precioVentaProducto")
-        self.gridLayout_5.addWidget(self.etiqueta_precioVentaProducto, 0, 2, 1, 1)
-        self.decimal_percioVentaProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_percioVentaProducto.setObjectName("decimal_percioVentaProducto")
-        self.gridLayout_5.addWidget(self.decimal_percioVentaProducto, 0, 3, 1, 1)
-        self.etiqueta_costoFinalProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_costoFinalProducto.setObjectName("etiqueta_costoFinalProducto")
-        self.gridLayout_5.addWidget(self.etiqueta_costoFinalProducto, 0, 4, 1, 1)
-        self.decimal_costoFinalProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_costoFinalProducto.setObjectName("decimal_costoFinalProducto")
-        self.gridLayout_5.addWidget(self.decimal_costoFinalProducto, 0, 5, 1, 1)
-        self.etiqueta_existenciaProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_existenciaProducto.setObjectName("etiqueta_existenciaProducto")
-        self.gridLayout_5.addWidget(self.etiqueta_existenciaProducto, 1, 0, 1, 1)
-        self.decimal_existenciaProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_existenciaProducto.setObjectName("decimal_existenciaProducto")
-        self.gridLayout_5.addWidget(self.decimal_existenciaProducto, 1, 1, 1, 1)
-        self.etiqueta_existenciaMinProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_existenciaMinProducto.setObjectName("etiqueta_existenciaMinProducto")
-        self.gridLayout_5.addWidget(self.etiqueta_existenciaMinProducto, 1, 2, 1, 1)
-        self.decimal_existenciaMinProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_existenciaMinProducto.setObjectName("decimal_existenciaMinProducto")
-        self.gridLayout_5.addWidget(self.decimal_existenciaMinProducto, 1, 3, 1, 1)
-        self.etiqueta_existenciaMaxProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_existenciaMaxProducto.setObjectName("etiqueta_existenciaMaxProducto")
-        self.gridLayout_5.addWidget(self.etiqueta_existenciaMaxProducto, 1, 4, 1, 1)
-        self.decimal_existenciaMaxProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_existenciaMaxProducto.setObjectName("decimal_existenciaMaxProducto")
-        self.gridLayout_5.addWidget(self.decimal_existenciaMaxProducto, 1, 5, 1, 1)
-        self.etiqueta_pesoProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_pesoProducto.setObjectName("etiqueta_pesoProducto")
-        self.gridLayout_5.addWidget(self.etiqueta_pesoProducto, 2, 0, 1, 1)
-        self.decimal_pesoProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
-        self.decimal_pesoProducto.setObjectName("decimal_pesoProducto")
-        self.gridLayout_5.addWidget(self.decimal_pesoProducto, 2, 1, 1, 1)
-        self.gridLayout_8.addLayout(self.gridLayout_5, 4, 0, 1, 2)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_8.addItem(spacerItem2, 6, 0, 1, 1)
         self.contenedor_formulario_inferior = QtWidgets.QFrame(self.contenedor_scroll_formulario)
@@ -285,24 +326,130 @@ class Ui_contenedor_agregar_productos(object):
         self.contenedor_formulario_inferior.setObjectName("contenedor_formulario_inferior")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.contenedor_formulario_inferior)
         self.gridLayout_7.setObjectName("gridLayout_7")
-        self.frame_2 = QtWidgets.QFrame(self.contenedor_formulario_inferior)
-        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.frame_2)
-        self.horizontalLayout_6.setContentsMargins(0, 0, -1, 0)
+        self.contenedor_botones = QtWidgets.QFrame(self.contenedor_formulario_inferior)
+        self.contenedor_botones.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.contenedor_botones.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.contenedor_botones.setObjectName("contenedor_botones")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.contenedor_botones)
+        self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        self.pushButton = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton.setObjectName("pushButton")
-        self.horizontalLayout_6.addWidget(self.pushButton)
-        self.pushButton_2 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_6.addWidget(self.pushButton_2)
-        self.pushButton_3 = QtWidgets.QPushButton(self.frame_2)
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.horizontalLayout_6.addWidget(self.pushButton_3)
-        self.gridLayout_7.addWidget(self.frame_2, 0, 0, 1, 1, QtCore.Qt.AlignRight)
+        self.btn_btn_agregar_producto = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_agregar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_agregar_producto.setObjectName("btn_btn_agregar_producto")
+        self.horizontalLayout_6.addWidget(self.btn_btn_agregar_producto)
+        self.btn_btn_actualizar_producto = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_actualizar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_actualizar_producto.setObjectName("btn_btn_actualizar_producto")
+        self.horizontalLayout_6.addWidget(self.btn_btn_actualizar_producto)
+        self.btn_btn_eliminar_producto = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_eliminar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_eliminar_producto.setObjectName("btn_btn_eliminar_producto")
+        self.horizontalLayout_6.addWidget(self.btn_btn_eliminar_producto)
+        self.gridLayout_7.addWidget(self.contenedor_botones, 0, 0, 1, 1, QtCore.Qt.AlignLeft)
         self.gridLayout_8.addWidget(self.contenedor_formulario_inferior, 7, 0, 1, 3)
+        self.gridLayout_5 = QtWidgets.QGridLayout()
+        self.gridLayout_5.setSizeConstraint(QtWidgets.QLayout.SetMinimumSize)
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.decimal_existenciaProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_existenciaProducto.setMaximum(10000000000.0)
+        self.decimal_existenciaProducto.setObjectName("decimal_existenciaProducto")
+        self.gridLayout_5.addWidget(self.decimal_existenciaProducto, 1, 1, 1, 1)
+        self.decimal_existenciaMinProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_existenciaMinProducto.setMaximum(10000000000.0)
+        self.decimal_existenciaMinProducto.setObjectName("decimal_existenciaMinProducto")
+        self.gridLayout_5.addWidget(self.decimal_existenciaMinProducto, 1, 3, 1, 1)
+        self.etiqueta_pesoProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_pesoProducto.setObjectName("etiqueta_pesoProducto")
+        self.gridLayout_5.addWidget(self.etiqueta_pesoProducto, 2, 0, 1, 1)
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
+        self.etiqueta_dimensiones = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_dimensiones.setObjectName("etiqueta_dimensiones")
+        self.horizontalLayout_4.addWidget(self.etiqueta_dimensiones)
+        self.decimal_largoDimensiones = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_largoDimensiones.setMaximum(10000000000.0)
+        self.decimal_largoDimensiones.setObjectName("decimal_largoDimensiones")
+        self.horizontalLayout_4.addWidget(self.decimal_largoDimensiones)
+        self.etiqueta_espacioDimensiones = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_espacioDimensiones.setObjectName("etiqueta_espacioDimensiones")
+        self.horizontalLayout_4.addWidget(self.etiqueta_espacioDimensiones)
+        self.decimal_altoDimensiones = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_altoDimensiones.setMaximum(10000000000.0)
+        self.decimal_altoDimensiones.setObjectName("decimal_altoDimensiones")
+        self.horizontalLayout_4.addWidget(self.decimal_altoDimensiones)
+        self.etiqueta_espacioDimensiones_2 = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_espacioDimensiones_2.setObjectName("etiqueta_espacioDimensiones_2")
+        self.horizontalLayout_4.addWidget(self.etiqueta_espacioDimensiones_2)
+        self.decimal_anchoDimensiones = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_anchoDimensiones.setMaximum(10000000000.0)
+        self.decimal_anchoDimensiones.setObjectName("decimal_anchoDimensiones")
+        self.horizontalLayout_4.addWidget(self.decimal_anchoDimensiones)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem3)
+        self.gridLayout_5.addLayout(self.horizontalLayout_4, 2, 2, 1, 4)
+        self.etiqueta_costoFinalProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.etiqueta_costoFinalProducto.sizePolicy().hasHeightForWidth())
+        self.etiqueta_costoFinalProducto.setSizePolicy(sizePolicy)
+        self.etiqueta_costoFinalProducto.setObjectName("etiqueta_costoFinalProducto")
+        self.gridLayout_5.addWidget(self.etiqueta_costoFinalProducto, 0, 4, 1, 1)
+        self.decimal_percioVentaProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_percioVentaProducto.setMaximum(10000000000.0)
+        self.decimal_percioVentaProducto.setObjectName("decimal_percioVentaProducto")
+        self.gridLayout_5.addWidget(self.decimal_percioVentaProducto, 0, 3, 1, 1)
+        self.etiqueta_existenciaMinProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_existenciaMinProducto.setObjectName("etiqueta_existenciaMinProducto")
+        self.gridLayout_5.addWidget(self.etiqueta_existenciaMinProducto, 1, 2, 1, 1)
+        self.decimal_existenciaMaxProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_existenciaMaxProducto.setMaximum(10000000000.0)
+        self.decimal_existenciaMaxProducto.setObjectName("decimal_existenciaMaxProducto")
+        self.gridLayout_5.addWidget(self.decimal_existenciaMaxProducto, 1, 5, 1, 1)
+        self.etiqueta_precioVentaProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.etiqueta_precioVentaProducto.sizePolicy().hasHeightForWidth())
+        self.etiqueta_precioVentaProducto.setSizePolicy(sizePolicy)
+        self.etiqueta_precioVentaProducto.setObjectName("etiqueta_precioVentaProducto")
+        self.gridLayout_5.addWidget(self.etiqueta_precioVentaProducto, 0, 2, 1, 1)
+        self.decimal_costoInicialProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.decimal_costoInicialProducto.sizePolicy().hasHeightForWidth())
+        self.decimal_costoInicialProducto.setSizePolicy(sizePolicy)
+        self.decimal_costoInicialProducto.setMaximum(10000000000.0)
+        self.decimal_costoInicialProducto.setObjectName("decimal_costoInicialProducto")
+        self.gridLayout_5.addWidget(self.decimal_costoInicialProducto, 0, 1, 1, 1)
+        self.etiqueta_existenciaProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_existenciaProducto.setObjectName("etiqueta_existenciaProducto")
+        self.gridLayout_5.addWidget(self.etiqueta_existenciaProducto, 1, 0, 1, 1)
+        self.etiqueta_existenciaMaxProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_existenciaMaxProducto.setAutoFillBackground(False)
+        self.etiqueta_existenciaMaxProducto.setScaledContents(False)
+        self.etiqueta_existenciaMaxProducto.setObjectName("etiqueta_existenciaMaxProducto")
+        self.gridLayout_5.addWidget(self.etiqueta_existenciaMaxProducto, 1, 4, 1, 1)
+        self.etiqueta_costoInicialProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.etiqueta_costoInicialProducto.sizePolicy().hasHeightForWidth())
+        self.etiqueta_costoInicialProducto.setSizePolicy(sizePolicy)
+        self.etiqueta_costoInicialProducto.setObjectName("etiqueta_costoInicialProducto")
+        self.gridLayout_5.addWidget(self.etiqueta_costoInicialProducto, 0, 0, 1, 1)
+        self.decimal_costoFinalProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_costoFinalProducto.setMaximum(10000000000.0)
+        self.decimal_costoFinalProducto.setObjectName("decimal_costoFinalProducto")
+        self.gridLayout_5.addWidget(self.decimal_costoFinalProducto, 0, 5, 1, 1)
+        self.decimal_pesoProducto = QtWidgets.QDoubleSpinBox(self.contenedor_scroll_formulario)
+        self.decimal_pesoProducto.setMaximum(10000000000.0)
+        self.decimal_pesoProducto.setObjectName("decimal_pesoProducto")
+        self.gridLayout_5.addWidget(self.decimal_pesoProducto, 2, 1, 1, 1)
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_5.addItem(spacerItem4, 0, 6, 1, 1)
+        self.gridLayout_8.addLayout(self.gridLayout_5, 4, 0, 1, 2)
         self.gridLayout_6 = QtWidgets.QGridLayout()
         self.gridLayout_6.setObjectName("gridLayout_6")
         self.etiqueta_descripcionProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
@@ -331,29 +478,34 @@ class Ui_contenedor_agregar_productos(object):
         contenedor_agregar_productos.setWindowTitle(_translate("contenedor_agregar_productos", "Form"))
         self.etiqueta_titulo_ventana.setText(_translate("contenedor_agregar_productos", "AGREGAR PRODUCTO"))
         self.etiqueta_codBarras.setText(_translate("contenedor_agregar_productos", "Cod. Barras"))
-        self.etiqueta_fotoProducto.setText(_translate("contenedor_agregar_productos", "TextLabel"))
+        self.etiqueta_fotoProducto.setText(_translate("contenedor_agregar_productos", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">Cargar imagen</span></p><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"80\", height=\"70\"/></p></body></html>"))
         self.etiqueta_nombreProducto.setText(_translate("contenedor_agregar_productos", "Nombre"))
+        self.etiqueta_categoriaProducto.setText(_translate("contenedor_agregar_productos", "Categoria"))
         self.etiqueta_fechaVencimiento.setText(_translate("contenedor_agregar_productos", "Fecha Vencimiento"))
+        self.fecha_vencimientoProducto.setDisplayFormat(_translate("contenedor_agregar_productos", "dd/MM/yyyy"))
         self.etiqueta_fechaFabricacion.setText(_translate("contenedor_agregar_productos", "Fecha Fabricación"))
+        self.fecha_fabricacionProducto.setDisplayFormat(_translate("contenedor_agregar_productos", "dd/MM/yyyy"))
         self.etiqueta_marca.setText(_translate("contenedor_agregar_productos", "Marca"))
         self.etiqueta_modelo.setText(_translate("contenedor_agregar_productos", "Modelo"))
         self.etiqueta_color.setText(_translate("contenedor_agregar_productos", "Color"))
         self.etiqueta_material.setText(_translate("contenedor_agregar_productos", "Material"))
         self.etiqueta_unidadMedida.setText(_translate("contenedor_agregar_productos", "Unidad de Medida"))
+        self.etiqueta_presentacionProducto.setText(_translate("contenedor_agregar_productos", "Presentación"))
+        self.btn_btn_agregar_producto.setText(_translate("contenedor_agregar_productos", "Agregar"))
+        self.btn_btn_actualizar_producto.setText(_translate("contenedor_agregar_productos", "Actualizar"))
+        self.btn_btn_eliminar_producto.setText(_translate("contenedor_agregar_productos", "Eliminar"))
+        self.etiqueta_pesoProducto.setText(_translate("contenedor_agregar_productos", "Peso"))
         self.etiqueta_dimensiones.setText(_translate("contenedor_agregar_productos", "Dimensiones"))
         self.etiqueta_espacioDimensiones.setText(_translate("contenedor_agregar_productos", "-"))
         self.etiqueta_espacioDimensiones_2.setText(_translate("contenedor_agregar_productos", "-"))
-        self.etiqueta_costoInicialProducto.setText(_translate("contenedor_agregar_productos", "Costo Inicial"))
-        self.etiqueta_precioVentaProducto.setText(_translate("contenedor_agregar_productos", "Precio Venta"))
         self.etiqueta_costoFinalProducto.setText(_translate("contenedor_agregar_productos", "Costo Final"))
-        self.etiqueta_existenciaProducto.setText(_translate("contenedor_agregar_productos", "Existencia"))
         self.etiqueta_existenciaMinProducto.setText(_translate("contenedor_agregar_productos", "Existencia Min."))
+        self.etiqueta_precioVentaProducto.setText(_translate("contenedor_agregar_productos", "Precio Venta"))
+        self.etiqueta_existenciaProducto.setText(_translate("contenedor_agregar_productos", "Existencia"))
         self.etiqueta_existenciaMaxProducto.setText(_translate("contenedor_agregar_productos", "Existencia Max."))
-        self.etiqueta_pesoProducto.setText(_translate("contenedor_agregar_productos", "Peso"))
-        self.pushButton.setText(_translate("contenedor_agregar_productos", "Agregar"))
-        self.pushButton_2.setText(_translate("contenedor_agregar_productos", "Actualizar"))
-        self.pushButton_3.setText(_translate("contenedor_agregar_productos", "Eliminar"))
+        self.etiqueta_costoInicialProducto.setText(_translate("contenedor_agregar_productos", "Costo Inicial"))
         self.etiqueta_descripcionProducto.setText(_translate("contenedor_agregar_productos", "Descripción"))
         self.etiqueta_notasProducto.setText(_translate("contenedor_agregar_productos", "Notas"))
 import ibootstrap_rc
 import iconosSVG_rc
+import iconsdvg_rc

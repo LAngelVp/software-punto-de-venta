@@ -26,14 +26,17 @@ CREATE SCHEMA PUBLIC;
 GRANT ALL ON SCHEMA public TO public;
 
 rojo : #ee1d52
-azul enfasis : #023375
+azul enfasis : #    
 etiquetas con enfasis : #fffefb
 color fondo base : #fffefb
 color etiquetas sin fondo: #313d44
 color cajas de texto: #f5f4f1
 botones : #00619a
 botón hover: #2196F3
+botón presionado : #1B80D0
 botones success hover : #68a67d
+botones success presionado: #578B69
+botón eliminar presionado: #B13636
 focus de cajas : #00668c
 cabeceras de tabla : #00668c
 color etiquetas normal: #1d1c1c

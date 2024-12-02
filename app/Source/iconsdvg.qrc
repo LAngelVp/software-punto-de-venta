@@ -1,6 +1,7 @@
 <RCC>
   <qresource>
     <file>Icons/IconosSVG/borrador.png</file>
+    <file>Icons/IconosSVG/subir_imagen.png</file>
     <file>Icons/IconosSVG/perfil.png</file>
     <file>Icons/IconosSVG/sucursales.png</file>
     <file>Icons/IconosSVG/productos.png</file>
