@@ -245,10 +245,20 @@ min-width: 450px;
          </size>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QLabel" name="etiqueta_buscarproducto">
+         <item row="0" column="4">
+          <widget class="QPushButton" name="btn_btn_cancelarticket">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
-            <string>Codigo del Producto: </string>
+            <string>Cancelar Ticket</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="etiqueta_iconocodigobarras">
+           <property name="text">
+            <string/>
            </property>
           </widget>
          </item>
@@ -265,29 +275,17 @@ min-width: 450px;
            </property>
           </spacer>
          </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="etiqueta_buscarproducto">
+           <property name="text">
+            <string>Codigo del Producto: </string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="1">
           <widget class="QLineEdit" name="txt_buscarproducto"/>
          </item>
-         <item row="1" column="0" colspan="4">
-          <widget class="QTableWidget" name="tabla_productos">
-           <property name="frameShape">
-            <enum>QFrame::Panel</enum>
-           </property>
-           <property name="showGrid">
-            <bool>false</bool>
-           </property>
-           <property name="gridStyle">
-            <enum>Qt::CustomDashLine</enum>
-           </property>
-           <property name="sortingEnabled">
-            <bool>false</bool>
-           </property>
-           <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>false</bool>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="4" alignment="Qt::AlignHCenter">
+         <item row="3" column="4" alignment="Qt::AlignHCenter">
           <widget class="QFrame" name="contenedor_detallesventa">
            <property name="styleSheet">
             <string notr="true"/>
@@ -387,22 +385,8 @@ min-width: 450px;
            </layout>
           </widget>
          </item>
-         <item row="0" column="2">
-          <widget class="QLabel" name="etiqueta_iconocodigobarras">
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <widget class="QPushButton" name="btn_btn_cancelarticket">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>Cancelar Ticket</string>
-           </property>
-          </widget>
+         <item row="3" column="0" colspan="4">
+          <widget class="QColumnView" name="tabla_productos"/>
          </item>
         </layout>
        </widget>

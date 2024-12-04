@@ -45,52 +45,6 @@ cajas de texto: #F5F5F5
 bordes: #787878
 color fondo contenedores extra: #B0C5D1
 
-propiedades para estilos de tabla:
-[objectName*="tabla_"] QScrollBar:vertical {
-    border: 1px solid gray;
-    background: #023375;
-    width: 5px;
-border-radius:2px;
-    margin: 22px 0 22px 0; 
-}
-
-[objectName*="tabla_"] QScrollBar::handle:vertical {
-    background: #023375;  /* Color del "manejador" */
-    min-height: 20px;  /* Altura mínima del manejador */
-}
-
-[objectName*="tabla_"] QScrollBar::add-line:vertical,
-[objectName*="tabla_"] QScrollBar::sub-line:vertical {
-background-color:none;
-}
-
-[objectName*="tabla_"] QScrollBar::handle:horizontal {
-    background: #023375;  /* Color del "manejador" horizontal */
-    height: 5px;  /* Altura de la barra horizontal */
-	border-radius: 2px;
-}
-
-[objectName*="tabla_"] QScrollBar:horizontal {
-    background: #023375;
-    height: 5px;  /* Altura de la barra */
-	border-radius: 2px;
-}
-[objectName*="tabla_"] QHeaderView::section {
-    background-color: #023375;  /* Color de fondo de los encabezados */
-    color: white;  /* Color del texto */
-    padding: 5px;  /* Espaciado interno */
-    border: 1px solid gray;  /* Borde de los encabezados */
-}
-
-[objectName*="tabla_"] QHeaderView::horizontal {
-    background-color: #023375;  /* Color de fondo de los encabezados horizontales */
-    color: white;  /* Color del texto */
-}
-
-[objectName*="tabla_"] QHeaderView::vertical {
-    background-color: #023375;  /* Color de fondo de los encabezados verticales */
-    color: white;  /* Color del texto */
-}
 
 -------------------
 [objectName^="cajaopciones_"]{
@@ -122,31 +76,101 @@ padding-right:5px;
 
 -------------------------
 
-[objectName^="fecha_"]{
-border: none;
-border-bottom: 1px solid #3b3c3d;
-border-radius: 5px;
-padding: 2px;
-background-color: #f5f4f1;
-font-size: 12px;
-width:87px;
+/*TABLA*/
+
+[objectName*="tabla_"] {
+    font-family: Arial;
+    font-size: 14px;
 }
-*[objectName^="fecha_"]::drop-down{
-subcontrol-origin: padding;
-subcontrol-position: top right;
-padding-right:5px;
-width: 20%;
-border-left-width: 1px;
-borde-radius: 5px;
-background-color: #f5f4f1;
+
+/* Barra vertical */
+[objectName*="tabla_"] QScrollBar:vertical {
+    border: 1px solid gray;
+    background: #023375;
+    width: 12px;  /* Fijamos el tamaño de la barra vertical */
+    border-radius: 4px;
+    margin: 22px 0 22px 0;
 }
-*[objectName^="fecha_"]::down-arrow{
-image: url(:/Icons/Bootstrap/calendar2-date.svg);
-width: 17%;
-height: 17%;
-padding-left:5px;
-padding-right:5px;
+
+/* Manejador de la barra vertical */
+[objectName*="tabla_"] QScrollBar::handle:vertical {
+    background: #023375;
+    min-height: 20px;  /* Altura mínima del manejador */
+    border-radius: 4px;
 }
-*[objectName^="fecha_"]::focus{
-border-bottom: 2px solid #00668c;
+
+/* Elementos de la flecha de la barra vertical */
+[objectName*="tabla_"] QScrollBar::add-line:vertical,
+[objectName*="tabla_"] QScrollBar::sub-line:vertical {
+    background-color: none;
+}
+
+/* Barra horizontal */
+[objectName*="tabla_"] QScrollBar:horizontal {
+    background: #023375;
+    height: 12px;  /* Fijamos el tamaño de la barra horizontal */
+    border-radius: 4px;
+}
+
+/* Manejador de la barra horizontal */
+[objectName*="tabla_"] QScrollBar::handle:horizontal {
+    background: #023375;
+    height: 12px;  /* Altura del manejador horizontal */
+    border-radius: 4px;
+}
+
+/* Encabezados de la tabla */
+[objectName*="tabla_"] QHeaderView::section {
+    background-color: #023375;
+    color: white;
+    font-family: "Arial";
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+/* Encabezado horizontal */
+[objectName*="tabla_"] QHeaderView::horizontal {
+    background-color: #023375;
+    color: white;
+}
+
+/* Encabezado vertical */
+[objectName*="tabla_"] QHeaderView::vertical {
+    background-color: #023375;
+    color: white;
+}
+-------------------------------------
+QLISTWIDGET
+QListWidget {
+    font-family: Arial;
+    font-size: 14px;
+}
+/* Barra vertical */
+QListWidget::vertical-scrollbar {
+    border: 1px solid gray;
+    background: #023375;
+    width: 10px;  /* Tamaño de la barra vertical */
+    border-radius: 4px;
+}
+
+/* Manejador de la barra vertical */
+QListWidget::vertical-scrollbar::handle {
+    background: #023375;  /* Color del "manejador" */
+    min-height: 20px;  /* Altura mínima del manejador */
+    border-radius: 4px;
+}
+
+/* Barra horizontal */
+QListWidget::horizontal-scrollbar {
+    background: #023375;
+    height: 10px;  /* Tamaño de la barra horizontal */
+    border-radius: 4px;
+}
+
+/* Manejador de la barra horizontal */
+QListWidget::horizontal-scrollbar::handle {
+    background: #023375;  /* Color del "manejador" */
+    height: 10px;  /* Altura del manejador horizontal */
+    border-radius: 4px;
 }

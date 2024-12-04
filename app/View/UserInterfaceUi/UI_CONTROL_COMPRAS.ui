@@ -115,51 +115,71 @@ background-color: #68a67d;
 background-color: #4d648d;
 }
 /*-----------TABLA--------------*/
-*[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
+
+
+[objectName*=&quot;tabla_&quot;] {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+/* Barra vertical */
+[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
     border: 1px solid gray;
     background: #023375;
-    width: 5px;
-border-radius:2px;
-    margin: 22px 0 22px 0; 
+    width: 12px;  /* Fijamos el tamaño de la barra vertical */
+    border-radius: 4px;
+    margin: 22px 0 22px 0;
 }
 
-*[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
-    background:#023375;  /* Color del &quot;manejador&quot; */
-    min-height: 20px;  /* Altura mínima del manejador */
-}
-
-*[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
-*[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
-background-color:none;
-}
-
-*[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
-    background: #023375;  /* Color del &quot;manejador&quot; horizontal */
-    height: 5px;  /* Altura de la barra horizontal */
-	border-radius: 2px;
-}
-
-*[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
+/* Manejador de la barra vertical */
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
     background: #023375;
-    height: 5px;  /* Altura de la barra */
-	border-radius: 2px;
-}
-*[objectName*=&quot;tabla_&quot;] QHeaderView::section {
-    background-color: #023375;  /* Color de fondo de los encabezados */
-    color: white;  /* Color del texto */
-    padding: 5px;  /* Espaciado interno */
-    border: 1px solid gray;  /* Borde de los encabezados */
+    min-height: 20px;  /* Altura mínima del manejador */
+    border-radius: 4px;
 }
 
-*[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
-    background-color: #023375;  /* Color de fondo de los encabezados horizontales */
-    color: white;  /* Color del texto */
+/* Elementos de la flecha de la barra vertical */
+[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
+[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
+    background-color: none;
 }
 
-*[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
-    background-color:#023375;  /* Color de fondo de los encabezados verticales */
-    color: white;  /* Color del texto */
+/* Barra horizontal */
+[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
+    background: #023375;
+    height: 12px;  /* Fijamos el tamaño de la barra horizontal */
+    border-radius: 4px;
 }
+
+/* Manejador de la barra horizontal */
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
+    background: #023375;
+    height: 12px;  /* Altura del manejador horizontal */
+    border-radius: 4px;
+}
+
+/* Encabezados de la tabla */
+[objectName*=&quot;tabla_&quot;] QHeaderView::section {
+    background-color: #023375;
+    color: white;
+    font-family: &quot;Arial&quot;;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+/* Encabezado horizontal */
+[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
+    background-color: #023375;
+    color: white;
+}
+
+/* Encabezado vertical */
+[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
+    background-color: #023375;
+    color: white;
+}
+
 /*-----------FECHA--------------*/
 [objectName^=&quot;fecha_&quot;]{
 border: none;
@@ -340,22 +360,6 @@ padding-right:5px;
              <property name="sizeConstraint">
               <enum>QLayout::SetMinAndMaxSize</enum>
              </property>
-             <item row="1" column="0">
-              <widget class="QTableWidget" name="tabla_comprasrealizadas">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="0">
               <widget class="QFrame" name="contenedor_contenido">
                <property name="frameShape">
@@ -491,6 +495,9 @@ padding-right:5px;
                </layout>
               </widget>
              </item>
+             <item row="1" column="0">
+              <widget class="QTableView" name="tabla_comprasrealizadas"/>
+             </item>
             </layout>
            </widget>
           </item>
@@ -538,22 +545,6 @@ padding-right:5px;
              <property name="sizeConstraint">
               <enum>QLayout::SetMinAndMaxSize</enum>
              </property>
-             <item row="1" column="0">
-              <widget class="QTableWidget" name="tabla_compraspendientes">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>602</height>
-                </size>
-               </property>
-              </widget>
-             </item>
              <item row="0" column="0">
               <widget class="QFrame" name="contenedor_contenidocompras_pendientes">
                <property name="frameShape">
@@ -671,6 +662,9 @@ padding-right:5px;
                 </item>
                </layout>
               </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QTableView" name="tabla_compraspendientes"/>
              </item>
             </layout>
            </widget>
