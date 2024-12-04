@@ -1,4 +1,4 @@
-pyuic5 UI_CONTROL_CLIENTES.ui -o ../userinterfacepy/UI_CONTROL_CLIENTES.py
+pyuic5 UI_CONTROL_CLIENTES.ui -o ../UserInterfacePy/UI_CONTROL_CLIENTES.py
 pyuic5 UI_CONTROL_COMPRAS.ui -o ../userinterfacepy/UI_CONTROL_COMPRAS.py
 pyuic5 UI_CONTROL_EMPLEADOS.ui -o ../userinterfacepy/UI_CONTROL_EMPLEADOS.py
 pyuic5 UI_CONTROL_PERFIL.ui -o ../userinterfacepy/UI_CONTROL_PERFIL.py
@@ -19,6 +19,7 @@ pyuic5 UI_CONTROL_SUCUDEPAPUESTO.ui -o ../userinterfacepy/UI_CONTROL_SUCUDEPAPUE
 pyuic5 UI_ADMINISTRAR_PUESTOS.ui -o ../userinterfacepy/UI_ADMINISTRAR_PUESTOS.py
 pyuic5 UI_CONTROL_DEPARTAMENTOS.ui -o ../userinterfacepy/UI_CONTROL_DEPARTAMENTOS.py
 pyuic5 UI_CONTROL_ROLES.ui -o ../userinterfacepy/UI_CONTROL_ROLES.py
+pyuic5 UI_AGREGARPRODUCTO.ui -o ../UserInterfacePy/UI_AGREGARPRODUCTO.py
 
 
 DROP SCHEMA public CASCADE;

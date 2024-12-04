@@ -9,7 +9,7 @@ class Validaciones:
         self.REGEX_EMAIL = QRegExp("[a-zA-Z0-9._%+-]+@[a-zA-ZñÑ0-9.-]+\\.[a-zA-Z]{2,4}")
         self.REGEX_NSS = QRegExp("[0-9]+")
         self.REGEX_PHONE = QRegExp("[0-9]+")
-        self.REGEX_PASSWORD = QRegExp("^[a-zA-ZñÑ0-9!@#$%^&*()\\-+=\\{\\}\\[\\]:;\"'<>,.?/|~`]$")
+        self.REGEX_PASSWORD = QRegExp("^[a-zA-ZñÑ0-9!@#$%^&*()\\-+=\\{\\}\\[\\]:;\"'<>,.?/|~`]+$")
         self.REGEX_WEB = QRegExp("^(https?://)?(www\\.)?([a-zA-Z0-9-]+(\\.[a-zA-Z]{2,})+)(/[^\\s]*)?$")
         self.VALIDATOR_INT = QRegExp("^[0-9]+")
     @property

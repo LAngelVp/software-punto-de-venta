@@ -57,10 +57,11 @@ background-color: rgb(255, 255, 255);
 	background-color: #fffefb;
 }
 #label_fotousuario{
-	min-width:180px;
-	min-height:180px;
-	max-width:180px;
-	max-height:180px;
+	font-size:15px;
+	font-family:&quot;Arial&quot;;
+	font-weight:bold;
+	min-width:200px;
+	min-height:200px;
 	border:solid 2px black;
 	background-color:#F5F5F5;
 }
@@ -609,8 +610,25 @@ border-bottom: 2px solid #00668c;
             </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_fotousuario">
+              <property name="minimumSize">
+               <size>
+                <width>180</width>
+                <height>180</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="text">
-               <string/>
+               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Cantarell'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/Icons/IconosSVG/subir_imagen.png&quot; width=&quot;90&quot; height=&quot;80&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:16pt; font-weight:bold;font-family:Arial&quot;&gt;Cargar Imagen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="scaledContents">
+               <bool>false</bool>
               </property>
              </widget>
             </item>

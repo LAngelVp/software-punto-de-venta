@@ -58,10 +58,11 @@ class Ui_RegistroAdministrador(object):
 "    background-color: #fffefb;\n"
 "}\n"
 "#label_fotousuario{\n"
-"    min-width:180px;\n"
-"    min-height:180px;\n"
-"    max-width:180px;\n"
-"    max-height:180px;\n"
+"    font-size:15px;\n"
+"    font-family:\"Arial\";\n"
+"    font-weight:bold;\n"
+"    min-width:200px;\n"
+"    min-height:200px;\n"
 "    border:solid 2px black;\n"
 "    background-color:#F5F5F5;\n"
 "}\n"
@@ -429,7 +430,9 @@ class Ui_RegistroAdministrador(object):
         self.etiqueta_sucursal.setObjectName("etiqueta_sucursal")
         self.gridLayout_3.addWidget(self.etiqueta_sucursal, 1, 0, 1, 1)
         self.label_fotousuario = QtWidgets.QLabel(self.contenedor_datosderecha)
-        self.label_fotousuario.setText("")
+        self.label_fotousuario.setMinimumSize(QtCore.QSize(180, 180))
+        self.label_fotousuario.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.label_fotousuario.setScaledContents(False)
         self.label_fotousuario.setObjectName("label_fotousuario")
         self.gridLayout_3.addWidget(self.label_fotousuario, 0, 0, 1, 1)
         self.Button_nuevasucursal = QtWidgets.QPushButton(self.contenedor_datosderecha)
@@ -788,6 +791,12 @@ class Ui_RegistroAdministrador(object):
         self.etiqueta_departamento.setText(_translate("RegistroAdministrador", "Departamento"))
         self.etiqueta_puesto.setText(_translate("RegistroAdministrador", "Puesto"))
         self.etiqueta_sucursal.setText(_translate("RegistroAdministrador", "Sucursal"))
+        self.label_fotousuario.setText(_translate("RegistroAdministrador", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Cantarell\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"90\" height=\"80\" /></p>\n"
+"<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:16pt; font-weight:bold;font-family:Arial\">Cargar Imagen</span></p></body></html>"))
         self.etiqueta_fechadespido.setText(_translate("RegistroAdministrador", "Fecha de despido"))
         self.fecha_fechacontratacion.setDisplayFormat(_translate("RegistroAdministrador", "dd/MM/yyyy"))
         self.etiqueta_fechacontratacion.setText(_translate("RegistroAdministrador", "Fecha de contratación:"))

@@ -1,5 +1,3 @@
-import os
-import sys
 from datetime import datetime
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -7,6 +5,7 @@ from PyQt5.QtGui import QPixmap, QRegExpValidator
 from ..Source.iconos_rc import *
 # from .Source.img import *
 from ..Source.ibootstrap_rc import *
+from .FuncionesAuxiliares import size_validator_image
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..View.UserInterfacePy.UI_REGISTRO_EMPLEADO import *
 from .MensajesAlertasController import Mensaje
@@ -43,15 +42,6 @@ class Registro_personal_inicial(QWidget):
         #// edicion de la ventana:
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.ui.label_fotousuario.setText("Agregar Imagen")
-        self.ui.label_fotousuario.setStyleSheet('''
-            QLabel {
-                qproperty-alignment: AlignCenter;
-                font-size:15px;
-                font-weight:bold;
-            }
-            
-        ''')
         
         self.ui.contenedor_credencialesusuario.hide()
         self.ui.btn_btn_bajapersona.hide()
@@ -442,12 +432,17 @@ class Registro_personal_inicial(QWidget):
     def cargar_imagen(self, event):
         options = QFileDialog.Options()
         self.file_name, _ = QFileDialog.getOpenFileName(self, 'SELECCIONA UNA IMAGEN', ' ', 'Archivo de Imagen (*.png *.jpg *.jpeg);; Todos los archivos (*)', options=options)
+        image_accept = size_validator_image(self.file_name)
         if self.file_name:
-            self.ui.label_fotousuario.setText(self.file_name)
-            pixmap = QPixmap(self.file_name)
-            self.ui.label_fotousuario.setPixmap(pixmap)
-            self.ui.label_fotousuario.setScaledContents(True)
-            self.ui.label_fotousuario.adjustSize()
+            if image_accept:
+                self.ui.label_fotousuario.setText(self.file_name)
+                pixmap = QPixmap(self.file_name)
+                self.ui.label_fotousuario.setPixmap(pixmap)
+                self.ui.label_fotousuario.setScaledContents(True)
+                self.ui.label_fotousuario.adjustSize()
+            else:
+                Mensaje().mensaje_alerta("El tamaño de la imagen sobre pasa los 5Mb")
+        return
         
     def ingresar_validaciones(self):
         self.ui.txt_nombre.setValidator(Validaciones().get_text_validator)
@@ -601,7 +596,7 @@ class Registro_personal_inicial(QWidget):
                         print('Detalles del traceback:')
                         traceback.print_exc()
                         session.rollback()
-                if estado:
+                if estado and not self.id_empleado:
                     Mensaje().mensaje_informativo("Registro exitoso")
                     self.cerrar()
                     self.registro_agregado_signal.emit()
@@ -663,6 +658,7 @@ class Registro_personal_inicial(QWidget):
                     self.registro_agregado_signal.emit()
         else:
             print("Error al actualizar el empleado")
+    
     def abrir_inicio(self):
         if self.variable_primer_registro:
             from app.Controller.InicioDeSesionController import Login  # Mover la importación aquí

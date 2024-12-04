@@ -478,7 +478,7 @@ class Ui_contenedor_agregar_productos(object):
         contenedor_agregar_productos.setWindowTitle(_translate("contenedor_agregar_productos", "Form"))
         self.etiqueta_titulo_ventana.setText(_translate("contenedor_agregar_productos", "AGREGAR PRODUCTO"))
         self.etiqueta_codBarras.setText(_translate("contenedor_agregar_productos", "Cod. Barras"))
-        self.etiqueta_fotoProducto.setText(_translate("contenedor_agregar_productos", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">Cargar imagen</span></p><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"80\", height=\"70\"/></p></body></html>"))
+        self.etiqueta_fotoProducto.setText(_translate("contenedor_agregar_productos", "<html><head/><body><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"80\" height=\"70\"/></p><p align=\"center\"><span style=\" font-size:16pt; font-family:Arial; font-weight:bold;\">Cargar Imagen</span></p></body></html>"))
         self.etiqueta_nombreProducto.setText(_translate("contenedor_agregar_productos", "Nombre"))
         self.etiqueta_categoriaProducto.setText(_translate("contenedor_agregar_productos", "Categoria"))
         self.etiqueta_fechaVencimiento.setText(_translate("contenedor_agregar_productos", "Fecha Vencimiento"))

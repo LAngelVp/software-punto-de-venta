@@ -3,6 +3,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import  datetime, timedelta
+from .FuncionesAuxiliares import size_validator_image
 from ..View.UserInterfacePy.UI_CONTROL_CLIENTES import *
 from .CategoriasProveedorController import *
 from .AreaNegocioClientesController import AreaNegocioClientesController
@@ -33,6 +34,7 @@ class Clientes(QWidget):
         self.ui.fecha_ultimoreporte_fisico.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.fecha_ultimoreporte_moral.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.btnRadio_wpc_clienteFisico.setChecked(self.clienteFisico)
+        self.ui.wpc_contenedor_pila.setCurrentIndex(0)
         self.ui.cajaDecimal_wpc_limite_credito.setEnabled(False)
         self.ui.cajaDecimal_wpc_limite_credito_moral.setEnabled(False)
         self.ui.cajaDecimal_porcentajedescuento_fisico.setEnabled(False)
@@ -45,7 +47,6 @@ class Clientes(QWidget):
         self.ui.fecha_fechanacimiento.setDate(QDate.currentDate())
         self.ui.fecha_ultimoreporte_fisico.setDate(QDate.currentDate())
         self.ui.fecha_ultimoreporte_moral.setDate(QDate.currentDate())
-        self.ui.contenedor_clientmoral.hide()
         #//: VARIABLES GLOBALES
         self.foto_cliente = None
         self.seleccion_conectada = None
@@ -149,7 +150,8 @@ class Clientes(QWidget):
 
                 self.listar_areas()
                 self.listar_categorias()
-                self.ui.label_wpc_fotocliente.setText(self._translate("Control_Clientes", "Imagen"))
+                _translate = QtCore.QCoreApplication.translate
+                self.label_wpc_fotocliente.setText(_translate("Control_Clientes", "<html><head/><body><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"90\" height=\"80\"/></p><p align=\"center\"><span style=\" font-size:16pt; font-weight:bold;font-family:Arial;\">Cargar Imagen</span></p></body></html>"))
 
                     
                     
@@ -989,16 +991,14 @@ class Clientes(QWidget):
             self.listar_areas()
             self.listar_categorias()
             self.tabla_listar_clientes()
-            self.ui.contenedor_clientfisico.hide()
-            self.ui.contenedor_clientmoral.show()
+            self.ui.wpc_contenedor_pila.setCurrentIndex(1)
 
     def mostrar_contenedor_cliente_fisico(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
             self.listar_areas()
             self.listar_categorias()
             self.tabla_listar_clientes()
-            self.ui.contenedor_clientmoral.hide()
-            self.ui.contenedor_clientfisico.show()
+            self.ui.wpc_contenedor_pila.setCurrentIndex(0)
 
     def activar_creditofisico(self):
         if self.ui.casillaverificacion_wpc_credito_autorizado.isChecked():
