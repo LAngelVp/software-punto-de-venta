@@ -116,51 +116,71 @@ class Ui_control_compras(object):
 "background-color: #4d648d;\n"
 "}\n"
 "/*-----------TABLA--------------*/\n"
-"*[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
+"\n"
+"\n"
+"[objectName*=\"tabla_\"] {\n"
+"    font-family: Arial;\n"
+"    font-size: 14px;\n"
+"}\n"
+"\n"
+"/* Barra vertical */\n"
+"[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
 "    border: 1px solid gray;\n"
 "    background: #023375;\n"
-"    width: 5px;\n"
-"border-radius:2px;\n"
-"    margin: 22px 0 22px 0; \n"
+"    width: 12px;  /* Fijamos el tamaño de la barra vertical */\n"
+"    border-radius: 4px;\n"
+"    margin: 22px 0 22px 0;\n"
 "}\n"
 "\n"
-"*[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
-"    background:#023375;  /* Color del \"manejador\" */\n"
-"    min-height: 20px;  /* Altura mínima del manejador */\n"
-"}\n"
-"\n"
-"*[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
-"*[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
-"background-color:none;\n"
-"}\n"
-"\n"
-"*[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
-"    background: #023375;  /* Color del \"manejador\" horizontal */\n"
-"    height: 5px;  /* Altura de la barra horizontal */\n"
-"    border-radius: 2px;\n"
-"}\n"
-"\n"
-"*[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
+"/* Manejador de la barra vertical */\n"
+"[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
 "    background: #023375;\n"
-"    height: 5px;  /* Altura de la barra */\n"
-"    border-radius: 2px;\n"
-"}\n"
-"*[objectName*=\"tabla_\"] QHeaderView::section {\n"
-"    background-color: #023375;  /* Color de fondo de los encabezados */\n"
-"    color: white;  /* Color del texto */\n"
-"    padding: 5px;  /* Espaciado interno */\n"
-"    border: 1px solid gray;  /* Borde de los encabezados */\n"
+"    min-height: 20px;  /* Altura mínima del manejador */\n"
+"    border-radius: 4px;\n"
 "}\n"
 "\n"
-"*[objectName*=\"tabla_\"] QHeaderView::horizontal {\n"
-"    background-color: #023375;  /* Color de fondo de los encabezados horizontales */\n"
-"    color: white;  /* Color del texto */\n"
+"/* Elementos de la flecha de la barra vertical */\n"
+"[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
+"[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
+"    background-color: none;\n"
 "}\n"
 "\n"
-"*[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
-"    background-color:#023375;  /* Color de fondo de los encabezados verticales */\n"
-"    color: white;  /* Color del texto */\n"
+"/* Barra horizontal */\n"
+"[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
+"    background: #023375;\n"
+"    height: 12px;  /* Fijamos el tamaño de la barra horizontal */\n"
+"    border-radius: 4px;\n"
 "}\n"
+"\n"
+"/* Manejador de la barra horizontal */\n"
+"[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
+"    background: #023375;\n"
+"    height: 12px;  /* Altura del manejador horizontal */\n"
+"    border-radius: 4px;\n"
+"}\n"
+"\n"
+"/* Encabezados de la tabla */\n"
+"[objectName*=\"tabla_\"] QHeaderView::section {\n"
+"    background-color: #023375;\n"
+"    color: white;\n"
+"    font-family: \"Arial\";\n"
+"    font-size: 16px;\n"
+"    padding: 5px;\n"
+"    border: 1px solid gray;\n"
+"}\n"
+"\n"
+"/* Encabezado horizontal */\n"
+"[objectName*=\"tabla_\"] QHeaderView::horizontal {\n"
+"    background-color: #023375;\n"
+"    color: white;\n"
+"}\n"
+"\n"
+"/* Encabezado vertical */\n"
+"[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
+"    background-color: #023375;\n"
+"    color: white;\n"
+"}\n"
+"\n"
 "/*-----------FECHA--------------*/\n"
 "[objectName^=\"fecha_\"]{\n"
 "border: none;\n"
@@ -257,13 +277,6 @@ class Ui_control_compras(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.widget)
         self.gridLayout_2.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.tabla_comprasrealizadas = QtWidgets.QTableWidget(self.widget)
-        self.tabla_comprasrealizadas.setMinimumSize(QtCore.QSize(0, 0))
-        self.tabla_comprasrealizadas.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.tabla_comprasrealizadas.setObjectName("tabla_comprasrealizadas")
-        self.tabla_comprasrealizadas.setColumnCount(0)
-        self.tabla_comprasrealizadas.setRowCount(0)
-        self.gridLayout_2.addWidget(self.tabla_comprasrealizadas, 1, 0, 1, 1)
         self.contenedor_contenido = QtWidgets.QFrame(self.widget)
         self.contenedor_contenido.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_contenido.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -317,6 +330,9 @@ class Ui_control_compras(object):
         self.fecha_levantamientocompra.setObjectName("fecha_levantamientocompra")
         self.gridLayout_4.addWidget(self.fecha_levantamientocompra, 6, 2, 1, 1)
         self.gridLayout_2.addWidget(self.contenedor_contenido, 0, 0, 1, 1)
+        self.tabla_comprasrealizadas = QtWidgets.QTableView(self.widget)
+        self.tabla_comprasrealizadas.setObjectName("tabla_comprasrealizadas")
+        self.gridLayout_2.addWidget(self.tabla_comprasrealizadas, 1, 0, 1, 1)
         self.gridLayout_5.addWidget(self.widget, 0, 0, 1, 1)
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/check-square.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -334,13 +350,6 @@ class Ui_control_compras(object):
         self.gridLayout_7 = QtWidgets.QGridLayout(self.widget_2)
         self.gridLayout_7.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
         self.gridLayout_7.setObjectName("gridLayout_7")
-        self.tabla_compraspendientes = QtWidgets.QTableWidget(self.widget_2)
-        self.tabla_compraspendientes.setMinimumSize(QtCore.QSize(0, 0))
-        self.tabla_compraspendientes.setMaximumSize(QtCore.QSize(16777215, 602))
-        self.tabla_compraspendientes.setObjectName("tabla_compraspendientes")
-        self.tabla_compraspendientes.setColumnCount(0)
-        self.tabla_compraspendientes.setRowCount(0)
-        self.gridLayout_7.addWidget(self.tabla_compraspendientes, 1, 0, 1, 1)
         self.contenedor_contenidocompras_pendientes = QtWidgets.QFrame(self.widget_2)
         self.contenedor_contenidocompras_pendientes.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_contenidocompras_pendientes.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -384,6 +393,9 @@ class Ui_control_compras(object):
         self.etiqueta_proveedor.setObjectName("etiqueta_proveedor")
         self.gridLayout_8.addWidget(self.etiqueta_proveedor, 4, 2, 1, 1)
         self.gridLayout_7.addWidget(self.contenedor_contenidocompras_pendientes, 0, 0, 1, 1)
+        self.tabla_compraspendientes = QtWidgets.QTableView(self.widget_2)
+        self.tabla_compraspendientes.setObjectName("tabla_compraspendientes")
+        self.gridLayout_7.addWidget(self.tabla_compraspendientes, 1, 0, 1, 1)
         self.gridLayout_9.addWidget(self.widget_2, 0, 0, 1, 1)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/pause-circle.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)

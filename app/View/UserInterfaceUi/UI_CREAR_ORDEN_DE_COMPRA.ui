@@ -90,51 +90,69 @@ font-family: Arial;
 *[objectName^=&quot;numerodecimal_&quot;]::focus{
 border-bottom: 2px solid #00668c;
 }
-*[objectName^=&quot;tabla_&quot;] QScrollBar:vertical {
+/*TABLA*/
+
+[objectName*=&quot;tabla_&quot;] {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+/* Barra vertical */
+[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
     border: 1px solid gray;
     background: #023375;
-    width: 5px;
-	border-radius:2px;
-    margin: 22px 0 22px 0; 
+    width: 12px;  /* Fijamos el tamaño de la barra vertical */
+    border-radius: 4px;
+    margin: 22px 0 22px 0;
 }
 
-*[objectName^=&quot;tabla_&quot;] QScrollBar::handle:vertical {
-    background: #023375;  /* Color del &quot;manejador&quot; */
-    min-height: 20px;  /* Altura mínima del manejador */
-}
-
-*[objectName^=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
-*[objectName^=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
-background-color:none;
-}
-
-*[objectName^=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
-    background:#023375;  /* Color del &quot;manejador&quot; horizontal */
-    height: 5px;  /* Altura de la barra horizontal */
-	border-radius: 2px;
-}
-
-*[objectName^=&quot;tabla_&quot;] QScrollBar:horizontal {
+/* Manejador de la barra vertical */
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
     background: #023375;
-    height: 5px;  /* Altura de la barra */
-	border-radius: 2px;
-}
-*[objectName^=&quot;tabla_&quot;] QHeaderView::section {
-    background-color:#023375;  /* Color de fondo de los encabezados */
-    color: white;  /* Color del texto */
-	font-weight:bold;
-    padding: 5px;  /* Espaciado interno */
-    border: 1px solid gray;  /* Borde de los encabezados */
+    min-height: 20px;  /* Altura mínima del manejador */
+    border-radius: 4px;
 }
 
-*[objectName^=&quot;tabla_&quot;] QHeaderView::horizontal {
-    background-color: #023375;  /* Color de fondo de los encabezados horizontales */
-    color: white;  /* Color del texto */
+/* Elementos de la flecha de la barra vertical */
+[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
+[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
+    background-color: none;
 }
 
-*[objectName^=&quot;tabla_&quot;] QHeaderView::vertical {
-    background-color: #023375;  /* Color de fondo de los encabezados verticales */
-    color: white;  /* Color del texto */
+/* Barra horizontal */
+[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
+    background: #023375;
+    height: 12px;  /* Fijamos el tamaño de la barra horizontal */
+    border-radius: 4px;
+}
+
+/* Manejador de la barra horizontal */
+[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
+    background: #023375;
+    height: 12px;  /* Altura del manejador horizontal */
+    border-radius: 4px;
+}
+
+/* Encabezados de la tabla */
+[objectName*=&quot;tabla_&quot;] QHeaderView::section {
+    background-color: #023375;
+    color: white;
+    font-family: &quot;Arial&quot;;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+/* Encabezado horizontal */
+[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
+    background-color: #023375;
+    color: white;
+}
+
+/* Encabezado vertical */
+[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
+    background-color: #023375;
+    color: white;
 }
 </string>
   </property>
@@ -164,57 +182,7 @@ background-color:none;
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="5" column="0" colspan="2">
-       <widget class="QTableWidget" name="tabla_ordencompra">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>360</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QToolButton" name="btn_btn_terminar">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Terminar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>489</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="4" column="0">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
+       <widget class="QTableView" name="tabla_ordencompra"/>
       </item>
       <item row="2" column="0" colspan="2">
        <widget class="QFrame" name="frame_2">
@@ -335,6 +303,36 @@ background-color:none;
           </widget>
          </item>
         </layout>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QToolButton" name="btn_btn_terminar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Terminar</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>489</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
        </widget>
       </item>
      </layout>
