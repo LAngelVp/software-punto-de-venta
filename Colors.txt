@@ -141,7 +141,7 @@ padding-right:5px;
     color: white;
 }
 -------------------------------------
-QLISTWIDGET
+/*QLISTWIDGET*/
 QListWidget {
     font-family: Arial;
     font-size: 14px;
