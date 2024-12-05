@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_AGREGARPRODUCTO.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_AGREGARPRODUCTO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -75,7 +75,7 @@ class Ui_contenedor_agregar_productos(object):
 "[objectName*=\"btn_btn\"]:pressed{\n"
 "background:#1B80D0;\n"
 "}\n"
-"#btn_btn_agregar_producto:hover{\n"
+"#btn_btn_guardar_producto:hover{\n"
 "background:#68a67d;\n"
 "}\n"
 "#btn_btn_agregar_producto:pressed{\n"
@@ -544,6 +544,10 @@ class Ui_contenedor_agregar_productos(object):
         self.btn_btn_eliminar_producto.setObjectName("btn_btn_eliminar_producto")
         self.horizontalLayout_6.addWidget(self.btn_btn_eliminar_producto)
         self.gridLayout_7.addWidget(self.contenedor_botones, 0, 0, 1, 1, QtCore.Qt.AlignLeft)
+        self.btn_btn_guardar_producto = QtWidgets.QPushButton(self.contenedor_formulario_inferior)
+        self.btn_btn_guardar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_guardar_producto.setObjectName("btn_btn_guardar_producto")
+        self.gridLayout_7.addWidget(self.btn_btn_guardar_producto, 0, 1, 1, 1, QtCore.Qt.AlignRight)
         self.gridLayout_8.addWidget(self.contenedor_formulario_inferior, 8, 0, 1, 3)
         self.contenedor_formulario_izquierda.setWidget(self.contenedor_scroll_formulario)
         self.gridLayout_3.addWidget(self.contenedor_formulario_izquierda, 0, 0, 1, 1)
@@ -589,6 +593,7 @@ class Ui_contenedor_agregar_productos(object):
         self.btn_btn_agregar_producto.setText(_translate("contenedor_agregar_productos", "Agregar"))
         self.btn_btn_actualizar_producto.setText(_translate("contenedor_agregar_productos", "Actualizar"))
         self.btn_btn_eliminar_producto.setText(_translate("contenedor_agregar_productos", "Eliminar"))
+        self.btn_btn_guardar_producto.setText(_translate("contenedor_agregar_productos", "Guardar"))
 import ibootstrap_rc
 import iconosSVG_rc
 import iconsdvg_rc
