@@ -236,7 +236,8 @@ class Productos(Base):
     fecha_vencimiento = Column(Date)
     imagen = Column(Text)
     notas = Column(Text)
-    categoria = Column(String(55))
+    categoria_id = Column(Integer, ForeignKey('Categorias_productos.id'), nullable=False)
+    categoria = relationship("Categorias_productos", back_populates="productos")
     sucursales = relationship(
         "Sucursales", secondary=sucursal_producto, back_populates="productos", 
     )
@@ -246,6 +247,13 @@ class Productos(Base):
     detalles_compras = relationship("Detalles_compras", back_populates="producto")
     detalles_ventas = relationship("Detalles_ventas", back_populates="producto")
 
+class Categorias_productos(Base):
+    __tablename__ = "Categorias_productos"
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
+    nombre = Column(String(100))
+    descripcion = Column(String(255))
+    # Relación con Productos (una categoría tiene muchos productos)
+    productos = relationship("Productos", back_populates="categoria")
 
 class Proveedores(Base):
     __tablename__ = "Proveedores"
@@ -299,7 +307,7 @@ class Categorias_proveedores(Base):
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
     nombre = Column(String(100))
-    descripcion = Column(Text)
+    descripcion = Column(String(255))
     proveedores = relationship(
         "Proveedores", secondary=proveedor_categoria, back_populates="categorias", 
     )
@@ -370,7 +378,7 @@ class Categorias_de_clientes(Base):
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
     nombre = Column(String(100))
-    descripcion = Column(Text)
+    descripcion = Column(String(255))
     clientes = relationship("Clientes", back_populates="categoria")
 
 
