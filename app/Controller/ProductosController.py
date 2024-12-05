@@ -2,27 +2,41 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProveedoresModel import ProveedoresModel
+from ..Model.CategoriaProductoModel import CategoriaProductoModel
 from .MensajesAlertasController import Mensaje
 from ..View.UserInterfacePy.UI_CONTROL_PRODUCTOS import Ui_Control_Productos
 from ..View.UserInterfacePy.UI_AGREGARPRODUCTO import Ui_contenedor_agregar_productos
 from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import Ui_Nueva_categoria
 
 
-class Productos(QWidget):
+class CategoriaProductoController(QWidget):
+    categoria_agregada = pyqtSignal()
     def __init__(self):
         super().__init__()
-        self.ui = Ui_Control_Productos()
+        self.ui = Ui_Nueva_categoria()
         self.ui.setupUi(self)
-        self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
+        self.ui.btn_btn_guardar.clicked.connect(self.__agregar_categoria)
         
-    def agregar_producto(self):
-        self.agregar_producto = Admin_productos()
-        self.agregar_producto.show()
-        
-        
-class Admin_productos(QWidget):
+    def __agregar_categoria(self):
+        pass
+        nombre = self.ui.txt_nombre.text().upper().strip()
+        descripcion = self.ui.txtlargo_descripcion.toPlainText().strip().upper()
+        if not nombre or not descripcion:
+            Mensaje().mensaje_informativo("Debes de ingresar información del nombre de la categoria y la descripción para poder agregarla.")
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                categoria, estatus = CategoriaProductoModel(session).agregar(nombre, descripcion)
+            if estatus:
+                Mensaje().mensaje_informativo("Se registro la categoria con exito.")
+                self.categoria_agregada.emit()
+                self.close()
+                
+class Admin_productosController(QWidget):
     def __init__(self):
         super().__init__()
         self.ui = Ui_contenedor_agregar_productos()
@@ -56,18 +70,29 @@ class Admin_productos(QWidget):
 #// señales:
         self.ui.txt_proveedor.textChanged.connect(self.__proveedor_seleccionado)
 #// botones de ventana:
-        self.ui.btn_btn_actualizar_producto.clicked.connect(self.actualizar_producto)
-        self.ui.btn_btn_agregar_categoria.clicked.connect(self.agregar_categoria)
-        self.ui.btn_btn_agregar_producto.clicked.connect(self.agregar_producto)
-        self.ui.btn_btn_eliminar_producto.clicked.connect(self.eliminar_producto)
-        self.ui.btn_btn_guardar_producto.clicked.connect(self.guardar_producto)
-        
+        self.ui.btn_btn_actualizar_producto.clicked.connect(self.__actualizar_producto)
+        self.ui.btn_btn_agregar_categoria.clicked.connect(self.__agregar_categoria)
+        self.ui.btn_btn_agregar_producto.clicked.connect(self.__agregar_producto)
+        self.ui.btn_btn_eliminar_producto.clicked.connect(self.__eliminar_producto)
+        self.ui.btn_btn_guardar_producto.clicked.connect(self.__guardar_producto)
+    def listar_categorias(self):
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                categorias, estatus = CategoriaProductoModel(session).obtener_todo()
+            if estatus:
+                self.ui.cajaOpciones_categoriaProducto.clear()
+                for categoria in categorias:
+                    self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria.id)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
+                    
     def __actualizar_producto(self):
         pass
     def __agregar_producto(self):
         pass
     def __agregar_categoria(self):
-        self.categoria = CategoriaProducto()
+        self.categoria = CategoriaProductoController()
+        self.categoria.categoria_agregada.connect(self.listar_categorias)
         self.categoria.show()
         
     def __eliminar_producto(self):
@@ -92,22 +117,23 @@ class Admin_productos(QWidget):
                 break
         else:
             self.proveedor_id = None
-            
-class CategoriaProducto(QWidget):
+
+class Productos(QWidget):
+    LISTAR_CATEGORIAS_PRODUCTOS = pyqtSignal()
     def __init__(self):
         super().__init__()
-        self.ui = Ui_Nueva_categoria()
+        self.ui = Ui_Control_Productos()
         self.ui.setupUi(self)
-        self.ui.btn_btn_guardar.clicked.connect(self.agregar_categoria)
+        self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
+        self.AdminProductos = Admin_productosController()
+        self.LISTAR_CATEGORIAS_PRODUCTOS.connect(self.AdminProductos.listar_categorias)
+    
+    def agregar_producto(self):
+        self.LISTAR_CATEGORIAS_PRODUCTOS.emit()
+        self.AdminProductos.show()
         
-    def __agregar_categoria(self):
-        pass
-        # nombre = self.ui.txt_nombre.text().upper().strip()
-        # descripcion = self.ui.txtlargo_descripcion.toPlainText().strip().upper()
-        # if not nombre or not descripcion:
-        #     Mensaje().mensaje_informativo("Debes de ingresar información del nombre de la categoria y la descripción para poder agregarla.")
-        #     return
-        # with Conexion_base_datos() as db:
-        #     session = db.abrir_sesion()
-        #     with session.begin():
-                # categoria = CategoriaProductoModel(session).agregar_categoria(nombre, descripcion)
+        
+
+            
+
+                
