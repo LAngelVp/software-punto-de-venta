@@ -4,12 +4,12 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QMessageBox, QWidget, QTableView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from app.View.UserInterfacePy.UI_CONTROL_PROVEEDORES import Ui_Control_Proveedores
-from app.Controller.CategoriasProveedorController import CategoriasController
+from app.Controller.CategoriasController import CategoriasController
 from app.Model.ProveedoresModel import ProveedoresModel
 from app.Model.ProveedoresModel import ProveedoresModel
 from app.DataBase.conexionBD import Conexion_base_datos
 from app.Model.ValidacionesModel import Validaciones
-from app.Model.CategoriasProveedorModel import CategoriaProveedorModel
+from app.Model.CategoriasModel import CategoriasModel
 from app.Model.RepresentanteProveedorModel import RepresentanteProveedorModel
 from app.Model.BaseDatosModel import Proveedores
 from app.Controller.MensajesAlertasController import *
@@ -56,7 +56,7 @@ class Control_proveedores(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        categorias, estado = CategoriaProveedorModel(session).obtener_todas()
+                        categorias, estado = CategoriasModel(session).obtener_todo(tipo_categoria="proveedores")
                         if estado:
                             self.ui.cajaopciones_categorias.clear()
                             self.lista_categorias = {categoria.nombre : categoria.descripcion for categoria in categorias}
@@ -110,7 +110,7 @@ class Control_proveedores(QWidget):
             self.ui.contenedor_datosrepresentante.setVisible(False)
 
     def nueva_categoria(self):
-        self.categorias = CategoriasController()
+        self.categorias = CategoriasController(tipo_categoria="proveedores")
         self.categorias.categoria_agregada_signal.connect(self.mostrar_categorias)
         self.categorias.show()
     
@@ -170,7 +170,7 @@ class Control_proveedores(QWidget):
             with session.begin():
                 try:
                     # Obtener la categoría
-                    categoria_id = CategoriaProveedorModel(session).obtener_id_por_nombre(nombre=categoria_nombre)
+                    categoria_id = CategoriasModel(session).obtener_id_por_nombre(tipo_categoria="proveedores", nombre=categoria_nombre)
                     if not categoria_id:
                         Mensaje().mensaje_alerta(cuerpo="La categoría seleccionada no existe.")
                         return
@@ -340,7 +340,7 @@ class Control_proveedores(QWidget):
                 with session.begin():
                     try:
                         # Obtener la categoría por su nombre
-                        categoria_id = CategoriaProveedorModel(session).obtener_id_por_nombre(nombre=categoria_nombre)
+                        categoria_id = CategoriasModel(session).obtener_id_por_nombre(tipo_categoria="proveedores", nombre=categoria_nombre)
                         if not categoria_id:
                             Mensaje().mensaje_alerta(cuerpo="La categoría seleccionada no existe.")
                             return

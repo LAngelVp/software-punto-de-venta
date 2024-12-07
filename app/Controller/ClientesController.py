@@ -3,13 +3,13 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import  datetime, timedelta
+from ..DataBase.conexionBD import Conexion_base_datos
 from .FuncionesAuxiliares import size_validator_image
 from ..View.UserInterfacePy.UI_CONTROL_CLIENTES import *
-from .CategoriasProveedorController import *
+from .CategoriasController import CategoriasController
 from .AreaNegocioClientesController import AreaNegocioClientesController
 from ..Model.AreaNegocioClientesModel import AreaNegocioClientesModel
-from .CategoriaClientesController import *
-from ..Model.CategoriaClienteModel import CategoriaClienteModel
+from ..Model.CategoriasModel import CategoriasModel
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..Model.ClientesFisicosAndMoralesModel import *
 
@@ -662,7 +662,7 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        id_categoria_cliente = CategoriaClienteModel(session).agregar(nombre = nombre_categoria)
+                        id_categoria_cliente = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre = nombre_categoria)
                         id_area_de_negocio = AreaNegocioClientesModel(session).agregar_area(nombre = nombre_area_de_negocio)
 
                         nuevo_cliente = ClientesFisicosAndMorales(session).agregar_cliente_fisico(
@@ -720,7 +720,7 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        id_categoria_cliente = CategoriaClienteModel(session).agregar(nombre = datos["clasificacion de cliente"])
+                        id_categoria_cliente = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre = datos["clasificacion de cliente"],)
                         id_area_de_negocio = AreaNegocioClientesModel(session).agregar_area(nombre = datos["area de negocio"])
 
                         nuevo_cliente = ClientesFisicosAndMorales(session).agregar_cliente_moral(
@@ -780,7 +780,7 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        categoria_id = CategoriaClienteModel(session).agregar(datos["clasificacion cliente"])
+                        categoria_id = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre=datos["clasificacion cliente"], descripcion=None)
                         area_cliente_id = AreaNegocioClientesModel(session).agregar_area(datos["area de negocio"])
                         cliente = ClientesFisicosAndMorales(session).actualizar_cliente_fisico(
                             id = self.id_cliente,
@@ -839,7 +839,7 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        categoria_id = CategoriaClienteModel(session).agregar(datos["clasificacion de cliente"])
+                        categoria_id = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre=datos["clasificacion de cliente"])
                         area_cliente_id = AreaNegocioClientesModel(session).agregar_area(datos["area de negocio"])
                         cliente = ClientesFisicosAndMorales(session).actualizar_cliente_moral(
                             id = self.id_cliente,
@@ -957,9 +957,9 @@ class Clientes(QWidget):
             print(e)
 
     def nueva_categoria(self):
-        self.ui_categoria = CategoriaClienteController()
+        self.ui_categoria = CategoriasController(tipo_categoria="clientes")
         self.ui_categoria.show()
-        self.ui_categoria.signal_categoria_cliente.connect(self.listar_categorias)
+        self.ui_categoria.categoria_agregada_signal.connect(self.listar_categorias)
 
     def listar_categorias(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
@@ -969,9 +969,11 @@ class Clientes(QWidget):
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
-                areas = CategoriaClienteModel(session).obtener_categorias()
-                if areas:
-                    lista = [area.nombre for area in areas]
+                print("hola")
+                categorias, estado = CategoriasModel(session).obtener_todo(tipo_categoria="clientes")
+                print("mundo")
+                if estado:
+                    lista = [categoria.nombre for categoria in categorias]
                     if self.ui.btnRadio_wpc_clienteFisico.isChecked():
                         self.ui.cajaopciones_categoriaFisico.addItems(lista)
                         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_categoriaFisico)
