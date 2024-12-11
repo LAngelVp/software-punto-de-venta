@@ -3,7 +3,7 @@ import os
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QValidator
 from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import *
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.CategoriasModel import CategoriasModel
@@ -17,6 +17,7 @@ class CategoriasController(QWidget):
         self.tipo_categoria = tipo_categoria
         self.ui = Ui_Nueva_categoria()
         self.ui.setupUi(self)
+        self.ui.txt_nombre.setMaxLength(100)
         self.ui.btn_btn_guardar.clicked.connect(self.guardar)
 
     def guardar(self):

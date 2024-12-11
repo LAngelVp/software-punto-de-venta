@@ -37,6 +37,8 @@ class Login(QWidget):
         
         self.ui.txt_User.setValidator(Validaciones().get_text_validator)
         self.ui.txt_Password.setValidator(Validaciones().get_password_validator)
+        
+        self.ui.txt_User.setFocus()
 
         self.ui.btnCerrar.clicked.connect(self.cerrar)
         self.ui.btnMinimizar.clicked.connect(self.minimizar)
@@ -51,7 +53,7 @@ class Login(QWidget):
             self.close()
             ventana.show()
         else:
-            print('error')
+            Mensaje().mensaje_alerta("Las credenciales que estas ingresando son incorrectas, !vuelvelo a intentar¡")
 
     def facebook(self):
         pass

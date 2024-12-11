@@ -1,7 +1,7 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PyQt5.QtGui import QValidator
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProveedoresModel import ProveedoresModel
@@ -11,6 +11,7 @@ from .CategoriasController import CategoriasController
 from ..View.UserInterfacePy.UI_CONTROL_PRODUCTOS import Ui_Control_Productos
 from ..View.UserInterfacePy.UI_AGREGARPRODUCTO import Ui_contenedor_agregar_productos
 from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import Ui_Nueva_categoria
+from .AgregarUnDatoCombobox import FormularioAgregarDatoCombobox
                 
 class Admin_productosController(QWidget):
     def __init__(self):
@@ -30,18 +31,27 @@ class Admin_productosController(QWidget):
         self.ui.decimal_pesoProducto.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.fecha_fabricacionProducto.setDate(QDate.currentDate())
         self.ui.fecha_vencimientoProducto.setDate(QDate.currentDate())
+        self.ui.txt_codBarras.setFocus()
         
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        
+#// Validaciones:
+        self.ui.txt_codBarras.setMaxLength(255)
+        self.ui.txt_nombreProducto.setMaxLength(255)
+        self.ui.txt_marcaProducto.setMaxLength(100)
+        self.ui.txt_modeloProducto.setMaxLength(50)
+        self.ui.txt_colorProducto.setMaxLength(20)
+        self.ui.txt_materialProducto.setMaxLength(255)
+        
 #// variables globales:
         self.proveedores = {}
         self.id_proveedor = None
 #// funciones principales:
         self.__obtener_proveedores()
-        
-        completar = QCompleter(list(self.proveedores.values()))  # Usamos los valores (nombres)
-        completar.setCaseSensitivity(Qt.CaseInsensitive)  # Usamos CaseInsensitive o CaseSensitive, no `Qt.CaseSensitivity`
+        completar = QCompleter(list(self.proveedores.values()))
+        completar.setCaseSensitivity(Qt.CaseInsensitive)
         self.ui.txt_proveedor.setCompleter(completar)
 #// señales:
         self.ui.txt_proveedor.textChanged.connect(self.__proveedor_seleccionado)
@@ -51,6 +61,13 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_agregar_producto.clicked.connect(self.__agregar_producto)
         self.ui.btn_btn_eliminar_producto.clicked.connect(self.__eliminar_producto)
         self.ui.btn_btn_guardar_producto.clicked.connect(self.__guardar_producto)
+        self.ui.btn_btn_agregar_unidadMedidaProducto.clicked.connect(self.agregar_elemento)
+        self.ui.btn_btn_agregarPresentacionProducto.clicked.connect(self.agregar_elemento)
+        
+        
+    def agregar_elemento(self):
+        self.ui = FormularioAgregarDatoCombobox()
+        self.ui.show()
     def listar_categorias(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -90,7 +107,6 @@ class Admin_productosController(QWidget):
         for id_proveedor, nombre in self.proveedores.items():
             if nombre == texto:
                 self.proveedor_id = id_proveedor  # Asignamos el id correspondiente
-                print(f"Proveedor seleccionado: {nombre}, ID: {self.proveedor_id}")
                 break
         else:
             self.proveedor_id = None

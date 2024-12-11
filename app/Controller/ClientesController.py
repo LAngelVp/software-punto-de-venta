@@ -12,6 +12,7 @@ from ..Model.AreaNegocioClientesModel import AreaNegocioClientesModel
 from ..Model.CategoriasModel import CategoriasModel
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..Model.ClientesFisicosAndMoralesModel import *
+from .MensajesAlertasController import Mensaje
 
 class Clientes(QWidget):
     cliente_seleccionado = pyqtSignal(str)
@@ -120,8 +121,6 @@ class Clientes(QWidget):
                         self.ui.txt_buscarcliente.text(), tipo_cliente, modelo_cliente)
             if estado:
                 self.llenar_tabla_clientes(self.clientes)
-            else:
-                print("no hay clientes")
             self.clientes = None
 
     def limpiar_campos(self):
@@ -181,7 +180,7 @@ class Clientes(QWidget):
                 self.listar_areas()
                 self.listar_categorias()
         except Exception as e:
-            print(f"Error al limpiar campos: {e}")
+            Mensaje().mensaje_critico(f"Error al limpiar campos por lo siguiente: {e}")
 
         self.foto_cliente = None
         self.clientes = None
@@ -403,7 +402,7 @@ class Clientes(QWidget):
                                 caja_areas.setCurrentIndex(0)
 
                 except Exception as e:
-                    print("Error al obtener proveedor : " + str(e))
+                    Mensaje().mensaje_critico("Error al obtener proveedor por lo siguiente: " + str(e))
 
     def tabla_listar_clientes(self):
         try:
@@ -416,13 +415,13 @@ class Clientes(QWidget):
                         self.clientes = ClientesFisicosAndMorales(session).mostrar_clientes_morales()
                 self.llenar_tabla_clientes(self.clientes)
         except Exception as e:
-            print(f"error al obtener los clientes: {e}")
+            Mensaje().mensaje_critico(f"error al obtener los clientes por lo siguiente: {e}")
 
     def llenar_tabla_clientes(self, clientes):
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_clientes is None:
-                print("El widget tabla_clientes no está disponible.")
+                Mensaje().mensaje_alerta("El widget tabla_clientes no está disponible.")
                 return
 
             # Inicializar el modelo de la tabla si no existe
@@ -461,7 +460,7 @@ class Clientes(QWidget):
                                 for cliente, cliente_moral in clientes if cliente_moral]
 
             else:
-                print("No se ha seleccionado un tipo de cliente válido.")
+                Mensaje().mensaje_informativo("No se ha seleccionado un tipo de cliente válido.")
                 return
 
             # Configurar los encabezados
@@ -486,7 +485,7 @@ class Clientes(QWidget):
             self.seleccion_conectada = True
 
         except Exception as e:
-            print(f"Error al llenar la tabla de clientes: {e}")
+            Mensaje().mensaje_critico(f"Error al llenar la tabla de clientes: {e}")
         
         self.clientes = None
 
@@ -495,7 +494,6 @@ class Clientes(QWidget):
         if current.column() >= 1:  # Verifica si es la primera columna
             indice_fila = current.row()
             self.id_cliente = self.model.item(indice_fila, 0).text()  # Obtener el ID del proveedor
-            print(self.id_cliente)
             self.cliente_seleccionado.emit(self.id_cliente)
 
     def autorizar_credito_fisico(self):
@@ -714,7 +712,6 @@ class Clientes(QWidget):
             #comment:_ obtener los datos de los campos numericos y checks
             credito_disponible = datos["limite del credito"]
             fecha_ultimo_reporte = fecha_actual.strftime("%Y/%m/%d")
-            print(datos['fecha de constitucion'])
 
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
@@ -765,7 +762,7 @@ class Clientes(QWidget):
 
                         nuevo_cliente.representante = representante
                     except Exception as e:
-                        print(f'No se logro hacer la creacion del cliente moral: ,  {str(e)}')
+                        Mensaje().mensaje_critico(f'No se logro hacer la creacion del cliente moral: ,  {str(e)}')
             self.tabla_listar_clientes()
             self.limpiar_campos()
 
@@ -820,12 +817,12 @@ class Clientes(QWidget):
                             
                         )
                     except Exception as e:
-                        print(f'No se logro hacer la actualizacion del cliente fisico: ,  {e}')
+                        Mensaje().mensaje_critico(f'No se logro hacer la actualizacion del cliente fisico:  {e}')
 
                 if cliente:
                     self.tabla_listar_clientes()
                 else:
-                    print('No se logro actualizar el cliente fisico')
+                    Mensaje().mensaje_alerta('No se logro actualizar el cliente fisico')
             self.limpiar_campos()
             return
 
@@ -878,11 +875,11 @@ class Clientes(QWidget):
                             puesto_representante=datos['puesto del representante']
                             ) 
                     except Exception as e:
-                        print(f'No se logro hacer la actualizacion del cliente moral: {e}')
+                        Mensaje().mensaje_critico(f'No se logro hacer la actualizacion del cliente moral: {e}')
                 if cliente:
                     self.tabla_listar_clientes()
                 else:
-                    print('No se logro hacer la actualizacion del cliente moral')
+                    Mensaje().mensaje_alerta('No se logro hacer la actualizacion del cliente moral')
             self.limpiar_campos()
             return
 
@@ -900,7 +897,7 @@ class Clientes(QWidget):
                         else:
                             Mensaje().mensaje_alerta("No se logro hacer la operacion!")
                     except Exception as e:
-                        print(f'No se logro eliminar el cliente fisico: {e}')
+                        Mensaje().mensaje_critico(f'No se logro eliminar el cliente fisico: {e}')
 
                 self.tabla_listar_clientes()
                 self.limpiar_campos()
@@ -917,7 +914,7 @@ class Clientes(QWidget):
                         else:
                             Mensaje().mensaje_alerta("No se logro hacer la operacion!")
                     except Exception as e:
-                        print(f'No se logro eliminar el cliente fisico: {e}')
+                        Mensaje().mensaje_critico(f'No se logro eliminar el cliente fisico por lo siguiente: {e}')
                 self.tabla_listar_clientes()
                 self.limpiar_campos()
 
@@ -954,7 +951,7 @@ class Clientes(QWidget):
                     else:
                         self.ui.cajaopciones_areasnegocio_moral.addItem("Sin Área")
         except Exception as e:
-            print(e)
+            Mensaje().mensaje_critico(f'No se logro listar las areas por lo siguiente: {e}')
 
     def nueva_categoria(self):
         self.ui_categoria = CategoriasController(tipo_categoria="clientes")
@@ -969,9 +966,7 @@ class Clientes(QWidget):
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
-                print("hola")
                 categorias, estado = CategoriasModel(session).obtener_todo(tipo_categoria="clientes")
-                print("mundo")
                 if estado:
                     lista = [categoria.nombre for categoria in categorias]
                     if self.ui.btnRadio_wpc_clienteFisico.isChecked():
@@ -986,7 +981,7 @@ class Clientes(QWidget):
                     else:
                         self.ui.cajaopciones_categoriaMoral.addItem("Sin Clasificación")
         except Exception as e:
-            print(e)
+            Mensaje().mensaje_critico(f'No se logro listar las categorias por lo siguiente: {e}')
 
     def mostrar_contenedor_cliente_moral(self):
         if self.ui.btnRadio_wpc_clienteMoral.isChecked():

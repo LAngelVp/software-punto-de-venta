@@ -55,11 +55,9 @@ class SucursalesModel:
             sucursal = self.session.query(Sucursales).filter(Sucursales.id == id).one_or_none()
             if sucursal:
                 self.session.delete(sucursal)
-                print(f"se elimino el registro del sucursal")
                 return True
             return False
         except Exception as e:
-            print(f'Error al eliminar el sucursal: {e}')
             return False
     
     def actualizar(self, 

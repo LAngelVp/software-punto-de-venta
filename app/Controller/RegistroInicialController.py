@@ -22,10 +22,6 @@ from .SucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
 from .PuestosController import PuestosController
 
-import traceback
-
-
-
 class Registro_personal_inicial(QWidget):
     listar_sucursales_signal = pyqtSignal()
     listar_departamentos_signal = pyqtSignal()
@@ -84,6 +80,7 @@ class Registro_personal_inicial(QWidget):
         self.ui.txt_nexterior.setMaxLength(10)
         self.ui.txt_usuario_iniciosesion.setMaxLength(100)
         self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(30)
+        self.ui.txt_nombre.setFocus()
 # señales: acciones de los botones
         self.ui.btc_cerrar.clicked.connect(lambda: self.close())
         self.ui.btc_minimizar.clicked.connect(lambda: self.showMinimized())
@@ -590,11 +587,6 @@ class Registro_personal_inicial(QWidget):
                             sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                         )
                     except Exception as e:
-                        # Imprimir detalles del error con traceback
-                        print(f'Error tipo: {type(e)}')
-                        print(f'Error mensaje: {e}')
-                        print('Detalles del traceback:')
-                        traceback.print_exc()
                         session.rollback()
                 if estado and not self.id_empleado:
                     Mensaje().mensaje_informativo("Registro exitoso")

@@ -4,6 +4,7 @@ from app.Controller.InicioDeSesionController import Login
 from app.Controller.VentanaInicialController import *
 from app.Model.BaseDatosModel import Usuarios
 from app.Model.GruposyPermisosModel import PermisosModel, RolesModel
+from app.Controller.MensajesAlertasController import Mensaje
 class Inicio_sistema:
     def __init__(self):
         self.conexion = Conexion_base_datos()
@@ -25,7 +26,7 @@ class Inicio_sistema:
                     PermisosModel(session).crear_permiso()
                     RolesModel(session).crear_grupo_principal()
                 except Exception as e:
-                    print(e)
+                    Mensaje().mensaje_alerta(f'Existio un error en la creacion de datos principales: {e}')
 
 def main():
     app = QApplication(sys.argv)
