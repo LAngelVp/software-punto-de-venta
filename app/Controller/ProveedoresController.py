@@ -213,7 +213,6 @@ class Control_proveedores(QWidget):
         self.limpiar_campos()
 
     def listar_proveedores_tabla(self):
-        estado = False
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -300,11 +299,11 @@ class Control_proveedores(QWidget):
 
             # Desconectar la señal antes de conectar
             if self.seleccion_conectada:
-                self.ui.tabla_proveedores.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla)
+                self.ui.tabla_proveedores.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_proveedores)
                 self.seleccion_conectada = False  # Actualizar el estado
 
             # Conectar la señal a la función que obtiene el ID del elemento seleccionado
-            self.ui.tabla_proveedores.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
+            self.ui.tabla_proveedores.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_proveedores)
             self.seleccion_conectada = True  # Marcar como conectada
 
         except Exception as e:
@@ -400,7 +399,7 @@ class Control_proveedores(QWidget):
             self.listar_proveedores_tabla()
             self.limpiar_campos()
 
-    def obtener_id_elemento_tabla(self, current, previus):
+    def obtener_id_elemento_tabla_proveedores(self, current, previus):
         self.limpiar_campos()
         # Verifica si la celda seleccionada está en la primera columna
         if current.column() > 0:  # Verifica si es la primera columna

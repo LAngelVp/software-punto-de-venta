@@ -9,7 +9,7 @@ class AreaNegocioClientesModel:
         try:
             area = self.session.query(Areas_negocios).filter_by(nombre = nombre).first()
             if area:
-                return  area
+                return area
             else:
                 area = Areas_negocios(nombre = nombre, descripcion = descripcion)
                 self.session.add(area)

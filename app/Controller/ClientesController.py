@@ -150,7 +150,7 @@ class Clientes(QWidget):
                 self.listar_areas()
                 self.listar_categorias()
                 _translate = QtCore.QCoreApplication.translate
-                self.label_wpc_fotocliente.setText(_translate("Control_Clientes", "<html><head/><body><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"90\" height=\"80\"/></p><p align=\"center\"><span style=\" font-size:16pt; font-weight:bold;font-family:Arial;\">Cargar Imagen</span></p></body></html>"))
+                self.ui.label_wpc_fotocliente.setText(_translate("Control_Clientes", "<html><head/><body><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"90\" height=\"80\"/></p><p align=\"center\"><span style=\" font-size:16pt; font-weight:bold;font-family:Arial;\">Cargar Imagen</span></p></body></html>"))
 
                     
                     
@@ -425,19 +425,19 @@ class Clientes(QWidget):
                 return
 
             # Inicializar el modelo de la tabla si no existe
-            if not hasattr(self, 'model'):
-                self.model = QStandardItemModel()
+            if not hasattr(self, 'model_clientes'):
+                self.model_clientes = QStandardItemModel()
 
             # Limpiar el modelo antes de llenarlo con nuevos datos
-            self.model.clear()
+            self.model_clientes.clear()
 
             # Obtener los encabezados según el tipo de cliente
             if self.ui.btnRadio_wpc_clienteFisico.isChecked():
                 if clientes is None:
-                    self.model.setHorizontalHeaderLabels([
+                    self.model_clientes.setHorizontalHeaderLabels([
                         "Id", "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "CURP"
                         ])
-                    self.ui.tabla_clientes.setModel(self.model)
+                    self.ui.tabla_clientes.setModel(self.model_clientes)
                     return
                 nombre_columnas = [
                     "Id", "Nombre", "Apellido Paterno", "Apellido Materno", "RFC", "CURP"
@@ -448,10 +448,10 @@ class Clientes(QWidget):
 
             elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
                 if clientes is None:
-                    self.model.setHorizontalHeaderLabels([
+                    self.model_clientes.setHorizontalHeaderLabels([
                         "Id", "Nombre", "RFC", "RAZON SOCIAL", "NIF"
                         ])
-                    self.ui.tabla_clientes.setModel(self.model)
+                    self.ui.tabla_clientes.setModel(self.model_clientes)
                     return
                 nombre_columnas = [
                     "Id", "Nombre", "RFC", "RAZON SOCIAL", "NIF"
@@ -464,21 +464,21 @@ class Clientes(QWidget):
                 return
 
             # Configurar los encabezados
-            self.model.setHorizontalHeaderLabels(nombre_columnas)
+            self.model_clientes.setHorizontalHeaderLabels(nombre_columnas)
 
             # Agregar los datos al modelo
             for row_data in data_columnas:
                 items = [QStandardItem(str(item)) for item in row_data]
-                self.model.appendRow(items)
+                self.model_clientes.appendRow(items)
 
             # Asignar el modelo a la tabla
-            self.ui.tabla_clientes.setModel(self.model)
+            self.ui.tabla_clientes.setModel(self.model_clientes)
             self.ui.tabla_clientes.setColumnHidden(0, True)
 
             # Desconectar la señal antes de conectar
-            if self.seleccion_conectada:
-                self.ui.tabla_clientes.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla)
-                self.seleccion_conectada = False
+            if hasattr(self, 'seleccion_clientes_conectada') and self.seleccion_clientes_conectada:
+                self.ui.tabla_clientes.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_clientes)
+                self.seleccion_clientes_conectada = False
 
             # Conectar la señal a la función que obtiene el ID del elemento seleccionado
             self.ui.tabla_clientes.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
@@ -493,7 +493,7 @@ class Clientes(QWidget):
         # Verifica si la celda seleccionada está en la primera columna
         if current.column() >= 1:  # Verifica si es la primera columna
             indice_fila = current.row()
-            self.id_cliente = self.model.item(indice_fila, 0).text()  # Obtener el ID del proveedor
+            self.id_cliente = self.model_clientes.item(indice_fila, 0).text()  # Obtener el ID del proveedor
             self.cliente_seleccionado.emit(self.id_cliente)
 
     def autorizar_credito_fisico(self):
@@ -660,8 +660,8 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        id_categoria_cliente = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre = nombre_categoria)
-                        id_area_de_negocio = AreaNegocioClientesModel(session).agregar_area(nombre = nombre_area_de_negocio)
+                        id_categoria_cliente, estatus = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre = nombre_categoria, descripcion=None)
+                        id_area_de_negocio = AreaNegocioClientesModel(session).agregar_area(nombre = nombre_area_de_negocio, descripcion=None)
 
                         nuevo_cliente = ClientesFisicosAndMorales(session).agregar_cliente_fisico(
                             nombre=datos['nombre'], 

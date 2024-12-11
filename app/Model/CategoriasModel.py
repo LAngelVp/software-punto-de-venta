@@ -9,7 +9,7 @@ class CategoriasModel:
         modelo = self.__tipo_categoria(tipo_categoria)
         categoria = self.session.query(modelo).filter(modelo.nombre==nombre).first()
         if categoria:
-            return None, False
+            return categoria, False
         categoria = modelo(nombre=nombre, descripcion=descripcion)
         self.session.add(categoria)
         self.session.flush()
