@@ -24,13 +24,11 @@ class DepartamentosModel:
                 # Confirmar los cambios en la base de datos
                 self.session.flush()
 
-                print(f"Departamento '{nombre}' agregado correctamente.")
                 return nuevo_departamento, True
 
             except Exception as e:
                 # Revertir los cambios en caso de error
                 self.session.rollback()
-                print(f"Error al agregar departamento: {e}")
                 return None, False
 
     def obtener_todos(self):

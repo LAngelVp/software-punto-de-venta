@@ -49,7 +49,6 @@ class ProveedoresModel:
                         if categoria:
                             nuevo_proveedor.categorias.append(categoria)  # Asociar el objeto, no el id
                     except Exception as e:
-                        print(f'Error al asociar categoría: {e}')
                         return None
 
                 elif representante_id:
@@ -58,7 +57,6 @@ class ProveedoresModel:
                         if representante is not None:
                             nuevo_proveedor.representante.append(representante)  # Asociar el objeto, no el id
                     except Exception as e:
-                        print(f'Error al asociar representante: {e}')
                         self.session.rollback()
                     return None
 
@@ -66,18 +64,16 @@ class ProveedoresModel:
                 self.session.flush()
                 return  nuevo_proveedor
         except Exception as e:
-            print(f'error en el proveedor {e}')
+            return None
         
     def obtener_proveedor_id(self, id):
         try:
             proveedor = self.session.query(Proveedores).get(id)
             if proveedor is None:
-                print(f"No se encontró un proveedor con ID: {id}")
                 return proveedor, False
             else:
                 return proveedor, True
         except Exception as e:
-            print(f"Error al obtener proveedor por ID {id}: {str(e)}")  # Imprimir el error para depuración
             return None
 
     def obtener_proveedores(self):
@@ -119,7 +115,6 @@ class ProveedoresModel:
             # Buscar el proveedor por ID
             proveedor = self.session.query(Proveedores).get(proveedor_id)
             if not proveedor:
-                print(f'Proveedor con ID {proveedor_id} no encontrado.')
                 return None
 
             # Actualizar los atributos del proveedor
@@ -145,10 +140,7 @@ class ProveedoresModel:
                         # Limpiar las categorías existentes y agregar la nueva
                         proveedor.categorias.clear()
                         proveedor.categorias.append(categoria)
-                    else:
-                        print(f'Categoría con ID {categoria_id} no encontrada.')
                 except Exception as e:
-                    print(f'Error al asociar categoría: {e}')
                     self.session.rollback()
                     return None
 
@@ -158,25 +150,19 @@ class ProveedoresModel:
                     representante = self.session.query(Representantes_proveedores).get(representante_id)
                     if representante:
                         proveedor.representante = representante
-                    else:
-                        print(f'Representante con ID {representante_id} no encontrado.')
                 except Exception as e:
-                    print(f'Error al asociar representante: {e}')
                     self.session.rollback()
                     return None
             else:
                 # Si no se proporciona representante_id, eliminar los representantes existentes
                 proveedor.representante = None
-            print(f'Proveedor con ID {proveedor_id} actualizado con éxito.')
             return proveedor_id  # Retorna el ID del proveedor actualizado
         except Exception as e:
-            print(f'Error al actualizar el proveedor: {e}')
             self.session.rollback()  # Hacer rollback en caso de error
             return None
 
     def consultar_proveedor(self, nombre):
         try:
-            print(nombre)
             if nombre is None:
                 return None
             proveedor = self.session.query(Proveedores).filter(Proveedores.nombre == nombre).first()
@@ -185,7 +171,6 @@ class ProveedoresModel:
             else:
                 return proveedor, True
         except Exception as e:
-            print(f'Error al consultar el proveedor: {e}')
             return None, False
 
     def eliminar_proveedor(self, id):
@@ -197,5 +182,5 @@ class ProveedoresModel:
             else:
                 return False
         except Exception as e:
-            print(f'Error al eliminar el proveedor: {e}')
+            return False
 

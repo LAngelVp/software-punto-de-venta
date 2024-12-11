@@ -1,4 +1,5 @@
 from .BaseDatosModel import Categorias_productos, Categorias_de_clientes, Categorias_proveedores
+from ..Controller.MensajesAlertasController import Mensaje
 
 class CategoriasModel:
     def __init__(self, session):
@@ -38,7 +39,7 @@ class CategoriasModel:
             else:
                 return None
         except Exception as e:
-            print(f'error al obtener categoria por id {e}')
+            Mensaje().mensaje_critico(f'error al obtener categoria por id {e}')
     
     def __tipo_categoria(self, tipo_categoria):
         if tipo_categoria == 'productos':

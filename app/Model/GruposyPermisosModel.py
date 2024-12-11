@@ -64,7 +64,7 @@ class RolesModel:
                     rol_creado.permisos.append(permiso)
                 self.session.add(rol_creado)
         except Exception as e:
-            print(e)
+            pass
 
 
     def crear_Rol(self, nombre, descripcion, permisos=None):

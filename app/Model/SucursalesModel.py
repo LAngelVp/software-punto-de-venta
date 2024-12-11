@@ -23,14 +23,13 @@ class SucursalesModel:
                 self.session.flush()
                 return sucursal, True
         except Exception as e:
-            print(e)
+            return None
 
     def obtener_sucursal_id(self, nombre):
         try:
             sucursal = self.session.query(Sucursales).filter_by(nombre_sucursal = nombre).first()
             return sucursal.id
         except Exception as e:
-            print(e)
             return None
         
     def obtener_sucursal_por_id(self, id):
@@ -41,7 +40,7 @@ class SucursalesModel:
             else:
                 return None
         except Exception as e:
-            print(e)
+            return None
 
     def obtener_todo(self):
         try:

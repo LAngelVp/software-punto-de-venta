@@ -14,7 +14,6 @@ class UsuarioModel:
         # Verificar si el usuario ya existe
         usuario_existente = self.session.query(Usuarios).filter_by(usuario=usuario).first()
         if usuario_existente:
-            print(f"El usuario {usuario} ya existe.")
             self.actualizar_usuario(usuario_existente)
 
         # Crear el nuevo usuario
@@ -27,17 +26,14 @@ class UsuarioModel:
             if rol:
                 nuevo_usuario.rol = rol
             else:
-                print(f"El rol {rol_id} no existe.")
                 return None
         
         # Agregar el usuario a la sesión, pero no hacer commit aquí
         try:
             self.session.add(nuevo_usuario)
-            self.session.flush()  # Asegura que el ID del usuario esté disponible sin hacer commit
-            print(f"Usuario {usuario} creado con éxito.")
+            self.session.flush()
             return nuevo_usuario.id
         except Exception as e:
-            print(f"Error al crear el usuario: {e}")
             return None
         
     def actualizar_usuario(self, id, nuevo_usuario, nuevo_password, fecha_actualizacion, nuevo_rol_id = None):
@@ -63,12 +59,11 @@ class UsuarioModel:
                     if rol:
                         usuario.rol = rol  # Actualizamos el rol
                     else:
-                        print(f"El rol con id {nuevo_rol_id} no existe.")
                         return None  # Si el rol no existe, salimos de la función
                 return True
             return False
         else:
-            print("No se encontró el usuario para actualizar.")
+            return False
 
     def eliminar(self, id):
         usuario = self.session.query(Usuarios).filter_by(id=id).first()
