@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from ..Source.iconos_rc import *
+from .favicon import *
 # from ..Source.img import *
 from ..Source.iconsdvg_rc import *
 from PyQt5.QtWidgets import QApplication, QWidget
@@ -14,7 +15,7 @@ class Inicio_principal(QWidget):
         self.ui = Ui_Bienvenida()
         self.ui.setupUi(self)
         self.ui.etiqueta_imagen.setStyleSheet('image: url(:/Icons/SVG/DrawKit(17).svg)')
-        self.setWindowIcon(QIcon(':/Icons/SVG/DrawKit(17).svg'))
+        self.setWindowIcon(QIcon(icono))
         self.ui.btn_btn_registrar.clicked.connect(self.abrir_registro)
         
         pantalla = self.frameGeometry()

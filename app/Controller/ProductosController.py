@@ -6,12 +6,14 @@ from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProveedoresModel import ProveedoresModel
 from ..Model.CategoriasModel import CategoriasModel
+from ..Model.ProductosModel import ProductosModel
 from .MensajesAlertasController import Mensaje
 from .CategoriasController import CategoriasController
 from ..View.UserInterfacePy.UI_CONTROL_PRODUCTOS import Ui_Control_Productos
 from ..View.UserInterfacePy.UI_AGREGARPRODUCTO import Ui_contenedor_agregar_productos
 from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import Ui_Nueva_categoria
-from .AgregarUnDatoCombobox import FormularioAgregarDatoCombobox
+from .PresentacionProductosController import PresentacionProductos
+from .UnidadMedidaProductosController import UnidadMedidaProductos
                 
 class Admin_productosController(QWidget):
     def __init__(self):
@@ -61,13 +63,18 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_agregar_producto.clicked.connect(self.__agregar_producto)
         self.ui.btn_btn_eliminar_producto.clicked.connect(self.__eliminar_producto)
         self.ui.btn_btn_guardar_producto.clicked.connect(self.__guardar_producto)
-        self.ui.btn_btn_agregar_unidadMedidaProducto.clicked.connect(self.agregar_elemento)
-        self.ui.btn_btn_agregarPresentacionProducto.clicked.connect(self.agregar_elemento)
+        self.ui.btn_btn_agregar_unidadMedidaProducto.clicked.connect(self.agregar_presentacion)
+        self.ui.btn_btn_agregarPresentacionProducto.clicked.connect(self.agregar_unidad_medida)
         
         
-    def agregar_elemento(self):
-        self.ui = FormularioAgregarDatoCombobox()
+    def agregar_presentacion(self):
+        self.ui = PresentacionProductos()
         self.ui.show()
+    
+    def agregar_unidad_medida(self):
+        self.ui = UnidadMedidaProductos()
+        self.ui.show()
+        
     def listar_categorias(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -79,6 +86,17 @@ class Admin_productosController(QWidget):
                 for categoria in categorias:
                     self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
+                
+    def listar_unidades_medida(self):
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                datos, estatus = ProductosModel(session).obtener_unidades_medida()
+            if estatus:
+                self.ui.cajaOpciones_unidadMedidaProducto.clear()
+                for unidad in datos:
+                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.nombre, unidad.id)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
                     
     def __actualizar_producto(self):
         pass
@@ -113,6 +131,8 @@ class Admin_productosController(QWidget):
 
 class Productos(QWidget):
     LISTAR_CATEGORIAS_PRODUCTOS = pyqtSignal()
+    LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
+    LISTAR_PRESENTACIONES_PRODUCTOS = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_Control_Productos()

@@ -209,6 +209,17 @@ class Departamentos(Base):
         "Sucursales", secondary=departamento_sucursal, back_populates="departamentos", 
     )  # Relación muchos a muchos con Sucursales
 
+class Presentacion_productos(Base):
+    __tablename__ = "Presentacion_productos"
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    nombre = Column(String(50), nullable=False)
+    productos = relationship("Productos", back_populates="presentacion_productos")
+    
+class Unidad_medida_productos(Base):
+    __tablename__ = "Unidad_medida_productos"
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    unidad_medida = Column(String(50), nullable=False)
+    productos = relationship("Productos", back_populates="unidad_medida_productos")
 
 class Productos(Base):
     __tablename__ = "Productos"
@@ -218,14 +229,13 @@ class Productos(Base):
     codigo_upc = Column(String(255), nullable=False, unique=True)
     nombre_producto = Column(String(255))
     descripcion_producto = Column(Text)
-    presentacion = Column(String(30))
+    
     costo_inicial = Column(Float)
     costo_final = Column(Float)
     precio = Column(Float)
     existencia = Column(Float)
     existencia_minima = Column(Float)
     existencia_maxima = Column(Float)
-    unidad_medida = Column(String(30))
     marca = Column(String(100))
     modelo = Column(String(50))
     peso = Column(Float)
@@ -236,6 +246,10 @@ class Productos(Base):
     fecha_vencimiento = Column(Date)
     imagen = Column(Text)
     notas = Column(Text)
+    presentacion_producto_id = Column(Integer, ForeignKey("Presentacion_productos.id"))
+    presentacion_productos = relationship("Presentacion_productos", back_populates="productos")
+    unidad_medida_productos_id = Column(Integer, ForeignKey("Unidad_medida_productos.id"))
+    unidad_medida_productos = relationship("Unidad_medida_productos", back_populates="productos")
     categoria_id = Column(Integer, ForeignKey('Categorias_productos.id'), nullable=False)
     categoria = relationship("Categorias_productos", back_populates="productos")
     sucursales = relationship(
