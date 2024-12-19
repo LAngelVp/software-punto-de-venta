@@ -7,6 +7,7 @@ from ..Model.ProductosModel import ProductosModel
 from ..DataBase.conexionBD import Conexion_base_datos
 
 class PresentacionProductos(QWidget):
+    SYGNAL_PRESENTACION_AGREGADA = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_Formulario()
@@ -22,5 +23,6 @@ class PresentacionProductos(QWidget):
                 dato, estatus = ProductosModel(session).agregar_presentacion(nombre=nombre)
             if estatus:
                 Mensaje().mensaje_informativo("Presentación agregada con exito")
+                self.SYGNAL_PRESENTACION_AGREGADA.emit()
                 return
             Mensaje().mensaje_alerta("No se logro agregar la presentación")

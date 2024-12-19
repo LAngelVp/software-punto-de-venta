@@ -7,6 +7,7 @@ from ..Model.ProductosModel import ProductosModel
 from ..DataBase.conexionBD import Conexion_base_datos
 
 class UnidadMedidaProductos(QWidget):
+    SYGNAL_UNIDAD_MEDIDA_AGREGADA = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_Formulario()
@@ -22,5 +23,6 @@ class UnidadMedidaProductos(QWidget):
                 dato, estatus = ProductosModel(session).agregar_unidad_medida(nombre=nombre)
             if estatus:
                 Mensaje().mensaje_informativo("Unidad de medida agregada con exito")
+                self.SYGNAL_UNIDAD_MEDIDA_AGREGADA.emit()
                 return
             Mensaje().mensaje_alerta("No se logro agregar la Unidad de medida")

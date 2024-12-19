@@ -62,31 +62,32 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_agregar_categoria.clicked.connect(self.__agregar_categoria)
         self.ui.btn_btn_agregar_producto.clicked.connect(self.__agregar_producto)
         self.ui.btn_btn_eliminar_producto.clicked.connect(self.__eliminar_producto)
-        self.ui.btn_btn_guardar_producto.clicked.connect(self.__guardar_producto)
-        self.ui.btn_btn_agregar_unidadMedidaProducto.clicked.connect(self.agregar_presentacion)
-        self.ui.btn_btn_agregarPresentacionProducto.clicked.connect(self.agregar_unidad_medida)
+        self.ui.btn_btn_guardar_producto.clicked.connect(self.__guardar_producto) 
+        self.ui.btn_btn_agregar_unidadMedidaProducto.clicked.connect(self.agregar_unidad_medida)
+        self.ui.btn_btn_agregarPresentacionProducto.clicked.connect(self.agregar_presentacion)
         
         
     def agregar_presentacion(self):
-        self.ui = PresentacionProductos()
-        self.ui.show()
+        self.ui_presentacion = PresentacionProductos()
+        self.ui_presentacion.SYGNAL_PRESENTACION_AGREGADA.connect(self.listar_presentaciones_productos)
+        self.ui_presentacion.show()
     
     def agregar_unidad_medida(self):
-        self.ui = UnidadMedidaProductos()
-        self.ui.show()
-        
-    def listar_categorias(self):
+        self.ui_unidad_medida = UnidadMedidaProductos()
+        self.ui_unidad_medida.SYGNAL_UNIDAD_MEDIDA_AGREGADA.connect(self.listar_unidades_medida)
+        self.ui_unidad_medida.show()
+    
+    def listar_presentaciones_productos(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
-                categorias, estatus = CategoriasModel(session).obtener_todo(tipo_categoria="productos")
-                
+                datos, estatus = ProductosModel(session).obtener_presentaciones()
             if estatus:
-                self.ui.cajaOpciones_categoriaProducto.clear()
-                for categoria in categorias:
-                    self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria.id)
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
-                
+                self.ui.cajaOpciones_presentacionProducto.clear()
+                for unidad in datos:
+                    self.ui.cajaOpciones_presentacionProducto.addItem(unidad.nombre, unidad.id)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
+    
     def listar_unidades_medida(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -95,8 +96,20 @@ class Admin_productosController(QWidget):
             if estatus:
                 self.ui.cajaOpciones_unidadMedidaProducto.clear()
                 for unidad in datos:
-                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.nombre, unidad.id)
+                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.unidad_medida, unidad.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
+                
+    def listar_categorias(self):
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                categorias, estatus = CategoriasModel(session).obtener_todo(tipo_categoria="productos")
+            if estatus:
+                self.ui.cajaOpciones_categoriaProducto.clear()
+                for categoria in categorias:
+                    self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria.id)
+                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
+                
                     
     def __actualizar_producto(self):
         pass
@@ -140,9 +153,13 @@ class Productos(QWidget):
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
         self.AdminProductos = Admin_productosController()
         self.LISTAR_CATEGORIAS_PRODUCTOS.connect(self.AdminProductos.listar_categorias)
+        self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.connect(self.AdminProductos.listar_unidades_medida)
+        self.LISTAR_PRESENTACIONES_PRODUCTOS.connect(self.AdminProductos.listar_presentaciones_productos)
     
     def agregar_producto(self):
         self.LISTAR_CATEGORIAS_PRODUCTOS.emit()
+        self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.emit()
+        self.LISTAR_PRESENTACIONES_PRODUCTOS.emit()
         self.AdminProductos.show()
         
         

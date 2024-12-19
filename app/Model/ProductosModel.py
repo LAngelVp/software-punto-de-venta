@@ -22,7 +22,7 @@ class ProductosModel:
     def agregar_unidad_medida(self, nombre):
         if not nombre:
             return False
-        unidad = Unidad_medida_productos(nombre = nombre)
+        unidad = Unidad_medida_productos(unidad_medida = nombre)
         self.session.add(unidad)
         self.session.flush()
         return unidad, True
