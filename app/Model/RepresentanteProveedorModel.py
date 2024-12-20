@@ -22,7 +22,7 @@ class RepresentanteProveedorModel:
                 self.session.flush()
                 return nuevo_representante, True
         except Exception as e:
-            print(e)
+            return None, False
 
     
     def actualizar_representante(self, id_representante, **kwargs):
@@ -35,16 +35,12 @@ class RepresentanteProveedorModel:
                 for key, value in kwargs.items():
                     if hasattr(representante, key) and value is not None:
                         setattr(representante, key, value)
-                
-                print("Datos del representante actualizados con éxito.")
                 return representante.id
             except Exception as e:
                 # Manejo de excepciones para problemas durante la actualización
                 self.session.rollback()
-                print(f"Error al actualizar los datos del representante: {e}")
                 return None
         else:
-            print("Representante no encontrado")
             return None
 
         
@@ -53,8 +49,7 @@ class RepresentanteProveedorModel:
             representante = self.session(RepresentanteProveedorModel).filter(id == id).first()
             if representante:
                 self.session.delete(representante)
-            else:
-                print("Proveedor no encontrado")
+                return True
         except Exception as e:
-            print(f"Error al eliminar el proveedor: {e}")
+            return False
 

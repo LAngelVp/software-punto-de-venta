@@ -31,5 +31,3 @@ class ControlRolesController(QWidget):
         else:
             if verificacion in self.permisos:
                 self.permisos.remove(verificacion[1])
-        
-        print(self.permisos)

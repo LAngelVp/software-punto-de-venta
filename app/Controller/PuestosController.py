@@ -82,7 +82,6 @@ class PuestosController(QWidget):
         else:
             if sender.text() in self.diasLaborales:
                 self.diasLaborales.remove(sender.text())
-        print(self.diasLaborales)
 
     def limpiar(self):
 
@@ -107,17 +106,13 @@ class PuestosController(QWidget):
     def agregar(self):
         diasLaborales = ', '.join(self.diasLaborales)
         datos = self.obtener_contenido_campos()
-        print(f"Dias laborales: {self.diasLaborales}")
 
         departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
 
         if self.diccionario_departamentos:
-            print(f'lista del departamento en la lista {self.diccionario_departamentos}')
             for index, nombre in self.diccionario_departamentos.items():
                 if nombre == departamento_seleccionado:
                     self.id_departamento = index
-                    print(f'id del departamento en la lista {self.id_departamento}')
-                    print(f'nombre del departamento en la lista {nombre}')
                     break
         campos_vacios, estado_campos_vacios = self.validar(datos)
         if not estado_campos_vacios or not self.diasLaborales:
@@ -144,7 +139,7 @@ class PuestosController(QWidget):
                         departamento_id=self.id_departamento
                     )
                 except Exception as e:
-                    print(f'Surgio un error : {e}')
+                    Mensaje().mensaje_critico(f'Surgio un error al agregar el puesto : {e}')
             if agregado:
                 Mensaje().mensaje_informativo("Se registro con exito")
                 self.listar_puestos()
@@ -163,7 +158,7 @@ class PuestosController(QWidget):
                     else:
                         Mensaje().mensaje_alerta("No se pudo eliminar")
                 except Exception as e:
-                    print(f'Surgio un error : {e}')
+                    Mensaje().mensaje_critico(f'Surgio un error al eliminar el puesto : {e}')
         self.limpiar()
         self.signal_puesto_agregado.emit()
 
@@ -175,12 +170,9 @@ class PuestosController(QWidget):
         departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
 
         if self.diccionario_departamentos:
-            print(f'lista del departamento en la lista {self.diccionario_departamentos}')
             for index, nombre in self.diccionario_departamentos.items():
                 if nombre == departamento_seleccionado:
                     self.id_departamento = index
-                    print(f'id del departamento en la lista {self.id_departamento}')
-                    print(f'nombre del departamento en la lista {nombre}')
                     break
                 
         campos_vacios, estado_campos_vacios = self.validar(datos)
@@ -209,12 +201,10 @@ class PuestosController(QWidget):
                         departamento_id=self.id_departamento
                     )
                 if estado:
-                    print("agregado")
                     self.limpiar()
                     self.signal_puesto_agregado.emit()
                     self
                     return
-                print("no agregado")
 
     def listar_departamentos(self):
         try:
@@ -226,12 +216,11 @@ class PuestosController(QWidget):
                         self.diccionario_departamentos = {
                             depa.id: depa.nombre for depa in departamentos
                         }
-                        print(self.diccionario_departamentos)
                         self.ui.cajaopciones_departamentos.clear()
                         self.ui.cajaopciones_departamentos.addItems(self.diccionario_departamentos.values())
 
         except Exception as e:
-            print(e)
+            Mensaje().mensaje_critico(f'Surgio un error al listar los departamentos: {e}')
 
     def listar_puestos(self):
         try:
@@ -241,13 +230,13 @@ class PuestosController(QWidget):
                     self.puestos, estado = PuestoModel(session).obtener_todos()
                 self.llenar_tabla(self.puestos)
         except Exception as e:
-            print(e)
+            Mensaje().mensaje_critico(f'Surgio un error al listar los puestos: {e}')
 
     def llenar_tabla(self, puestos):
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_listapuestos is None:
-                print("El widget tabla_puestos no está disponible.")
+                Mensaje().mensaje_alerta("El widget tabla_puestos no está disponible.")
                 return
 
             # Inicializar el modelo de la tabla si no existe
@@ -270,7 +259,6 @@ class PuestosController(QWidget):
                     "Hora de Salida"
                     ])
                 self.ui.tabla_listapuestos.setModel(self.model)
-                print("No se recibieron datos de clientes o la lista está vacía.")
                 return
 
             nombre_columnas = [
@@ -318,7 +306,7 @@ class PuestosController(QWidget):
             self.ui.tabla_listapuestos.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
             self.seleccion_conectada = True  # Marcar como conectada
         except Exception as e:
-            print(f'No se logro hacer mostrar la tabla PUESTOS {e}')
+            Mensaje().mensaje_critico(f'No se logro hacer mostrar la tabla PUESTOS {e}')
 
         self.puestos = None
 
@@ -344,8 +332,6 @@ class PuestosController(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        print(f'elemento - {id_elemento}')
-                        print(self.diccionario_departamentos)
                         elemento_seleccionado, estado = PuestoModel(session).obtener_puesto_por_id(id_elemento)
                         if estado == True:
                             datos['nombre'].setText(elemento_seleccionado.nombre)
@@ -373,12 +359,10 @@ class PuestosController(QWidget):
                                 
                             if elemento_seleccionado.dias_laborales is not None:
                                 for dia, checkbox in cajas_verificacion.items():
-                                    print(dia, checkbox)
                                     checkbox.setChecked(quitar_acentos(dia) in elemento_seleccionado.dias_laborales)
-                                    print (quitar_acentos(dia))
 
                     except Exception as e:
-                        print(e)
+                        Mensaje().mensaje_critico(f'Surgio un error al obtener los datos del elemento seleccionado: {(e)}')
 
     def campos(self):
         return{
@@ -421,6 +405,5 @@ class PuestosController(QWidget):
     def validar(self, campos):
         campos_vacios = [nombre for nombre, valor in campos.items() if not valor]
         if campos_vacios:
-            print(f'Tienes campos vacíos: {", ".join(campos_vacios)}')
             return campos_vacios, False
         return None, True

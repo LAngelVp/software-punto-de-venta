@@ -24,19 +24,24 @@ class PermisosModel:
         ]
 
     def crear_permiso(self):
+        # Verificar si los permisos ya existen en la base de datos
+        permisos_existentes = self.session.query(Permisos.nombre).filter(Permisos.nombre.in_([p.upper() for p in self.lista_permisos])).all()
+        permisos_existentes = set([p[0] for p in permisos_existentes])  # Convertir a set para eficiencia en las búsquedas
+
+        # Añadir solo los permisos que no existen
         for permiso in self.lista_permisos:
-            if not self.session.query(Permisos).filter_by(nombre = permiso).first():
-                permiso_creado = Permisos(nombre = permiso.upper())
+            permiso_upper = permiso.upper()
+            if permiso_upper not in permisos_existentes:
+                permiso_creado = Permisos(nombre=permiso_upper)
                 self.session.add(permiso_creado)
+
 
     def buscar_por_nombre(self, nombre):
         if nombre is not None:
             permiso = self.session.query(Permisos).filter_by(nombre=nombre.upper()).first()
             if permiso:
-                print(f"Permiso encontrado: {permiso.nombre}")
-            else:
-                print(f"No se encontró el permiso: {nombre}")
-            return permiso
+                return permiso
+        return None
             
 class RolesModel:
     def __init__(self, session):
@@ -58,18 +63,14 @@ class RolesModel:
                 if permiso:
                     rol_creado.permisos.append(permiso)
                 self.session.add(rol_creado)
-                print("rol creado")
-            else:
-                print("rol ya existe")
         except Exception as e:
-            print(e)
+            pass
 
 
     def crear_Rol(self, nombre, descripcion, permisos=None):
         # Verificar si el rol ya existe
         rol_existente = self.session.query(Roles).filter_by(nombre=nombre).first()
         if rol_existente:
-            print(f"El rol '{nombre}' ya existe.")
             return rol_existente.id
 
         # Crear el nuevo rol
@@ -89,17 +90,14 @@ class RolesModel:
             self.session.flush()  # Asegura que el ID del rol esté disponible sin hacer commit
             return nuevo_rol.id
         except IntegrityError as e:
-            print(f"Error al crear el rol: {e}")
             return None
 
     def obtener_todos(self):
         try:
             roles_todos = self.session.query(Roles).all()
             if roles_todos:
-                print('roles')
                 return roles_todos, True
             else:
-                print('no hay roles')
                 return [], False
         except Exception as e:
             return None

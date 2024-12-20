@@ -20,6 +20,7 @@ pyuic5 UI_ADMINISTRAR_PUESTOS.ui -o ../userinterfacepy/UI_ADMINISTRAR_PUESTOS.py
 pyuic5 UI_CONTROL_DEPARTAMENTOS.ui -o ../userinterfacepy/UI_CONTROL_DEPARTAMENTOS.py
 pyuic5 UI_CONTROL_ROLES.ui -o ../userinterfacepy/UI_CONTROL_ROLES.py
 pyuic5 UI_AGREGARPRODUCTO.ui -o ../UserInterfacePy/UI_AGREGARPRODUCTO.py
+pyuic5 UI_AGREGAR_UN_DATO.ui -o ../UserInterfacePy/UI_AGREGAR_UN_DATO.py
 
 
 DROP SCHEMA public CASCADE;
@@ -27,7 +28,7 @@ CREATE SCHEMA PUBLIC;
 GRANT ALL ON SCHEMA public TO public;
 
 rojo : #ee1d52
-azul enfasis : #    
+azul enfasis : #023375
 etiquetas con enfasis : #fffefb
 color fondo base : #fffefb
 color etiquetas sin fondo: #313d44
@@ -141,7 +142,7 @@ padding-right:5px;
     color: white;
 }
 -------------------------------------
-QLISTWIDGET
+/*QLISTWIDGET*/
 QListWidget {
     font-family: Arial;
     font-size: 14px;

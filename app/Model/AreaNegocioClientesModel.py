@@ -1,4 +1,5 @@
 from ..Model.BaseDatosModel import Areas_negocios
+from ..Controller.MensajesAlertasController import Mensaje
 
 class AreaNegocioClientesModel:
     def  __init__(self, session):
@@ -8,14 +9,14 @@ class AreaNegocioClientesModel:
         try:
             area = self.session.query(Areas_negocios).filter_by(nombre = nombre).first()
             if area:
-                return  area
+                return area
             else:
                 area = Areas_negocios(nombre = nombre, descripcion = descripcion)
                 self.session.add(area)
                 self.session.flush()
                 return area
         except Exception as e:
-            print(f'error al insertar {e}')
+            Mensaje().mensaje_critico(f'error al insertar {e}')
 
     def obtener_areas(self):
         try:
@@ -25,7 +26,7 @@ class AreaNegocioClientesModel:
             else:
                 return None
         except Exception as e:
-            print(f'error al obtener {e}')
+            Mensaje().mensaje_critico(f'error al obtener {e}')
 
     def obtener_id_area(self, nombre):
         try:
@@ -35,5 +36,5 @@ class AreaNegocioClientesModel:
             else:
                 return None
         except Exception as e:
-            print(f'error al obtener {e}')
+            Mensaje().mensaje_critico(f'error al obtener {e}')
         

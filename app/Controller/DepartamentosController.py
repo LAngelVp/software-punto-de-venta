@@ -87,7 +87,6 @@ class DepartamentosController(QWidget):
     def validar(self, campos):
         campos_vacios = [nombre for nombre, valor in campos.items() if not valor]
         if campos_vacios:
-            print(f'tienes campos vacios')
             return False
         return True
     
@@ -131,12 +130,12 @@ class DepartamentosController(QWidget):
                             if departamento_eliminado:
                                 Mensaje().mensaje_informativo('Departamento eliminado')
                             else:
-                                print('no se pudo eliminar')
+                                Mensaje().mensaje_alerta('no se pudo eliminar el departamento por que no existe')
                                 return
                 else:
                     return
             except Exception as e:
-                print(f'error al eliminar: {e}')
+                Mensaje().mensaje_critico(f'error al eliminar el departamento: {e}')
             self.signal_departamento_agregado.emit()
             self.limpiar()
 
@@ -176,7 +175,7 @@ class DepartamentosController(QWidget):
                                 departamento_actualizado.sucursales.remove(sucursal)
 
             except Exception as e:
-                print(f'Error al actualizar el departamento: {e}')
+                Mensaje().mensaje_critico(f'Error al actualizar el departamento por lo siguiente: {e}')
 
             self.limpiar()# Confirmar los cambios
 
@@ -199,9 +198,6 @@ class DepartamentosController(QWidget):
 
                 self.actualizar_sucursales_existentes()
 
-        print(f'sucursales seleccionadas - {self.sucursales_seleccionadas}')
-        print(f'sucursales existentes - {self.sucursales_seleccionadas_existentes}')
-
     def desvincular_sucursal(self):
         sucursal_seleccionada = self.ui.lista_sucursalesvinculadas.currentItem()
         if sucursal_seleccionada:
@@ -223,12 +219,9 @@ class DepartamentosController(QWidget):
                 # Actualizar la lista de sucursales existentes
                 self.actualizar_sucursales_existentes()
             else:
-                print(f"Sucursal ID {sucursal_id} no encontrado en la lista de seleccionadas.")
+                Mensaje().mensaje_alerta(f"Sucursal ID {sucursal_id} no encontrado en la lista de seleccionadas.")
         else:
-            print("No se ha seleccionado ninguna sucursal para desvincular.")
-
-        print(f'sucursales seleccionadas - {self.sucursales_seleccionadas}')
-        print(f'sucursales existentes - {self.sucursales_seleccionadas_existentes}')
+            Mensaje().mensaje_informativo("No se ha seleccionado ninguna sucursal para desvincular.")
 
     def actualizar_sucursales_existentes(self):
         self.ui.lista_sucursalesexistentes.clear()
@@ -258,9 +251,7 @@ class DepartamentosController(QWidget):
                         item.setData(Qt.UserRole, sucursal.id)
                         self.ui.lista_sucursalesexistentes.addItem(item)
         except Exception as e:
-            print(f'Error al listar sucursales existentes: {e}')
-        except Exception as e:
-            print(f'Error al listar las sucursales : {e}')
+            Mensaje().mensaje_critico(f'Error al listar sucursales existentes por lo siguiente: {e}')
     
     def obtener_departamentos(self):
         self.ui.lista_departamentosexistentes.clear()
@@ -269,15 +260,12 @@ class DepartamentosController(QWidget):
                 session = db.abrir_sesion()
                 try:
                     self.departamentos, estado = DepartamentosModel(session).obtener_todos()
-                    if estado:
-                        for i in  self.departamentos:
-                            print(i.nombre)
                 except Exception as e:
                     Mensaje().mensaje_alerta("Error al obtener departamentos")
                 self.listar_departamentos(self.departamentos)
             
         except Exception as e:
-            print(f'Error al listar las sucursales : {e}')
+            Mensaje().mensaje_critico(f'Error al listar las sucursales : {e}')
 
     def listar_puestos_asignados(self, puestos):
         if puestos is not None:
@@ -309,7 +297,6 @@ class DepartamentosController(QWidget):
                     item.setData(Qt.UserRole, departamento.id)
                     
                     # Agregar el ítem a la lista
-                    print(departamento.id)
                     self.ui.lista_departamentosexistentes.addItem(item)
         else:
             self.ui.lista_departamentosexistentes.clear()
@@ -351,11 +338,8 @@ class DepartamentosController(QWidget):
                         self.listar_sucursales_existentes(self.sucursales_seleccionadas)
                         self.listar_puestos_asignados(departamento.puestos)
 
-                        print(f'sucursales seleccionadas - {self.sucursales_seleccionadas}')
-                        print(f'sucursales existentes - {self.sucursales_seleccionadas_existentes}')
-
                 except Exception as e:
-                    print(f'Error al obtener departamento: {e}')
+                    Mensaje().mensaje_critico(f'Error al obtener departamento: {e}')
                 
 
 

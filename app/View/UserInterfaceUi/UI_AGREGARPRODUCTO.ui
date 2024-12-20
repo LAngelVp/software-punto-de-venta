@@ -547,7 +547,7 @@ border-bottom: 2px solid #00668c;
               </layout>
              </item>
              <item row="4" column="0" colspan="2">
-              <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
                 <widget class="QLabel" name="etiqueta_material">
                  <property name="text">
@@ -559,28 +559,64 @@ border-bottom: 2px solid #00668c;
                 <widget class="QLineEdit" name="txt_materialProducto"/>
                </item>
                <item>
-                <widget class="QLabel" name="etiqueta_unidadMedida">
-                 <property name="text">
-                  <string>Unidad de Medida</string>
-                 </property>
-                </widget>
+                <layout class="QHBoxLayout" name="horizontalLayout_9">
+                 <item>
+                  <widget class="QLabel" name="etiqueta_unidadMedida">
+                   <property name="text">
+                    <string>Unidad de Medida</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="cajaOpciones_unidadMedidaProducto">
+                   <property name="sizeAdjustPolicy">
+                    <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btn_btn_agregar_unidadMedidaProducto">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="../../Source/iconosSVG.qrc">
+                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
                <item>
-                <widget class="QComboBox" name="cajaOpciones_unidadMedidaProducto">
-                 <property name="sizeAdjustPolicy">
-                  <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="etiqueta_presentacionProducto">
-                 <property name="text">
-                  <string>Presentación</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QComboBox" name="cajaOpciones_presentacionProducto"/>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <widget class="QLabel" name="etiqueta_presentacionProducto">
+                   <property name="text">
+                    <string>Presentación</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="cajaOpciones_presentacionProducto"/>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btn_btn_agregarPresentacionProducto">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="../../Source/iconosSVG.qrc">
+                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </item>
@@ -823,6 +859,16 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
+               <item row="2" column="3" alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="btn_btn_cargar_CSVProductos">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="text">
+                  <string>Cargar CSV</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
              <item row="7" column="0">
@@ -874,7 +920,7 @@ border-bottom: 2px solid #00668c;
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
                      <property name="text">
-                      <string>Agregar</string>
+                      <string>Agregar producto</string>
                      </property>
                     </widget>
                    </item>

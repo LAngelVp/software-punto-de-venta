@@ -65,11 +65,9 @@ class EmpleadosModel:
         except IntegrityError as e:
             mensaje_error = str(e.orig)
             mensaje_error = re.sub(r'Key\s*|\(|\)', '', mensaje_error)
-            print(f'Error de integridad: {mensaje_error}')
             return None
         
         except Exception as e:
-            print(f'Error general al insertar empleado: {e}')
             return None
         
     def obtener_empleados_detallados(self):
@@ -83,10 +81,8 @@ class EmpleadosModel:
             if empleados:
                 return empleados, True
             else:
-                print("No se encontraron empleados.")
                 return [], False
         except Exception as e:
-            print("Error al obtener empleados:", e)
             return [], False
 
     def eliminar_empleado(self, id):
@@ -123,22 +119,18 @@ class EmpleadosModel:
     
     def baja_empleado(self, id_empleado, estatus, fecha_baja):
         if id_empleado is None or estatus is None:
-            print("dato vacio")
             return None, False
         empleado = self.session.query(Empleados).filter(Empleados.id == id_empleado).first()
         if empleado:
-            print('empleado actualiza')
             empleado.activo = estatus
             empleado.fecha_despido = fecha_baja
             return empleado, True
         
     def alta_empleado(self, id_empleado, estatus, fecha_alta):
         if id_empleado is None or estatus is None:
-            print("dato vacio")
             return None, False
         empleado = self.session.query(Empleados).filter(Empleados.id == id_empleado).first()
         if empleado:
-            print('empleado actualiza')
             empleado.activo = estatus
             empleado.fecha_contratacion = fecha_alta
             empleado.fecha_despido = None
@@ -190,10 +182,8 @@ class EmpleadosModel:
             empleado.departamento_id = departamento_id
             empleado.sucursal_id = sucursal_id
             
-            print(f"Empleado con ID {empleado.id} actualizado correctamente.")
             return empleado, True
         except Exception as e:
-            print(f"Error al actualizar el empleado: {e}")
             self.session.rollback()
             return None, False
         

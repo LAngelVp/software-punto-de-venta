@@ -22,10 +22,6 @@ from .SucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
 from .PuestosController import PuestosController
 
-import traceback
-
-
-
 class Registro_personal_inicial(QWidget):
     listar_sucursales_signal = pyqtSignal()
     listar_departamentos_signal = pyqtSignal()
@@ -84,6 +80,7 @@ class Registro_personal_inicial(QWidget):
         self.ui.txt_nexterior.setMaxLength(10)
         self.ui.txt_usuario_iniciosesion.setMaxLength(100)
         self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(30)
+        self.ui.txt_nombre.setFocus()
 # señales: acciones de los botones
         self.ui.btc_cerrar.clicked.connect(lambda: self.close())
         self.ui.btc_minimizar.clicked.connect(lambda: self.showMinimized())
@@ -205,7 +202,6 @@ class Registro_personal_inicial(QWidget):
     
     def baja_empleado(self):
         fecha_actual = datetime.now().date().strftime("%Y/%m/%d")
-        print(fecha_actual, self.id_empleado)
         if self.id_empleado is None:
             Mensaje().mensaje_informativo("No se logro dar de baja al empleado")
             return
@@ -218,7 +214,7 @@ class Registro_personal_inicial(QWidget):
                         Mensaje().mensaje_informativo("Empleado dado de baja con exito")
                         self.cerrar()
                 except Exception as e:
-                    print(e)
+                    Mensaje().mensaje_critico(f'Surgio un error al dar de baja el registro debido a {e}')
             self.registro_agregado_signal.emit()
             return
         Mensaje().mensaje_informativo("Existio un error al dar de baja al empleado.")
@@ -309,7 +305,6 @@ class Registro_personal_inicial(QWidget):
                     self.mostrar_estatus_empleado(empleado_existente)
                     
     def mostrar_estatus_empleado(self, empleado):
-        print(f'este es el estado: {empleado.activo}')
         if empleado.activo:
             # Si estatus es verdadero, mostrar el QLabel y aplicar un estilo indicativo de "activo".
             self.ui.etiqueta_status_empleado.show()
@@ -383,7 +378,7 @@ class Registro_personal_inicial(QWidget):
                     self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal, sucursal.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_sucursales)
         except Exception as e:
-            print(f"Error al obtener sucursales: {e}")
+            Mensaje().mensaje_critico(f"Error al obtener sucursales debido a lo siguiente: {e}")
 
     def listar_grupo_permisos_rol(self):
         self.ui.cajaopciones_rol_usuario.clear()
@@ -397,7 +392,7 @@ class Registro_personal_inicial(QWidget):
                     self.ui.cajaopciones_rol_usuario.addItem(grupo.nombre, grupo.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_rol_usuario)
         except Exception as e:
-            print(f"Error al obtener grupos permisos roles: {e}")
+            Mensaje().mensaje_critico(f"Error al obtener grupos permisos roles: {e}")
 
     def listar_departamentos(self):
         self.ui.cajaopciones_departamentos.clear()
@@ -411,7 +406,7 @@ class Registro_personal_inicial(QWidget):
                     self.ui.cajaopciones_departamentos.addItem(departamento.nombre, departamento.id)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_departamentos)
         except Exception as e:
-            print(f"Error al obtener departamentos: {e}")
+            Mensaje().mensaje_critico(f"Error al obtener departamentos: {e}")
 
     def listar_puestos(self):
         self.ui.cajaopciones_puestos.clear()
@@ -427,7 +422,7 @@ class Registro_personal_inicial(QWidget):
                     AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
 
         except Exception as e:
-            print(f"Error al obtener puestos: {e}")
+            Mensaje().mensaje_critico(f"Error al obtener puestos debido a lo siguiente: {e}")
 
     def cargar_imagen(self, event):
         options = QFileDialog.Options()
@@ -590,11 +585,6 @@ class Registro_personal_inicial(QWidget):
                             sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                         )
                     except Exception as e:
-                        # Imprimir detalles del error con traceback
-                        print(f'Error tipo: {type(e)}')
-                        print(f'Error mensaje: {e}')
-                        print('Detalles del traceback:')
-                        traceback.print_exc()
                         session.rollback()
                 if estado and not self.id_empleado:
                     Mensaje().mensaje_informativo("Registro exitoso")
@@ -603,7 +593,7 @@ class Registro_personal_inicial(QWidget):
                     if self.id_empleado is None:
                         self.abrir_inicio()
         else:
-            print("Datos no válidos. No se almacenará la información.")
+            Mensaje().mensaje_alerta("Datos no válidos. No se almacenará la información.")
 
     def actualizar_empleado(self):
         id_empleado = self.id_empleado
@@ -651,13 +641,13 @@ class Registro_personal_inicial(QWidget):
                             sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                         )
                     except Exception as e:
-                        print(f"Error al actualizar el empleado: {e}")
+                        Mensaje().mensaje_critico(f"Error al actualizar el empleado: {e}")
                 if estado:
                     Mensaje().mensaje_informativo("Registro exitoso")
                     self.cerrar()
                     self.registro_agregado_signal.emit()
         else:
-            print("Error al actualizar el empleado")
+            Mensaje().mensaje_alerta("Error al actualizar el empleado debido a que los datos no son validos o el id del empleado no existe")
     
     def abrir_inicio(self):
         if self.variable_primer_registro:

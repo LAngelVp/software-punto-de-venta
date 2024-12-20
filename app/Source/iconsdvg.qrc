@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>Icons/IconosSVG/logo_devrous.ico</file>
     <file>Icons/IconosSVG/borrador.png</file>
     <file>Icons/IconosSVG/subir_imagen.png</file>
     <file>Icons/IconosSVG/perfil.png</file>

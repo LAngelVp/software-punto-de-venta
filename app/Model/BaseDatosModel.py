@@ -209,33 +209,46 @@ class Departamentos(Base):
         "Sucursales", secondary=departamento_sucursal, back_populates="departamentos", 
     )  # Relación muchos a muchos con Sucursales
 
+class Presentacion_productos(Base):
+    __tablename__ = "Presentacion_productos"
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    nombre = Column(String(50), nullable=False)
+    productos = relationship("Productos", back_populates="presentacion_productos")
+    
+class Unidad_medida_productos(Base):
+    __tablename__ = "Unidad_medida_productos"
+    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
+    unidad_medida = Column(String(50), nullable=False)
+    productos = relationship("Productos", back_populates="unidad_medida_productos")
 
 class Productos(Base):
     __tablename__ = "Productos"
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    codigo_upc = Column(Text, nullable=False, unique=True)
-    nombre_producto = Column(String(100))
+    codigo_upc = Column(String(255), nullable=False, unique=True)
+    nombre_producto = Column(String(255))
     descripcion_producto = Column(Text)
-    presentacion = Column(Text)
     costo_inicial = Column(Float)
     costo_final = Column(Float)
     precio = Column(Float)
     existencia = Column(Float)
     existencia_minima = Column(Float)
     existencia_maxima = Column(Float)
-    unidad_medida = Column(String(25))
     marca = Column(String(100))
-    modelo = Column(Text)
+    modelo = Column(String(50))
     peso = Column(Float)
-    dimensiones = Column(Text)
-    color = Column(String(50))
+    dimensiones = Column(String(50))
+    color = Column(String(20))
     material = Column(String(255))
     fecha_fabricacion = Column(Date)
     fecha_vencimiento = Column(Date)
     imagen = Column(Text)
     notas = Column(Text)
+    presentacion_producto_id = Column(Integer, ForeignKey("Presentacion_productos.id"))
+    presentacion_productos = relationship("Presentacion_productos", back_populates="productos")
+    unidad_medida_productos_id = Column(Integer, ForeignKey("Unidad_medida_productos.id"))
+    unidad_medida_productos = relationship("Unidad_medida_productos", back_populates="productos")
     categoria_id = Column(Integer, ForeignKey('Categorias_productos.id'), nullable=False)
     categoria = relationship("Categorias_productos", back_populates="productos")
     sucursales = relationship(
@@ -251,7 +264,7 @@ class Categorias_productos(Base):
     __tablename__ = "Categorias_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
     nombre = Column(String(100))
-    descripcion = Column(String(255))
+    descripcion = Column(Text)
     # Relación con Productos (una categoría tiene muchos productos)
     productos = relationship("Productos", back_populates="categoria")
 

@@ -45,10 +45,8 @@ class PuestoModel:
         try:
             puestos = self.session.query(Puestos).all()
             if puestos:
-                print('roles')
                 return puestos, True
             else:
-                print('no hay puestos')
                 return [], False
         except Exception as e:
             return None
@@ -71,5 +69,4 @@ class PuestoModel:
             if resultado > 0:
                 return True
         except Exception as e:
-            print(e)
             return  False

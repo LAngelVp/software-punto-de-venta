@@ -35,7 +35,6 @@ class SucursalesController(QWidget):
 
     def buscar_sucursal(self):
         nombre_sucursal = self.ui.txt_buscarsucursales.text()
-        print(nombre_sucursal)
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -121,14 +120,12 @@ class SucursalesController(QWidget):
             if sucursales:
                 self.listar_sucursales(sucursales)
         except Exception as e:
-            print(f'Error al listar las sucursales : {e}')
+            Mensaje().mensaje_critico(f'Error al listar las sucursales : {e}')
 
     def listar_sucursales(self, sucursales):
         if sucursales:
-            print(sucursales)
             self.ui.lista_sucursales.clear()
             for  sucursal in sucursales:
-                print(f'nombre de la sucu- {sucursal}')
                 # Crear un QListWidgetItem
                 item = QListWidgetItem(sucursal.nombre_sucursal)
                 
@@ -156,14 +153,12 @@ class SucursalesController(QWidget):
                         self.ui.txtlargo_direccion.setPlainText(sucursal.direccion)
                         self.listar_departamentos_asignados(sucursal.departamentos)
                 except Exception as e:
-                    print(f'Error al obtener sucursal: {e}')
+                    Mensaje().mensaje_critico(f'Error al obtener sucursal: {e}')
 
     def listar_departamentos_asignados(self, departamentos):
         if departamentos:
-            print(departamentos)
             self.ui.lista_departamentosasociados.clear()
             for  nombre in departamentos:
-                print(f'nombre de la sucu- {nombre}')
                 # Crear un QListWidgetItem
                 item = QListWidgetItem(nombre.nombre)
                 
@@ -178,16 +173,15 @@ class SucursalesController(QWidget):
             
     def eliminar(self):
         sucursalId = self.id_sucursal
-        print(sucursalId)
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
                 try:
                     sucursal_eliminada = SucursalesModel(session).eliminar(sucursalId)
                     if sucursal_eliminada:
-                        print("Sucursal eliminada con éxito")
+                        Mensaje().mensaje_informativo("Sucursal eliminada con éxito")
                 except Exception as e:
-                        print(f"Error al eliminar la sucursal : {e}")
+                        Mensaje().mensaje_alerta(f"Error al eliminar la sucursal : {e}")
 
         self.signal_sucursal_agregada.emit()
         self.limpiar()

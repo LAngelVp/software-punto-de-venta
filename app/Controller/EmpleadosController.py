@@ -91,14 +91,14 @@ class EmpleadosController(QWidget):
                 try:
                     self.empleados, estado = EmpleadosModel(session).obtener_empleados_detallados()
                 except Exception as e:
-                    print(e)
+                    Mensaje().mensaje_critico(f'No se logro listar la tabla por el error: {e}')
             self.llenar_tabla(self.empleados)
 
     def llenar_tabla(self, empleados):
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_listaempleados is None:
-                print("El widget tabla_puestos no está disponible.")
+                Mensaje().mensaje_alerta("El widget tabla_puestos no está disponible.")
                 return
 
             # Inicializar el modelo de la tabla si no existe
@@ -188,7 +188,7 @@ class EmpleadosController(QWidget):
             self.ui.tabla_listaempleados.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
             self.seleccion_conectada = True  # Marcar como conectada
         except Exception as e:
-            print(f'No se logro hacer mostrar la tabla EMPLEADOS {e}')
+            Mensaje().mensaje_critico(f'No se logro hacer mostrar la tabla EMPLEADOS {e}')
         self.id_empleado = None
 
     def obtener_id_elemento_tabla(self, current, previus):
