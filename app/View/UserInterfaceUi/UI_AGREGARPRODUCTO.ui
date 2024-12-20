@@ -859,6 +859,16 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
+               <item row="2" column="3" alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="btn_btn_cargar_CSVProductos">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="text">
+                  <string>Cargar CSV</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
              <item row="7" column="0">

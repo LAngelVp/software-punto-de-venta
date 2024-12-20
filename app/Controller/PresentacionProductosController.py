@@ -24,5 +24,6 @@ class PresentacionProductos(QWidget):
             if estatus:
                 Mensaje().mensaje_informativo("Presentación agregada con exito")
                 self.SYGNAL_PRESENTACION_AGREGADA.emit()
+                self.close()
                 return
             Mensaje().mensaje_alerta("No se logro agregar la presentación")

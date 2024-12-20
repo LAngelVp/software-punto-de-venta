@@ -229,7 +229,6 @@ class Productos(Base):
     codigo_upc = Column(String(255), nullable=False, unique=True)
     nombre_producto = Column(String(255))
     descripcion_producto = Column(Text)
-    
     costo_inicial = Column(Float)
     costo_final = Column(Float)
     precio = Column(Float)

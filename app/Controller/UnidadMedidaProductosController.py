@@ -24,5 +24,7 @@ class UnidadMedidaProductos(QWidget):
             if estatus:
                 Mensaje().mensaje_informativo("Unidad de medida agregada con exito")
                 self.SYGNAL_UNIDAD_MEDIDA_AGREGADA.emit()
+                self.close()
                 return
             Mensaje().mensaje_alerta("No se logro agregar la Unidad de medida")
+            
