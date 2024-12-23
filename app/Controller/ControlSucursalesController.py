@@ -53,10 +53,3 @@ class ControlSucursalesController(QWidget):
         if self.ui.contenedor_paginas.currentWidget() != self.puestos:
             self.listar_departamentos_puestos.emit()
             self.ui.contenedor_paginas.setCurrentWidget(self.puestos)
-
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ui = ControlSucursalesController()
-    ui.show()
-    sys.exit(app.exec())

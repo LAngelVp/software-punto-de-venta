@@ -21,6 +21,7 @@ class SistemaPrincipal(QWidget):
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.showFullScreen()
+        self.ui.btn_btn_sucursales.clicked.connect(self.mostrar_sucursales)
 
         # Instanciación de los controladores
         self.controladores = {
@@ -32,7 +33,6 @@ class SistemaPrincipal(QWidget):
             "proveedores": Control_proveedores(),
             "clientes": Clientes(),
             "productos": Productos(),
-            "sucursales": ControlSucursalesController()
         }
 
         # Añadir los widgets al contenedor
@@ -56,7 +56,6 @@ class SistemaPrincipal(QWidget):
         self.ui.btn_proveedores.clicked.connect(lambda: self.mostrar_contenido("proveedores"))
         self.ui.btn_clientes.clicked.connect(lambda: self.mostrar_contenido("clientes"))
         self.ui.btn_productos.clicked.connect(lambda: self.mostrar_contenido("productos"))
-        self.ui.btn_btn_sucursales.clicked.connect(self.controladores["sucursales"].show)
 
         self.ui.btc_cerrar_2.clicked.connect(lambda: sys.exit())
         self.ui.btc_minimizar_2.clicked.connect(lambda: self.showMinimized())
@@ -69,3 +68,7 @@ class SistemaPrincipal(QWidget):
         widget = self.controladores.get(contenido)
         if widget:
             self.ui.w_cuerpo_contenido.setCurrentWidget(widget)
+            
+    def mostrar_sucursales(self):
+        self.ventana_sucursales = ControlSucursalesController()
+        self.ventana_sucursales.show()

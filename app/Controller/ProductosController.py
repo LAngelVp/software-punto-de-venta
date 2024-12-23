@@ -52,6 +52,7 @@ class Admin_productosController(QWidget):
         self.proveedores = {}
         self.id_proveedor = None
         self.imagenProducto = None
+        self.lista_productos = []
 #// funciones principales:
         self.__obtener_proveedores()
         completar = QCompleter(list(self.proveedores.values()))
@@ -141,6 +142,7 @@ class Admin_productosController(QWidget):
         datos = {
             "proveedor": self.ui.txt_proveedor.text().strip().upper(),
             "codigo_barras": self.ui.txt_codBarras.text().strip().upper(),
+            "nombre": self.ui.txt_nombreProducto.text().strip().upper(),
             "categoria_producto": self.ui.cajaOpciones_categoriaProducto.currentData(),
             "marca_producto": self.ui.txt_marcaProducto.text().strip().upper(),
             "modelo_producto": self.ui.txt_modeloProducto.text().strip().upper(),
@@ -161,7 +163,7 @@ class Admin_productosController(QWidget):
             "descripcion_producto": self.ui.txtlargo_descripcionProducto.toPlainText(),
             "notas_producto": self.ui.txtlargo_notasProducto.toPlainText(),
             "fecha_vencimiento_producto": self.ui.fecha_vencimientoProducto.date().toString('yyyy-MM-dd'),
-            "fecha_fabricacion_producto": self.ui.fecha_fabricacionProducto.date().toString('yyyy-MM-dd')
+            "fecha_fabricacion_producto": self.ui.fecha_fabricacionProducto.date().toString('yyyy-MM-dd'),
         }
         
         # Retornar el diccionario con los valores
@@ -174,30 +176,48 @@ class Admin_productosController(QWidget):
             Mensaje().mensaje_alerta("El campo Código de Barras es obligatorio")
             return
         
-        if not hasattr(self, 'modelo_tabla_productos'):
-                self.modelo_tabla_productos = QStandardItemModel()
-            
-        # self.model.clear()
+        self.comprobar_existencia_modelo_tabla()
+
         self.modelo_tabla_productos.setHorizontalHeaderLabels([
-            "Proveedor", "Código de Barras", "Categoría", "Marca", "Modelo", "Color", 
+            "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color", 
             "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta", 
             "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso", 
             "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones", 
-            "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación"
+            "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
         ])
         self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
         
-        nueva_fila = [
-            datos["proveedor"], datos["codigo_barras"], datos["categoria_producto"],
-            datos["marca_producto"], datos["modelo_producto"], datos["color_producto"],
-            datos["material_producto"], datos["unidad_medida_producto"], datos["presentacion_producto"],
-            datos["costo_inicial_producto"], datos["precio_venta_producto"], datos["costo_final_producto"],
-            datos["existencia_producto"], datos["existencia_min_producto"], datos["existencia_max_producto"],
-            datos["peso_producto"], datos["largo_dimensiones"], datos["alto_dimensiones"], 
-            datos["ancho_dimensiones"], datos["descripcion_producto"], datos["notas_producto"],
-            datos["fecha_vencimiento_producto"], datos["fecha_fabricacion_producto"]
-        ]
+         # Crear un diccionario con los datos del producto
+        nuevo_producto = {
+            "proveedor": datos["proveedor"],
+            "codigo_barras": datos["codigo_barras"],
+            "nombre": datos["nombre"],
+            "categoria": datos["categoria_producto"],
+            "marca": datos["marca_producto"],
+            "modelo": datos["modelo_producto"],
+            "color": datos["color_producto"],
+            "material": datos["material_producto"],
+            "unidad_medida": datos["unidad_medida_producto"],
+            "presentacion": datos["presentacion_producto"],
+            "costo_inicial": datos["costo_inicial_producto"],
+            "precio_venta": datos["precio_venta_producto"],
+            "costo_final": datos["costo_final_producto"],
+            "existencia": datos["existencia_producto"],
+            "existencia_min": datos["existencia_min_producto"],
+            "existencia_max": datos["existencia_max_producto"],
+            "peso": datos["peso_producto"],
+            "largo_dimensiones": datos["largo_dimensiones"],
+            "alto_dimensiones": datos["alto_dimensiones"],
+            "ancho_dimensiones": datos["ancho_dimensiones"],
+            "descripcion": datos["descripcion_producto"],
+            "notas": datos["notas_producto"],
+            "fecha_vencimiento": datos["fecha_vencimiento_producto"],
+            "fecha_fabricacion": datos["fecha_fabricacion_producto"],
+            "imagen": self.imagenProducto  # Suponiendo que self.imagenProducto tiene la imagen
+        }
         
+        self.lista_productos.append(nuevo_producto)
+        nueva_fila = list(nuevo_producto.values())
         self._agregar_fila_a_tabla(nueva_fila)
 
     def _agregar_fila_a_tabla(self, fila):
@@ -206,14 +226,62 @@ class Admin_productosController(QWidget):
 
         # Añadir la fila al modelo de datos
         self.modelo_tabla_productos.appendRow(items)
+        
+    def agregar_productos_en_bd(self):
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                for producto in self.lista_productos:
+                    dimensiones = str(producto["largo_dimensiones"]) + "-" + str(producto["alto_dimensiones"]) + "-" + str(producto["ancho_dimensiones"])
+                    # Buscar el proveedor correspondiente en la base de datos usando el nombre del proveedor
+                    proveedor, estatus_proveedor = ProveedoresModel(session).consultar_proveedor(producto["proveedor"])
+                    print(f'proveedor: {proveedor}')
+                    print(f'producto: {producto["nombre"]}')
+                    
+                    # Asegurarse de que el proveedor es válido (no None)
+                    if estatus_proveedor:
+                        proveedores = [proveedor]
+                    else:
+                        proveedores = []  # Si no hay proveedor, pasa una lista vacía
+                    
+                    producto, estatus_producto = ProductosModel(session).agregar_producto(
+                        codigo_upc=producto["codigo_barras"],
+                        nombre_producto=producto["nombre"],  
+                        descripcion_producto=producto["descripcion"],
+                        costo_inicial=producto["costo_inicial"],
+                        costo_final=producto["costo_final"],
+                        precio=producto["precio_venta"],
+                        existencia=producto["existencia"],
+                        existencia_minima=producto["existencia_min"],
+                        existencia_maxima=producto["existencia_max"],
+                        marca=producto["marca"],
+                        modelo=producto["modelo"],
+                        peso=producto["peso"],
+                        dimensiones=dimensiones,  # Las dimensiones ya son una cadena concatenada correctamente
+                        color=producto["color"],
+                        material=producto["material"],
+                        fecha_fabricacion=producto["fecha_fabricacion"],
+                        fecha_vencimiento=producto["fecha_vencimiento"],
+                        imagen=self.imagenProducto if self.imagenProducto else None,  # Imagen (si está disponible)
+                        notas=producto["notas"],
+                        presentacion_producto_id=producto["presentacion"],  
+                        unidad_medida_productos_id=producto["unidad_medida"],  
+                        categoria_id=producto["categoria"],  
+                        sucursales=[],  # Puedes pasar las sucursales como una lista vacía si no las tienes
+                        proveedores=proveedores  # Pasamos una lista de proveedores
+                    )
+    def __guardar_producto(self):
+        try:
+            self.agregar_productos_en_bd()
+        except Exception as e:
+            print(f"Error al guardar producto: {e}")
 
     def __actualizar_producto(self):
         pass
 
     def __eliminar_producto(self):
         pass
-    def __guardar_producto(self):
-        pass
+                
     def __obtener_proveedores(self):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -234,6 +302,10 @@ class Admin_productosController(QWidget):
             
     def agregarCSV(self):
         pass
+    
+    def comprobar_existencia_modelo_tabla(self):
+        if not hasattr(self, 'modelo_tabla_productos'):
+                self.modelo_tabla_productos = QStandardItemModel()
     
 
 class Productos(QWidget):

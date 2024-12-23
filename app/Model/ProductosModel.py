@@ -33,3 +33,70 @@ class ProductosModel:
             return unidades_medida, True
         else:
             return None, False
+        
+    def agregar_producto(
+        self,
+        codigo_upc,
+        nombre_producto,
+        descripcion_producto,
+        costo_inicial,
+        costo_final,
+        precio,
+        existencia,
+        existencia_minima,
+        existencia_maxima,
+        marca,
+        modelo,
+        peso,
+        dimensiones,
+        color,
+        material,
+        fecha_fabricacion,
+        fecha_vencimiento,
+        imagen,
+        notas,
+        presentacion_producto_id,
+        unidad_medida_productos_id,
+        categoria_id,
+        sucursales,
+        proveedores
+        ):
+        try:
+            producto = self.session.query(Productos).filter(Productos.codigo_upc == codigo_upc).first()
+            if producto:
+                return producto, False
+            
+            producto = Productos(
+                codigo_upc=codigo_upc,
+                nombre_producto=nombre_producto,
+                descripcion_producto=descripcion_producto,
+                costo_inicial=costo_inicial,
+                costo_final=costo_final,
+                precio=precio,
+                existencia=existencia,
+                existencia_minima=existencia_minima,
+                existencia_maxima=existencia_maxima,
+                marca=marca,
+                modelo=modelo,
+                peso=peso,
+                dimensiones=dimensiones,
+                color=color,
+                material=material,
+                fecha_fabricacion=fecha_fabricacion,
+                fecha_vencimiento=fecha_vencimiento,
+                imagen=imagen,
+                notas=notas,
+                presentacion_producto_id=presentacion_producto_id,
+                unidad_medida_productos_id=unidad_medida_productos_id,
+                categoria_id=categoria_id,
+                sucursales=sucursales,
+                proveedores=proveedores
+            )
+            
+            self.session.add(producto)
+            self.session.flush()  # Asegurarse de que el producto se agregue correctamente
+
+            return producto, True
+        except Exception as e:
+            print(f"Error al agregar producto: {e}")
+            return None, False 
