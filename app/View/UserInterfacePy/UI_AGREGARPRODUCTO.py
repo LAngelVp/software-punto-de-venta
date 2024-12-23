@@ -165,42 +165,6 @@ class Ui_contenedor_agregar_productos(object):
 "    font-size: 14px;\n"
 "}\n"
 "\n"
-"/* Barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 12px;  /* Fijamos el tamaño de la barra vertical */\n"
-"    border-radius: 4px;\n"
-"    margin: 22px 0 22px 0;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
-"    background: #023375;\n"
-"    min-height: 20px;  /* Altura mínima del manejador */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Elementos de la flecha de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
-"[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
-"    background-color: none;\n"
-"}\n"
-"\n"
-"/* Barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Fijamos el tamaño de la barra horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Altura del manejador horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
 "/* Encabezados de la tabla */\n"
 "[objectName*=\"tabla_\"] QHeaderView::section {\n"
 "    background-color: #023375;\n"
@@ -538,8 +502,6 @@ class Ui_contenedor_agregar_productos(object):
         self.btn_btn_cargar_CSVProductos.setObjectName("btn_btn_cargar_CSVProductos")
         self.gridLayout_6.addWidget(self.btn_btn_cargar_CSVProductos, 2, 3, 1, 1, QtCore.Qt.AlignRight)
         self.gridLayout_8.addLayout(self.gridLayout_6, 6, 0, 1, 2)
-        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_8.addItem(spacerItem4, 7, 0, 1, 1)
         self.contenedor_formulario_inferior = QtWidgets.QFrame(self.contenedor_scroll_formulario)
         self.contenedor_formulario_inferior.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_formulario_inferior.setFrameShadow(QtWidgets.QFrame.Raised)

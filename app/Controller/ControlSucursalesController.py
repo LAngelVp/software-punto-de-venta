@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from ..Source.iconsdvg_rc import *
 from app.View.UserInterfacePy.UI_CONTROL_SUCUDEPAPUESTO import Ui_Control_SucursalesDepartamentosPuestos
 
 from app.Controller.SucursalesController import SucursalesController
@@ -16,6 +17,9 @@ class ControlSucursalesController(QWidget):
         super().__init__()
         self.ui = Ui_Control_SucursalesDepartamentosPuestos()
         self.ui.setupUi(self)
+        self.setWindowTitle("Administración de sucursales, puestos y departamentos")
+        icon = QIcon(':Icons/IconosSVG/sucursales.png')
+        self.setWindowIcon(icon)
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())

@@ -1,7 +1,9 @@
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap
+from PyQt5.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon
+from ..Source.iconsdvg_rc import *
+import pandas as pd
 from .FuncionesAuxiliares import *
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
@@ -21,6 +23,9 @@ class Admin_productosController(QWidget):
         super().__init__()
         self.ui = Ui_contenedor_agregar_productos()
         self.ui.setupUi(self)
+        icon = QIcon(':Icons/IconosSVG/productos.png')
+        self.setWindowIcon(icon)
+        self.setWindowTitle("Administración de productos")
 #// EDICION DE COMPONENTES:
         self.ui.decimal_altoDimensiones.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.decimal_anchoDimensiones.setButtonSymbols(QSpinBox.NoButtons)
@@ -58,6 +63,7 @@ class Admin_productosController(QWidget):
         completar = QCompleter(list(self.proveedores.values()))
         completar.setCaseSensitivity(Qt.CaseInsensitive)
         self.ui.txt_proveedor.setCompleter(completar)
+        self.comprobar_existencia_modelo_tabla()
 #// señales:
         self.ui.txt_proveedor.textChanged.connect(self.__proveedor_seleccionado)
         self.ui.etiqueta_fotoProducto.mousePressEvent = self.cargar_imagen
@@ -216,6 +222,11 @@ class Admin_productosController(QWidget):
             "imagen": self.imagenProducto  # Suponiendo que self.imagenProducto tiene la imagen
         }
         
+        producto_existente = any(p["codigo_barras"] == nuevo_producto["codigo_barras"] for p in self.lista_productos)
+        if producto_existente:
+            Mensaje().mensaje_alerta("El producto ya existe en la tabla de productos")
+            return
+        
         self.lista_productos.append(nuevo_producto)
         nueva_fila = list(nuevo_producto.values())
         self._agregar_fila_a_tabla(nueva_fila)
@@ -226,6 +237,7 @@ class Admin_productosController(QWidget):
 
         # Añadir la fila al modelo de datos
         self.modelo_tabla_productos.appendRow(items)
+        self.ui.tabla_productos.resizeColumnsToContents()
         
     def agregar_productos_en_bd(self):
         with Conexion_base_datos() as db:
@@ -270,6 +282,7 @@ class Admin_productosController(QWidget):
                         sucursales=[],  # Puedes pasar las sucursales como una lista vacía si no las tienes
                         proveedores=proveedores  # Pasamos una lista de proveedores
                     )
+    
     def __guardar_producto(self):
         try:
             self.agregar_productos_en_bd()
@@ -301,12 +314,52 @@ class Admin_productosController(QWidget):
             self.proveedor_id = None
             
     def agregarCSV(self):
-        pass
+        documento, _ = QFileDialog.getOpenFileName(self, "Selecciona un documento de Excel", "", "Archivos Excel (*.xlsx *.xls)")
+        columnas_esperadas = [
+        "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color",
+        "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta",
+        "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso",
+        "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones",
+        "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
+        ]
+        if documento:
+            df = pd.read_excel(documento)
+            columnas_faltantes = [col for col in columnas_esperadas if col not in df.columns]
+            if columnas_faltantes:
+                Mensaje().mensaje_alerta(f"Error: Faltan las siguientes columnas: {', '.join(columnas_faltantes)}")
+                return None
+            df = df[columnas_esperadas]
+            
+            columnas_extra = [col for col in df.columns if col not in columnas_esperadas]
+            if columnas_extra:
+                Mensaje().mensaje_alerta(f"Advertencia: El archivo contiene columnas adicionales: {', '.join(columnas_extra)}")
+                
+            self.modelo_tabla_productos.setHorizontalHeaderLabels([
+            "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color", 
+            "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta", 
+            "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso", 
+            "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones", 
+            "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
+            ])
+            for row in range(len(df)):
+                row_data = []
+                for col in range(len(df.columns)):
+                    item = QStandardItem(str(df.iloc[row, col]))
+                    item.setTextAlignment(Qt.AlignCenter)  # Centrar el texto
+                    row_data.append(item)
+                self.modelo_tabla_productos.appendRow(row_data)
+            self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
+
+            # Ajustar el tamaño de las columnas automáticamente
+            self.ui.tabla_productos.resizeColumnsToContents()
     
     def comprobar_existencia_modelo_tabla(self):
         if not hasattr(self, 'modelo_tabla_productos'):
                 self.modelo_tabla_productos = QStandardItemModel()
     
+    def verificar_excel(self, documento):
+        pass
+        
 
 class Productos(QWidget):
     LISTAR_CATEGORIAS_PRODUCTOS = pyqtSignal()
