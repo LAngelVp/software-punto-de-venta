@@ -1,4 +1,5 @@
 from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos
+from sqlalchemy.orm import joinedload
 
 class ProductosModel:
     def __init__(self, session):
@@ -99,4 +100,16 @@ class ProductosModel:
             return producto, True
         except Exception as e:
             print(f"Error al agregar producto: {e}")
-            return None, False 
+            return None, False
+        
+    def obtener_productos(self):
+        productos = self.session.query(Productos).options(
+                joinedload(Productos.proveedores),
+                joinedload(Productos.categoria),
+                joinedload(Productos.unidad_medida_productos),
+                joinedload(Productos.presentacion_productos)
+            ).all()
+        if productos:
+            return productos, True
+        else:
+            return None, False

@@ -19,6 +19,7 @@ from .PresentacionProductosController import PresentacionProductos
 from .UnidadMedidaProductosController import UnidadMedidaProductos
                 
 class Admin_productosController(QWidget):
+    PRODUCTOS_AGREGADOS = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_contenedor_agregar_productos()
@@ -175,7 +176,6 @@ class Admin_productosController(QWidget):
         # Retornar el diccionario con los valores
         return datos
         
-        
     def __agregar_producto(self):
         datos = self.datos_campos()
         if not datos["codigo_barras"]:
@@ -240,6 +240,7 @@ class Admin_productosController(QWidget):
         self.ui.tabla_productos.resizeColumnsToContents()
         
     def agregar_productos_en_bd(self):
+        productos_no_agregados = []
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -282,6 +283,13 @@ class Admin_productosController(QWidget):
                         sucursales=[],  # Puedes pasar las sucursales como una lista vacía si no las tienes
                         proveedores=proveedores  # Pasamos una lista de proveedores
                     )
+                    if not estatus_producto:
+                        productos_no_agregados.append(producto)
+        if productos_no_agregados:
+            Mensaje().mensaje_informativo("Existen productos que no se agregaron debido a que ya existen en la base de datos.")
+            self.__cargar_datos_en_tabla(productos_no_agregados)
+            
+        self.PRODUCTOS_AGREGADOS.emit()
     
     def __guardar_producto(self):
         try:
@@ -314,51 +322,81 @@ class Admin_productosController(QWidget):
             self.proveedor_id = None
             
     def agregarCSV(self):
-        documento, _ = QFileDialog.getOpenFileName(self, "Selecciona un documento de Excel", "", "Archivos Excel (*.xlsx *.xls)")
-        columnas_esperadas = [
-        "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color",
-        "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta",
-        "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso",
-        "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones",
-        "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
-        ]
-        if documento:
-            df = pd.read_excel(documento)
-            columnas_faltantes = [col for col in columnas_esperadas if col not in df.columns]
-            if columnas_faltantes:
-                Mensaje().mensaje_alerta(f"Error: Faltan las siguientes columnas: {', '.join(columnas_faltantes)}")
-                return None
-            df = df[columnas_esperadas]
+        # Leer el archivo CSV
+        df = self.__leer_archivo_csv()
+        
+        # Si no se pudo leer el archivo o si faltan columnas, salimos
+        if df is None:
+            return
+        
+        # Cargar los datos en la tabla
+        self.__cargar_datos_en_tabla(df)
             
-            columnas_extra = [col for col in df.columns if col not in columnas_esperadas]
-            if columnas_extra:
-                Mensaje().mensaje_alerta(f"Advertencia: El archivo contiene columnas adicionales: {', '.join(columnas_extra)}")
-                
-            self.modelo_tabla_productos.setHorizontalHeaderLabels([
+    def __leer_archivo_csv(self):
+        documento, _ = QFileDialog.getOpenFileName(self, "Selecciona un documento de Excel", "", "Archivos Excel (*.xlsx *.xls)")
+        
+        if not documento:
+            return None
+        
+        # Definir las columnas esperadas
+        columnas_esperadas = [
+            "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color",
+            "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta",
+            "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso",
+            "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones",
+            "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
+        ]
+        
+        # Leer el archivo Excel
+        df = pd.read_excel(documento)
+        
+        # Verificar si faltan columnas
+        columnas_faltantes = [col for col in columnas_esperadas if col not in df.columns]
+        if columnas_faltantes:
+            Mensaje().mensaje_alerta(f"Error: Faltan las siguientes columnas: {', '.join(columnas_faltantes)}")
+            return None
+        
+        # Reordenar las columnas según el orden esperado
+        df = df[columnas_esperadas]
+        
+        # Verificar si hay columnas adicionales
+        columnas_extra = [col for col in df.columns if col not in columnas_esperadas]
+        if columnas_extra:
+            Mensaje().mensaje_alerta(f"Advertencia: El archivo contiene columnas adicionales: {', '.join(columnas_extra)}")
+        
+        return df
+    
+    def __cargar_datos_en_tabla(self, df):
+        self.modelo_tabla_productos.setHorizontalHeaderLabels([
             "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color", 
             "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta", 
             "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso", 
             "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones", 
             "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
-            ])
-            for row in range(len(df)):
-                row_data = []
-                for col in range(len(df.columns)):
-                    item = QStandardItem(str(df.iloc[row, col]))
-                    item.setTextAlignment(Qt.AlignCenter)  # Centrar el texto
-                    row_data.append(item)
-                self.modelo_tabla_productos.appendRow(row_data)
-            self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
-
-            # Ajustar el tamaño de las columnas automáticamente
-            self.ui.tabla_productos.resizeColumnsToContents()
+        ])
+        
+        # Limpiar la tabla antes de agregar los nuevos datos
+        self.ui.tabla_productos.clear()
+        
+        # Recorrer el DataFrame y agregar los datos a la tabla
+        for row in range(len(df)):
+            self.lista_productos = []
+            for col in range(len(df.columns)):
+                item = QStandardItem(str(df.iloc[row, col]))
+                item.setTextAlignment(Qt.AlignCenter)  # Centrar el texto
+                self.lista_productos.append(item)
+            self.modelo_tabla_productos.appendRow(self.lista_productos)
+        
+        # Asignar el modelo a la tabla
+        self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
+        
+        # Ajustar el tamaño de las columnas automáticamente
+        self.ui.tabla_productos.resizeColumnsToContents()
     
     def comprobar_existencia_modelo_tabla(self):
         if not hasattr(self, 'modelo_tabla_productos'):
                 self.modelo_tabla_productos = QStandardItemModel()
-    
-    def verificar_excel(self, documento):
-        pass
+
         
 
 class Productos(QWidget):
@@ -371,6 +409,9 @@ class Productos(QWidget):
         self.ui.setupUi(self)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
     
+        self.comprobar_modelo_tabla_productos()
+        self.consultar_productos_db()
+        
     def agregar_producto(self):
         self.AdminProductos = Admin_productosController()
         self.LISTAR_CATEGORIAS_PRODUCTOS.connect(self.AdminProductos.listar_categorias)
@@ -379,10 +420,77 @@ class Productos(QWidget):
         self.LISTAR_CATEGORIAS_PRODUCTOS.emit()
         self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.emit()
         self.LISTAR_PRESENTACIONES_PRODUCTOS.emit()
+        self.AdminProductos.PRODUCTOS_AGREGADOS.connect(self.consultar_productos_db)
         self.AdminProductos.show()
-        
-        
+    
+    def eliminar_producto(self):
+        pass
+    
+    def listar_productos(self, productos):
+        print("Productos cargados:", productos)  # Verifica que los productos se carguen correctamente
 
-            
+        self.comprobar_modelo_tabla_productos()
+        self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
 
+        # Establecer los encabezados de la tabla
+        cabeceras = [
+            "Proveedor", "Codigo upc", "Nombre Producto", "Categoria", "Marca", "Modelo", "Color", 
+            "Material", "Unidad de Medida", "Presentacion", "Costo Inicial", "Precio", 
+            "Costo Final", "Existencia", "Existencia Minima", "Existencia Maxima", "Peso", 
+            "Dimensiones", "Descripcion Producto", "Notas", "Fecha Vencimiento", "Fecha Fabricacion", "Imagen"
+        ]
+        self.modelo_tabla_productos.setHorizontalHeaderLabels(cabeceras)
+
+        # Recorrer la lista de productos (ahora objetos de la clase Productos)
+        for producto in productos:
+            list_productos = []
+
+            for col in cabeceras:
+                value = ""
+
+                if col.lower() == "proveedor":
+                    value = ", ".join([proveedor.nombre for proveedor in producto.proveedores]) if producto.proveedores else ""
+                elif col.lower() == "categoria":
+                    value = producto.categoria.nombre if producto.categoria else ""
+                elif col.lower() == "unidad de medida":
+                    # Asegúrate de acceder correctamente a la relación 'unidad_medida_productos' y a su atributo 'unidad_medida'
+                    if producto.unidad_medida_productos:
+                        value = producto.unidad_medida_productos.unidad_medida  # Accedemos al atributo 'unidad_medida'
+                    else:
+                        value = ""
+                elif col.lower() == "presentacion":
+                    # Asegúrate de acceder correctamente a la relación 'presentacion_productos' y a su atributo 'nombre'
+                    if producto.presentacion_productos:
+                        value = producto.presentacion_productos.nombre  # Accedemos al atributo 'nombre'
+                    else:
+                        value = ""
+                elif hasattr(producto, col.lower().replace(" ", "_")):
+                    value = getattr(producto, col.lower().replace(" ", "_"))
                 
+                item = QStandardItem(str(value))  
+                item.setTextAlignment(Qt.AlignCenter)
+                list_productos.append(item)
+
+            self.modelo_tabla_productos.appendRow(list_productos)
+
+        self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
+        self.ui.tabla_productos.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tabla_productos.resizeColumnsToContents()
+
+
+
+    def consultar_productos_db(self):
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                productos, estatus = ProductosModel(session).obtener_productos()
+            if estatus:
+                self.listar_productos(productos)
+
+    def comprobar_modelo_tabla_productos(self):
+        # Si no existe el modelo de la tabla, crearlo como QStandardItemModel
+        if not hasattr(self, 'modelo_tabla_productos'):
+            self.modelo_tabla_productos = QStandardItemModel()
+
+            # Asignar el modelo al QTableView si no está asignado
+            self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
