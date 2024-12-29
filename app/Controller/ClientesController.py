@@ -56,11 +56,6 @@ class Clientes(QWidget):
         self.id_area_del_cliente = None
         self.id_clasificacion_del_cliente = None
         self._translate = QtCore.QCoreApplication.translate
-        #----------------------------------
-#// : FUNCIONES PRINCIPALES
-        self.listar_areas()
-        self.listar_categorias()
-        self.tabla_listar_clientes()
         #------------------------------
 #//: CARGAR FOTO DEL CLIENTE FISICO
         self.ui.label_wpc_fotocliente.mousePressEvent = self.obtener_foto

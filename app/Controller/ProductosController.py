@@ -293,6 +293,9 @@ class Admin_productosController(QWidget):
     
     def __guardar_producto(self):
         try:
+            if self.modelo_tabla_productos.rowCount() <= 0:
+                Mensaje().mensaje_informativo("No se almaceno ningun producto por que no se encontro nada en la tabla de productos a almacenar")
+                return
             self.agregar_productos_en_bd()
         except Exception as e:
             print(f"Error al guardar producto: {e}")
@@ -410,7 +413,6 @@ class Productos(QWidget):
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
     
         self.comprobar_modelo_tabla_productos()
-        self.consultar_productos_db()
         
     def agregar_producto(self):
         self.AdminProductos = Admin_productosController()

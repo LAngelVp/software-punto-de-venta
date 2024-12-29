@@ -164,7 +164,7 @@ class ProveedoresModel:
     def consultar_proveedor(self, nombre):
         try:
             if nombre is None:
-                return None
+                return None, False
             proveedor = self.session.query(Proveedores).filter(Proveedores.nombre == nombre).first()
             if proveedor is None:
                 return proveedor, False

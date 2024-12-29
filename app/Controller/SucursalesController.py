@@ -107,6 +107,7 @@ class SucursalesController(QWidget):
         self.limpiar()
                         
     def obtener_sucursales(self):
+        print("obtenemos las sucursales")
         sucursales = None
         self.ui.lista_sucursales.clear()
         self.icon = QIcon(':/Icons/Bootstrap/building-fill-check.svg')

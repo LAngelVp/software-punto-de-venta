@@ -38,16 +38,14 @@ class Control_proveedores(QWidget):
         self.ui.btn_btn_actualizar.clicked.connect(self.control_actualizar_proveedor)
         self.ui.cajaopciones_categorias.currentIndexChanged.connect(self.mostrar_descripcion_categoria)
         
-        self.proveedor_seleccionado.connect(self.cargar_datos_proveedor)
+        
 
         self.proveedores = None
         self.id_proveedor = None
         self.id_categoria = None
         self.representante = None
-        self.seleccion_conectada = None
+        self.seleccion_conectada_proveedores = None
         self.lista_categorias = {}
-        self.mostrar_categorias()
-        self.listar_proveedores_tabla()
 
     def mostrar_categorias(self):
         try:
@@ -230,13 +228,13 @@ class Control_proveedores(QWidget):
                 Mensaje().mensaje_critico("El widget tabla no está disponible.")
                 return
             # Inicializar el modelo de la tabla si no existe
-            if not hasattr(self, 'model'):
-                self.model = QStandardItemModel()
+            if not hasattr(self, 'modelo_tabla_proveedores_vproveedores'):
+                self.modelo_tabla_proveedores_vproveedores = QStandardItemModel()
             
-            self.model.clear()
+            self.modelo_tabla_proveedores_vproveedores.clear()
 
             if proveedores is None:
-                self.model.setHorizontalHeaderLabels([
+                self.modelo_tabla_proveedores_vproveedores.setHorizontalHeaderLabels([
                     "Nombre",
                     "País",
                     "Estado",
@@ -251,7 +249,7 @@ class Control_proveedores(QWidget):
                     "Correo",
                     "Teléfono"
                     ])
-                self.ui.tabla_proveedores.setModel(self.model)
+                self.ui.tabla_proveedores.setModel(self.modelo_tabla_proveedores_vproveedores)
                 return
             
             nombre_columnas = [
@@ -270,7 +268,7 @@ class Control_proveedores(QWidget):
                 "Teléfono"
             ]
 
-            self.model.setHorizontalHeaderLabels(nombre_columnas)
+            self.modelo_tabla_proveedores_vproveedores.setHorizontalHeaderLabels(nombre_columnas)
 
             for proveedor in proveedores:
                 if proveedor is not None:
@@ -292,19 +290,19 @@ class Control_proveedores(QWidget):
                     ]
 
                 items = [QStandardItem(item) for item in row_data]
-                self.model.appendRow(items)
+                self.modelo_tabla_proveedores_vproveedores.appendRow(items)
 
-            self.ui.tabla_proveedores.setModel(self.model)
+            self.ui.tabla_proveedores.setModel(self.modelo_tabla_proveedores_vproveedores)
             self.ui.tabla_proveedores.setColumnHidden(0, True)
 
             # Desconectar la señal antes de conectar
-            if self.seleccion_conectada:
+            if self.seleccion_conectada_proveedores:
                 self.ui.tabla_proveedores.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_proveedores)
-                self.seleccion_conectada = False  # Actualizar el estado
+                self.seleccion_conectada_proveedores = False  # Actualizar el estado
 
             # Conectar la señal a la función que obtiene el ID del elemento seleccionado
             self.ui.tabla_proveedores.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_proveedores)
-            self.seleccion_conectada = True  # Marcar como conectada
+            self.seleccion_conectada_proveedores = True  # Marcar como conectada
 
         except Exception as e:
             Mensaje().mensaje_critico(f'No se logro hacer el listado de los proveedores: {e}')
@@ -404,10 +402,11 @@ class Control_proveedores(QWidget):
         # Verifica si la celda seleccionada está en la primera columna
         if current.column() > 0:  # Verifica si es la primera columna
             indice_fila = current.row()
-            elemento = self.model.item(indice_fila, 0)
+            elemento = self.modelo_tabla_proveedores_vproveedores.item(indice_fila, 0)
             if elemento is not None:
                 self.id_proveedor= None
                 self.id_proveedor = elemento.text()
+                self.proveedor_seleccionado.connect(self.cargar_datos_proveedor)
                 self.proveedor_seleccionado.emit(self.id_proveedor)
             else:
                 return

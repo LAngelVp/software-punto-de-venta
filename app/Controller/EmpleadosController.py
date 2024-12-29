@@ -29,11 +29,11 @@ class EmpleadosController(QWidget):
         # self.ventana = 
         self.registro_listar_puestos.connect(Registro_personal_inicial().listar_puestos)
 
-        self.seleccion_conectada = None
+        self.seleccion_conectada_empleados = None
         self.id_empleado = None
         self.empleados = None
 
-        self.listar_empleados()
+        
 
     def limpiar(self):
         self.ui.txt_idempleado.clear()
@@ -102,17 +102,17 @@ class EmpleadosController(QWidget):
                 return
 
             # Inicializar el modelo de la tabla si no existe
-            if not hasattr(self, 'model'):
-                self.model = QStandardItemModel()
+            if not hasattr(self, 'modelo_empleados_vempleados'):
+                self.modelo_empleados_vempleados = QStandardItemModel()
                 
             # Limpiar el modelo antes de llenarlo con nuevos datos
-            self.model.clear()
+            self.modelo_empleados_vempleados.clear()
             # Verificar si clientes es None o una lista vacía
             if empleados is None or len(empleados) == 0:
-                self.model.setHorizontalHeaderLabels([
+                self.modelo_empleados_vempleados.setHorizontalHeaderLabels([
                     "id", "nombre", "apellido_paterno", "apellido_materno", "fecha_nacimiento", "estado_civil", "curp", "rfc", "nivel_academico", "carrera", "correo_electronico", "numero_seguro_social", "fecha_contratacion", "fecha_despido", "ciudad", "codigo_postal", "estado", "pais", "numero_telefonico", "nombre_contacto", "contacto_emergencia", "parentesco_contacto", "calles", "avenidas", "num_interior", "num_exterior", "direccion_adicional", "activo"
                     ])
-                self.ui.tabla_listaempleados.setModel(self.model)
+                self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
                 return
 
             nombre_columnas = [
@@ -124,7 +124,7 @@ class EmpleadosController(QWidget):
                 "nombre_puesto", "salario", "horas_laborales", "dias_laborales",
                 "hora_entrada", "hora_salida", "nombre_departamento", "nombre_sucursal"
             ]
-            self.model.setHorizontalHeaderLabels(nombre_columnas)
+            self.modelo_empleados_vempleados.setHorizontalHeaderLabels(nombre_columnas)
 
             # Llenar el modelo con datos de clientes
             for empleado in empleados:
@@ -172,29 +172,29 @@ class EmpleadosController(QWidget):
                     row_data = [""] * len(nombre_columnas)
 
                 items = [QStandardItem(str(item)) for item in row_data]
-                self.model.appendRow(items)
+                self.modelo_empleados_vempleados.appendRow(items)
 
             # Asignar el modelo a la tabla
-            self.ui.tabla_listaempleados.setModel(self.model)
+            self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
             # self.ui.tabla_listaempleados.setColumnHidden(0, True)
             self.ui.tabla_listaempleados.resizeColumnsToContents()
 
             # Desconectar la señal antes de conectar
-            if self.seleccion_conectada:
-                self.ui.tabla_listaempleados.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla)
-                self.seleccion_conectada = False  # Actualizar el estado
+            if self.seleccion_conectada_empleados:
+                self.ui.tabla_listaempleados.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_empleados)
+                self.seleccion_conectada_empleados = False  # Actualizar el estado
 
             # Conectar la señal a la función que obtiene el ID del elemento seleccionado
-            self.ui.tabla_listaempleados.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla)
-            self.seleccion_conectada = True  # Marcar como conectada
+            self.ui.tabla_listaempleados.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_empleados)
+            self.seleccion_conectada_empleados = True  # Marcar como conectada
         except Exception as e:
             Mensaje().mensaje_critico(f'No se logro hacer mostrar la tabla EMPLEADOS {e}')
         self.id_empleado = None
 
-    def obtener_id_elemento_tabla(self, current, previus):
+    def obtener_id_elemento_tabla_empleados(self, current, previus):
         if current.column() >= 0:
             indice_fila = current.row()
-            self.id_empleado = self.model.item(indice_fila, 0).text()
+            self.id_empleado = self.modelo_empleados_vempleados.item(indice_fila, 0).text()
 
     def obtencion_segura(atributo, default='Sin dato'):
         """Función auxiliar para obtener atributos de manera segura."""
