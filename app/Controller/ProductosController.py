@@ -40,6 +40,7 @@ class Admin_productosController(QWidget):
         self.ui.decimal_pesoProducto.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.fecha_fabricacionProducto.setDate(QDate.currentDate())
         self.ui.fecha_vencimientoProducto.setDate(QDate.currentDate())
+        self.ui.btn_btn_actualizar_producto.hide()
         self.ui.txt_codBarras.setFocus()
         
         pantalla = self.frameGeometry()
@@ -74,8 +75,8 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_agregar_unidadMedidaProducto.clicked.connect(self.agregar_unidad_medida)
         self.ui.btn_btn_agregarPresentacionProducto.clicked.connect(self.agregar_presentacion)
         self.ui.btn_btn_agregar_producto.clicked.connect(self.__agregar_producto)
-        self.ui.btn_btn_eliminar_producto.clicked.connect(self.__eliminar_producto)
         self.ui.btn_btn_guardar_producto.clicked.connect(self.__guardar_producto)
+        self.ui.btn_btn_limpiarTablaProductos.clicked.connect(self.__limpiar_tabla_productos)
         self.ui.btn_btn_cargar_CSVProductos.clicked.connect(self.agregarCSV)
         
 #FUNCIONES-VENTANAS EMERGENTES: 
@@ -128,6 +129,52 @@ class Admin_productosController(QWidget):
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
 #########################
 #FUNCIONES-INTERACCION CON EL PRODUCTO
+
+    def campos_productos(self):
+        # Crear un diccionario para almacenar los widgets
+        datos = {
+            "proveedor": self.ui.txt_proveedor,
+            "codigo_barras": self.ui.txt_codBarras,
+            "nombre": self.ui.txt_nombreProducto,
+            "categoria_producto": self.ui.cajaOpciones_categoriaProducto,
+            "marca_producto": self.ui.txt_marcaProducto,
+            "modelo_producto": self.ui.txt_modeloProducto,
+            "color_producto": self.ui.txt_colorProducto,
+            "material_producto": self.ui.txt_materialProducto,
+            "unidad_medida_producto": self.ui.cajaOpciones_unidadMedidaProducto,
+            "presentacion_producto": self.ui.cajaOpciones_presentacionProducto,
+            "costo_inicial_producto": self.ui.decimal_costoInicialProducto,
+            "precio_venta_producto": self.ui.decimal_precioVentaProducto,
+            "costo_final_producto": self.ui.decimal_costoFinalProducto,
+            "existencia_producto": self.ui.decimal_existenciaProducto,
+            "existencia_min_producto": self.ui.decimal_existenciaMinProducto,
+            "existencia_max_producto": self.ui.decimal_existenciaMaxProducto,
+            "peso_producto": self.ui.decimal_pesoProducto,
+            "largo_dimensiones": self.ui.decimal_largoDimensiones,
+            "alto_dimensiones": self.ui.decimal_altoDimensiones,
+            "ancho_dimensiones": self.ui.decimal_anchoDimensiones,
+            "descripcion_producto": self.ui.txtlargo_descripcionProducto,
+            "notas_producto": self.ui.txtlargo_notasProducto,
+            "fecha_vencimiento_producto": self.ui.fecha_vencimientoProducto,
+            "fecha_fabricacion_producto": self.ui.fecha_fabricacionProducto,
+        }
+        
+        # Retornar el diccionario con los widgets
+        return datos
+
+    def __limpiar_campos(self):
+        datos = self.campos_productos()
+        for campo in datos.values():
+            if isinstance(campo, QLineEdit):
+                campo.clear()
+            elif isinstance(campo, QDoubleSpinBox):
+                campo.setValue(0)
+            elif isinstance(campo, QPlainTextEdit):
+                campo.clear()
+            elif isinstance(campo, QDateEdit):
+                campo.setDate(QDate.currentDate())
+        _translate = QtCore.QCoreApplication.translate
+        self.ui.etiqueta_fotoProducto.setText(_translate("contenedor_agregar_productos", "<html><head/><body><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"80\" height=\"70\"/></p><p align=\"center\"><span style=\" font-size:16pt; font-family:Arial; font-weight:bold;\">Cargar Imagen</span></p></body></html>"))
 
     def cargar_imagen(self, event):
         options = QFileDialog.Options()
@@ -230,6 +277,7 @@ class Admin_productosController(QWidget):
         self.lista_productos.append(nuevo_producto)
         nueva_fila = list(nuevo_producto.values())
         self._agregar_fila_a_tabla(nueva_fila)
+        self.__limpiar_campos()
 
     def _agregar_fila_a_tabla(self, fila):
         # Convertir cada elemento de la fila en un QStandardItem y añadirlo al modelo
@@ -238,6 +286,8 @@ class Admin_productosController(QWidget):
         # Añadir la fila al modelo de datos
         self.modelo_tabla_productos.appendRow(items)
         self.ui.tabla_productos.resizeColumnsToContents()
+        
+
         
     def agregar_productos_en_bd(self):
         productos_no_agregados = []
@@ -302,9 +352,9 @@ class Admin_productosController(QWidget):
 
     def __actualizar_producto(self):
         pass
-
-    def __eliminar_producto(self):
-        pass
+    
+    def __limpiar_tabla_productos(self):
+        self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
                 
     def __obtener_proveedores(self):
         with Conexion_base_datos() as db:
@@ -411,7 +461,10 @@ class Productos(QWidget):
         self.ui = Ui_Control_Productos()
         self.ui.setupUi(self)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
-    
+        self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_producto)
+        
+        self.seleccion_conectada_productos = None
+        self.codigo_upc_producto = None
         self.comprobar_modelo_tabla_productos()
         
     def agregar_producto(self):
@@ -426,7 +479,18 @@ class Productos(QWidget):
         self.AdminProductos.show()
     
     def eliminar_producto(self):
-        pass
+        if self.codigo_upc_producto is None:
+            Mensaje().mensaje_informativo("Debes de seleccionar un producto de la tabla para proceder a eliminarlo")
+            return
+        estatus_eliminacion = False
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                estatus_eliminacion = ProductosModel(session).eliminar_producto(codigo_producto=self.codigo_upc_producto)
+        if estatus_eliminacion:
+            Mensaje().mensaje_informativo("El producto ha sido eliminado con éxito")
+            self.consultar_productos_db()
+            self.codigo_upc_producto = None
     
     def listar_productos(self, productos):
         print("Productos cargados:", productos)  # Verifica que los productos se carguen correctamente
@@ -478,8 +542,14 @@ class Productos(QWidget):
         self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
         self.ui.tabla_productos.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.tabla_productos.resizeColumnsToContents()
+        
+        if self.seleccion_conectada_productos:
+            self.ui.tabla_productos.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_productos)
+            self.seleccion_conectada_productos = False  # Actualizar el estado
 
-
+        # Conectar la señal a la función que obtiene el ID del elemento seleccionado
+        self.ui.tabla_productos.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_productos)
+        self.seleccion_conectada_productos = True  # Marcar como conectada
 
     def consultar_productos_db(self):
         with Conexion_base_datos() as db:
@@ -488,7 +558,17 @@ class Productos(QWidget):
                 productos, estatus = ProductosModel(session).obtener_productos()
             if estatus:
                 self.listar_productos(productos)
-
+                
+    def obtener_id_elemento_tabla_productos(self, current, previus):
+        # Verifica si la celda seleccionada está en la primera columna
+        if current.column() >= 0:  # Verifica si es la primera columna
+            indice_fila = current.row()
+            elemento = self.modelo_tabla_productos.item(indice_fila, 1)
+            if elemento is not None:
+                self.codigo_upc_producto= None
+                self.codigo_upc_producto = elemento.text()
+            else:
+                return
     def comprobar_modelo_tabla_productos(self):
         # Si no existe el modelo de la tabla, crearlo como QStandardItemModel
         if not hasattr(self, 'modelo_tabla_productos'):

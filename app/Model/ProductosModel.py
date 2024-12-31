@@ -113,3 +113,11 @@ class ProductosModel:
             return productos, True
         else:
             return None, False
+        
+    def eliminar_producto(self, codigo_producto):
+        producto = self.session.query(Productos).filter(Productos.codigo_upc == codigo_producto).first()
+        if producto:
+            self.session.delete(producto)
+            return True
+        else:
+            return False

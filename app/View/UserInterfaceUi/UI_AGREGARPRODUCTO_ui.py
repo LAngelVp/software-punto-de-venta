@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_AGREGARPRODUCTO.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_AGREGARPRODUCTO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -137,7 +137,7 @@ class Ui_contenedor_agregar_productos(object):
 "padding: 2px;\n"
 "background-color: #f5f4f1;\n"
 "font-size: 14px;\n"
-"width:87px;\n"
+"min-width:100px;\n"
 "}\n"
 "*[objectName*=\"fecha_\"]::drop-down{\n"
 "subcontrol-origin: padding;\n"
@@ -250,7 +250,7 @@ class Ui_contenedor_agregar_productos(object):
         self.verticalLayout_2.addWidget(self.contenedor_foto)
         spacerItem = QtWidgets.QSpacerItem(20, 473, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem)
-        self.gridLayout_8.addWidget(self.contenedor_formulario_derecha, 0, 2, 8, 1)
+        self.gridLayout_8.addWidget(self.contenedor_formulario_derecha, 0, 2, 9, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.etiqueta_codBarras = QtWidgets.QLabel(self.contenedor_scroll_formulario)
@@ -479,29 +479,36 @@ class Ui_contenedor_agregar_productos(object):
         self.gridLayout_8.addLayout(self.gridLayout_5, 5, 0, 1, 2)
         self.gridLayout_6 = QtWidgets.QGridLayout()
         self.gridLayout_6.setObjectName("gridLayout_6")
-        self.tabla_productos = QtWidgets.QTableView(self.contenedor_scroll_formulario)
-        self.tabla_productos.setObjectName("tabla_productos")
-        self.gridLayout_6.addWidget(self.tabla_productos, 3, 1, 1, 3)
-        self.txtlargo_descripcionProducto = QtWidgets.QPlainTextEdit(self.contenedor_scroll_formulario)
-        self.txtlargo_descripcionProducto.setObjectName("txtlargo_descripcionProducto")
-        self.gridLayout_6.addWidget(self.txtlargo_descripcionProducto, 1, 1, 1, 1)
-        self.etiqueta_notasProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
-        self.etiqueta_notasProducto.setObjectName("etiqueta_notasProducto")
-        self.gridLayout_6.addWidget(self.etiqueta_notasProducto, 0, 3, 1, 1)
-        self.txtlargo_notasProducto = QtWidgets.QPlainTextEdit(self.contenedor_scroll_formulario)
-        self.txtlargo_notasProducto.setObjectName("txtlargo_notasProducto")
-        self.gridLayout_6.addWidget(self.txtlargo_notasProducto, 1, 3, 1, 1)
         self.etiqueta_descripcionProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
         self.etiqueta_descripcionProducto.setObjectName("etiqueta_descripcionProducto")
-        self.gridLayout_6.addWidget(self.etiqueta_descripcionProducto, 0, 1, 1, 1)
+        self.gridLayout_6.addWidget(self.etiqueta_descripcionProducto, 0, 0, 1, 1)
+        self.etiqueta_notasProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
+        self.etiqueta_notasProducto.setObjectName("etiqueta_notasProducto")
+        self.gridLayout_6.addWidget(self.etiqueta_notasProducto, 0, 1, 1, 1)
+        self.txtlargo_descripcionProducto = QtWidgets.QPlainTextEdit(self.contenedor_scroll_formulario)
+        self.txtlargo_descripcionProducto.setObjectName("txtlargo_descripcionProducto")
+        self.gridLayout_6.addWidget(self.txtlargo_descripcionProducto, 1, 0, 1, 1)
+        self.txtlargo_notasProducto = QtWidgets.QPlainTextEdit(self.contenedor_scroll_formulario)
+        self.txtlargo_notasProducto.setObjectName("txtlargo_notasProducto")
+        self.gridLayout_6.addWidget(self.txtlargo_notasProducto, 1, 1, 1, 1)
+        self.gridLayout_8.addLayout(self.gridLayout_6, 6, 0, 1, 2)
         self.etiqueta_listaProductos = QtWidgets.QLabel(self.contenedor_scroll_formulario)
         self.etiqueta_listaProductos.setObjectName("etiqueta_listaProductos")
-        self.gridLayout_6.addWidget(self.etiqueta_listaProductos, 2, 1, 1, 1)
+        self.gridLayout_8.addWidget(self.etiqueta_listaProductos, 7, 0, 1, 1)
+        self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_11.setObjectName("horizontalLayout_11")
+        self.btn_btn_limpiarTablaProductos = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
+        self.btn_btn_limpiarTablaProductos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_limpiarTablaProductos.setObjectName("btn_btn_limpiarTablaProductos")
+        self.horizontalLayout_11.addWidget(self.btn_btn_limpiarTablaProductos)
         self.btn_btn_cargar_CSVProductos = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
         self.btn_btn_cargar_CSVProductos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_cargar_CSVProductos.setObjectName("btn_btn_cargar_CSVProductos")
-        self.gridLayout_6.addWidget(self.btn_btn_cargar_CSVProductos, 2, 3, 1, 1, QtCore.Qt.AlignRight)
-        self.gridLayout_8.addLayout(self.gridLayout_6, 6, 0, 1, 2)
+        self.horizontalLayout_11.addWidget(self.btn_btn_cargar_CSVProductos)
+        self.gridLayout_8.addLayout(self.horizontalLayout_11, 7, 1, 1, 1)
+        self.tabla_productos = QtWidgets.QTableView(self.contenedor_scroll_formulario)
+        self.tabla_productos.setObjectName("tabla_productos")
+        self.gridLayout_8.addWidget(self.tabla_productos, 8, 0, 1, 2)
         self.contenedor_formulario_inferior = QtWidgets.QFrame(self.contenedor_scroll_formulario)
         self.contenedor_formulario_inferior.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_formulario_inferior.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -523,16 +530,12 @@ class Ui_contenedor_agregar_productos(object):
         self.btn_btn_actualizar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_actualizar_producto.setObjectName("btn_btn_actualizar_producto")
         self.horizontalLayout_6.addWidget(self.btn_btn_actualizar_producto)
-        self.btn_btn_eliminar_producto = QtWidgets.QPushButton(self.contenedor_botones)
-        self.btn_btn_eliminar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_eliminar_producto.setObjectName("btn_btn_eliminar_producto")
-        self.horizontalLayout_6.addWidget(self.btn_btn_eliminar_producto)
         self.gridLayout_7.addWidget(self.contenedor_botones, 0, 0, 1, 1, QtCore.Qt.AlignLeft)
         self.btn_btn_guardar_producto = QtWidgets.QPushButton(self.contenedor_formulario_inferior)
         self.btn_btn_guardar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_guardar_producto.setObjectName("btn_btn_guardar_producto")
         self.gridLayout_7.addWidget(self.btn_btn_guardar_producto, 0, 1, 1, 1, QtCore.Qt.AlignRight)
-        self.gridLayout_8.addWidget(self.contenedor_formulario_inferior, 8, 0, 1, 3)
+        self.gridLayout_8.addWidget(self.contenedor_formulario_inferior, 9, 0, 1, 3)
         self.contenedor_formulario_izquierda.setWidget(self.contenedor_scroll_formulario)
         self.gridLayout_3.addWidget(self.contenedor_formulario_izquierda, 0, 0, 1, 1)
         self.verticalLayout.addWidget(self.contenedor_informacion)
@@ -571,13 +574,13 @@ class Ui_contenedor_agregar_productos(object):
         self.etiqueta_existenciaProducto.setText(_translate("contenedor_agregar_productos", "Existencia"))
         self.etiqueta_existenciaMaxProducto.setText(_translate("contenedor_agregar_productos", "Existencia Max."))
         self.etiqueta_costoInicialProducto.setText(_translate("contenedor_agregar_productos", "Costo Inicial"))
-        self.etiqueta_notasProducto.setText(_translate("contenedor_agregar_productos", "Notas"))
         self.etiqueta_descripcionProducto.setText(_translate("contenedor_agregar_productos", "Descripción"))
+        self.etiqueta_notasProducto.setText(_translate("contenedor_agregar_productos", "Notas"))
         self.etiqueta_listaProductos.setText(_translate("contenedor_agregar_productos", "Lista de Productos"))
+        self.btn_btn_limpiarTablaProductos.setText(_translate("contenedor_agregar_productos", "Limpiar tabla"))
         self.btn_btn_cargar_CSVProductos.setText(_translate("contenedor_agregar_productos", "Cargar CSV"))
         self.btn_btn_agregar_producto.setText(_translate("contenedor_agregar_productos", "Agregar producto"))
         self.btn_btn_actualizar_producto.setText(_translate("contenedor_agregar_productos", "Actualizar"))
-        self.btn_btn_eliminar_producto.setText(_translate("contenedor_agregar_productos", "Eliminar"))
         self.btn_btn_guardar_producto.setText(_translate("contenedor_agregar_productos", "Guardar"))
 import ibootstrap_rc
 import iconosSVG_rc
