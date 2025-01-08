@@ -20,6 +20,7 @@ from .UnidadMedidaProductosController import UnidadMedidaProductos
                 
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
+    RECIBIR_PRODUCTO_ACTUALIZAR = pyqtSignal(object)
     def __init__(self):
         super().__init__()
         self.ui = Ui_contenedor_agregar_productos()
@@ -78,6 +79,7 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_guardar_producto.clicked.connect(self.__guardar_producto)
         self.ui.btn_btn_limpiarTablaProductos.clicked.connect(self.__limpiar_tabla_productos)
         self.ui.btn_btn_cargar_CSVProductos.clicked.connect(self.agregarCSV)
+        self.RECIBIR_PRODUCTO_ACTUALIZAR.connect(self.__cargar_datos_en_campos)
         
 #FUNCIONES-VENTANAS EMERGENTES: 
     def agregar_presentacion(self):
@@ -287,8 +289,6 @@ class Admin_productosController(QWidget):
         self.modelo_tabla_productos.appendRow(items)
         self.ui.tabla_productos.resizeColumnsToContents()
         
-
-        
     def agregar_productos_en_bd(self):
         productos_no_agregados = []
         with Conexion_base_datos() as db:
@@ -353,6 +353,93 @@ class Admin_productosController(QWidget):
     def __actualizar_producto(self):
         pass
     
+    def __cargar_datos_en_campos(self, producto):
+        if producto is None:
+            Mensaje().mensaje_informativo("No haz seleccionado ningun producto")
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                categorias, estatuscategoria = CategoriasModel(session).obtener_todo(tipo_categoria="productos")
+                unidadades_medida, estatusmedida = ProductosModel(session).obtener_unidades_medida()
+                presentaciones, estatuspresentacion = ProductosModel(session).obtener_presentaciones()
+            if estatuscategoria:
+                for cate in categorias:
+                    self.ui.cajaOpciones_categoriaProducto.addItem(cate.nombre, cate.id)
+                    AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
+            if estatusmedida:
+                for medida in unidadades_medida:
+                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(medida.unidad_medida, medida.id)
+                    AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
+            if estatuspresentacion:
+                for presentacion in presentaciones:
+                    self.ui.cajaOpciones_presentacionProducto.addItem(presentacion.nombre, presentacion.id)
+                    AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
+        self.ui.txt_codBarras.setText(producto.codigo_upc)
+        self.ui.txt_nombreProducto.setText(producto.nombre_producto)
+        self.ui.txt_marcaProducto.setText(producto.marca)
+        self.ui.txt_modeloProducto.setText(producto.modelo)
+        self.ui.txt_colorProducto.setText(producto.color)
+        self.ui.txt_materialProducto.setText(producto.material)
+        self.ui.txtlargo_descripcionProducto.setPlainText(producto.descripcion_producto)
+        self.ui.txtlargo_notasProducto.setPlainText(producto.notas)
+        self.ui.decimal_costoInicialProducto.setValue(producto.costo_inicial)
+        self.ui.decimal_precioVentaProducto.setValue(producto.precio)
+        self.ui.decimal_costoFinalProducto.setValue(producto.costo_final)
+        self.ui.decimal_existenciaProducto.setValue(producto.existencia)
+        self.ui.decimal_existenciaMinProducto.setValue(producto.existencia_minima)
+        self.ui.decimal_existenciaMaxProducto.setValue(producto.existencia_maxima)
+        self.ui.decimal_pesoProducto.setValue(producto.peso)
+        if producto.dimensiones:
+            dimensiones = producto.dimensiones.split("-")
+            try:
+                # Convertir las cadenas a flotantes
+                alto = float(dimensiones[0])
+                ancho = float(dimensiones[1])
+                largo = float(dimensiones[2])
+                
+                # Establecer los valores en los QDoubleSpinBox
+                self.ui.decimal_altoDimensiones.setValue(alto)
+                self.ui.decimal_anchoDimensiones.setValue(ancho)
+                self.ui.decimal_largoDimensiones.setValue(largo)
+            except Exception as e:
+                print(f"Error al cargar dimensiones: {e}")
+        if producto.categoria:
+            if estatuscategoria:
+                area_nombre = producto.categoria.nombre
+                caja_categorias = self.ui.cajaOpciones_categoriaProducto
+                indice = caja_categorias.findText(area_nombre)
+
+                if indice != -1:
+                    caja_categorias.removeItem(indice)
+
+                caja_categorias.insertItem(0, area_nombre)
+
+                caja_categorias.setCurrentIndex(0)
+        if producto.unidad_medida_productos:
+            if estatusmedida:
+                medida_nombre = producto.unidad_medida_productos.unidad_medida
+                caja_medidas = self.ui.cajaOpciones_unidadMedidaProducto
+                indice = caja_medidas.findText(medida_nombre)
+
+                if indice != -1:
+                    caja_medidas.removeItem(indice)
+
+                caja_medidas.insertItem(0, medida_nombre)
+
+                caja_medidas.setCurrentIndex(0)
+        if producto.presentacion_productos:
+            if estatusmedida:
+                presentacion_nombre = producto.presentacion_productos.nombre
+                caja_presentaciones = self.ui.cajaOpciones_presentacionProducto
+                indice = caja_presentaciones.findText(presentacion_nombre)
+
+                if indice != -1:
+                    caja_presentaciones.removeItem(indice)
+
+                caja_presentaciones.insertItem(0, presentacion_nombre)
+
+                caja_presentaciones.setCurrentIndex(0)
     def __limpiar_tabla_productos(self):
         self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
                 
@@ -450,8 +537,6 @@ class Admin_productosController(QWidget):
         if not hasattr(self, 'modelo_tabla_productos'):
                 self.modelo_tabla_productos = QStandardItemModel()
 
-        
-
 class Productos(QWidget):
     LISTAR_CATEGORIAS_PRODUCTOS = pyqtSignal()
     LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
@@ -462,9 +547,11 @@ class Productos(QWidget):
         self.ui.setupUi(self)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_producto)
+        self.ui.btn_btn_modificar.clicked.connect(self.modificar_producto)
         
         self.seleccion_conectada_productos = None
         self.codigo_upc_producto = None
+        self.AdminProductos = None
         self.comprobar_modelo_tabla_productos()
         
     def agregar_producto(self):
@@ -492,12 +579,25 @@ class Productos(QWidget):
             self.consultar_productos_db()
             self.codigo_upc_producto = None
     
-    def listar_productos(self, productos):
-        print("Productos cargados:", productos)  # Verifica que los productos se carguen correctamente
+    def modificar_producto(self):
+        if self.codigo_upc_producto is None:
+            Mensaje().mensaje_informativo("No has seleccionado un producto de la tabla para proceder a modificarlo")
+            return
+        if self.AdminProductos and self.AdminProductos.isVisible():
+            self.AdminProductos.close()
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                producto, estatus = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=self.codigo_upc_producto)
+            if estatus:
+                self.AdminProductos = Admin_productosController()
+                self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR.emit(producto)
+                self.AdminProductos.show()
+        self.codigo_upc_producto = None
 
+    def listar_productos(self, productos):
         self.comprobar_modelo_tabla_productos()
         self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
-
         # Establecer los encabezados de la tabla
         cabeceras = [
             "Proveedor", "Codigo upc", "Nombre Producto", "Categoria", "Marca", "Modelo", "Color", 
@@ -569,6 +669,7 @@ class Productos(QWidget):
                 self.codigo_upc_producto = elemento.text()
             else:
                 return
+    
     def comprobar_modelo_tabla_productos(self):
         # Si no existe el modelo de la tabla, crearlo como QStandardItemModel
         if not hasattr(self, 'modelo_tabla_productos'):

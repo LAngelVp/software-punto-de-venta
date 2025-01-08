@@ -121,3 +121,15 @@ class ProductosModel:
             return True
         else:
             return False
+        
+    def consultar_producto_por_codigoUPC(self, codigo_upc):
+        produto = self.session.query(Productos).options(
+            joinedload(Productos.proveedores),
+            joinedload(Productos.categoria),
+            joinedload(Productos.unidad_medida_productos),
+            joinedload(Productos.presentacion_productos)
+            ).filter(Productos.codigo_upc == codigo_upc).first()
+        if produto:
+            return produto, True
+        else:
+            return None, False
