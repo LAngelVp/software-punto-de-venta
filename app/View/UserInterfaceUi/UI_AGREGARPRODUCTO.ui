@@ -793,13 +793,6 @@ border-bottom: 2px solid #00668c;
              </item>
              <item row="6" column="0" colspan="2">
               <layout class="QGridLayout" name="gridLayout_6">
-               <item row="0" column="0">
-                <widget class="QLabel" name="etiqueta_descripcionProducto">
-                 <property name="text">
-                  <string>Descripción</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="1">
                 <widget class="QLabel" name="etiqueta_notasProducto">
                  <property name="text">
@@ -807,11 +800,31 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
+               <item row="1" column="1">
+                <widget class="QPlainTextEdit" name="txtlargo_notasProducto"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="etiqueta_descripcionProducto">
+                 <property name="text">
+                  <string>Descripción</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="0">
                 <widget class="QPlainTextEdit" name="txtlargo_descripcionProducto"/>
                </item>
-               <item row="1" column="1">
-                <widget class="QPlainTextEdit" name="txtlargo_notasProducto"/>
+               <item row="2" column="1">
+                <spacer name="verticalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </item>

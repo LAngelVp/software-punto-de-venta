@@ -357,6 +357,13 @@ class Admin_productosController(QWidget):
         if producto is None:
             Mensaje().mensaje_informativo("No haz seleccionado ningun producto")
             return
+        self.ui.tabla_productos.hide()
+        self.ui.btn_btn_agregar_producto.hide()
+        self.ui.btn_btn_guardar_producto.hide()
+        self.ui.etiqueta_listaProductos.hide()
+        self.ui.btn_btn_cargar_CSVProductos.hide()
+        self.ui.btn_btn_limpiarTablaProductos.hide()
+        self.ui.btn_btn_actualizar_producto.show()
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -390,6 +397,11 @@ class Admin_productosController(QWidget):
         self.ui.decimal_existenciaMinProducto.setValue(producto.existencia_minima)
         self.ui.decimal_existenciaMaxProducto.setValue(producto.existencia_maxima)
         self.ui.decimal_pesoProducto.setValue(producto.peso)
+        self.ui.fecha_fabricacionProducto.setDate(producto.fecha_fabricacion)
+        self.ui.fecha_vencimientoProducto.setDate(producto.fecha_vencimiento)
+        if producto.imagen:
+            self.ui.etiqueta_fotoProducto.setPixmap(QPixmap(producto.imagen).scaled(self.ui.etiqueta_fotoProducto.size()))
+        
         if producto.dimensiones:
             dimensiones = producto.dimensiones.split("-")
             try:
@@ -404,6 +416,7 @@ class Admin_productosController(QWidget):
                 self.ui.decimal_largoDimensiones.setValue(largo)
             except Exception as e:
                 print(f"Error al cargar dimensiones: {e}")
+        
         if producto.categoria:
             if estatuscategoria:
                 area_nombre = producto.categoria.nombre
@@ -416,6 +429,7 @@ class Admin_productosController(QWidget):
                 caja_categorias.insertItem(0, area_nombre)
 
                 caja_categorias.setCurrentIndex(0)
+        
         if producto.unidad_medida_productos:
             if estatusmedida:
                 medida_nombre = producto.unidad_medida_productos.unidad_medida
@@ -428,6 +442,7 @@ class Admin_productosController(QWidget):
                 caja_medidas.insertItem(0, medida_nombre)
 
                 caja_medidas.setCurrentIndex(0)
+        
         if producto.presentacion_productos:
             if estatusmedida:
                 presentacion_nombre = producto.presentacion_productos.nombre
@@ -440,6 +455,11 @@ class Admin_productosController(QWidget):
                 caja_presentaciones.insertItem(0, presentacion_nombre)
 
                 caja_presentaciones.setCurrentIndex(0)
+
+        if producto.proveedores:
+            proveedores_str = ", ".join([str(proveedor.nombre) for proveedor in producto.proveedores])
+            self.ui.txt_proveedor.setText(proveedores_str)
+    
     def __limpiar_tabla_productos(self):
         self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
                 
@@ -548,12 +568,22 @@ class Productos(QWidget):
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_producto)
         self.ui.btn_btn_modificar.clicked.connect(self.modificar_producto)
+        self.ui.btn_btn_buscar.clicked.connect(self.buscar_producto)
         
         self.seleccion_conectada_productos = None
         self.codigo_upc_producto = None
         self.AdminProductos = None
         self.comprobar_modelo_tabla_productos()
         
+    def  buscar_producto(self):
+        nombre_producto = self.ui.txt_buscar.text().upper().strip()
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                productos, estatus = ProductosModel(session).consultar_por_nombre(nombre=nombre_producto)
+            if estatus:
+                self.listar_productos(productos)
+    
     def agregar_producto(self):
         self.AdminProductos = Admin_productosController()
         self.LISTAR_CATEGORIAS_PRODUCTOS.connect(self.AdminProductos.listar_categorias)

@@ -122,6 +122,13 @@ class ProductosModel:
         else:
             return False
         
+    def consultar_por_nombre(self, nombre):
+        producto = self.session.query(Productos).filter(Productos.nombre_producto.like(f"%{nombre}%")).all()
+        if producto:
+            return producto, True
+        else:
+            return None, False
+        
     def consultar_producto_por_codigoUPC(self, codigo_upc):
         produto = self.session.query(Productos).options(
             joinedload(Productos.proveedores),
