@@ -41,6 +41,7 @@ class Admin_productosController(QWidget):
         self.ui.decimal_pesoProducto.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.fecha_fabricacionProducto.setDate(QDate.currentDate())
         self.ui.fecha_vencimientoProducto.setDate(QDate.currentDate())
+        self.ui.contenedor_proveedores_vinculados.hide()
         self.ui.btn_btn_actualizar_producto.hide()
         self.ui.txt_codBarras.setFocus()
         
@@ -457,9 +458,25 @@ class Admin_productosController(QWidget):
                 caja_presentaciones.setCurrentIndex(0)
 
         if producto.proveedores:
-            proveedores_str = ", ".join([str(proveedor.nombre) for proveedor in producto.proveedores])
-            self.ui.txt_proveedor.setText(proveedores_str)
-    
+            self.ui.contenedor_proveedores_vinculados.show()
+            self.ui.txt_proveedor.hide()
+            self.ui.etiqueta_proveedor.hide()
+            self.listar_proveedores(producto.proveedores)
+            # proveedores_str = ", ".join([str(proveedor.nombre) for proveedor in producto.proveedores])
+            # self.ui.txt_proveedor.setText(proveedores_str)
+    def listar_proveedores(self, proveedores):
+        self.ui.lista_proveedores_vinculados.clear()
+        self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
+        for proveedor in proveedores:
+            # Crear un QListWidgetItem
+                item = QListWidgetItem(proveedor.nombre)
+                
+                # Establecer el ícono en el ítem
+                item.setIcon(self.icono_proveedor)
+                item.setData(Qt.UserRole, proveedor.id)
+                
+                # Agregar el ítem a la lista
+                self.ui.lista_proveedores_vinculados.addItem(item)
     def __limpiar_tabla_productos(self):
         self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
                 
