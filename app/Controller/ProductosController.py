@@ -462,19 +462,19 @@ class Admin_productosController(QWidget):
             self.ui.contenedor_proveedores_existentes.show()
             self.ui.txt_proveedor.hide()
             self.ui.etiqueta_proveedor.hide()
-            self.proveedores_vinculados = producto.proveedores
-            self.listar_proveedores(producto.proveedores)
+            self.proveedores_vinculados = {proveedor.id : proveedor.nombre for proveedor in producto.proveedores}
+            self.listar_proveedores(self.proveedores_vinculados)
     
     def listar_proveedores(self, proveedores):
         self.ui.lista_proveedores_vinculados.clear()
         self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
-        for proveedor in proveedores:
+        for proveedor_id, proveedor_nombre in proveedores.items():
             # Crear un QListWidgetItem
-                item = QListWidgetItem(proveedor.nombre)
+                item = QListWidgetItem(proveedor_nombre)
                 
                 # Establecer el ícono en el ítem
                 item.setIcon(self.icono_proveedor)
-                item.setData(Qt.UserRole, proveedor.id)
+                item.setData(Qt.UserRole, proveedor_id)
                 
                 # Agregar el ítem a la lista
                 self.ui.lista_proveedores_vinculados.addItem(item)
@@ -604,8 +604,17 @@ class Admin_productosController(QWidget):
         print(self.lista_proveedores_a_asignar)
     
     def desvincular_proveedor_al_producto(self):
-        pass
-    
+        print(f"proveedores vinculados actuales: {self.proveedores_vinculados}") 
+        item = self.ui.lista_proveedores_vinculados.currentItem()
+        if not item:
+            Mensaje().mensaje_informativo("Debes de seleccionar un elemento de la lista")
+            return
+        proveedor_id = item.data(Qt.UserRole)
+        self.ui.lista_proveedores_vinculados.takeItem(self.ui.lista_proveedores_vinculados.row(item))
+        if proveedor_id in self.proveedores_vinculados:
+            del self.proveedores_vinculados[proveedor_id]
+        print(f"proveedores vinculados finales: {self.proveedores_vinculados}")  
+              
     def eliminar_proveedor_a_vincular(self,):
         item = self.ui.lista_proveedores_a_vincular.currentItem()
         if not item:
@@ -614,6 +623,7 @@ class Admin_productosController(QWidget):
         proveedor_id = item.data(Qt.UserRole)
         self.ui.lista_proveedores_a_vincular.takeItem(self.ui.lista_proveedores_a_vincular.row(item))
         if proveedor_id in self.lista_proveedores_a_asignar:
+            
             del self.lista_proveedores_a_asignar[proveedor_id]
             
         print(self.lista_proveedores_a_asignar)
