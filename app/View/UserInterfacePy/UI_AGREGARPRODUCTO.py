@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_contenedor_agregar_productos(object):
     def setupUi(self, contenedor_agregar_productos):
         contenedor_agregar_productos.setObjectName("contenedor_agregar_productos")
-        contenedor_agregar_productos.resize(1169, 777)
+        contenedor_agregar_productos.resize(1163, 569)
         contenedor_agregar_productos.setStyleSheet("[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
 "}\n"
@@ -214,7 +214,7 @@ class Ui_contenedor_agregar_productos(object):
         self.contenedor_formulario_izquierda.setWidgetResizable(True)
         self.contenedor_formulario_izquierda.setObjectName("contenedor_formulario_izquierda")
         self.contenedor_scroll_formulario = QtWidgets.QWidget()
-        self.contenedor_scroll_formulario.setGeometry(QtCore.QRect(0, 0, 1163, 747))
+        self.contenedor_scroll_formulario.setGeometry(QtCore.QRect(0, 0, 1143, 703))
         self.contenedor_scroll_formulario.setObjectName("contenedor_scroll_formulario")
         self.gridLayout_11 = QtWidgets.QGridLayout(self.contenedor_scroll_formulario)
         self.gridLayout_11.setObjectName("gridLayout_11")
