@@ -35,6 +35,7 @@ class Admin_productosController(QWidget):
         self.ui.contenedor_proveedores_vinculados.hide()
         self.ui.btn_btn_actualizar_producto.hide()
         self.ui.contenedor_proveedores_existentes.hide()
+        self.ui.contenedor_proveedores_a_vincular.hide()
         self.ui.txt_codBarras.setFocus()
         
         pantalla = self.frameGeometry()
@@ -360,6 +361,7 @@ class Admin_productosController(QWidget):
             return
         self.ui.contenedor_proveedores_vinculados.show()
         self.ui.contenedor_proveedores_existentes.show()
+        self.ui.contenedor_proveedores_a_vincular.show()
         self.ui.txt_proveedor.hide()
         self.ui.etiqueta_proveedor.hide()
         
