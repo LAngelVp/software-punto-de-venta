@@ -95,12 +95,66 @@ class ProductosModel:
             )
             
             self.session.add(producto)
-            self.session.flush()  # Asegurarse de que el producto se agregue correctamente
-
+            self.session.flush()
             return producto, True
         except Exception as e:
             print(f"Error al agregar producto: {e}")
             return None, False
+        
+    def actualizar_producto(self,
+                            codigo_upc,
+                            nombre_producto,
+                            descripcion_producto,
+                            costo_inicial,
+                            costo_final,
+                            precio,
+                            existencia,
+                            existencia_minima,
+                            existencia_maxima,
+                            marca,
+                            modelo,
+                            peso,
+                            dimensiones,
+                            color,
+                            material,
+                            fecha_fabricacion,
+                            fecha_vencimiento,
+                            imagen,
+                            notas,
+                            presentacion_producto_id,
+                            unidad_medida_productos_id,
+                            categoria_id,
+                            sucursales,
+                            proveedores
+                        ):
+        producto_actual = self.session.query(Productos).filter(Productos.codigo_upc == codigo_upc).first()
+        if not producto_actual:
+            return None, False
+        
+        producto_actual.nombre_producto = nombre_producto
+        producto_actual.descripcion_producto = descripcion_producto
+        producto_actual.costo_inicial = costo_inicial
+        producto_actual.costo_final = costo_final
+        producto_actual.precio = precio
+        producto_actual.existencia = existencia
+        producto_actual.existencia_minima = existencia_minima
+        producto_actual.existencia_maxima = existencia_maxima
+        producto_actual.marca = marca
+        producto_actual.modelo = modelo
+        producto_actual.peso = peso
+        producto_actual.dimensiones = dimensiones
+        producto_actual.color = color
+        producto_actual.material = material
+        producto_actual.fecha_fabricacion = fecha_fabricacion
+        producto_actual.fecha_vencimiento = fecha_vencimiento
+        producto_actual.imagen = imagen
+        producto_actual.notas = notas
+        producto_actual.presentacion_producto_id = presentacion_producto_id
+        producto_actual.unidad_medida_productos_id = unidad_medida_productos_id
+        producto_actual.categoria_id = categoria_id
+        producto_actual.sucursales = sucursales
+        producto_actual.proveedores = proveedores
+        return producto_actual, True
         
     def obtener_productos(self):
         productos = self.session.query(Productos).options(
