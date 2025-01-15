@@ -353,9 +353,15 @@ class Admin_productosController(QWidget):
             print(f"Error al guardar producto: {e}")
 
     def __actualizar_producto(self):
-        pass
+        if not self.producto:
+            Mensaje().mensaje_informativo("No se selecciono ningun producto para actualizar")
+            return
+        datos_producto = self.datos_campos()
+        
     
     def __cargar_datos_en_campos(self, producto):
+        self.ui.txt_codBarras.setEnabled(False)
+        self.producto = producto
         if producto is None:
             Mensaje().mensaje_informativo("No haz seleccionado ningun producto")
             return
