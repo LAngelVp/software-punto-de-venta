@@ -8,3 +8,4 @@ SQLAlchemy-Utils
 alembic
 bcrypt
 openpyxl
+asyncpg

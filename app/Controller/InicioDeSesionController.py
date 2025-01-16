@@ -72,9 +72,3 @@ class Login(QWidget):
 
     def minimizar(self):
         self.showMinimized()
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ui = Login()
-    ui.show()
-    sys.exit(app.exec())
