@@ -107,7 +107,7 @@ class Admin_productosController(QWidget):
             if estatus:
                 self.ui.cajaOpciones_presentacionProducto.clear()
                 for unidad in datos:
-                    self.ui.cajaOpciones_presentacionProducto.addItem(unidad.nombre, unidad.id)
+                    self.ui.cajaOpciones_presentacionProducto.addItem(unidad.nombre, unidad)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
 
     def listar_unidades_medida(self):
@@ -118,7 +118,7 @@ class Admin_productosController(QWidget):
             if estatus:
                 self.ui.cajaOpciones_unidadMedidaProducto.clear()
                 for unidad in datos:
-                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.unidad_medida, unidad.id)
+                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.unidad_medida, unidad)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
 
     def listar_categorias(self):
@@ -129,7 +129,7 @@ class Admin_productosController(QWidget):
             if estatus:
                 self.ui.cajaOpciones_categoriaProducto.clear()
                 for categoria in categorias:
-                    self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria.id)
+                    self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
 #########################
 #FUNCIONES-INTERACCION CON EL PRODUCTO
@@ -355,11 +355,46 @@ class Admin_productosController(QWidget):
             return
         datos_producto = self.datos_campos()
         todos_los_proveedores = self.proveedores_vinculados | self.lista_proveedores_a_asignar
+        
         for id_elemento, objeto in todos_los_proveedores.items():
             lista_proveedores_a_asignar.append(objeto)
-        
-            
-        
+        dimensiones = str(datos_producto["largo_dimensiones"]) + "-" + str(datos_producto["alto_dimensiones"]) + "-" + str(datos_producto["ancho_dimensiones"])
+        categoria_nombre = self.ui.cajaOpciones_categoriaProducto.currentText()
+        unidad_medida_nombre = self.ui.cajaOpciones_unidadMedidaProducto.currentText()
+        presentacion_nombre = self.ui.cajaOpciones_presentacionProducto.currentText()
+        print(datos_producto["categoria_producto"])
+        # with Conexion_base_datos() as db:
+        #     session = db.abrir_sesion()
+        #     with session.begin():
+        #         ProductosModel(session).actualizar_producto(
+        #             id_producto = self.producto.id,
+        #             codigo_upc = datos_producto["codigo_barras"],
+        #             nombre_producto = datos_producto["nombre"],
+        #             descripcion_producto = datos_producto["categoria_producto"],
+        #             costo_inicial = datos_producto["costo_inicial_producto"],
+        #             costo_final = datos_producto["costo_final_producto"],
+        #             precio = datos_producto["precio_venta_producto"],
+        #             existencia = datos_producto["existencia_producto"],
+        #             existencia_minima = datos_producto["existencia_min_producto"],
+        #             existencia_maxima = datos_producto["existencia_max_producto"],
+        #             marca = datos_producto["marca_producto"],
+        #             modelo = datos_producto["modelo_producto"],
+        #             peso = datos_producto["peso_producto"],
+        #             dimensiones = dimensiones,
+        #             color = datos_producto["color_producto"],
+        #             material = datos_producto["material_producto"],
+        #             fecha_fabricacion = datos_producto["fecha_fabricacion_producto"],
+        #             fecha_vencimiento = datos_producto["fecha_vencimiento_producto"],
+        #             imagen = self.imagenProducto if self.imagenProducto else None,
+        #             notas = datos_producto["notas_producto"],
+        #             presentacion_producto_id = datos_producto["presentacion_producto"].id,
+        #             unidad_medida_productos_id = datos_producto["unidad_medida_producto"].id,
+        #             categoria_id = datos_producto["categoria_producto"].id,
+        #             sucursales = [],
+        #             proveedores = lista_proveedores_a_asignar
+        #         )
+        # self.PRODUCTOS_AGREGADOS.emit()
+        # self.close()
     
     def __cargar_datos_en_campos(self, producto):
         self.ui.txt_codBarras.setEnabled(False)
@@ -444,6 +479,8 @@ class Admin_productosController(QWidget):
                     caja_categorias.removeItem(indice)
 
                 caja_categorias.insertItem(0, area_nombre)
+                
+                caja_categorias.setItemData(0, producto.categoria)
 
                 caja_categorias.setCurrentIndex(0)
         
@@ -457,6 +494,7 @@ class Admin_productosController(QWidget):
                     caja_medidas.removeItem(indice)
 
                 caja_medidas.insertItem(0, medida_nombre)
+                caja_medidas.setItemData(0, producto.unidad_medida_productos)
 
                 caja_medidas.setCurrentIndex(0)
         
@@ -470,6 +508,8 @@ class Admin_productosController(QWidget):
                     caja_presentaciones.removeItem(indice)
 
                 caja_presentaciones.insertItem(0, presentacion_nombre)
+                
+                caja_presentaciones.setItemData(0, producto.presentacion_productos)
 
                 caja_presentaciones.setCurrentIndex(0)
 
@@ -515,6 +555,8 @@ class Admin_productosController(QWidget):
 
     def listar_proveedores_existentes(self):
         self.ui.lista_todos_los_proveedores.clear()
+        print(f"proveedores vinculados {self.proveedores_vinculados}")
+        print(f"proveedores generales {self.proveedores}")
         self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
         if not self.proveedores_vinculados:  # Si proveedores vinculados está vacío
             # Mostrar todos los proveedores
@@ -528,15 +570,14 @@ class Admin_productosController(QWidget):
         else:
             # Si hay proveedores vinculados, listar sólo aquellos que no estén vinculados
             for proveedor_id, proveedor in self.proveedores.items():
-                for proveedor_vinculado_id, proveedor_vinculado in self.proveedores_vinculados.items():
+                # Comprobar si el proveedor ya está vinculado
+                if proveedor_id not in self.proveedores_vinculados:
                     proveedor_nombre = proveedor.nombre
-                    if proveedor_id != proveedor_vinculado_id:
-                        item = QListWidgetItem(proveedor_nombre)
-                        item.setIcon(self.icono_proveedor)
-                        item.setData(Qt.UserRole, proveedor)
-                        
-                        # Agregar el ítem a la lista
-                        self.ui.lista_todos_los_proveedores.addItem(item)
+                    item = QListWidgetItem(proveedor_nombre)
+                    item.setIcon(self.icono_proveedor)  # Establecer el ícono en el ítem
+                    item.setData(Qt.UserRole, proveedor)  # Establecer el proveedor como datos
+                    # Agregar el ítem a la lista
+                    self.ui.lista_todos_los_proveedores.addItem(item)
     
     def buscar_proveedor_existente(self):
         nombre = self.ui.txt_buscar_proveedor_a_vincular.text().upper().strip()
@@ -798,6 +839,7 @@ class Productos(QWidget):
                 self.AdminProductos = Admin_productosController()
                 self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR.emit(producto)
                 self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(self.AdminProductos.listar_proveedores_existentes)
+                self.AdminProductos.PRODUCTOS_AGREGADOS.connect(self.consultar_productos_db)
                 self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.emit()
                 self.AdminProductos.show()
         self.codigo_upc_producto = None

@@ -102,6 +102,7 @@ class ProductosModel:
             return None, False
         
     def actualizar_producto(self,
+                            id_producto,
                             codigo_upc,
                             nombre_producto,
                             descripcion_producto,
@@ -153,7 +154,17 @@ class ProductosModel:
         producto_actual.unidad_medida_productos_id = unidad_medida_productos_id
         producto_actual.categoria_id = categoria_id
         producto_actual.sucursales = sucursales
-        producto_actual.proveedores = proveedores
+        # Limpiar la relación de proveedores
+        producto_actual.proveedores = []  # Limpiar la lista de proveedores
+
+        # Usar `session.merge()` para asegurarse de que no haya duplicados
+        proveedores_fusionados = []
+        for proveedor in proveedores:
+            proveedor_fusionado = self.session.merge(proveedor)  # Fusionar proveedor si ya está en la sesión
+            proveedores_fusionados.append(proveedor_fusionado)
+        
+        producto_actual.proveedores = proveedores_fusionados  # Asignar los proveedores fusionados
+
         return producto_actual, True
         
     def obtener_productos(self):
