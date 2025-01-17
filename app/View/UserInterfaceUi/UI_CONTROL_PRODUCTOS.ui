@@ -323,7 +323,14 @@ border-bottom:2px solid #023375;
                </widget>
               </item>
               <item>
-               <widget class="QLineEdit" name="txt_buscar"/>
+               <widget class="QLineEdit" name="txt_buscar">
+                <property name="placeholderText">
+                 <string>Nombre del producto</string>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QPushButton" name="btn_btn_buscar">

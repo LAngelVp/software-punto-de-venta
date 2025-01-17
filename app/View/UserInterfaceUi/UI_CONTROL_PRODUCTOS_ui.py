@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PRODUCTOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -209,6 +209,7 @@ class Ui_Control_Productos(object):
         self.etiqueta_buscar.setObjectName("etiqueta_buscar")
         self.horizontalLayout_2.addWidget(self.etiqueta_buscar)
         self.txt_buscar = QtWidgets.QLineEdit(self.contenedor_tabla)
+        self.txt_buscar.setClearButtonEnabled(True)
         self.txt_buscar.setObjectName("txt_buscar")
         self.horizontalLayout_2.addWidget(self.txt_buscar)
         self.btn_btn_buscar = QtWidgets.QPushButton(self.contenedor_tabla)
@@ -232,6 +233,7 @@ class Ui_Control_Productos(object):
         self.btn_btn_agregar.setText(_translate("Control_Productos", "AGREGAR"))
         self.btn_btn_eliminar.setText(_translate("Control_Productos", "ELIMINAR"))
         self.btn_btn_modificar.setText(_translate("Control_Productos", "EDITAR"))
+        self.txt_buscar.setPlaceholderText(_translate("Control_Productos", "Nombre del producto"))
         self.btn_btn_buscar.setText(_translate("Control_Productos", "Buscar"))
 import ibootstrap_rc
 import iconosSVG_rc

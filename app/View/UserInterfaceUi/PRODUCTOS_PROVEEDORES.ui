@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>contenedor_productos_proveedores</class>
+ <widget class="QWidget" name="contenedor_productos_proveedores">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>834</width>
+    <height>473</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">[objectName*=&quot;contenedor&quot;]{
+background: #fffefb;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+font-size:14px;
+font-family: Arial;
+font-weight:bold;
+color: #1d1c1c;
+}
+[objectName*=&quot;txt_&quot;]{
+background: #F5F5F5;
+border:none;
+border-radius: 5px;
+color: #1d1c1c;
+font-size: 14px;
+border-bottom: 1px solid #787878;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;btn_btn&quot;]{
+background: #00619a;
+font-size: 14px;
+font-family: Arial;
+font-weight: bold;
+min-height: 25px;
+border: none;
+border-radius: 5px;
+color: #fffefb;
+padding: 3px 10px;
+}
+[objectName*=&quot;btn_btn&quot;]:hover{
+background: #2196F3;
+}
+[objectName*=&quot;btn_btn&quot;]:pressed{
+background: #1B80D0;
+}
+[objectName*=&quot;btn_btn_eliminar&quot;]:hover{
+background: #ee1d52;
+}
+[objectName*=&quot;btn_btn_eliminar&quot;]:pressed{
+background: #B13636;
+}
+[objectName*=&quot;btn_btn_agregar&quot;]:hover{
+background: #68a67d;
+}
+[objectName*=&quot;btn_btn_agregar&quot;]:pressed{
+background: #578B69;
+}
+[objectName^=&quot;cajaopciones_&quot;]{
+border: none;
+border-bottom: 1px solid rgb(29, 28, 28);
+borde-radius: 5px;
+padding: 2px;
+background-color: #f5f4f1;
+borde-radius: 5px;
+font-size: 14px;
+min-width:120px;
+}
+[objectName^=&quot;cajaopciones_&quot;]::drop-down{
+subcontrol-origin: padding;
+subcontrol-position: top right;
+padding-right:5px;
+width: 20%;
+border-left-width: 1px;
+borde-radius: 5px;
+background-color: #f5f4f1;
+}
+[objectName^=&quot;cajaopciones_&quot;]::down-arrow{
+image: url(:/Icons/Bootstrap/filter-left.svg);
+width: 17%;
+height: 17%;
+padding-left:5px;
+padding-right:5px;
+}
+[objectName*=&quot;tabla_&quot;] {
+    font-family: Arial;
+    font-size: 14px;
+}
+/* Encabezados de la tabla */
+[objectName*=&quot;tabla_&quot;] QHeaderView::section {
+    background-color: #023375;
+    color: white;
+    font-family: &quot;Arial&quot;;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+/* Encabezado horizontal */
+[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
+    background-color: #023375;
+    color: white;
+}
+
+/* Encabezado vertical */
+[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
+    background-color: #023375;
+    color: white;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QScrollArea" name="contenedor_scrollarea">
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="contenedor_contenido_scrollarea">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>832</width>
+        <height>471</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QTabWidget" name="contenedor_tabs">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="contenedor_tab_productos_de_proveedor">
+          <attribute name="icon">
+           <iconset resource="../../Source/ibootstrap.qrc">
+            <normaloff>:/Icons/Bootstrap/box-seam.svg</normaloff>:/Icons/Bootstrap/box-seam.svg</iconset>
+          </attribute>
+          <attribute name="title">
+           <string>Productos del Proveedor</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <widget class="QFrame" name="contenedor_productos_proveedor">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="horizontalSpacing">
+               <number>0</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>10</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QFrame" name="contenedor_botones_superior">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_4">
+                 <item row="0" column="3" alignment="Qt::AlignRight">
+                  <widget class="QPushButton" name="btn_btn_editar_producto_del_proveedor">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="text">
+                    <string>Editar</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="../../Source/iconosSVG.qrc">
+                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="0" column="2">
+                  <widget class="QPushButton" name="btn_btn_eliminar_producto_del_proveedor">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="text">
+                    <string>Quitar</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="../../Source/iconosSVG.qrc">
+                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/cerrar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/cerrar_blanco.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QPushButton" name="btn_btn_actualizar_tabla_productos_del_proveedor">
+                   <property name="text">
+                    <string>Actualizar Tabla</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="../../Source/iconosSVG.qrc">
+                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <property name="spacing">
+                 <number>10</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="etiqueta_nombre_producto">
+                  <property name="text">
+                   <string>Buscar Producto</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="cajaopciones_filtro_nombre">
+                  <item>
+                   <property name="text">
+                    <string>Igual A</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Que Contenga</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="txt_nombre_producto">
+                  <property name="placeholderText">
+                   <string>Nombre del Producto</string>
+                  </property>
+                  <property name="clearButtonEnabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <widget class="QTableView" name="tabla_productos_del_proveedor">
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+                <attribute name="verticalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="contenedor_tab_productos_de_sistema">
+          <attribute name="icon">
+           <iconset resource="../../Source/ibootstrap.qrc">
+            <normaloff>:/Icons/Bootstrap/boxes.svg</normaloff>:/Icons/Bootstrap/boxes.svg</iconset>
+          </attribute>
+          <attribute name="title">
+           <string>Productos del Sistema</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_6">
+           <item row="0" column="0">
+            <widget class="QFrame" name="contenedor_contenido_tab_productos_del_sistema">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <property name="spacing">
+               <number>10</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QFrame" name="contenedor_botones_superior_productos_del_sistema">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_7">
+                 <item row="0" column="0">
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>577</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="QPushButton" name="btn_btn_agregar_producto_al_proveedor">
+                   <property name="cursor">
+                    <cursorShape>PointingHandCursor</cursorShape>
+                   </property>
+                   <property name="text">
+                    <string>Vincular al proveedor</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="../../Source/iconosSVG.qrc">
+                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/vincular.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/vincular.svg</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_2">
+                <item>
+                 <widget class="QLabel" name="etiqueta_nombreproducto_del_sistema">
+                  <property name="text">
+                   <string>Nombre del Producto:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="cajaopciones_filtro_nombre_productos_del_sistema">
+                  <item>
+                   <property name="text">
+                    <string>Es Igual</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Que Contenga</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="txt_nombre_productodelsistema">
+                  <property name="placeholderText">
+                   <string>Nombre del Producto</string>
+                  </property>
+                  <property name="clearButtonEnabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <widget class="QTableView" name="tabla_productos_del_sistema"/>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconosSVG.qrc"/>
+ </resources>
+ <connections/>
+</ui>

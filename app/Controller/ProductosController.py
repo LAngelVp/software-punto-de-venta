@@ -359,42 +359,38 @@ class Admin_productosController(QWidget):
         for id_elemento, objeto in todos_los_proveedores.items():
             lista_proveedores_a_asignar.append(objeto)
         dimensiones = str(datos_producto["largo_dimensiones"]) + "-" + str(datos_producto["alto_dimensiones"]) + "-" + str(datos_producto["ancho_dimensiones"])
-        categoria_nombre = self.ui.cajaOpciones_categoriaProducto.currentText()
-        unidad_medida_nombre = self.ui.cajaOpciones_unidadMedidaProducto.currentText()
-        presentacion_nombre = self.ui.cajaOpciones_presentacionProducto.currentText()
-        print(datos_producto["categoria_producto"])
-        # with Conexion_base_datos() as db:
-        #     session = db.abrir_sesion()
-        #     with session.begin():
-        #         ProductosModel(session).actualizar_producto(
-        #             id_producto = self.producto.id,
-        #             codigo_upc = datos_producto["codigo_barras"],
-        #             nombre_producto = datos_producto["nombre"],
-        #             descripcion_producto = datos_producto["categoria_producto"],
-        #             costo_inicial = datos_producto["costo_inicial_producto"],
-        #             costo_final = datos_producto["costo_final_producto"],
-        #             precio = datos_producto["precio_venta_producto"],
-        #             existencia = datos_producto["existencia_producto"],
-        #             existencia_minima = datos_producto["existencia_min_producto"],
-        #             existencia_maxima = datos_producto["existencia_max_producto"],
-        #             marca = datos_producto["marca_producto"],
-        #             modelo = datos_producto["modelo_producto"],
-        #             peso = datos_producto["peso_producto"],
-        #             dimensiones = dimensiones,
-        #             color = datos_producto["color_producto"],
-        #             material = datos_producto["material_producto"],
-        #             fecha_fabricacion = datos_producto["fecha_fabricacion_producto"],
-        #             fecha_vencimiento = datos_producto["fecha_vencimiento_producto"],
-        #             imagen = self.imagenProducto if self.imagenProducto else None,
-        #             notas = datos_producto["notas_producto"],
-        #             presentacion_producto_id = datos_producto["presentacion_producto"].id,
-        #             unidad_medida_productos_id = datos_producto["unidad_medida_producto"].id,
-        #             categoria_id = datos_producto["categoria_producto"].id,
-        #             sucursales = [],
-        #             proveedores = lista_proveedores_a_asignar
-        #         )
-        # self.PRODUCTOS_AGREGADOS.emit()
-        # self.close()
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                ProductosModel(session).actualizar_producto(
+                    id_producto = self.producto.id,
+                    codigo_upc = datos_producto["codigo_barras"],
+                    nombre_producto = datos_producto["nombre"],
+                    descripcion_producto = datos_producto["descripcion_producto"],
+                    costo_inicial = datos_producto["costo_inicial_producto"],
+                    costo_final = datos_producto["costo_final_producto"],
+                    precio = datos_producto["precio_venta_producto"],
+                    existencia = datos_producto["existencia_producto"],
+                    existencia_minima = datos_producto["existencia_min_producto"],
+                    existencia_maxima = datos_producto["existencia_max_producto"],
+                    marca = datos_producto["marca_producto"],
+                    modelo = datos_producto["modelo_producto"],
+                    peso = datos_producto["peso_producto"],
+                    dimensiones = dimensiones,
+                    color = datos_producto["color_producto"],
+                    material = datos_producto["material_producto"],
+                    fecha_fabricacion = datos_producto["fecha_fabricacion_producto"],
+                    fecha_vencimiento = datos_producto["fecha_vencimiento_producto"],
+                    imagen = self.imagenProducto if self.imagenProducto else None,
+                    notas = datos_producto["notas_producto"],
+                    presentacion_producto_id = datos_producto["presentacion_producto"].id,
+                    unidad_medida_productos_id = datos_producto["unidad_medida_producto"].id,
+                    categoria_id = datos_producto["categoria_producto"].id,
+                    sucursales = [],
+                    proveedores = lista_proveedores_a_asignar
+                )
+        self.PRODUCTOS_AGREGADOS.emit()
+        self.close()
     
     def __cargar_datos_en_campos(self, producto):
         self.ui.txt_codBarras.setEnabled(False)
@@ -424,15 +420,15 @@ class Admin_productosController(QWidget):
                 presentaciones, estatuspresentacion = ProductosModel(session).obtener_presentaciones()
             if estatuscategoria:
                 for cate in categorias:
-                    self.ui.cajaOpciones_categoriaProducto.addItem(cate.nombre, cate.id)
+                    self.ui.cajaOpciones_categoriaProducto.addItem(cate.nombre, cate)
                     AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
             if estatusmedida:
                 for medida in unidadades_medida:
-                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(medida.unidad_medida, medida.id)
+                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(medida.unidad_medida, medida)
                     AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
             if estatuspresentacion:
                 for presentacion in presentaciones:
-                    self.ui.cajaOpciones_presentacionProducto.addItem(presentacion.nombre, presentacion.id)
+                    self.ui.cajaOpciones_presentacionProducto.addItem(presentacion.nombre, presentacion)
                     AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
         self.ui.txt_codBarras.setText(producto.codigo_upc)
         self.ui.txt_nombreProducto.setText(producto.nombre_producto)
@@ -695,7 +691,6 @@ class Admin_productosController(QWidget):
             
             del self.lista_proveedores_a_asignar[proveedor.id]
 
-    
     def agregarCSV(self):
         # Leer el archivo CSV
         df = self.__leer_archivo_csv()
@@ -785,6 +780,7 @@ class Productos(QWidget):
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_producto)
         self.ui.btn_btn_modificar.clicked.connect(self.modificar_producto)
         self.ui.btn_btn_buscar.clicked.connect(self.buscar_producto)
+        
         
         self.seleccion_conectada_productos = None
         self.codigo_upc_producto = None

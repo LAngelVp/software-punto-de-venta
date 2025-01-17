@@ -14,7 +14,7 @@ from app.Model.RepresentanteProveedorModel import RepresentanteProveedorModel
 from app.Model.BaseDatosModel import Proveedores
 from app.Controller.MensajesAlertasController import *
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
-import logging
+from .Productos_del_Proveedor import *
 
 class Control_proveedores(QWidget):
     proveedor_seleccionado = pyqtSignal(str)
@@ -32,6 +32,7 @@ class Control_proveedores(QWidget):
         self.ui.btn_btn_guardar.clicked.connect(self.control_agregar_proveedor)
         self.ui.btn_btn_limpiardatos.clicked.connect(self.limpiar_campos)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_proveedor)
+        self.ui.btn_btn_listadeproductoyprecios.clicked.connect(self.mostrar_productos_y_precios)
         self.ui.txtlargo_descripcioncategoria.setReadOnly(True)
 
         self.ui.btn_btn_buscarproveedor.clicked.connect(self.buscar_proveedor)
@@ -47,6 +48,13 @@ class Control_proveedores(QWidget):
         self.seleccion_conectada_proveedores = None
         self.lista_categorias = {}
 
+    def mostrar_productos_y_precios(self):
+        if not self.id_proveedor:
+            Mensaje().mensaje_informativo("No haz seleccionado un proveedor para poder visualizar la lista de productos y precios.")
+            return
+        self.ventana_productos_precios = Productos_de_proveedorController()
+        self.ventana_productos_precios.show()
+    
     def mostrar_categorias(self):
         try:
             with Conexion_base_datos() as db:
@@ -235,6 +243,7 @@ class Control_proveedores(QWidget):
 
             if proveedores is None:
                 self.modelo_tabla_proveedores_vproveedores.setHorizontalHeaderLabels([
+                    "id",
                     "Nombre",
                     "País",
                     "Estado",
@@ -253,6 +262,7 @@ class Control_proveedores(QWidget):
                 return
             
             nombre_columnas = [
+                "id",
                 "Nombre",
                 "País",
                 "Estado",

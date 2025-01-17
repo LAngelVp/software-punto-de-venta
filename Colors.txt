@@ -20,6 +20,7 @@ pyuic5 UI_ADMINISTRAR_PUESTOS.ui -o ../userinterfacepy/UI_ADMINISTRAR_PUESTOS.py
 pyuic5 UI_CONTROL_DEPARTAMENTOS.ui -o ../userinterfacepy/UI_CONTROL_DEPARTAMENTOS.py
 pyuic5 UI_CONTROL_ROLES.ui -o ../userinterfacepy/UI_CONTROL_ROLES.py
 pyuic5 UI_AGREGARPRODUCTO.ui -o ../UserInterfacePy/UI_AGREGARPRODUCTO.py
+pyuic5 PRODUCTOS_PROVEEDORES.ui -o ../UserInterfacePy/PRODUCTOS_PROVEEDORES.py
 
 
 DROP SCHEMA public CASCADE;
