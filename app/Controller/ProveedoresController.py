@@ -47,6 +47,8 @@ class Control_proveedores(QWidget):
         self.representante = None
         self.seleccion_conectada_proveedores = None
         self.lista_categorias = {}
+        
+        self.PROVEEDOR_SELECCIONADO_SIGNAL.connect(self.cargar_datos_proveedor)
 
     def mostrar_productos_y_precios(self):
         if not self.proveedor_seleccionado:
@@ -421,12 +423,13 @@ class Control_proveedores(QWidget):
                 proveedor = elemento.data(Qt.UserRole)
                 if proveedor:
                     self.proveedor_seleccionado = proveedor
-                    self.PROVEEDOR_SELECCIONADO_SIGNAL.connect(self.cargar_datos_proveedor)
+                    
                     self.PROVEEDOR_SELECCIONADO_SIGNAL.emit(self.proveedor_seleccionado)
             else:
                 return
 
     def cargar_datos_proveedor(self, proveedor):
+        print(proveedor)
         # Cargar los datos en la UI
         self.ui.txt_nombre.setText(proveedor.nombre)
         self.ui.txt_pais.setText(proveedor.pais)
