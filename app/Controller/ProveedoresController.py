@@ -17,7 +17,7 @@ from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from .Productos_del_Proveedor import *
 
 class Control_proveedores(QWidget):
-    proveedor_seleccionado = pyqtSignal(str)
+    PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
     def __init__(self):
         super().__init__()
         self.ui = Ui_Control_Proveedores()
@@ -42,18 +42,19 @@ class Control_proveedores(QWidget):
         
 
         self.proveedores = None
-        self.id_proveedor = None
+        self.proveedor_seleccionado = None
         self.id_categoria = None
         self.representante = None
         self.seleccion_conectada_proveedores = None
         self.lista_categorias = {}
 
     def mostrar_productos_y_precios(self):
-        if not self.id_proveedor:
+        if not self.proveedor_seleccionado:
             Mensaje().mensaje_informativo("No haz seleccionado un proveedor para poder visualizar la lista de productos y precios.")
             return
-        self.ventana_productos_precios = Productos_de_proveedorController()
-        self.ventana_productos_precios.show()
+        if self.proveedor_seleccionado:
+            self.ventana_productos_precios = Productos_de_proveedorController(self.proveedor_seleccionado)
+            self.ventana_productos_precios.show()
     
     def mostrar_categorias(self):
         try:
@@ -103,7 +104,7 @@ class Control_proveedores(QWidget):
         self.ui.txt_puestorepresentante.clear()
         self.ui.btnradio_representantefalse.setChecked(True)
         self.ui.btnradio_representantetrue.setChecked(False)
-        self.id_proveedor = None
+        self.proveedor_seleccionado = None
         self.representante = None
         self.mostrar_categorias()
 
@@ -219,6 +220,7 @@ class Control_proveedores(QWidget):
         self.limpiar_campos()
 
     def listar_proveedores_tabla(self):
+        estado = False
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -226,8 +228,8 @@ class Control_proveedores(QWidget):
                     self.proveedores, estado = ProveedoresModel(session).obtener_proveedores()
                 except Exception as e:
                     Mensaje().mensaje_critico(f"Error al listar proveedores: {e}")
-            
-            self.llenar_tabla_proveedores(self.proveedores)
+            if estado:
+                self.llenar_tabla_proveedores(self.proveedores)
 
     def llenar_tabla_proveedores(self, proveedores):
         try:
@@ -300,6 +302,8 @@ class Control_proveedores(QWidget):
                     ]
 
                 items = [QStandardItem(item) for item in row_data]
+                for item in items:
+                    item.setData(proveedor, Qt.UserRole)
                 self.modelo_tabla_proveedores_vproveedores.appendRow(items)
 
             self.ui.tabla_proveedores.setModel(self.modelo_tabla_proveedores_vproveedores)
@@ -307,11 +311,11 @@ class Control_proveedores(QWidget):
 
             # Desconectar la señal antes de conectar
             if self.seleccion_conectada_proveedores:
-                self.ui.tabla_proveedores.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_proveedores)
+                self.ui.tabla_proveedores.selectionModel().currentChanged.disconnect(self.obtener_proveedor_seleccionado_tabla)
                 self.seleccion_conectada_proveedores = False  # Actualizar el estado
 
             # Conectar la señal a la función que obtiene el ID del elemento seleccionado
-            self.ui.tabla_proveedores.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_proveedores)
+            self.ui.tabla_proveedores.selectionModel().currentChanged.connect(self.obtener_proveedor_seleccionado_tabla)
             self.seleccion_conectada_proveedores = True  # Marcar como conectada
 
         except Exception as e:
@@ -336,7 +340,7 @@ class Control_proveedores(QWidget):
             Mensaje().mensaje_alerta(f"Completa los siguientes campos: {campos_faltantes}.")
             return  # Salir de la función si los datos no están completos
 
-        if self.id_proveedor:  # Verifica si hay un ID de proveedor para actualizar
+        if self.proveedor_seleccionado.id:  # Verifica si hay un ID de proveedor para actualizar
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
@@ -348,7 +352,7 @@ class Control_proveedores(QWidget):
                             return
 
                         # Buscar el proveedor por su ID
-                        proveedor_modelo, estado = ProveedoresModel(session).obtener_proveedor_id(self.id_proveedor)
+                        proveedor_modelo, estado = ProveedoresModel(session).obtener_proveedor_id(self.proveedor_seleccionado.id)
                         if not proveedor_modelo:
                             Mensaje().mensaje_alerta(cuerpo="El proveedor no existe.")
                             return
@@ -391,7 +395,7 @@ class Control_proveedores(QWidget):
 
                         # Actualizar los datos del proveedor
                         ProveedoresModel(session).actualizar_proveedor(
-                            proveedor_id=self.id_proveedor,
+                            proveedor_id=self.proveedor_seleccionado.id,
                             categoria_id=categoria_id,
                             representante_id=representante_dato.id if representante_dato else None,  # Usamos None si no hay representante
                             **datos_proveedor
@@ -407,77 +411,67 @@ class Control_proveedores(QWidget):
             self.listar_proveedores_tabla()
             self.limpiar_campos()
 
-    def obtener_id_elemento_tabla_proveedores(self, current, previus):
+    def obtener_proveedor_seleccionado_tabla(self, current, previus):
         self.limpiar_campos()
         # Verifica si la celda seleccionada está en la primera columna
         if current.column() > 0:  # Verifica si es la primera columna
             indice_fila = current.row()
             elemento = self.modelo_tabla_proveedores_vproveedores.item(indice_fila, 0)
             if elemento is not None:
-                self.id_proveedor= None
-                self.id_proveedor = elemento.text()
-                self.proveedor_seleccionado.connect(self.cargar_datos_proveedor)
-                self.proveedor_seleccionado.emit(self.id_proveedor)
+                proveedor = elemento.data(Qt.UserRole)
+                if proveedor:
+                    self.proveedor_seleccionado = proveedor
+                    self.PROVEEDOR_SELECCIONADO_SIGNAL.connect(self.cargar_datos_proveedor)
+                    self.PROVEEDOR_SELECCIONADO_SIGNAL.emit(self.proveedor_seleccionado)
             else:
                 return
 
-    def cargar_datos_proveedor(self, id_proveedor):
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                try:
-                    proveedor, estado = ProveedoresModel(session).obtener_proveedor_id(id_proveedor)
-                    if estado == False:
-                        self.mostrar_error(f"No se encontró el proveedor con ID: {id_proveedor}")
-                        return
-                    
-                    # Cargar los datos en la UI
-                    self.ui.txt_nombre.setText(proveedor.nombre)
-                    self.ui.txt_pais.setText(proveedor.pais)
-                    self.ui.txt_estado.setText(proveedor.estado)
-                    self.ui.txt_ciudad.setText(proveedor.ciudad)
-                    self.ui.txt_codigopostal.setText(proveedor.codigo_postal)
-                    self.ui.txt_calles.setText(proveedor.calles)
-                    self.ui.txt_avenida.setText(proveedor.avenidas)
-                    self.ui.txt_colonia.setText(proveedor.colonia)
-                    self.ui.txtlargo_direccionadicional.setPlainText(proveedor.direccion_adicional)
-                    self.ui.txt_rfc.setText(proveedor.rfc)
-                    self.ui.txt_web.setText(proveedor.pagina_web)
-                    self.ui.txt_correo.setText(proveedor.correo)
-                    self.ui.txt_telefono.setText(proveedor.telefono)
+    def cargar_datos_proveedor(self, proveedor):
+        # Cargar los datos en la UI
+        self.ui.txt_nombre.setText(proveedor.nombre)
+        self.ui.txt_pais.setText(proveedor.pais)
+        self.ui.txt_estado.setText(proveedor.estado)
+        self.ui.txt_ciudad.setText(proveedor.ciudad)
+        self.ui.txt_codigopostal.setText(proveedor.codigo_postal)
+        self.ui.txt_calles.setText(proveedor.calles)
+        self.ui.txt_avenida.setText(proveedor.avenidas)
+        self.ui.txt_colonia.setText(proveedor.colonia)
+        self.ui.txtlargo_direccionadicional.setPlainText(proveedor.direccion_adicional)
+        self.ui.txt_rfc.setText(proveedor.rfc)
+        self.ui.txt_web.setText(proveedor.pagina_web)
+        self.ui.txt_correo.setText(proveedor.correo)
+        self.ui.txt_telefono.setText(proveedor.telefono)
 
-                    if proveedor.categorias:
-                        # Obtener el QComboBox
-                        caja_categorias = self.ui.cajaopciones_categorias
-                        caja_categorias.clear()  # Limpiar elementos existentes
+        if proveedor.categorias:
+            # Obtener el QComboBox
+            caja_categorias = self.ui.cajaopciones_categorias
+            caja_categorias.clear()  # Limpiar elementos existentes
 
-                        # Crear un conjunto para rastrear categorías ya añadidas
-                        categorias_agregadas = set()
+            # Crear un conjunto para rastrear categorías ya añadidas
+            categorias_agregadas = set()
 
-                        for categoria in proveedor.categorias:
-                            categoria_nombre = categoria.nombre
-                            
-                            # Verificar si la categoría ya ha sido añadida
-                            if categoria_nombre not in categorias_agregadas:
-                                # Insertar la nueva categoría en la posición 0
-                                caja_categorias.insertItem(0, categoria_nombre)
-                                # Agregar la categoría al conjunto
-                                categorias_agregadas.add(categoria_nombre)
+            for categoria in proveedor.categorias:
+                categoria_nombre = categoria.nombre
+                
+                # Verificar si la categoría ya ha sido añadida
+                if categoria_nombre not in categorias_agregadas:
+                    # Insertar la nueva categoría en la posición 0
+                    caja_categorias.insertItem(0, categoria_nombre)
+                    # Agregar la categoría al conjunto
+                    categorias_agregadas.add(categoria_nombre)
 
-                    # Cargar representantes
-                    if proveedor.representante:
-                        self.ui.btnradio_representantetrue.setChecked(True)
-                        self.ui.txt_nombrerepresentante.setText(proveedor.representante.nombre)
-                        self.ui.txt_apellidopaternorepresen.setText(proveedor.representante.apellido_paterno)
-                        self.ui.txt_apellidomaternorepresen.setText(proveedor.representante.apellido_materno)
-                        self.ui.txt_correorepresentante.setText(proveedor.representante.correo)
-                        self.ui.txt_telefonorepresentante.setText(proveedor.representante.telefono)
-                        self.ui.txt_puestorepresentante.setText(proveedor.representante.puesto)
-                    else:
-                        self.ui.btnradio_representantefalse.setChecked(True)
-                        # self.ui.contenedor_datosrepresentante.hide()
-                except Exception as e:
-                    Mensaje().mensaje_critico("Error al obtener proveedor : " + str(e))
+        # Cargar representantes
+        if proveedor.representante:
+            self.ui.btnradio_representantetrue.setChecked(True)
+            self.ui.txt_nombrerepresentante.setText(proveedor.representante.nombre)
+            self.ui.txt_apellidopaternorepresen.setText(proveedor.representante.apellido_paterno)
+            self.ui.txt_apellidomaternorepresen.setText(proveedor.representante.apellido_materno)
+            self.ui.txt_correorepresentante.setText(proveedor.representante.correo)
+            self.ui.txt_telefonorepresentante.setText(proveedor.representante.telefono)
+            self.ui.txt_puestorepresentante.setText(proveedor.representante.puesto)
+        else:
+            self.ui.btnradio_representantefalse.setChecked(True)
+            # self.ui.contenedor_datosrepresentante.hide()
 
     def buscar_proveedor(self):
         texto = self.ui.txt_buscarproveedor.text()  # Obtener el texto del campo de búsqueda

@@ -1,3 +1,4 @@
+from sqlalchemy.orm import joinedload
 from .BaseDatosModel import Proveedores, Categorias_proveedores, Representantes_proveedores
 
 class ProveedoresModel:
@@ -77,7 +78,12 @@ class ProveedoresModel:
             return None
 
     def obtener_proveedores(self):
-        proveedores = self.session.query(Proveedores).all()
+        proveedores = self.session.query(Proveedores).options(
+            joinedload(Proveedores.categorias),  # Carga anticipada de las categorías
+            joinedload(Proveedores.productos),   # Carga anticipada de los productos
+            joinedload(Proveedores.representante),  # Carga anticipada del representante
+            joinedload(Proveedores.compras)  # Carga anticipada de las compras
+        ).all()
         if len(proveedores) > 0:
             return proveedores, True
         else:

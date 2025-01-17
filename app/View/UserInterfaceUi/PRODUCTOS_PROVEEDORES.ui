@@ -146,7 +146,7 @@ padding-right:5px;
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
+       <item row="1" column="0">
         <widget class="QTabWidget" name="contenedor_tabs">
          <property name="font">
           <font>
@@ -202,7 +202,7 @@ padding-right:5px;
                  <enum>QFrame::Raised</enum>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_4">
-                 <item row="0" column="3" alignment="Qt::AlignRight">
+                 <item row="1" column="3" alignment="Qt::AlignRight">
                   <widget class="QPushButton" name="btn_btn_editar_producto_del_proveedor">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
@@ -216,20 +216,18 @@ padding-right:5px;
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="0">
-                  <spacer name="horizontalSpacer">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                 <item row="1" column="1">
+                  <widget class="QPushButton" name="btn_btn_actualizar_tabla_productos_del_proveedor">
+                   <property name="text">
+                    <string>Actualizar Tabla</string>
                    </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>40</width>
-                     <height>20</height>
-                    </size>
+                   <property name="icon">
+                    <iconset resource="../../Source/iconosSVG.qrc">
+                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
                    </property>
-                  </spacer>
+                  </widget>
                  </item>
-                 <item row="0" column="2">
+                 <item row="1" column="2">
                   <widget class="QPushButton" name="btn_btn_eliminar_producto_del_proveedor">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
@@ -243,16 +241,18 @@ padding-right:5px;
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1">
-                  <widget class="QPushButton" name="btn_btn_actualizar_tabla_productos_del_proveedor">
-                   <property name="text">
-                    <string>Actualizar Tabla</string>
+                 <item row="1" column="0">
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
                    </property>
-                   <property name="icon">
-                    <iconset resource="../../Source/iconosSVG.qrc">
-                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
                    </property>
-                  </widget>
+                  </spacer>
                  </item>
                 </layout>
                </widget>
@@ -297,11 +297,23 @@ padding-right:5px;
               </item>
               <item row="2" column="0">
                <widget class="QTableView" name="tabla_productos_del_proveedor">
+                <property name="gridStyle">
+                 <enum>Qt::DashLine</enum>
+                </property>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>200</number>
+                </attribute>
+                <attribute name="horizontalHeaderMinimumSectionSize">
+                 <number>150</number>
+                </attribute>
                 <attribute name="horizontalHeaderStretchLastSection">
-                 <bool>true</bool>
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
                 </attribute>
                 <attribute name="verticalHeaderStretchLastSection">
-                 <bool>true</bool>
+                 <bool>false</bool>
                 </attribute>
                </widget>
               </item>
@@ -418,13 +430,33 @@ padding-right:5px;
                </layout>
               </item>
               <item row="2" column="0">
-               <widget class="QTableView" name="tabla_productos_del_sistema"/>
+               <widget class="QTableView" name="tabla_productos_del_sistema">
+                <property name="gridStyle">
+                 <enum>Qt::DashLine</enum>
+                </property>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>200</number>
+                </attribute>
+                <attribute name="horizontalHeaderMinimumSectionSize">
+                 <number>150</number>
+                </attribute>
+                <attribute name="verticalHeaderVisible">
+                 <bool>false</bool>
+                </attribute>
+               </widget>
               </item>
              </layout>
             </widget>
            </item>
           </layout>
          </widget>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="etiqueta_nombre_del_proveedor">
+         <property name="text">
+          <string/>
+         </property>
         </widget>
        </item>
       </layout>
