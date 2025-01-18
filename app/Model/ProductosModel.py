@@ -186,11 +186,16 @@ class ProductosModel:
             return True
         else:
             return False
-        
+    def consultar_por_nombre_exacto(self, nombre):
+        productos = self.session.query(Productos).filter(Productos.nombre_producto.like(nombre)).all()
+        if productos:
+            return productos, True
+        else:
+            return None, False
     def consultar_por_nombre(self, nombre):
-        producto = self.session.query(Productos).filter(Productos.nombre_producto.like(f"%{nombre}%")).all()
-        if producto:
-            return producto, True
+        productos = self.session.query(Productos).filter(Productos.nombre_producto.like(f"%{nombre}%")).all()
+        if productos:
+            return productos, True
         else:
             return None, False
         

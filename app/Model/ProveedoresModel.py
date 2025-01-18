@@ -1,5 +1,5 @@
 from sqlalchemy.orm import joinedload
-from .BaseDatosModel import Proveedores, Categorias_proveedores, Representantes_proveedores
+from .BaseDatosModel import Proveedores, Categorias_proveedores, Representantes_proveedores, Productos, producto_proveedor
 
 class ProveedoresModel:
     def __init__(self, session):
@@ -89,8 +89,6 @@ class ProveedoresModel:
         else:
             return  None, False
 
-
-    
     def obtener_nombre_proveedor(self, texto):
         try:
             texto_busqueda = f"%{texto}%"
@@ -190,3 +188,23 @@ class ProveedoresModel:
         except Exception as e:
             return False
 
+    def filtrar_productos_del_proveedor_exacto_nombre(self, proveedor_id, nombre):
+        productos = self.session.query(Productos).join(
+            producto_proveedor, Productos.id == producto_proveedor.c.producto_id
+        ).join(
+            Proveedores, Proveedores.id == producto_proveedor.c.proveedor_id
+        ).filter(
+            Productos.nombre_producto == nombre,
+            Proveedores.id == proveedor_id
+        ).all()
+        
+        if productos:
+            return productos, True
+        else:
+            return None, False
+    # def filtrar_productos_del_proveedor_nombre(self, nombre):
+    #     productos = self.session.query(Productos).filter(Productos.nombre_producto.like(f"%{nombre}%")).all()
+    #     if productos:
+    #         return productos, True
+    #     else:
+    #         return None, False
