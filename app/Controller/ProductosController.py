@@ -325,9 +325,9 @@ class Admin_productosController(QWidget):
                         fecha_vencimiento=producto["fecha_vencimiento"],
                         imagen=self.imagenProducto if self.imagenProducto else None,  # Imagen (si está disponible)
                         notas=producto["notas"],
-                        presentacion_producto_id=producto["presentacion"],  
-                        unidad_medida_productos_id=producto["unidad_medida"],  
-                        categoria_id=producto["categoria"],  
+                        presentacion_producto_id=producto["presentacion"].id,  
+                        unidad_medida_productos_id=producto["unidad_medida"].id,  
+                        categoria_id=producto["categoria"].id,  
                         sucursales=[],  # Puedes pasar las sucursales como una lista vacía si no las tienes
                         proveedores=proveedores  # Pasamos una lista de proveedores
                     )

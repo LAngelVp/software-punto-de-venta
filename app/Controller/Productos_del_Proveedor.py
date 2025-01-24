@@ -10,6 +10,7 @@ from .MensajesAlertasController import Mensaje
 class Productos_de_proveedorController(QWidget):
     PRODUCTO_DE_PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
     PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL=pyqtSignal(object)
+    PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL=pyqtSignal(object)
     def __init__(self, proveedor):
         super().__init__()
         self.ui = Ui_contenedor_productos_proveedores()
@@ -27,6 +28,9 @@ class Productos_de_proveedorController(QWidget):
         self.producto_seleccionado = None
         self.seleccion_conectada_productos_sistema=False
         producto_seleccionado_sistema=None
+        self.producto_seleccionado_a_vincular = None
+        self.seleccion_conectada_productos_a_vincular = False
+        self.lista_productos_para_vincular = set()
         self.productos_de_sistema()
         
         if not self.proveedor:
@@ -38,6 +42,8 @@ class Productos_de_proveedorController(QWidget):
         self.PRODUCTO_DE_PROVEEDOR_SELECCIONADO_SIGNAL.connect(self.eliminar_producto_del_proveedor_metodo)
         
         self.PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL.connect(self.vincular_producto_al_proveedor_metodo)
+        
+        self.PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL.connect(self.quitar_producto_para_vincular)
         
     def mostrar_productos_proveedor(self):
         if not self.proveedor:
@@ -191,9 +197,78 @@ class Productos_de_proveedorController(QWidget):
             else:
                 return
     
-    def vincular_producto_al_proveedor_metodo(self):
-        print(f'producto general : {self.producto_seleccionado_sistema.nombre_producto}')
+    def vincular_producto_al_proveedor_metodo(self, producto):
+        if not producto:
+            Mensaje().mensaje_alerta(f"No se esta pasando el producto al seleccionarlo.")
+            return
+        self.lista_productos_para_vincular.add(producto)
+        self.producto_para_vincular_tabla(self.lista_productos_para_vincular)
+        print(self.lista_productos_para_vincular)
         
+    def producto_para_vincular_tabla(self, productos):
+        try:
+            if self.ui.tabla_Productos_A_VincularProveedor is None:
+                return
+            # Inicializar el modelo correctamente
+            if not hasattr(self, 'modelo_tabla_Productos_A_VincularProveedor'):
+                self.modelo_tabla_Productos_A_VincularProveedor = QStandardItemModel()
+            
+            # Limpiar el modelo y resetear cabeceras
+            self.modelo_tabla_Productos_A_VincularProveedor.clear()
+            self.modelo_tabla_Productos_A_VincularProveedor.setHorizontalHeaderLabels(["Codigo", "Nombre","Descripción"])
+            
+            # if not hasattr(self.proveedor, 'productos') or not self.proveedor.productos:
+            #     self.ui.tabla_Productos_A_VincularProveedor.setModel(self.modelo_tabla_Productos_A_VincularProveedor)
+            #     return
+            
+            # Rellenar la tabla con los productos
+            for producto in productos:
+                if producto is not None:
+                    # Crear los datos para cada fila
+                    fila = [
+                        str(producto.codigo_upc),
+                        producto.nombre_producto,
+                        producto.descripcion_producto,
+                    ]
+                    
+                    # Crear los QStandardItems para la fila
+                    items = [QStandardItem(item) for item in fila]
+                    for item in items:
+                        item.setData(producto, Qt.UserRole)
+                    self.modelo_tabla_Productos_A_VincularProveedor.appendRow(items)
+            
+            self.ui.tabla_Productos_A_VincularProveedor.setModel(self.modelo_tabla_Productos_A_VincularProveedor)
+
+            # Desconectar la señal antes de conectar
+            if self.seleccion_conectada_productos_a_vincular:
+                self.ui.tabla_Productos_A_VincularProveedor.selectionModel().currentChanged.disconnect(self.obtener_elemento_seleccionado_a_vicular)
+            
+            self.ui.tabla_Productos_A_VincularProveedor.selectionModel().currentChanged.connect(self.obtener_elemento_seleccionado_a_vicular)
+            self.seleccion_conectada_productos_a_vincular = True
+            
+        except Exception as e:
+            print(f'Error en productos_proveedores_tabla: {e}')
+
+    def obtener_elemento_seleccionado_a_vicular(self, current, previus):
+        if current.column() >= 0:  # Verifica si es la primera columna
+            indice_fila = current.row()
+            elemento = self.modelo_tabla_Productos_A_VincularProveedor.item(indice_fila, 0)
+            if elemento is not None:
+                producto = elemento.data(Qt.UserRole)
+                if producto:
+                    self.producto_seleccionado_a_vincular = producto
+                    self.PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL.emit(self.producto_seleccionado_a_vincular)
+            else:
+                return
+    
+    def quitar_producto_para_vincular(self, producto):
+        if not producto:
+            Mensaje("No se paso ningun elemento para eliminar")
+            return
+        self.lista_productos_para_vincular.discard(producto)
+        print(self.lista_productos_para_vincular)
+        self.producto_para_vincular_tabla(self.lista_productos_para_vincular)
+    
     def eliminar_producto_del_proveedor_metodo(self):
         print(f'producto del proveedor : {self.producto_seleccionado.nombre_producto}')
             
