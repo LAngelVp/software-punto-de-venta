@@ -9,7 +9,7 @@ class Conexion_base_datos:
     def __init__(self):
         self.link_conexion = 'postgresql+psycopg2://Dev_Rous:Dev_Rous73@localhost:5432/Dev_Rous'
         self.conectar()
-
+            
     def conectar(self):
         try:
             self.engine = create_engine(self.link_conexion)

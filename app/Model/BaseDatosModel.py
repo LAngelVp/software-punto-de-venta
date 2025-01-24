@@ -20,7 +20,7 @@ from sqlalchemy import (
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, configure_mappers
 
-configure_mappers()
+# configure_mappers()
 Base = declarative_base()
 
 # Tabla M:M entre Roles y Permisos
