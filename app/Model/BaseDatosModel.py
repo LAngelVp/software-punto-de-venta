@@ -50,6 +50,7 @@ producto_proveedor = Table(
     Base.metadata,
     Column("producto_id", Text, ForeignKey("Productos.codigo_upc"), primary_key=True),
     Column("proveedor_id", Integer, ForeignKey("Proveedores.id"), primary_key=True),
+    Column("precio_venta", Float),
 )
 
 proveedor_categoria = Table(

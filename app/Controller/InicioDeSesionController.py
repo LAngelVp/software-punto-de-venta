@@ -46,7 +46,7 @@ class Login(QWidget):
 
     def ingresar(self):
         from .SistemaPrincipalController import SistemaPrincipal
-        usuario = self.ui.txt_User.text().strip().upper()
+        usuario = self.ui.txt_User.text().strip()
         password = self.ui.txt_Password.text().strip()
         if hash_class().verificar_credenciales(usuario = usuario, contraseña = password):
             ventana =  SistemaPrincipal()

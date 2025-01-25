@@ -11,7 +11,8 @@ class Productos_de_proveedorController(QWidget):
     PRODUCTO_DE_PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
     PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL=pyqtSignal(object)
     PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL=pyqtSignal(object)
-    def __init__(self, proveedor):
+    LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR = pyqtSignal()
+    def __init__(self, proveedor = None):
         super().__init__()
         self.ui = Ui_contenedor_productos_proveedores()
         self.ui.setupUi(self)
@@ -22,6 +23,7 @@ class Productos_de_proveedorController(QWidget):
         self.ui.btn_btn_eliminar_producto_del_proveedor.clicked.connect(self.eliminar_producto_del_proveedor_metodo)
         self.ui.txt_nombre_productodelsistema.returnPressed.connect(self.filtrar_productos_sistema)
         self.ui.txt_nombre_producto.returnPressed.connect(self.filtrar_productos_de_proveedor)
+        self.ui.btn_btn_agregar_producto_al_proveedor.clicked.connect(self.vincular_producto_al_proveedor_funcion)
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre)
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre_productos_del_sistema)
         self.seleccion_conectada_productos = False
@@ -37,11 +39,11 @@ class Productos_de_proveedorController(QWidget):
             return
         
         self.ui.etiqueta_nombre_del_proveedor.setText(f'Nombre del Proveedor: {self.proveedor.nombre}')
-        self.mostrar_productos_proveedor()
+        # self.mostrar_productos_proveedor()
         
         self.PRODUCTO_DE_PROVEEDOR_SELECCIONADO_SIGNAL.connect(self.eliminar_producto_del_proveedor_metodo)
         
-        self.PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL.connect(self.vincular_producto_al_proveedor_metodo)
+        self.PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL.connect(self.vincular_producto_al_proveedor_signal)
         
         self.PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL.connect(self.quitar_producto_para_vincular)
         
@@ -197,7 +199,7 @@ class Productos_de_proveedorController(QWidget):
             else:
                 return
     
-    def vincular_producto_al_proveedor_metodo(self, producto):
+    def vincular_producto_al_proveedor_signal(self, producto):
         if not producto:
             Mensaje().mensaje_alerta(f"No se esta pasando el producto al seleccionarlo.")
             return
@@ -271,6 +273,22 @@ class Productos_de_proveedorController(QWidget):
     
     def eliminar_producto_del_proveedor_metodo(self):
         print(f'producto del proveedor : {self.producto_seleccionado.nombre_producto}')
-            
+    
+    def vincular_producto_al_proveedor_funcion(self):
+        if not self.lista_productos_para_vincular:
+            Mensaje().mensaje_informativo("No se encuentra ningun elemento en la lista de productos a vincular.")
+            return
+        try:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    ProveedoresModel(session).actualizar_productos_al_proveedor(proveedor=self.proveedor.id, lista_productos=self.lista_productos_para_vincular)
+                    from .ProveedoresController import Control_proveedores
+                    self.ventana_principal_proveedores = Control_proveedores()
+                    self.ventana_principal_proveedores.LISTAR_PROVEEDORES_EN_TABLA_SIGNAL.connect(self.ventana_principal_proveedores.listar_proveedores_tabla)
+                    self.ventana_principal_proveedores.LISTAR_PROVEEDORES_EN_TABLA_SIGNAL.emit()
+                    Mensaje().mensaje_informativo("Se ha vinculado correctamente el producto al proveedor.")
+        except Exception as e:
+            print(f"error: {e}")
 
         

@@ -18,6 +18,7 @@ from .Productos_del_Proveedor import *
 
 class Control_proveedores(QWidget):
     PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
+    LISTAR_PROVEEDORES_EN_TABLA_SIGNAL = pyqtSignal()
     def __init__(self):
         super().__init__()
         self.ui = Ui_Control_Proveedores()
@@ -56,6 +57,8 @@ class Control_proveedores(QWidget):
             return
         if self.proveedor_seleccionado:
             self.ventana_productos_precios = Productos_de_proveedorController(self.proveedor_seleccionado)
+            self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
+            self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
             self.ventana_productos_precios.show()
     
     def mostrar_categorias(self):

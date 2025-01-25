@@ -202,9 +202,21 @@ class ProveedoresModel:
             return productos, True
         else:
             return None, False
-    # def filtrar_productos_del_proveedor_nombre(self, nombre):
-    #     productos = self.session.query(Productos).filter(Productos.nombre_producto.like(f"%{nombre}%")).all()
-    #     if productos:
-    #         return productos, True
-    #     else:
-    #         return None, False
+    
+    def actualizar_productos_al_proveedor(self, proveedor,  lista_productos):
+        pass
+        if not lista_productos or not proveedor:
+            return None, False
+        try:
+            proveedor = self.session.query(Proveedores).filter(Proveedores.id == proveedor).first()
+            if not proveedor:
+                return None, False
+            productos_a_agregar = []
+            for producto in lista_productos:
+                if producto not in proveedor.productos:
+                    productos_a_agregar.append(producto)
+            if productos_a_agregar:
+                proveedor.productos.extend(productos_a_agregar)
+        except Exception as e:
+            print(f"error al meter el producto {e}")
+                        
