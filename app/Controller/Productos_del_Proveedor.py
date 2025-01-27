@@ -4,6 +4,7 @@ from PyQt5.QtCore import *
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProductosModel import ProductosModel
 from ..Model.ProveedoresModel import ProveedoresModel
+from ..Model.Proveedores_ProductosModel import Proveedores_productoModel
 from ..View.UserInterfacePy.PRODUCTOS_PROVEEDORES import *
 from .AjustarCajaOpcionesGlobal import *
 from .MensajesAlertasController import Mensaje
@@ -12,6 +13,7 @@ class Productos_de_proveedorController(QWidget):
     PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL=pyqtSignal(object)
     PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL=pyqtSignal(object)
     LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR = pyqtSignal()
+    PRODUCTO_VINCULADO_SIGNAL = pyqtSignal()
     def __init__(self, proveedor = None):
         super().__init__()
         self.ui = Ui_contenedor_productos_proveedores()
@@ -24,6 +26,8 @@ class Productos_de_proveedorController(QWidget):
         self.ui.txt_nombre_productodelsistema.returnPressed.connect(self.filtrar_productos_sistema)
         self.ui.txt_nombre_producto.returnPressed.connect(self.filtrar_productos_de_proveedor)
         self.ui.btn_btn_agregar_producto_al_proveedor.clicked.connect(self.vincular_producto_al_proveedor_funcion)
+        self.ui.btn_btn_actualizar_tabla_productos_del_proveedor.clicked.connect(self.mostrar_productos_proveedor)
+        
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre)
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre_productos_del_sistema)
         self.seleccion_conectada_productos = False
@@ -50,7 +54,14 @@ class Productos_de_proveedorController(QWidget):
     def mostrar_productos_proveedor(self):
         if not self.proveedor:
             return
-        self.productos_proveedores_tabla(self.proveedor.productos)
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                productos, estado = Proveedores_productoModel(session).consultar_productos_del_proveedor(id_proveedor=self.proveedor.id)
+            if estado:
+                self.productos_proveedores_tabla(productos)
+            else:
+                pass
     
     def productos_proveedores_tabla(self, productos=None):
         try:
@@ -77,7 +88,7 @@ class Productos_de_proveedorController(QWidget):
                         producto.nombre_producto,
                         producto.descripcion_producto,
                     ]
-                    
+                    print(producto.nombre_producto)
                     # Crear los QStandardItems para la fila
                     items = [QStandardItem(item) for item in fila]
                     for item in items:
@@ -283,10 +294,7 @@ class Productos_de_proveedorController(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     ProveedoresModel(session).actualizar_productos_al_proveedor(proveedor=self.proveedor.id, lista_productos=self.lista_productos_para_vincular)
-                    from .ProveedoresController import Control_proveedores
-                    self.ventana_principal_proveedores = Control_proveedores()
-                    self.ventana_principal_proveedores.LISTAR_PROVEEDORES_EN_TABLA_SIGNAL.connect(self.ventana_principal_proveedores.listar_proveedores_tabla)
-                    self.ventana_principal_proveedores.LISTAR_PROVEEDORES_EN_TABLA_SIGNAL.emit()
+                    self.PRODUCTO_VINCULADO_SIGNAL.emit()
                     Mensaje().mensaje_informativo("Se ha vinculado correctamente el producto al proveedor.")
         except Exception as e:
             print(f"error: {e}")
