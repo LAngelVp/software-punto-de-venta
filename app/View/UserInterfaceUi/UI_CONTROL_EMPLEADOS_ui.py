@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_EMPLEADOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_EMPLEADOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Control_empleados(object):
     def setupUi(self, Control_empleados):
         Control_empleados.setObjectName("Control_empleados")
-        Control_empleados.resize(979, 709)
+        Control_empleados.resize(840, 709)
         Control_empleados.setStyleSheet("#Control_empleados{\n"
 "background-color: #fffefb;\n"
 "}\n"
@@ -53,24 +53,17 @@ class Ui_Control_empleados(object):
 "font-family: Arial;\n"
 "height: 20px;\n"
 "}\n"
-"#txt_buscar{\n"
-"max-width: 250px;\n"
-"}\n"
 "*[objectName^=\"txt_\"]::focus{\n"
 "border-bottom: 2px solid #023375;\n"
 "}\n"
 "*[objectName*=\"btn_btn\"]{\n"
 "border:none;\n"
-"border-radius: 5px;\n"
+"border-radius: 3px;\n"
 "background-color: #00619a;\n"
 "font-family: Arial;\n"
-"font-size: 16px;\n"
+"font-size: 14px;\n"
 "font-weight: bold;\n"
-"height: 30px;\n"
-"margin-left: 5px;\n"
-"margin-right: 5px;\n"
-"padding-left:10px;\n"
-"padding-right:10px;\n"
+"max-height: 20px;\n"
 "text-align: center;\n"
 "text-transform: uppercase;\n"
 "color: #fffefb;\n"
@@ -93,9 +86,9 @@ class Ui_Control_empleados(object):
 "background-color: #f5f4f1;\n"
 "borde-radius: 5px;\n"
 "font-size: 12px;\n"
-"width:87px;\n"
+"min-width:87px;\n"
 "}\n"
-"[objectName^=\"cajaopciones_\"]::drop-down{\n"
+"[objectName*=\"cajaopciones_\"]::drop-down{\n"
 "subcontrol-origin: padding;\n"
 "subcontrol-position: top right;\n"
 "padding-right:5px;\n"
@@ -104,7 +97,7 @@ class Ui_Control_empleados(object):
 "borde-radius: 5px;\n"
 "background-color: #f5f4f1;\n"
 "}\n"
-"[objectName^=\"cajaopciones_\"]::down-arrow{\n"
+"[objectName*=\"cajaopciones_\"]::down-arrow{\n"
 "image: url(:/Icons/Bootstrap/filter-left.svg);\n"
 "width: 17%;\n"
 "height: 17%;\n"
@@ -116,42 +109,7 @@ class Ui_Control_empleados(object):
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"}\n"
-"\n"
-"/* Barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 12px;  /* Fijamos el tamaño de la barra vertical */\n"
-"    border-radius: 4px;\n"
-"    margin: 22px 0 22px 0;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
-"    background: #023375;\n"
-"    min-height: 20px;  /* Altura mínima del manejador */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Elementos de la flecha de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
-"[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
-"    background-color: none;\n"
-"}\n"
-"\n"
-"/* Barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Fijamos el tamaño de la barra horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Altura del manejador horizontal */\n"
-"    border-radius: 4px;\n"
+"    background: #fffefb;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
@@ -191,7 +149,8 @@ class Ui_Control_empleados(object):
         self.contenedor.setObjectName("contenedor")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.contenedor)
         self.gridLayout_5.setContentsMargins(5, 0, 5, 5)
-        self.gridLayout_5.setSpacing(0)
+        self.gridLayout_5.setHorizontalSpacing(0)
+        self.gridLayout_5.setVerticalSpacing(5)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.contenedor_cuerpo = QtWidgets.QWidget(self.contenedor)
         self.contenedor_cuerpo.setMinimumSize(QtCore.QSize(0, 0))
@@ -200,101 +159,98 @@ class Ui_Control_empleados(object):
         self.gridLayout_2 = QtWidgets.QGridLayout(self.contenedor_cuerpo)
         self.gridLayout_2.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
         self.gridLayout_2.setObjectName("gridLayout_2")
+        self.contenedor_botones = QtWidgets.QWidget(self.contenedor_cuerpo)
+        self.contenedor_botones.setObjectName("contenedor_botones")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_botones)
+        self.horizontalLayout.setContentsMargins(-1, 0, -1, -1)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.btn_btn_agregar = QtWidgets.QToolButton(self.contenedor_botones)
+        self.btn_btn_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_agregar.setIcon(icon)
+        self.btn_btn_agregar.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_agregar.setAutoRepeat(False)
+        self.btn_btn_agregar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+        self.btn_btn_agregar.setObjectName("btn_btn_agregar")
+        self.horizontalLayout.addWidget(self.btn_btn_agregar)
+        self.btn_btn_eliminar = QtWidgets.QToolButton(self.contenedor_botones)
+        self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_eliminar.setIcon(icon1)
+        self.btn_btn_eliminar.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_eliminar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
+        self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
+        self.horizontalLayout.addWidget(self.btn_btn_eliminar)
+        self.btn_btn_editarempleado = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_editarempleado.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_editarempleado.setIcon(icon2)
+        self.btn_btn_editarempleado.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_editarempleado.setObjectName("btn_btn_editarempleado")
+        self.horizontalLayout.addWidget(self.btn_btn_editarempleado)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.btn_btn_limpiar = QtWidgets.QToolButton(self.contenedor_botones)
+        self.btn_btn_limpiar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_limpiar.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_limpiar.setIcon(icon3)
+        self.btn_btn_limpiar.setIconSize(QtCore.QSize(24, 24))
+        self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
+        self.horizontalLayout.addWidget(self.btn_btn_limpiar)
+        self.gridLayout_2.addWidget(self.contenedor_botones, 1, 0, 1, 1)
+        self.tabla_listaempleados = QtWidgets.QTableView(self.contenedor_cuerpo)
+        self.tabla_listaempleados.setMinimumSize(QtCore.QSize(0, 0))
+        self.tabla_listaempleados.setMaximumSize(QtCore.QSize(16777215, 16777215))
+        self.tabla_listaempleados.setFrameShape(QtWidgets.QFrame.WinPanel)
+        self.tabla_listaempleados.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.tabla_listaempleados.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tabla_listaempleados.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.tabla_listaempleados.setShowGrid(True)
+        self.tabla_listaempleados.setGridStyle(QtCore.Qt.DashLine)
+        self.tabla_listaempleados.setObjectName("tabla_listaempleados")
+        self.gridLayout_2.addWidget(self.tabla_listaempleados, 3, 0, 1, 1)
         self.contenedor_cabeceraopcionbusqueda = QtWidgets.QFrame(self.contenedor_cuerpo)
         self.contenedor_cabeceraopcionbusqueda.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_cabeceraopcionbusqueda.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor_cabeceraopcionbusqueda.setObjectName("contenedor_cabeceraopcionbusqueda")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.contenedor_cabeceraopcionbusqueda)
-        self.gridLayout_4.setContentsMargins(5, 10, 5, 10)
+        self.gridLayout_4.setContentsMargins(5, 10, 5, 5)
         self.gridLayout_4.setHorizontalSpacing(10)
-        self.gridLayout_4.setVerticalSpacing(5)
+        self.gridLayout_4.setVerticalSpacing(0)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.btn_btn_buscar = QtWidgets.QToolButton(self.contenedor_cabeceraopcionbusqueda)
+        self.btn_btn_buscar.setMaximumSize(QtCore.QSize(16777215, 20))
         self.btn_btn_buscar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_buscar.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_buscar.setIcon(icon)
-        self.btn_btn_buscar.setIconSize(QtCore.QSize(25, 25))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_buscar.setIcon(icon4)
+        self.btn_btn_buscar.setIconSize(QtCore.QSize(16, 16))
         self.btn_btn_buscar.setObjectName("btn_btn_buscar")
-        self.gridLayout_4.addWidget(self.btn_btn_buscar, 1, 2, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_4.addItem(spacerItem, 1, 3, 1, 1)
+        self.gridLayout_4.addWidget(self.btn_btn_buscar, 1, 3, 1, 1, QtCore.Qt.AlignVCenter)
+        self.txt_nombreempleado = QtWidgets.QLineEdit(self.contenedor_cabeceraopcionbusqueda)
+        self.txt_nombreempleado.setObjectName("txt_nombreempleado")
+        self.gridLayout_4.addWidget(self.txt_nombreempleado, 1, 2, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_4.addItem(spacerItem1, 1, 4, 1, 1)
         self.txt_idempleado = QtWidgets.QLineEdit(self.contenedor_cabeceraopcionbusqueda)
         self.txt_idempleado.setObjectName("txt_idempleado")
         self.gridLayout_4.addWidget(self.txt_idempleado, 1, 0, 1, 1)
-        self.txt_nombreempleado = QtWidgets.QLineEdit(self.contenedor_cabeceraopcionbusqueda)
-        self.txt_nombreempleado.setObjectName("txt_nombreempleado")
-        self.gridLayout_4.addWidget(self.txt_nombreempleado, 1, 1, 1, 1)
+        self.cajaopciones_filtroNombreEmpleado = QtWidgets.QComboBox(self.contenedor_cabeceraopcionbusqueda)
+        self.cajaopciones_filtroNombreEmpleado.setObjectName("cajaopciones_filtroNombreEmpleado")
+        self.cajaopciones_filtroNombreEmpleado.addItem("")
+        self.cajaopciones_filtroNombreEmpleado.addItem("")
+        self.gridLayout_4.addWidget(self.cajaopciones_filtroNombreEmpleado, 1, 1, 1, 1)
         self.etiqueta_buscar = QtWidgets.QLabel(self.contenedor_cabeceraopcionbusqueda)
         self.etiqueta_buscar.setObjectName("etiqueta_buscar")
-        self.gridLayout_4.addWidget(self.etiqueta_buscar, 0, 0, 1, 1)
-        self.gridLayout_2.addWidget(self.contenedor_cabeceraopcionbusqueda, 0, 0, 1, 1, QtCore.Qt.AlignBottom)
-        self.tabla_listaempleados = QtWidgets.QTableView(self.contenedor_cuerpo)
-        self.tabla_listaempleados.setMinimumSize(QtCore.QSize(0, 0))
-        self.tabla_listaempleados.setMaximumSize(QtCore.QSize(16777215, 16777215))
-        self.tabla_listaempleados.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.tabla_listaempleados.setShowGrid(False)
-        self.tabla_listaempleados.setGridStyle(QtCore.Qt.NoPen)
-        self.tabla_listaempleados.setObjectName("tabla_listaempleados")
-        self.gridLayout_2.addWidget(self.tabla_listaempleados, 1, 0, 1, 1)
-        self.gridLayout_5.addWidget(self.contenedor_cuerpo, 1, 1, 1, 1)
-        self.contenedor_botones = QtWidgets.QFrame(self.contenedor)
-        self.contenedor_botones.setMinimumSize(QtCore.QSize(0, 0))
-        self.contenedor_botones.setMaximumSize(QtCore.QSize(16777215, 150))
-        self.contenedor_botones.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.contenedor_botones.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.contenedor_botones.setObjectName("contenedor_botones")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.contenedor_botones)
-        self.gridLayout_3.setContentsMargins(0, 10, 0, 0)
-        self.gridLayout_3.setSpacing(0)
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        self.frame_2 = QtWidgets.QFrame(self.contenedor_botones)
-        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.frame_2)
-        self.horizontalLayout_2.setContentsMargins(0, 5, 0, 5)
-        self.horizontalLayout_2.setSpacing(0)
-        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.btn_btn_agregar = QtWidgets.QToolButton(self.frame_2)
-        self.btn_btn_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_agregar.setIcon(icon1)
-        self.btn_btn_agregar.setIconSize(QtCore.QSize(24, 24))
-        self.btn_btn_agregar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
-        self.btn_btn_agregar.setObjectName("btn_btn_agregar")
-        self.horizontalLayout_2.addWidget(self.btn_btn_agregar)
-        self.btn_btn_eliminar = QtWidgets.QToolButton(self.frame_2)
-        self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_eliminar.setIcon(icon2)
-        self.btn_btn_eliminar.setIconSize(QtCore.QSize(24, 24))
-        self.btn_btn_eliminar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
-        self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
-        self.horizontalLayout_2.addWidget(self.btn_btn_eliminar)
-        self.btn_btn_editarempleado = QtWidgets.QPushButton(self.frame_2)
-        self.btn_btn_editarempleado.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_editarempleado.setIcon(icon3)
-        self.btn_btn_editarempleado.setIconSize(QtCore.QSize(24, 24))
-        self.btn_btn_editarempleado.setObjectName("btn_btn_editarempleado")
-        self.horizontalLayout_2.addWidget(self.btn_btn_editarempleado)
-        self.btn_btn_limpiar = QtWidgets.QToolButton(self.frame_2)
-        self.btn_btn_limpiar.setText("")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_limpiar.setIcon(icon4)
-        self.btn_btn_limpiar.setIconSize(QtCore.QSize(24, 24))
-        self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
-        self.horizontalLayout_2.addWidget(self.btn_btn_limpiar)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem1)
-        self.gridLayout_3.addWidget(self.frame_2, 0, 0, 1, 1, QtCore.Qt.AlignTop)
-        self.gridLayout_5.addWidget(self.contenedor_botones, 0, 0, 1, 2, QtCore.Qt.AlignTop)
+        self.gridLayout_4.addWidget(self.etiqueta_buscar, 0, 0, 1, 5)
+        self.gridLayout_2.addWidget(self.contenedor_cabeceraopcionbusqueda, 0, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.contenedor_cuerpo, 0, 0, 1, 1)
         self.gridLayout.addWidget(self.contenedor, 1, 0, 1, 1)
 
         self.retranslateUi(Control_empleados)
@@ -304,11 +260,13 @@ class Ui_Control_empleados(object):
         _translate = QtCore.QCoreApplication.translate
         Control_empleados.setWindowTitle(_translate("Control_empleados", "Form"))
         self.label_we_titulo_empleado.setText(_translate("Control_empleados", "ADMINISTRACIÓN DE EMPLEADOS"))
-        self.txt_idempleado.setPlaceholderText(_translate("Control_empleados", "Id del empleado"))
-        self.txt_nombreempleado.setPlaceholderText(_translate("Control_empleados", "Nombre de empleado"))
-        self.etiqueta_buscar.setText(_translate("Control_empleados", "Buscar por:"))
         self.btn_btn_agregar.setText(_translate("Control_empleados", "Agregar"))
         self.btn_btn_eliminar.setText(_translate("Control_empleados", "Eliminar"))
         self.btn_btn_editarempleado.setText(_translate("Control_empleados", "EDItar"))
+        self.txt_nombreempleado.setPlaceholderText(_translate("Control_empleados", "Nombre de empleado"))
+        self.txt_idempleado.setPlaceholderText(_translate("Control_empleados", "Id del empleado"))
+        self.cajaopciones_filtroNombreEmpleado.setItemText(0, _translate("Control_empleados", "IGUAL A"))
+        self.cajaopciones_filtroNombreEmpleado.setItemText(1, _translate("Control_empleados", "QUE CONTENGA"))
+        self.etiqueta_buscar.setText(_translate("Control_empleados", "Filtros de Busqueda:"))
 import ibootstrap_rc
 import iconosSVG_rc

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>979</width>
+    <width>840</width>
     <height>709</height>
    </rect>
   </property>
@@ -52,24 +52,17 @@ font-size: 16px;
 font-family: Arial;
 height: 20px;
 }
-#txt_buscar{
-max-width: 250px;
-}
 *[objectName^=&quot;txt_&quot;]::focus{
 border-bottom: 2px solid #023375;
 }
 *[objectName*=&quot;btn_btn&quot;]{
 border:none;
-border-radius: 5px;
+border-radius: 3px;
 background-color: #00619a;
 font-family: Arial;
-font-size: 16px;
+font-size: 14px;
 font-weight: bold;
-height: 30px;
-margin-left: 5px;
-margin-right: 5px;
-padding-left:10px;
-padding-right:10px;
+max-height: 20px;
 text-align: center;
 text-transform: uppercase;
 color: #fffefb;
@@ -92,9 +85,9 @@ padding: 2px;
 background-color: #f5f4f1;
 borde-radius: 5px;
 font-size: 12px;
-width:87px;
+min-width:87px;
 }
-[objectName^=&quot;cajaopciones_&quot;]::drop-down{
+[objectName*=&quot;cajaopciones_&quot;]::drop-down{
 subcontrol-origin: padding;
 subcontrol-position: top right;
 padding-right:5px;
@@ -103,7 +96,7 @@ border-left-width: 1px;
 borde-radius: 5px;
 background-color: #f5f4f1;
 }
-[objectName^=&quot;cajaopciones_&quot;]::down-arrow{
+[objectName*=&quot;cajaopciones_&quot;]::down-arrow{
 image: url(:/Icons/Bootstrap/filter-left.svg);
 width: 17%;
 height: 17%;
@@ -115,42 +108,7 @@ padding-right:5px;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-}
-
-/* Barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
-    border: 1px solid gray;
-    background: #023375;
-    width: 12px;  /* Fijamos el tamaño de la barra vertical */
-    border-radius: 4px;
-    margin: 22px 0 22px 0;
-}
-
-/* Manejador de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
-    background: #023375;
-    min-height: 20px;  /* Altura mínima del manejador */
-    border-radius: 4px;
-}
-
-/* Elementos de la flecha de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
-[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
-    background-color: none;
-}
-
-/* Barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
-    background: #023375;
-    height: 12px;  /* Fijamos el tamaño de la barra horizontal */
-    border-radius: 4px;
-}
-
-/* Manejador de la barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
-    background: #023375;
-    height: 12px;  /* Altura del manejador horizontal */
-    border-radius: 4px;
+	background: #fffefb;
 }
 
 /* Encabezados de la tabla */
@@ -232,10 +190,13 @@ padding-right:5px;
       <property name="bottomMargin">
        <number>5</number>
       </property>
-      <property name="spacing">
+      <property name="horizontalSpacing">
        <number>0</number>
       </property>
-      <item row="1" column="1">
+      <property name="verticalSpacing">
+       <number>5</number>
+      </property>
+      <item row="0" column="0">
        <widget class="QWidget" name="contenedor_cuerpo" native="true">
         <property name="minimumSize">
          <size>
@@ -253,177 +214,11 @@ padding-right:5px;
          <property name="sizeConstraint">
           <enum>QLayout::SetMinAndMaxSize</enum>
          </property>
-         <item row="0" column="0" alignment="Qt::AlignBottom">
-          <widget class="QFrame" name="contenedor_cabeceraopcionbusqueda">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_4">
-            <property name="leftMargin">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>10</number>
-            </property>
-            <property name="rightMargin">
-             <number>5</number>
-            </property>
-            <property name="bottomMargin">
-             <number>10</number>
-            </property>
-            <property name="horizontalSpacing">
-             <number>10</number>
-            </property>
-            <property name="verticalSpacing">
-             <number>5</number>
-            </property>
-            <item row="1" column="2">
-             <widget class="QToolButton" name="btn_btn_buscar">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>25</width>
-                <height>25</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <spacer name="horizontalSpacer_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLineEdit" name="txt_idempleado">
-              <property name="placeholderText">
-               <string>Id del empleado</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="txt_nombreempleado">
-              <property name="placeholderText">
-               <string>Nombre de empleado</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="etiqueta_buscar">
-              <property name="text">
-               <string>Buscar por:</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
          <item row="1" column="0">
-          <widget class="QTableView" name="tabla_listaempleados">
-           <property name="minimumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="editTriggers">
-            <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-           <property name="showGrid">
-            <bool>false</bool>
-           </property>
-           <property name="gridStyle">
-            <enum>Qt::NoPen</enum>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="0" column="0" colspan="2" alignment="Qt::AlignTop">
-       <widget class="QFrame" name="contenedor_botones">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>150</height>
-         </size>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>10</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <item row="0" column="0" alignment="Qt::AlignTop">
-          <widget class="QFrame" name="frame_2">
-           <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
-           </property>
-           <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
+          <widget class="QWidget" name="contenedor_botones" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout">
             <property name="topMargin">
-             <number>5</number>
-            </property>
-            <property name="rightMargin">
              <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>5</number>
             </property>
             <item>
              <widget class="QToolButton" name="btn_btn_agregar">
@@ -439,9 +234,12 @@ padding-right:5px;
               </property>
               <property name="iconSize">
                <size>
-                <width>24</width>
-                <height>24</height>
+                <width>16</width>
+                <height>16</height>
                </size>
+              </property>
+              <property name="autoRepeat">
+               <bool>false</bool>
               </property>
               <property name="toolButtonStyle">
                <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -462,8 +260,8 @@ padding-right:5px;
               </property>
               <property name="iconSize">
                <size>
-                <width>24</width>
-                <height>24</height>
+                <width>16</width>
+                <height>16</height>
                </size>
               </property>
               <property name="toolButtonStyle">
@@ -485,25 +283,8 @@ padding-right:5px;
               </property>
               <property name="iconSize">
                <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="btn_btn_limpiar">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
+                <width>16</width>
+                <height>16</height>
                </size>
               </property>
              </widget>
@@ -520,6 +301,164 @@ padding-right:5px;
                </size>
               </property>
              </spacer>
+            </item>
+            <item>
+             <widget class="QToolButton" name="btn_btn_limpiar">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>24</width>
+                <height>24</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QTableView" name="tabla_listaempleados">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::WinPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::SingleSelection</enum>
+           </property>
+           <property name="showGrid">
+            <bool>true</bool>
+           </property>
+           <property name="gridStyle">
+            <enum>Qt::DashLine</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QFrame" name="contenedor_cabeceraopcionbusqueda">
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_4">
+            <property name="leftMargin">
+             <number>5</number>
+            </property>
+            <property name="topMargin">
+             <number>10</number>
+            </property>
+            <property name="rightMargin">
+             <number>5</number>
+            </property>
+            <property name="bottomMargin">
+             <number>5</number>
+            </property>
+            <property name="horizontalSpacing">
+             <number>10</number>
+            </property>
+            <property name="verticalSpacing">
+             <number>0</number>
+            </property>
+            <item row="1" column="3" alignment="Qt::AlignVCenter">
+             <widget class="QToolButton" name="btn_btn_buscar">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconosSVG.qrc">
+                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>16</width>
+                <height>16</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="txt_nombreempleado">
+              <property name="placeholderText">
+               <string>Nombre de empleado</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="txt_idempleado">
+              <property name="placeholderText">
+               <string>Id del empleado</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="cajaopciones_filtroNombreEmpleado">
+              <item>
+               <property name="text">
+                <string>IGUAL A</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>QUE CONTENGA</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="5">
+             <widget class="QLabel" name="etiqueta_buscar">
+              <property name="text">
+               <string>Filtros de Busqueda:</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
