@@ -35,7 +35,13 @@ class UsuarioModel:
             return nuevo_usuario.id
         except Exception as e:
             return None
-        
+    
+    def consultar_usuario(self, nombre):
+        usuario = self.session.query(Usuarios).filter_by(usuario=nombre).first()
+        if usuario:
+            return usuario, True
+        return None, False
+    
     def actualizar_usuario(self, id, nuevo_usuario, nuevo_password, fecha_actualizacion, nuevo_rol_id = None):
         # Aquí puedes actualizar los atributos del usuario según los parámetros que quieras cambiar
         if id:
