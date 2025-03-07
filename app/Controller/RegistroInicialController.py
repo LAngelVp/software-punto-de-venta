@@ -22,6 +22,8 @@ from .SucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
 from .PuestosController import PuestosController
 
+import traceback
+
 class Registro_personal_inicial(QWidget):
     listar_sucursales_signal = pyqtSignal()
     listar_departamentos_signal = pyqtSignal()
@@ -529,14 +531,14 @@ class Registro_personal_inicial(QWidget):
     def almacenar_informacion(self):
         fecha_actual = datetime.now().date() # Obtener la fecha actual, al momento.
         # // obtenemos los datos de los campos
-        datos = self.obtener_datos()
-        empleado = None
-        estado = False
-        if self.validar_datos(datos):
-            with Conexion_base_datos() as db:
-                session = db.abrir_sesion()
-                with session.begin():
-                    try:
+        try:
+            datos = self.obtener_datos()
+            empleado = None
+            status_empleado = False
+            if self.validar_datos(datos):
+                with Conexion_base_datos() as db:
+                    session = db.abrir_sesion()
+                    with session.begin():
                         if self.ui.opcion_usodelsistema.isChecked():
                             if self.id_empleado is None:
                                 id_usuario = UsuarioModel(session).crear_usuario(
@@ -548,7 +550,7 @@ class Registro_personal_inicial(QWidget):
                         else:
                             id_usuario = None
 
-                        empleado, estado = EmpleadosModel(session).crear_empleado(
+                        empleado, status_empleado = EmpleadosModel(session).crear_empleado(
                             nombre=datos['nombre'],
                             apellido_paterno=datos['apellido_paterno'],
                             apellido_materno=datos['apellido_materno'],
@@ -584,17 +586,19 @@ class Registro_personal_inicial(QWidget):
                             departamento_id=self.ui.cajaopciones_departamentos.currentData(),
                             sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                         )
-                    except Exception as e:
-                        session.rollback()
-                if estado and not self.id_empleado:
-                    Mensaje().mensaje_informativo("Registro exitoso")
-                    self.cerrar()
-                    self.registro_agregado_signal.emit()
-                    if self.id_empleado is None:
-                        self.abrir_inicio()
-        else:
-            Mensaje().mensaje_alerta("Datos no válidos. No se almacenará la información.")
-
+                        print("listo")
+                        print(status_empleado)
+                    if status_empleado and not self.id_empleado:
+                        Mensaje().mensaje_informativo("Registro exitoso")
+                        self.cerrar()
+                        self.registro_agregado_signal.emit()
+                        if self.id_empleado is None:
+                            self.abrir_inicio()
+            else:
+                Mensaje().mensaje_alerta("Datos no válidos. No se almacenará la información.")
+        except Exception as e:
+            print("Ocurrió un error:")
+            traceback.print_exc()
     def actualizar_empleado(self):
         id_empleado = self.id_empleado
         datos = self.obtener_datos()

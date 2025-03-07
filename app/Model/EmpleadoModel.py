@@ -14,61 +14,51 @@ class EmpleadosModel:
                          contacto_emergencia, parentesco_contacto, calles, avenidas, colonia,
                          num_interior, num_exterior, direccion_adicional, activo, foto,
                          puesto_id, usuario_id, departamento_id, sucursal_id):
-        try:
-            empleado_existente = self.session.query((Empleados.curp == curp) | (Empleados.rfc == rfc)).first()
-            if empleado_existente is not None:
-                return None, False
-            # Crear la instancia de empleado
-            nuevo_empleado = Empleados(
-                nombre=nombre,
-                apellido_paterno=apellido_paterno,
-                apellido_materno=apellido_materno,
-                fecha_nacimiento=fecha_nacimiento,
-                estado_civil=estado_civil,
-                genero=genero,
-                curp=curp,
-                rfc=rfc,
-                nivel_academico=nivel_academico,
-                carrera=carrera,
-                correo_electronico=correo_electronico,
-                numero_seguro_social=numero_seguro_social,
-                fecha_contratacion=fecha_contratacion,
-                fecha_despido=fecha_despido,
-                ciudad=ciudad,
-                codigo_postal=codigo_postal,
-                estado=estado,
-                pais=pais,
-                numero_telefonico=numero_telefonico,
-                nombre_contacto=nombre_contacto,
-                contacto_emergencia=contacto_emergencia,
-                parentesco_contacto=parentesco_contacto,
-                calles=calles,
-                avenidas=avenidas,
-                colonia = colonia,
-                num_interior=num_interior,
-                num_exterior=num_exterior,
-                direccion_adicional=direccion_adicional,
-                activo=activo,
-                foto=foto,
-                puesto_id=puesto_id,
-                usuario_id=usuario_id,
-                departamento_id=departamento_id,
-                sucursal_id=sucursal_id
-            )
-            
-            
-            # Agregar a la sesión, pero no hacer commit aquí
-            self.session.add(nuevo_empleado)
-            self.session.flush()  # Generar el ID sin hacer commit
-            return nuevo_empleado, True
+        empleado_existente = self.session.query(Empleados).filter((Empleados.curp == curp) | (Empleados.rfc == rfc)).first()
+        if empleado_existente is not None:
+            return None, False
+        # Crear la instancia de empleado
+        nuevo_empleado = Empleados(
+            nombre=nombre,
+            apellido_paterno=apellido_paterno,
+            apellido_materno=apellido_materno,
+            fecha_nacimiento=fecha_nacimiento,
+            estado_civil=estado_civil,
+            genero=genero,
+            curp=curp,
+            rfc=rfc,
+            nivel_academico=nivel_academico,
+            carrera=carrera,
+            correo_electronico=correo_electronico,
+            numero_seguro_social=numero_seguro_social,
+            fecha_contratacion=fecha_contratacion,
+            fecha_despido=fecha_despido,
+            ciudad=ciudad,
+            codigo_postal=codigo_postal,
+            estado=estado,
+            pais=pais,
+            numero_telefonico=numero_telefonico,
+            nombre_contacto=nombre_contacto,
+            contacto_emergencia=contacto_emergencia,
+            parentesco_contacto=parentesco_contacto,
+            calles=calles,
+            avenidas=avenidas,
+            colonia = colonia,
+            num_interior=num_interior,
+            num_exterior=num_exterior,
+            direccion_adicional=direccion_adicional,
+            activo=activo,
+            foto=foto,
+            puesto_id=puesto_id,
+            usuario_id=usuario_id,
+            departamento_id=departamento_id,
+            sucursal_id=sucursal_id
+        )
         
-        except IntegrityError as e:
-            mensaje_error = str(e.orig)
-            mensaje_error = re.sub(r'Key\s*|\(|\)', '', mensaje_error)
-            return None
-        
-        except Exception as e:
-            return None
+        # Agregar a la sesión, pero no hacer commit aquí
+        self.session.add(nuevo_empleado)
+        self.session.flush()  # Generar el ID sin hacer commit
+        return nuevo_empleado, True
         
     def obtener_empleados_detallados(self):
         try:
@@ -92,7 +82,7 @@ class EmpleadosModel:
             return True
         return False
     
-    def filtrar_empleados(self, id = None, nombre = None):
+    def filtrar_empleados(self, id = None, nombre = None, tipo_filtro_nombre = None):
         consulta = self.session.query(Empleados).outerjoin(Puestos).outerjoin(Departamentos).outerjoin(Sucursales)
     
         # Si se pasa un `id`, agrega el filtro por `id`
@@ -101,7 +91,10 @@ class EmpleadosModel:
         
         # Si se pasa un `nombre`, agrega el filtro por `nombre`
         if nombre:
-            consulta = consulta.filter(Empleados.nombre.ilike(f"%{nombre}%"))
+            if tipo_filtro_nombre == 0:
+                consulta = consulta.filter(Empleados.nombre == nombre)
+            else:
+                consulta = consulta.filter(Empleados.nombre.ilike(f"%{nombre}%"))
         
         # Ejecuta la consulta y guarda los resultados
         empleados = consulta.all()

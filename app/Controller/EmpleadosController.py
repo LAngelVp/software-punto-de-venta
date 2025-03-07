@@ -42,7 +42,8 @@ class EmpleadosController(QWidget):
         
     def buscar_empleado(self):
         id_empleado = self.ui.txt_idempleado.text()
-        nombre_empleado = self.ui.txt_nombreempleado.text()
+        nombre_empleado = self.ui.txt_nombreempleado.text().upper()
+        tipo_filtro_nombre = self.ui.cajaopciones_filtroNombreEmpleado.currentIndex()
         if not id_empleado and not nombre_empleado:
             Mensaje().mensaje_informativo("Para buscar a un empleado es necesario ingresar su ID o NOMBRE")
             return
@@ -51,7 +52,7 @@ class EmpleadosController(QWidget):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
-                empleados, estado = EmpleadosModel(session).filtrar_empleados(id_empleado, nombre_empleado)
+                empleados, estado = EmpleadosModel(session).filtrar_empleados(id_empleado, nombre_empleado, tipo_filtro_nombre)
             if estado:
                 self.llenar_tabla(empleados)
                 
