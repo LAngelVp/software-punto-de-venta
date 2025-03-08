@@ -23,7 +23,7 @@ class PermisosModel:
                 'crearusuarios', 'eliminarusuarios', 'modificarusuarios'
         ]
 
-    def crear_permiso(self):
+    def crear_permisos_principal(self):
         # Verificar si los permisos ya existen en la base de datos
         permisos_existentes = self.session.query(Permisos.nombre).filter(Permisos.nombre.in_([p.upper() for p in self.lista_permisos])).all()
         permisos_existentes = set([p[0] for p in permisos_existentes])  # Convertir a set para eficiencia en las búsquedas
@@ -67,30 +67,37 @@ class RolesModel:
             pass
 
 
-    def crear_Rol(self, nombre, descripcion, permisos=None):
-        # Verificar si el rol ya existe
+    def crear_Rol(self, nombre, descripcion = None, permisos=None):
         rol_existente = self.session.query(Roles).filter_by(nombre=nombre).first()
         if rol_existente:
-            return rol_existente.id
+            return rol_existente.id, True  # Devolver también el estado de éxito
 
         # Crear el nuevo rol
         nuevo_rol = Roles(
             nombre=nombre,
-            descripcion = descripcion,
-            )
+            descripcion=descripcion,
+        )
         self.session.add(nuevo_rol)
 
         # Agregar los permisos si se proporcionan
         if permisos:
-            conjunto_permisos = self.session.query(Permisos).filter(Permisos.id.in_(permisos)).all()
-            nuevo_rol.permisos.extend(conjunto_permisos)
+            # Asegúrate de que los permisos sean nombres válidos en la base de datos
+            conjunto_permisos = self.session.query(Permisos).filter(Permisos.nombre.in_(permisos)).all()
+            print(f"Permisos encontrados en la base de datos: {[permiso.nombre for permiso in conjunto_permisos]}")
+            if conjunto_permisos:
+                nuevo_rol.permisos.extend(conjunto_permisos)
 
-        # No hacer commit aquí, ya que será manejado externamente
+        # Confirmar los cambios en la base de datos
         try:
-            self.session.flush()  # Asegura que el ID del rol esté disponible sin hacer commit
-            return nuevo_rol.id
+            self.session.commit()  # Asegura que los cambios sean confirmados
+            return nuevo_rol, True  # Devuelve el rol creado y el estado de éxito
         except IntegrityError as e:
-            return None
+            self.session.rollback()  # Revierte la transacción si ocurre un error
+            return None, False  # Devolver None si hubo un error
+        except Exception as e:
+            self.session.rollback()  # Revierte la transacción en caso de otros errores
+            print(f"Error al crear rol: {e}")  # Puedes loggear el error para diagnóstico
+            return None, False
 
     def obtener_todos(self):
         try:

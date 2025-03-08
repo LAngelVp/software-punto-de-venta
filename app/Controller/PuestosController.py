@@ -71,6 +71,7 @@ class PuestosController(QWidget):
                 self.llenar_tabla(self.puestos)
 
     def roles(self):
+        print("en roles")
         self.ventana_roles = ControlRolesController()
         self.ventana_roles.show()
     

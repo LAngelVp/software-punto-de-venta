@@ -26,4 +26,5 @@ class Nuevo_rol(QWidget):
         super().__init__()
         self.ui = Ui_Control_nuevo_rol()
         self.ui.setupUi(self)
+        print("Hola desde Nuevos roles")
         

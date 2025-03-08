@@ -23,7 +23,7 @@ class Inicio_sistema:
             session = db.abrir_sesion()
             with session.begin():
                 try:
-                    PermisosModel(session).crear_permiso()
+                    PermisosModel(session).crear_permisos_principal()
                     RolesModel(session).crear_grupo_principal()
                 except Exception as e:
                     Mensaje().mensaje_alerta(f'Existio un error en la creacion de datos principales: {e}')
