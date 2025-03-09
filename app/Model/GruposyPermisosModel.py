@@ -1,7 +1,7 @@
 from sqlite3 import IntegrityError
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from .BaseDatosModel import Permisos, Roles
+from sqlalchemy.orm import sessionmaker, outerjoin
+from .BaseDatosModel import Permisos, Roles, rol_permiso
 
 class PermisosModel:
     def __init__(self,session):
@@ -66,7 +66,6 @@ class RolesModel:
         except Exception as e:
             pass
 
-
     def crear_Rol(self, nombre, descripcion = None, permisos=None):
         rol_existente = self.session.query(Roles).filter_by(nombre=nombre).first()
         if rol_existente:
@@ -108,3 +107,17 @@ class RolesModel:
                 return [], False
         except Exception as e:
             return None
+    
+    def todos_roles_con_permisos(self):
+        roles = self.session.query(Roles, Permisos).outerjoin(rol_permiso, rol_permiso.c.rol_id == Roles.id).outerjoin(Permisos, Permisos.id == rol_permiso.c.permiso_id).all()
+        if not roles:
+            return [], False
+        return roles, True
+    
+    def eliminar_rol_con_permisos(self, id):
+        rol = self.session.query(Roles).filter(Roles.id == id).first()
+        if rol is None:
+            return False
+        self.session.delete(rol)
+        return True
+        

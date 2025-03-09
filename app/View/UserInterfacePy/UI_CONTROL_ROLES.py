@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_ROLES.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_ROLES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -191,7 +191,11 @@ class Ui_Control_Roles_Permisos(object):
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem1, 0, 1, 1, 2)
         self.tabla_listaroles = QtWidgets.QTableView(self.contenedor_tabla)
+        self.tabla_listaroles.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tabla_listaroles.setAlternatingRowColors(True)
+        self.tabla_listaroles.setGridStyle(QtCore.Qt.DashLine)
         self.tabla_listaroles.setObjectName("tabla_listaroles")
+        self.tabla_listaroles.horizontalHeader().setStretchLastSection(True)
         self.gridLayout_3.addWidget(self.tabla_listaroles, 2, 0, 1, 4)
         self.gridLayout_2.addWidget(self.contenedor_tabla, 0, 0, 1, 5)
         self.btn_btn_eliminarrol = QtWidgets.QPushButton(self.contenedor_funcionlistaroles)
@@ -238,7 +242,7 @@ class Ui_Control_Roles_Permisos(object):
         self.contenedor_permisos.setWidgetResizable(True)
         self.contenedor_permisos.setObjectName("contenedor_permisos")
         self.contenedor_permisosscroll = QtWidgets.QWidget()
-        self.contenedor_permisosscroll.setGeometry(QtCore.QRect(0, 0, 617, 518))
+        self.contenedor_permisosscroll.setGeometry(QtCore.QRect(0, 0, 622, 548))
         self.contenedor_permisosscroll.setObjectName("contenedor_permisosscroll")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.contenedor_permisosscroll)
         self.gridLayout_6.setObjectName("gridLayout_6")

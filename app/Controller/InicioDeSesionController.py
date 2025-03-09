@@ -7,10 +7,8 @@ from PyQt5.QtGui import *
 from ..View.UserInterfacePy.UI_INICIO_SESION import *
 from ..Source.iconos_rc import *
 from ..Source.ibootstrap_rc import *
-from ..Model.CreadencialesUsuarioModel import *
+from .CreadencialesUsuarioController import *
 from ..Model.ValidacionesModel import Validaciones
-
-
 
 class Login(QWidget):
     def __init__(self):
@@ -43,12 +41,14 @@ class Login(QWidget):
         self.ui.btnCerrar.clicked.connect(self.cerrar)
         self.ui.btnMinimizar.clicked.connect(self.minimizar)
         self.ui.btnAceptar.clicked.connect(self.ingresar)
+        self.ui.txt_Password.returnPressed.connect(self.ingresar)
+        
 
     def ingresar(self):
         from .SistemaPrincipalController import SistemaPrincipal
         usuario = self.ui.txt_User.text().strip()
         password = self.ui.txt_Password.text().strip()
-        if hash_class().verificar_credenciales(usuario = usuario, contraseña = password):
+        if CredencialesModel().verificar_credenciales(usuario = usuario, contraseña = password):
             ventana =  SistemaPrincipal()
             self.close()
             ventana.show()

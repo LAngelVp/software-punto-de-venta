@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from .BaseDatosModel import Usuarios, Roles
-from .CreadencialesUsuarioModel import *
+from ..Controller.CodificarPasswordController import *
 from datetime import datetime
 class UsuarioModel:
     def __init__(self, session):
@@ -9,7 +9,7 @@ class UsuarioModel:
 
     def crear_usuario(self, usuario, password, fecha_creacion, fecha_actualizacion = None, rol_id=None):
         # Hash de la contraseña
-        contraseña_hasheada = hash_class().hashear_password(password)
+        contraseña_hasheada = EncriptarPasswordConrtoller(password).hashear_password()
         
         # Verificar si el usuario ya existe
         usuario_existente = self.session.query(Usuarios).filter_by(usuario=usuario).first()
@@ -53,7 +53,7 @@ class UsuarioModel:
 
                 # Si se proporciona una nueva contraseña, actualizamos la contraseña
                 if nuevo_password:
-                    nueva_contraseña_hash = hash_class().hashear_password(nuevo_password)  # Hasheamos la nueva contraseña
+                    nueva_contraseña_hash = EncriptarPasswordConrtoller(nuevo_password).hashear_password()  # Hasheamos la nueva contraseña
                     usuario.contraseña = nueva_contraseña_hash  # Actualizamos la contraseña
 
                 # Actualizar la fecha de actualización

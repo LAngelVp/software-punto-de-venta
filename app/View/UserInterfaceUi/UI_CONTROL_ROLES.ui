@@ -265,7 +265,20 @@ background: #2196F3;
               </spacer>
              </item>
              <item row="2" column="0" colspan="4">
-              <widget class="QTableView" name="tabla_listaroles"/>
+              <widget class="QTableView" name="tabla_listaroles">
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::DashLine</enum>
+               </property>
+               <attribute name="horizontalHeaderStretchLastSection">
+                <bool>true</bool>
+               </attribute>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -370,8 +383,8 @@ background: #2196F3;
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>617</width>
-                  <height>518</height>
+                  <width>622</width>
+                  <height>548</height>
                  </rect>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_6">

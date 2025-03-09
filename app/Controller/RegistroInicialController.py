@@ -69,19 +69,19 @@ class Registro_personal_inicial(QWidget):
         self.ui.txt_correoelectronico.setMaxLength(200)
         self.ui.txt_numerosegurosicial.setMaxLength(13)
         self.ui.txt_ciudad.setMaxLength(50)
-        self.ui.txt_codigopostal.setMaxLength(10)
+        self.ui.txt_codigopostal.setMaxLength(5)
         self.ui.txt_estado.setMaxLength(50)
         self.ui.txt_pais.setMaxLength(60)
-        self.ui.txt_numerotelefono.setMaxLength(20)
+        self.ui.txt_numerotelefono.setMaxLength(10)
         self.ui.txt_nombrecontactoemergencia.setMaxLength(120)
-        self.ui.txt_contactoemergencia.setMaxLength(20)
+        self.ui.txt_contactoemergencia.setMaxLength(10)
         self.ui.txt_calles.setMaxLength(50)
         self.ui.txt_avenidas.setMaxLength(50)
         self.ui.txt_colonia.setMaxLength(50)
         self.ui.txt_ninterior.setMaxLength(10)
         self.ui.txt_nexterior.setMaxLength(10)
         self.ui.txt_usuario_iniciosesion.setMaxLength(100)
-        self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(30)
+        self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(100)
         self.ui.txt_nombre.setFocus()
 # señales: acciones de los botones
         self.ui.btc_cerrar.clicked.connect(lambda: self.close())
@@ -295,6 +295,10 @@ class Registro_personal_inicial(QWidget):
                         nombre = empleado_existente.genero
                         self.caja_opciones_mover_elemento(self.ui.cajaopciones_genero, nombre)
                         
+                    if empleado_existente.usuario and empleado_existente.usuario.rol:
+                        nombre = empleado_existente.usuario.rol.nombre
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_rol_usuario, nombre)
+                        
                     if empleado_existente.usuario:
                         self.ui.opcion_usodelsistema.setText("Cambiar Creadenciales")
                         self.ui.opcion_actualizar_datoscredenciales.show()
@@ -344,9 +348,9 @@ class Registro_personal_inicial(QWidget):
             if nombre == elemento_a_mover:
                 puestos.pop(i)
                 puestos.insert(0, (nombre, id_puesto))
-                puesnto_encontrado = True
+                puesto_encontrado = True
                 break
-        if puesnto_encontrado:
+        if puesto_encontrado:
             caja_opciones.clear()
             for nombre, id_puesto in puestos:
                 caja_opciones.addItem(nombre, id_puesto)
@@ -459,8 +463,6 @@ class Registro_personal_inicial(QWidget):
         self.ui.txt_carrera.setValidator(Validaciones().get_text_validator)
         self.ui.txt_contactoemergencia.setValidator(Validaciones().get_phone_validator)
         self.ui.txt_nombrecontactoemergencia.setValidator(Validaciones().get_text_validator)
-        self.ui.txt_avenidas.setValidator(Validaciones().get_text_validator)
-        self.ui.txt_calles.setValidator(Validaciones().get_text_validator)
         self.ui.txt_colonia.setValidator(Validaciones().get_text_validator)
         self.ui.txt_ninterior.setValidator(Validaciones().get_int_validator)
         self.ui.txt_nexterior.setValidator(Validaciones().get_int_validator)
@@ -599,6 +601,7 @@ class Registro_personal_inicial(QWidget):
         except Exception as e:
             print("Ocurrió un error:")
             traceback.print_exc()
+    
     def actualizar_empleado(self):
         id_empleado = self.id_empleado
         datos = self.obtener_datos()

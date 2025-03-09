@@ -6,7 +6,7 @@ class Validaciones:
         self.REGEX_TEXT = QRegExp("^[a-zA-ZñÑ ]+$")
         self.REGEX_CURP = QRegExp("[A-ZÑ0-9]+")
         self.REGEX_RFC = QRegExp("[A-ZÑ0-9]+")
-        self.REGEX_EMAIL = QRegExp("[a-zA-Z0-9._%+-]+@[a-zA-ZñÑ0-9.-]+\\.[a-zA-Z]{2,4}")
+        self.REGEX_EMAIL = QRegExp(r"(^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$)")
         self.REGEX_NSS = QRegExp("[0-9]+")
         self.REGEX_PHONE = QRegExp("[0-9]+")
         self.REGEX_PASSWORD = QRegExp("^[a-zA-ZñÑ0-9!@#$%^&*()\\-+=\\{\\}\\[\\]:;\"'<>,.?/|~`]+$")

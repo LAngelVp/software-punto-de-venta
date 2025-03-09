@@ -27,7 +27,7 @@ Base = declarative_base()
 rol_permiso = Table(
     "rol_permisos",
     Base.metadata,
-    Column("rol_id", BigInteger, ForeignKey("Roles.id"), primary_key=True),
+    Column("rol_id", BigInteger, ForeignKey("Roles.id",ondelete='CASCADE'), primary_key=True),
     Column("permiso_id", BigInteger, ForeignKey("Permisos.id"), primary_key=True),
 )
 
@@ -91,7 +91,7 @@ class Roles(Base):
     nombre = Column(String(150), unique=True)
     descripcion = Column(Text)
     permisos = relationship(
-        "Permisos", secondary=rol_permiso, back_populates="roles", 
+        "Permisos", secondary=rol_permiso, back_populates="roles"
         )
     usuarios = relationship("Usuarios", back_populates="rol")
 

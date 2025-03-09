@@ -426,7 +426,6 @@ class Control_proveedores(QWidget):
                 proveedor = elemento.data(Qt.UserRole)
                 if proveedor:
                     self.proveedor_seleccionado = proveedor
-                    
                     self.PROVEEDOR_SELECCIONADO_SIGNAL.emit(self.proveedor_seleccionado)
             else:
                 return
