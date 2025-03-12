@@ -274,18 +274,18 @@ class Proveedores(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre = Column(String(255))
-    pais = Column(String(100))
-    estado = Column(String(100))
-    ciudad = Column(String(100))
-    codigo_postal = Column(String(50))
-    calles = Column(String(255))
-    avenidas = Column(String(255))
-    colonia = Column(String(255))
+    nombre = Column(String(150))
+    pais = Column(String(50))
+    estado = Column(String(50))
+    ciudad = Column(String(50))
+    codigo_postal = Column(String(5))
+    calles = Column(String(100))
+    avenidas = Column(String(100))
+    colonia = Column(String(100))
     direccion_adicional = Column(Text)
-    rfc = Column(String(255))
+    rfc = Column(String(13))
     pagina_web = Column(Text)
-    correo = Column(String(255))
+    correo = Column(String(100))
     telefono = Column(String(15))
     representante_id = Column(Integer, ForeignKey("Representantes_proveedores.id"))  # Clave foránea
     representante = relationship("Representantes_proveedores", back_populates="proveedores")  # Relación
@@ -306,12 +306,12 @@ class Representantes_proveedores(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre = Column(String(255))
-    apellido_paterno = Column(String(255))
-    apellido_materno = Column(String(255))
+    nombre = Column(String(150))
+    apellido_paterno = Column(String(100))
+    apellido_materno = Column(String(100))
     telefono = Column(String(15))
-    correo = Column(String(255))
-    puesto = Column(String(255))
+    correo = Column(String(100))
+    puesto = Column(String(100))
     proveedores = relationship("Proveedores", back_populates="representante")  # Relación inversa
 
 

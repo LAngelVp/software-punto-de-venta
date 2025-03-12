@@ -40,6 +40,28 @@ class Control_proveedores(QWidget):
         self.ui.btn_btn_actualizar.clicked.connect(self.control_actualizar_proveedor)
         self.ui.cajaopciones_categorias.currentIndexChanged.connect(self.mostrar_descripcion_categoria)
         
+        self.ui.txt_nombre.maxLength(150)
+        self.ui.txt_pais.maxLength(50)
+        self.ui.txt_estado.maxLength(50)
+        self.ui.txt_ciudad.maxLength(50)
+        self.ui.txt_codigopostal.maxLength(5)
+        self.ui.txt_calles.maxLength(100)
+        self.ui.txt_avenida.maxLength(100)
+        self.ui.txt_colonia.maxLength(100)
+        self.ui.txt_rfc.maxLength(13)
+        self.ui.txt_correo.maxLength(100)
+        self.ui.txt_telefono.maxLength(15)
+        # REPRESENTANTE
+        self.ui.txt_nombrerepresentante.maxLength(150)
+        self.ui.txt_apellidopaternorepresen.maxLength(100)
+        self.ui.txt_apellidomaternorepresen.maxLength(100)
+        self.ui.txt_telefonorepresentante.maxLength(15)
+        self.ui.txt_correorepresentante.maxLength(100)
+        self.ui.txt_puestorepresentante.maxLength(100)
+        # VALIDACIONES
+        self.ui.txt_telefono.setValidator(Validaciones().get_phone_validator)
+        self.ui.txt_codigopostal.setValidator(Validaciones().get_int_validator)
+        
         
 
         self.proveedores = None

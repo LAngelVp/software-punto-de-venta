@@ -298,6 +298,14 @@ class Registro_personal_inicial(QWidget):
                     if empleado_existente.usuario and empleado_existente.usuario.rol:
                         nombre = empleado_existente.usuario.rol.nombre
                         self.caja_opciones_mover_elemento(self.ui.cajaopciones_rol_usuario, nombre)
+                    
+                    if empleado_existente.sucursal:
+                        nombre = empleado_existente.sucursal.nombre_sucursal
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_sucursales , nombre)
+                    
+                    if empleado_existente.departamento:
+                        nombre = empleado_existente.departamento.nombre
+                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_departamentos, nombre)
                         
                     if empleado_existente.usuario:
                         self.ui.opcion_usodelsistema.setText("Cambiar Creadenciales")
