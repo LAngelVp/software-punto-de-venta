@@ -20,7 +20,9 @@ class ProveedoresModel:
                         rfc,
                         pagina_web,
                         correo,
-                        telefono
+                        telefono,
+                        clave_moneda,
+                        tipo_moneda
                         ):
         try:
             proveedor = self.session.query(Proveedores).filter_by(nombre = nombre).first()
@@ -41,18 +43,21 @@ class ProveedoresModel:
                     pagina_web = pagina_web,
                     correo  = correo,
                     telefono = telefono,
-                    representante_id =  representante_id
+                    clave_moneda = clave_moneda,
+                    tipo_moneda = tipo_moneda,
+                    representante_id =  representante_id,
+                    categoria_id = categoria_id
                     )
                 
-                if categoria_id:
-                    try:
-                        categoria = self.session.query(Categorias_proveedores).get(categoria_id)
-                        if categoria:
-                            nuevo_proveedor.categorias.append(categoria)  # Asociar el objeto, no el id
-                    except Exception as e:
-                        return None
+                # if categoria_id:
+                #     try:
+                #         categoria = self.session.query(Categorias_proveedores).get(categoria_id)
+                #         if categoria:
+                #             nuevo_proveedor.categoria.append(categoria)  # Asociar el objeto, no el id
+                #     except Exception as e:
+                #         return None
 
-                elif representante_id:
+                if representante_id:
                     try:
                         representante = self.session.query(Representantes_proveedores).filter(Representantes_proveedores.id == representante_id).first()
                         if representante is not None:
@@ -79,7 +84,7 @@ class ProveedoresModel:
 
     def obtener_proveedores(self):
         proveedores = self.session.query(Proveedores).options(
-            joinedload(Proveedores.categorias),  # Carga anticipada de las categorías
+            joinedload(Proveedores.categoria),  # Carga anticipada de las categorías
             joinedload(Proveedores.productos),   # Carga anticipada de los productos
             joinedload(Proveedores.representante),  # Carga anticipada del representante
             joinedload(Proveedores.compras)  # Carga anticipada de las compras
@@ -90,13 +95,17 @@ class ProveedoresModel:
             return  None, False
 
     def obtener_nombre_proveedor(self, texto):
-        try:
-            texto_busqueda = f"%{texto}%"
-            # Realizar la consulta utilizando ilike() para búsqueda insensible a mayúsculas
-            proveedores = self.session.query(Proveedores).filter(Proveedores.nombre.ilike(texto_busqueda)).all()
+        texto_busqueda = f"%{texto}%"
+        # Realizar la consulta utilizando ilike() para búsqueda insensible a mayúsculas
+        proveedores = self.session.query(Proveedores).options(
+            joinedload(Proveedores.categoria),  # Carga anticipada de las categorías
+            joinedload(Proveedores.productos),   # Carga anticipada de los productos
+            joinedload(Proveedores.representante),  # Carga anticipada del representante
+            joinedload(Proveedores.compras)  # Carga anticipada de las compras
+        ).filter(Proveedores.nombre.ilike(texto_busqueda)).all()
+        if len(proveedores) > 0:
             return proveedores
-        except:
-            pass
+        return []
     
     def actualizar_proveedor(self, proveedor_id, 
                             categoria_id,
@@ -114,6 +123,8 @@ class ProveedoresModel:
                             pagina_web,
                             correo,
                             telefono,
+                            clave_moneda,
+                            tipo_moneda
                             ):
         try:
             # Buscar el proveedor por ID
@@ -135,6 +146,8 @@ class ProveedoresModel:
             proveedor.pagina_web = pagina_web
             proveedor.correo = correo
             proveedor.telefono = telefono
+            proveedor.clave_moneda = clave_moneda
+            proveedor.tipo_moneda = tipo_moneda
 
             # Actualizar la categoría si se proporciona
             if categoria_id:
@@ -142,8 +155,8 @@ class ProveedoresModel:
                     categoria = self.session.query(Categorias_proveedores).get(categoria_id)
                     if categoria:
                         # Limpiar las categorías existentes y agregar la nueva
-                        proveedor.categorias.clear()
-                        proveedor.categorias.append(categoria)
+                        proveedor.categoria.clear()
+                        proveedor.categoria.append(categoria)
                 except Exception as e:
                     self.session.rollback()
                     return None

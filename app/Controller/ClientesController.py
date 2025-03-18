@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from datetime import  datetime, timedelta
 from ..DataBase.conexionBD import Conexion_base_datos
-from .FuncionesAuxiliares import size_validator_image
+from .FuncionesAuxiliares import *
 from ..View.UserInterfacePy.UI_CONTROL_CLIENTES import *
 from .CategoriasController import CategoriasController
 from .AreaNegocioClientesController import AreaNegocioClientesController

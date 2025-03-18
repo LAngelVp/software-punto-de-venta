@@ -7,7 +7,7 @@ from ..View.UserInterfacePy.UI_ADMINISTRAR_PUESTOS import Ui_Formulario_puestos
 from .RolesPermisosController import ControlRolesController
 from ..Model.PuestoModel import PuestoModel
 from ..Model.DepartamentosModel import DepartamentosModel
-from .FuncionesAuxiliares import quitar_acentos
+from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
 
 class PuestosController(QWidget):
@@ -360,7 +360,7 @@ class PuestosController(QWidget):
                                 
                             if elemento_seleccionado.dias_laborales is not None:
                                 for dia, checkbox in cajas_verificacion.items():
-                                    checkbox.setChecked(quitar_acentos(dia) in elemento_seleccionado.dias_laborales)
+                                    checkbox.setChecked(FuncionesAuxiliaresController().quitar_acentos(dia) in elemento_seleccionado.dias_laborales)
 
                     except Exception as e:
                         Mensaje().mensaje_critico(f'Surgio un error al obtener los datos del elemento seleccionado: {(e)}')

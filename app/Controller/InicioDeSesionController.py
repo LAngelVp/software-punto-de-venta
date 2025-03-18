@@ -42,7 +42,6 @@ class Login(QWidget):
         self.ui.btnMinimizar.clicked.connect(self.minimizar)
         self.ui.btnAceptar.clicked.connect(self.ingresar)
         self.ui.txt_Password.returnPressed.connect(self.ingresar)
-        
 
     def ingresar(self):
         from .SistemaPrincipalController import SistemaPrincipal

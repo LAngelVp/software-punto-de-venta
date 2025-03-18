@@ -274,29 +274,25 @@ class Proveedores(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre = Column(String(150))
-    pais = Column(String(50))
-    estado = Column(String(50))
-    ciudad = Column(String(50))
-    codigo_postal = Column(String(5))
-    calles = Column(String(100))
-    avenidas = Column(String(100))
-    colonia = Column(String(100))
+    nombre = Column(String(255))
+    pais = Column(String(100))
+    estado = Column(String(100))
+    ciudad = Column(String(100))
+    codigo_postal = Column(String(50))
+    calles = Column(String(255))
+    avenidas = Column(String(255))
+    colonia = Column(String(255))
     direccion_adicional = Column(Text)
-    rfc = Column(String(13))
+    rfc = Column(String(255))
     pagina_web = Column(Text)
-    correo = Column(String(100))
+    correo = Column(String(255))
     telefono = Column(String(15))
     representante_id = Column(Integer, ForeignKey("Representantes_proveedores.id"))  # Clave foránea
+    categoria_id = Column(Integer, ForeignKey("Categorias_proveedores.id"))
+    categoria = relationship("Categorias_proveedores", back_populates="proveedores")
     representante = relationship("Representantes_proveedores", back_populates="proveedores")  # Relación
     productos = relationship(
         "Productos", secondary=producto_proveedor, back_populates="proveedores", 
-    )
-    categorias = relationship(
-        "Categorias_proveedores",
-        secondary=proveedor_categoria,
-        back_populates="proveedores",
-        
     )
     compras = relationship("Compras", back_populates="proveedor")
 
@@ -306,12 +302,12 @@ class Representantes_proveedores(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre = Column(String(150))
-    apellido_paterno = Column(String(100))
-    apellido_materno = Column(String(100))
+    nombre = Column(String(255))
+    apellido_paterno = Column(String(255))
+    apellido_materno = Column(String(255))
     telefono = Column(String(15))
-    correo = Column(String(100))
-    puesto = Column(String(100))
+    correo = Column(String(255))
+    puesto = Column(String(255))
     proveedores = relationship("Proveedores", back_populates="representante")  # Relación inversa
 
 
@@ -323,7 +319,7 @@ class Categorias_proveedores(Base):
     nombre = Column(String(100))
     descripcion = Column(String(255))
     proveedores = relationship(
-        "Proveedores", secondary=proveedor_categoria, back_populates="categorias", 
+        "Proveedores", back_populates="categoria", 
     )
 
 

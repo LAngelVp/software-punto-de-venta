@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPixmap, QRegExpValidator
 from ..Source.iconos_rc import *
 # from .Source.img import *
 from ..Source.ibootstrap_rc import *
-from .FuncionesAuxiliares import size_validator_image
+from .FuncionesAuxiliares import *
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..View.UserInterfacePy.UI_REGISTRO_EMPLEADO import *
 from .MensajesAlertasController import Mensaje
@@ -17,6 +17,7 @@ from ..Model.PuestoModel import PuestoModel
 from ..Model.DepartamentosModel import DepartamentosModel
 from ..Model.SucursalesModel import SucursalesModel
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+from .FuncionesAuxiliares import *
 
 from .SucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
@@ -277,35 +278,27 @@ class Registro_personal_inicial(QWidget):
 
                     if empleado_existente.puesto:
                         nombre = empleado_existente.puesto.nombre
-                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_puestos, nombre)
+                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_puestos, nombre)
                             
                     if empleado_existente.parentesco_contacto:
                         nombre = empleado_existente.parentesco_contacto
-                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_parentesco, nombre)
+                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_parentesco, nombre)
                     
                     if empleado_existente.nivel_academico:
                         nombre = empleado_existente.nivel_academico
-                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_nivelacademico, nombre)
+                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_nivelacademico, nombre)
                     
                     if empleado_existente.estado_civil:
                         nombre = empleado_existente.estado_civil
-                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
+                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
                     
                     if empleado_existente.genero:
                         nombre = empleado_existente.genero
-                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_genero, nombre)
+                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_genero, nombre)
                         
                     if empleado_existente.usuario and empleado_existente.usuario.rol:
                         nombre = empleado_existente.usuario.rol.nombre
                         self.caja_opciones_mover_elemento(self.ui.cajaopciones_rol_usuario, nombre)
-                    
-                    if empleado_existente.sucursal:
-                        nombre = empleado_existente.sucursal.nombre_sucursal
-                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_sucursales , nombre)
-                    
-                    if empleado_existente.departamento:
-                        nombre = empleado_existente.departamento.nombre
-                        self.caja_opciones_mover_elemento(self.ui.cajaopciones_departamentos, nombre)
                         
                     if empleado_existente.usuario:
                         self.ui.opcion_usodelsistema.setText("Cambiar Creadenciales")
@@ -343,26 +336,6 @@ class Registro_personal_inicial(QWidget):
             self.ui.fecha_fechadespido.setEnabled(False)
             self.ui.fecha_fechadespido.setDate(empleado.fecha_despido)
     
-    def caja_opciones_mover_elemento(self, caja_opciones, elemento_a_mover):
-        puestos = []
-        max_elementos = caja_opciones.count()
-        for i in range(max_elementos):
-            nombre_puesto = caja_opciones.itemText(i)
-            id_puesto = caja_opciones.itemData(i)
-            puestos.append((nombre_puesto, id_puesto))
-            
-        puesto_encontrado = False
-        for i, (nombre, id_puesto) in enumerate(puestos):
-            if nombre == elemento_a_mover:
-                puestos.pop(i)
-                puestos.insert(0, (nombre, id_puesto))
-                puesto_encontrado = True
-                break
-        if puesto_encontrado:
-            caja_opciones.clear()
-            for nombre, id_puesto in puestos:
-                caja_opciones.addItem(nombre, id_puesto)
-
     def agregar_sucursal(self):
         self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
         self.listar_sucursales_signal.emit()
@@ -441,7 +414,7 @@ class Registro_personal_inicial(QWidget):
     def cargar_imagen(self, event):
         options = QFileDialog.Options()
         self.file_name, _ = QFileDialog.getOpenFileName(self, 'SELECCIONA UNA IMAGEN', ' ', 'Archivo de Imagen (*.png *.jpg *.jpeg);; Todos los archivos (*)', options=options)
-        image_accept = size_validator_image(self.file_name)
+        image_accept = FuncionesAuxiliaresController().size_validator_image(self.file_name)
         if self.file_name:
             if image_accept:
                 self.ui.label_fotousuario.setText(self.file_name)

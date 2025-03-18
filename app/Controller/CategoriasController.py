@@ -22,8 +22,8 @@ class CategoriasController(QWidget):
         self.ui.btn_btn_guardar.clicked.connect(self.guardar)
 
     def guardar(self):
-        categoria = self.ui.txt_nombre.text()
-        descripcion = self.ui.txtlargo_descripcion.toPlainText()
+        categoria = self.ui.txt_nombre.text().upper().strip()
+        descripcion = self.ui.txtlargo_descripcion.toPlainText().upper().strip()
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
