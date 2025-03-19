@@ -16,6 +16,8 @@ class ControlRolesController(QWidget):
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        #//LIMITE CARACTERES
+        self.ui.txt_nombrerol.setMaxLength(100)
         #-------------------
         #// VARIABLES
         self.permisos = []

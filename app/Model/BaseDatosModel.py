@@ -78,7 +78,7 @@ departamento_sucursal = Table(
 class Permisos(Base):
     __tablename__ = "Permisos"
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
-    nombre = Column(String(255), unique=True)
+    nombre = Column(String(50), unique=True)
     roles = relationship(
         "Roles", secondary=rol_permiso, back_populates="permisos", 
         )
@@ -88,7 +88,7 @@ class Permisos(Base):
 class Roles(Base):
     __tablename__ = "Roles"
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
-    nombre = Column(String(150), unique=True)
+    nombre = Column(String(100), unique=True)
     descripcion = Column(Text)
     permisos = relationship(
         "Permisos", secondary=rol_permiso, back_populates="roles"
@@ -100,7 +100,7 @@ class Roles(Base):
 class Usuarios(Base):
     __tablename__ = "Usuarios"
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
-    usuario = Column(String(100), unique=True, nullable=True)
+    usuario = Column(String(60), unique=True, nullable=True)
     contraseña = Column(LargeBinary, nullable=True)
     fecha_creacion = Column(Date, nullable=False)
     fecha_actualizacion = Column(Date, nullable=True)
@@ -113,7 +113,7 @@ class Usuarios(Base):
 class Puestos(Base):
     __tablename__ = "Puestos"
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
-    nombre = Column(String(150))
+    nombre = Column(String(100))
     salario = Column(Float)
     horas_laborales = Column(Float)
     dias_laborales = Column(Text)
@@ -138,23 +138,23 @@ class Empleados(Base):
     apellido_materno = Column(String(60), nullable=False)
     genero = Column(String(20))
     fecha_nacimiento = Column(Date, nullable=False)
-    estado_civil = Column(String(30), nullable=False)
+    estado_civil = Column(String(20), nullable=False)
     curp = Column(String(18), nullable=False, unique=True)
     rfc = Column(String(13), nullable=False, unique=True)
     nivel_academico = Column(String(50))
-    carrera = Column(String(255))
-    correo_electronico = Column(String(200), nullable=True, unique=True)
+    carrera = Column(String(150))
+    correo_electronico = Column(String(100), nullable=True, unique=True)
     numero_seguro_social = Column(String(13), nullable=False, unique=True)
     fecha_contratacion = Column(Date, nullable=False)
     fecha_despido = Column(Date, nullable=True)
     ciudad = Column(String(50), nullable=True)
-    codigo_postal = Column(String(10), nullable=True)
+    codigo_postal = Column(String(5), nullable=True)
     estado = Column(String(50), nullable=True)
-    pais = Column(String(60), nullable=True)
-    numero_telefonico = Column(String(20), nullable=True)
-    nombre_contacto =  Column(String(120), nullable=True)
-    contacto_emergencia = Column(String(20))
-    parentesco_contacto = Column(String(30))
+    pais = Column(String(50), nullable=True)
+    numero_telefonico = Column(String(10), nullable=True)
+    nombre_contacto =  Column(String(100), nullable=True)
+    contacto_emergencia = Column(String(10))
+    parentesco_contacto = Column(String(20))
     calles =  Column(String(50), nullable=True)
     avenidas = Column(String(50), nullable=True)
     colonia = Column(String(50))
@@ -179,12 +179,12 @@ class Sucursales(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre_sucursal = Column(String(100))
-    codigo_postal = Column(String(10))
-    ciudad = Column(String(100))
-    estado = Column(String(100))
+    nombre_sucursal = Column(String(50))
+    codigo_postal = Column(String(5))
+    ciudad = Column(String(50))
+    estado = Column(String(50))
     pais = Column(String(50))
-    num_telefono = Column(String(15))
+    num_telefono = Column(String(10))
     direccion = Column(Text)
     productos = relationship(
         "Productos", secondary=sucursal_producto, back_populates="sucursales", 
@@ -198,7 +198,7 @@ class Sucursales(Base):
 class Departamentos(Base):
     __tablename__ = "Departamentos"
     id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
-    nombre = Column(String(150))
+    nombre = Column(String(70))
     descripcion = Column(Text)
     empleados = relationship(
         "Empleados", back_populates="departamento"
@@ -213,13 +213,13 @@ class Departamentos(Base):
 class Presentacion_productos(Base):
     __tablename__ = "Presentacion_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    nombre = Column(String(50), nullable=False)
+    nombre = Column(String(25), nullable=False)
     productos = relationship("Productos", back_populates="presentacion_productos")
     
 class Unidad_medida_productos(Base):
     __tablename__ = "Unidad_medida_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    unidad_medida = Column(String(50), nullable=False)
+    unidad_medida = Column(String(25), nullable=False)
     productos = relationship("Productos", back_populates="unidad_medida_productos")
 
 class Productos(Base):
@@ -227,8 +227,8 @@ class Productos(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    codigo_upc = Column(String(255), nullable=False, unique=True)
-    nombre_producto = Column(String(255))
+    codigo_upc = Column(String(20), nullable=False, unique=True)
+    nombre_producto = Column(String(60))
     descripcion_producto = Column(Text)
     costo_inicial = Column(Float)
     costo_final = Column(Float)
@@ -264,7 +264,7 @@ class Productos(Base):
 class Categorias_productos(Base):
     __tablename__ = "Categorias_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
-    nombre = Column(String(100))
+    nombre = Column(String(50))
     descripcion = Column(Text)
     # Relación con Productos (una categoría tiene muchos productos)
     productos = relationship("Productos", back_populates="categoria")
@@ -274,19 +274,19 @@ class Proveedores(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre = Column(String(255))
-    pais = Column(String(100))
-    estado = Column(String(100))
-    ciudad = Column(String(100))
-    codigo_postal = Column(String(50))
-    calles = Column(String(255))
-    avenidas = Column(String(255))
-    colonia = Column(String(255))
+    nombre = Column(String(150))
+    pais = Column(String(30))
+    estado = Column(String(30))
+    ciudad = Column(String(30))
+    codigo_postal = Column(String(5))
+    calles = Column(String(60))
+    avenidas = Column(String(60))
+    colonia = Column(String(50))
     direccion_adicional = Column(Text)
-    rfc = Column(String(255))
+    rfc = Column(String(13))
     pagina_web = Column(Text)
-    correo = Column(String(255))
-    telefono = Column(String(15))
+    correo = Column(String(100))
+    telefono = Column(String(10))
     representante_id = Column(Integer, ForeignKey("Representantes_proveedores.id"))  # Clave foránea
     categoria_id = Column(Integer, ForeignKey("Categorias_proveedores.id"))
     categoria = relationship("Categorias_proveedores", back_populates="proveedores")
@@ -302,12 +302,12 @@ class Representantes_proveedores(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre = Column(String(255))
-    apellido_paterno = Column(String(255))
-    apellido_materno = Column(String(255))
-    telefono = Column(String(15))
-    correo = Column(String(255))
-    puesto = Column(String(255))
+    nombre = Column(String(100))
+    apellido_paterno = Column(String(60))
+    apellido_materno = Column(String(60))
+    telefono = Column(String(10))
+    correo = Column(String(100))
+    puesto = Column(String(100))
     proveedores = relationship("Proveedores", back_populates="representante")  # Relación inversa
 
 
@@ -316,8 +316,8 @@ class Categorias_proveedores(Base):
     id = Column(
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
-    nombre = Column(String(100))
-    descripcion = Column(String(255))
+    nombre = Column(String(150))
+    descripcion = Column(String(150))
     proveedores = relationship(
         "Proveedores", back_populates="categoria", 
     )

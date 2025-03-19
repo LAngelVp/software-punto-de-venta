@@ -20,7 +20,9 @@ class PuestosController(QWidget):
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
-
+        #//LIMITE CARACTERES
+        self.ui.txt_nombrepuesto.setMaxLength(100)
+        
         #//: EDICION
         self.ui.decimal_salario.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.decimal_horaslaborales.setButtonSymbols(QSpinBox.NoButtons)
