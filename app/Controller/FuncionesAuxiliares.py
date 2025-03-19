@@ -1,9 +1,12 @@
 import unicodedata, os
 class FuncionesAuxiliaresController:
-    def quitar_acentos(texto):
+    def __init__(self):
+         pass
+     
+    def quitar_acentos(self, texto):
         return ''.join(c for c in unicodedata.normalize('NFD', texto) if unicodedata.category(c) != 'Mn')
 
-    def size_validator_image(image):
+    def size_validator_image(self, image):
             if image:
                 file_size = os.path.getsize(image)
                 if file_size > 1024 * 1024 * 5:
