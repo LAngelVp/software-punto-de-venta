@@ -198,7 +198,7 @@ background: #2196F3;
          </font>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="contenedor_funcionlistaroles">
          <attribute name="title">
@@ -225,7 +225,7 @@ background: #2196F3;
               </widget>
              </item>
              <item row="1" column="0" colspan="2">
-              <widget class="QLineEdit" name="txt_nombrerol">
+              <widget class="QLineEdit" name="txt_Buscar_nombrerol">
                <property name="placeholderText">
                 <string>Nombre del rol</string>
                </property>
@@ -834,7 +834,7 @@ background: #2196F3;
               </widget>
              </item>
              <item row="3" column="0" colspan="2">
-              <widget class="QLineEdit" name="txt_nombrerol_2"/>
+              <widget class="QLineEdit" name="txt_nombrerol"/>
              </item>
             </layout>
            </widget>
@@ -849,12 +849,12 @@ background: #2196F3;
   </layout>
  </widget>
  <tabstops>
-  <tabstop>txt_nombrerol</tabstop>
+  <tabstop>txt_Buscar_nombrerol</tabstop>
   <tabstop>tabla_listaroles</tabstop>
   <tabstop>btn_btn_modificarrol</tabstop>
   <tabstop>btn_btn_eliminarrol</tabstop>
   <tabstop>btn_btn_buscar</tabstop>
-  <tabstop>txt_nombrerol_2</tabstop>
+  <tabstop>txt_nombrerol</tabstop>
   <tabstop>txt_descripcionrol</tabstop>
   <tabstop>opcion_crearventa</tabstop>
   <tabstop>opcion_eliminarventa</tabstop>

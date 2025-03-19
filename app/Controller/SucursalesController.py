@@ -19,6 +19,15 @@ class SucursalesController(QWidget):
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        
+        #// LIMITE CARACTERES
+        self.ui.txt_nombre.setMaxLength(50)
+        self.ui.txt_codigopostal.setMaxLength(5)
+        self.ui.txt_ciudad.setMaxLength(50)
+        self.ui.txt_estado.setMaxLength(50)
+        self.ui.txt_pais.setMaxLength(50)
+        self.ui.txt_ntelefono.setMaxLength(10)
+        
         self.ui.btn_btn_agregar.clicked.connect(self.agregar)
         self.ui.lista_sucursales.itemClicked.connect(self.obtenerId)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)

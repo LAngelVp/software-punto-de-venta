@@ -17,6 +17,8 @@ class DepartamentosController(QWidget):
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        #// LIMITE CARACTERES
+        self.ui.txt_nombredepartamento.setMaxLength(70)
 
         #botones:
         self.ui.btn_btn_guardar.clicked.connect(self.guardar)
