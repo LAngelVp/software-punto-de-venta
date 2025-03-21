@@ -50,7 +50,7 @@ class ControlRolesController(QWidget):
                 self.permisos.remove(verificacion[1]) #COMMENTLINE: AL DESACTIVAR EL ELEMENTO, LO ELIMINA DE LA LISTA.
                 
     def agregar_roles_al_sistema(self):
-        nombre = self.ui.txt_nombrerol_2.text().strip().upper()
+        nombre = self.ui.txt_nombrerol.text().strip().upper()
         descripcion = self.ui.txt_descripcionrol.text().strip().upper()
         if len(self.permisos) == 0:
             Mensaje().mensaje_informativo("Para que puedar almacenar un nuevo rol de usuario, debes de seleccionar por lo menos una familia de permisos.")

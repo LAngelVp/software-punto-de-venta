@@ -14,7 +14,8 @@ class UsuarioModel:
         # Verificar si el usuario ya existe
         usuario_existente = self.session.query(Usuarios).filter_by(usuario=usuario).first()
         if usuario_existente:
-            self.actualizar_usuario(usuario_existente)
+            return usuario_existente, False
+            # return self.actualizar_usuario(usuario_existente.id, usuario, password, fecha_actualizacion, rol_id)
 
         # Crear el nuevo usuario
         nuevo_usuario = Usuarios(usuario=usuario, contraseña=contraseña_hasheada, fecha_creacion = fecha_creacion, fecha_actualizacion  = fecha_actualizacion, rol_id = rol_id)
@@ -32,7 +33,7 @@ class UsuarioModel:
         try:
             self.session.add(nuevo_usuario)
             self.session.flush()
-            return nuevo_usuario.id
+            return nuevo_usuario, True
         except Exception as e:
             return None
     
