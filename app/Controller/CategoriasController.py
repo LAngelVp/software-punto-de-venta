@@ -18,7 +18,7 @@ class CategoriasController(QWidget):
         self.ui = Ui_Nueva_categoria()
         self.ui.setupUi(self)
         self.setWindowTitle("Categoría")
-        self.ui.txt_nombre.setMaxLength(100)
+        self.ui.txt_nombre.setMaxLength(150)
         self.ui.btn_btn_guardar.clicked.connect(self.guardar)
 
     def guardar(self):

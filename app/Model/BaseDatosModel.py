@@ -287,6 +287,8 @@ class Proveedores(Base):
     pagina_web = Column(Text)
     correo = Column(String(100))
     telefono = Column(String(10))
+    clave_moneda = Column(String(5))
+    tipo_moneda = Column(String(50))
     representante_id = Column(Integer, ForeignKey("Representantes_proveedores.id"))  # Clave foránea
     categoria_id = Column(Integer, ForeignKey("Categorias_proveedores.id"))
     categoria = relationship("Categorias_proveedores", back_populates="proveedores")
@@ -317,7 +319,7 @@ class Categorias_proveedores(Base):
         Integer, primary_key=True, autoincrement=True, unique=True, nullable=False
     )
     nombre = Column(String(150))
-    descripcion = Column(String(150))
+    descripcion = Column(Text)
     proveedores = relationship(
         "Proveedores", back_populates="categoria", 
     )

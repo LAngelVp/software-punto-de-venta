@@ -21,11 +21,13 @@ class FuncionesAuxiliaresController:
             for i in range(max_elementos):
                 nombre_elemento = caja_opciones.itemText(i)
                 id_elemento = caja_opciones.itemData(i)
-                elementos.append((nombre_elemento, id_elemento))
+                elementos.append((nombre_elemento, id_elemento if id_elemento else None))
                 
             elemento_encontrado = False
             for i, (nombre, id_elemento) in enumerate(elementos):
-                if nombre == elemento_a_mover:
+                if nombre.lower() == elemento_a_mover.lower():
+                    print(nombre.lower())
+                    print(elemento_a_mover.lower())
                     elementos.pop(i)
                     elementos.insert(0, (nombre, id_elemento))
                     elemento_encontrado = True

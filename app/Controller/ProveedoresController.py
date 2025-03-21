@@ -48,17 +48,17 @@ class Control_proveedores(QWidget):
         self.ui.txt_estado.setMaxLength(50)
         self.ui.txt_ciudad.setMaxLength(50)
         self.ui.txt_codigopostal.setMaxLength(5)
-        self.ui.txt_calles.setMaxLength(100)
-        self.ui.txt_avenida.setMaxLength(100)
-        self.ui.txt_colonia.setMaxLength(100)
+        self.ui.txt_calles.setMaxLength(60)
+        self.ui.txt_avenida.setMaxLength(60)
+        self.ui.txt_colonia.setMaxLength(50)
         self.ui.txt_rfc.setMaxLength(13)
         self.ui.txt_correo.setMaxLength(100)
-        self.ui.txt_telefono.setMaxLength(15)
+        self.ui.txt_telefono.setMaxLength(10)
         # REPRESENTANTE
-        self.ui.txt_nombrerepresentante.setMaxLength(150)
-        self.ui.txt_apellidopaternorepresen.setMaxLength(100)
-        self.ui.txt_apellidomaternorepresen.setMaxLength(100)
-        self.ui.txt_telefonorepresentante.setMaxLength(15)
+        self.ui.txt_nombrerepresentante.setMaxLength(100)
+        self.ui.txt_apellidopaternorepresen.setMaxLength(60)
+        self.ui.txt_apellidomaternorepresen.setMaxLength(60)
+        self.ui.txt_telefonorepresentante.setMaxLength(10)
         self.ui.txt_correorepresentante.setMaxLength(100)
         self.ui.txt_puestorepresentante.setMaxLength(100)
         # VALIDACIONES
@@ -241,13 +241,18 @@ class Control_proveedores(QWidget):
                     if self.ui.btnradio_representantefalse.isChecked():
                         # Agregar proveedor sin representante
                         print(categoriaid)
-                        ProveedoresModel(session).agregar_proveedor(
+                        proveedor, status_proveedor = ProveedoresModel(session).agregar_proveedor(
                             categoria_id=categoriaid,
                             representante_id=None,  # Sin representante
                             **datos_proveedor
                         )
+                        if not status_proveedor:
+                            Mensaje().mensaje_informativo("No se logro agregar al proveedor")
+                            return
                         Mensaje().mensaje_informativo("Proveedor agregado con éxito.")
                 except Exception as e:
+                    import traceback
+                    print(traceback.format_exc)
                     Mensaje().mensaje_critico(f'No se logró agregar el proveedor: {e}')
 
         self.listar_proveedores_tabla()
@@ -476,6 +481,10 @@ class Control_proveedores(QWidget):
             nombre = None
             nombre = proveedor.categoria.nombre
             FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_categorias, nombre)
+        
+        if proveedor.clave_moneda:
+            nombre = f'{proveedor.clave_moneda}: {proveedor.tipo_moneda}'
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_tipomoneda, nombre)
         
             
             # # Obtener el QComboBox

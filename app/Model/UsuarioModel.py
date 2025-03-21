@@ -27,7 +27,7 @@ class UsuarioModel:
             if rol:
                 nuevo_usuario.rol = rol
             else:
-                return None
+                return None, False
         
         # Agregar el usuario a la sesión, pero no hacer commit aquí
         try:
@@ -35,7 +35,7 @@ class UsuarioModel:
             self.session.flush()
             return nuevo_usuario, True
         except Exception as e:
-            return None
+            return None, False
     
     def consultar_usuario(self, nombre):
         usuario = self.session.query(Usuarios).filter_by(usuario=nombre).first()
@@ -66,7 +66,7 @@ class UsuarioModel:
                     if rol:
                         usuario.rol = rol  # Actualizamos el rol
                     else:
-                        return None  # Si el rol no existe, salimos de la función
+                        return False
                 return True
             return False
         else:

@@ -1,4 +1,5 @@
 from .BaseDatosModel import Representantes_proveedores
+import logging
 
 class RepresentanteProveedorModel:
     def __init__(self, session):
@@ -22,7 +23,8 @@ class RepresentanteProveedorModel:
                 self.session.flush()
                 return nuevo_representante, True
         except Exception as e:
-            return None, False
+            logging.error(f"Error al agregar representante: {e}")
+            return None, False  # En caso de error, devolver None y False
 
     
     def actualizar_representante(self, id_representante, **kwargs):

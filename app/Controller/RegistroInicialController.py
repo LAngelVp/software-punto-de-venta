@@ -689,17 +689,17 @@ class Registro_personal_inicial(QWidget):
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
-                id_usuario = UsuarioModel(session).crear_usuario(
+                usuario, status_usuario = UsuarioModel(session).crear_usuario(
                                     usuario = usuario,
                                     password = password,
                                     fecha_creacion = fecha_actual,
                                     fecha_actualizacion = fecha_actual,
                                     rol_id = rol)
-                if not id_usuario:
+                if not status_usuario:
                     Mensaje().mensaje_alerta("El usuario que intentas crear ya esta ocupado.")
                     return
                 
-                self.empleado_existente.usuario_id = id_usuario.id
+                self.empleado_existente.usuario_id = usuario.id
                 
                 # Agregar el empleado a la sesión para guardar los cambios
                 session.add(self.empleado_existente)

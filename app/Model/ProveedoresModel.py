@@ -1,5 +1,6 @@
 from sqlalchemy.orm import joinedload
 from .BaseDatosModel import Proveedores, Categorias_proveedores, Representantes_proveedores, Productos, producto_proveedor
+import logging
 
 class ProveedoresModel:
     def __init__(self, session):
@@ -25,52 +26,48 @@ class ProveedoresModel:
                         tipo_moneda
                         ):
         try:
-            proveedor = self.session.query(Proveedores).filter_by(nombre = nombre).first()
+            proveedor = self.session.query(Proveedores).filter_by(nombre=nombre).first()
             if proveedor:
-                return proveedor
-            else:
-                nuevo_proveedor = Proveedores(
-                    nombre = nombre,
-                    pais = pais,
-                    estado = estado,
-                    ciudad = ciudad,
-                    codigo_postal = codigo_postal,
-                    calles = calles,
-                    avenidas = avenidas,
-                    colonia = colonia,
-                    direccion_adicional = direccion_adicional,
-                    rfc = rfc,
-                    pagina_web = pagina_web,
-                    correo  = correo,
-                    telefono = telefono,
-                    clave_moneda = clave_moneda,
-                    tipo_moneda = tipo_moneda,
-                    representante_id =  representante_id,
-                    categoria_id = categoria_id
-                    )
-                
-                # if categoria_id:
-                #     try:
-                #         categoria = self.session.query(Categorias_proveedores).get(categoria_id)
-                #         if categoria:
-                #             nuevo_proveedor.categoria.append(categoria)  # Asociar el objeto, no el id
-                #     except Exception as e:
-                #         return None
+                return proveedor, False  # Proveedor ya existe, no agregarlo
 
-                if representante_id:
-                    try:
-                        representante = self.session.query(Representantes_proveedores).filter(Representantes_proveedores.id == representante_id).first()
-                        if representante is not None:
-                            nuevo_proveedor.representante.append(representante)  # Asociar el objeto, no el id
-                    except Exception as e:
-                        self.session.rollback()
-                    return None
+            nuevo_proveedor = Proveedores(
+                nombre=nombre,
+                pais=pais,
+                estado=estado,
+                ciudad=ciudad,
+                codigo_postal=codigo_postal,
+                calles=calles,
+                avenidas=avenidas,
+                colonia=colonia,
+                direccion_adicional=direccion_adicional,
+                rfc=rfc,
+                pagina_web=pagina_web,
+                correo=correo,
+                telefono=telefono,
+                clave_moneda=clave_moneda,
+                tipo_moneda=tipo_moneda,
+                representante_id=representante_id,
+                categoria_id=categoria_id
+            )
 
-                self.session.add(nuevo_proveedor)
-                self.session.flush()
-                return  nuevo_proveedor
+            if representante_id:
+                try:
+                    representante = self.session.query(Representantes_proveedores).filter(
+                        Representantes_proveedores.id == representante_id).first()
+                    if representante:
+                        nuevo_proveedor.representante = representante
+                except Exception as e:
+                    self.session.rollback()
+                    # Agregar el mensaje de error para el rollback
+                    logging.error(f"Error al agregar representante: {e}")
+
+            self.session.add(nuevo_proveedor)
+            self.session.flush()
+            return nuevo_proveedor, True  # Si todo va bien, devolver el nuevo proveedor y un estado True
         except Exception as e:
-            return None
+            # Asegúrate de devolver siempre una tupla, incluso cuando hay un error
+            logging.error(f"Error al agregar proveedor: {e}")
+            return None, False  # Devolver None y False si hay un error
         
     def obtener_proveedor_id(self, id):
         try:
@@ -107,7 +104,8 @@ class ProveedoresModel:
             return proveedores
         return []
     
-    def actualizar_proveedor(self, proveedor_id, 
+    def actualizar_proveedor(self, 
+                            proveedor_id, 
                             categoria_id,
                             representante_id,
                             nombre,
@@ -128,6 +126,7 @@ class ProveedoresModel:
                             ):
         try:
             # Buscar el proveedor por ID
+            
             proveedor = self.session.query(Proveedores).get(proveedor_id)
             if not proveedor:
                 return None
@@ -154,11 +153,12 @@ class ProveedoresModel:
                 try:
                     categoria = self.session.query(Categorias_proveedores).get(categoria_id)
                     if categoria:
+                        
                         # Limpiar las categorías existentes y agregar la nueva
-                        proveedor.categoria.clear()
-                        proveedor.categoria.append(categoria)
+                        proveedor.categoria = categoria
                 except Exception as e:
                     self.session.rollback()
+                    logging.error(f"Error al agregar categoria: {e}")
                     return None
 
             # Actualizar el representante si se proporciona
@@ -169,6 +169,7 @@ class ProveedoresModel:
                         proveedor.representante = representante
                 except Exception as e:
                     self.session.rollback()
+                    logging.error(f"Error al agregar representante: {e}")
                     return None
             else:
                 # Si no se proporciona representante_id, eliminar los representantes existentes
@@ -176,6 +177,7 @@ class ProveedoresModel:
             return proveedor_id  # Retorna el ID del proveedor actualizado
         except Exception as e:
             self.session.rollback()  # Hacer rollback en caso de error
+            logging.error(f"Error al agregar proveedor: {e}")
             return None
 
     def consultar_proveedor(self, nombre):
