@@ -232,6 +232,7 @@ class Productos(Base):
     descripcion_producto = Column(Text)
     costo_inicial = Column(Float)
     costo_final = Column(Float)
+    margen_porcentaje = Column(String(5))
     precio = Column(Float)
     existencia = Column(Float)
     existencia_minima = Column(Float)

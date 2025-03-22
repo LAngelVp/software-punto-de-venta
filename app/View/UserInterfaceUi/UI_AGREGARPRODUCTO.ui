@@ -2,16 +2,22 @@
 <ui version="4.0">
  <class>contenedor_agregar_productos</class>
  <widget class="QWidget" name="contenedor_agregar_productos">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1163</width>
-    <height>569</height>
+    <width>1105</width>
+    <height>544</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Agregar Producto</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
    <string notr="true">[objectName*=&quot;contenedor&quot;]{
@@ -86,8 +92,11 @@ background:#ee1d52;
 [objectName*=&quot;btn_btn_eliminar&quot;]:pressed{
 background:#B13636;
 }
-
-
+[objectName*=&quot;opcion_&quot;]{
+font-size: 14px;
+font-weight:bold;
+font-family: &quot;Arial&quot;;
+}
 [objectName*=&quot;cajaOpciones&quot;]{
 border: none;
 border-bottom: 1px solid #787878;
@@ -127,7 +136,19 @@ font-family: &quot;Arial&quot;;
 [objectName*=&quot;decimal&quot;]:focus{
 border-bottom: 2px solid #023375;
 }
-
+[objectName*=&quot;entero&quot;]{
+min-width:100px;
+background: #F5F5F5;
+borde:none;
+border-radius: 2px;
+border-bottom: 1px solid #787878;
+padding: 0px 2px;
+font-size: 14px;
+font-family: &quot;Arial&quot;;
+}
+[objectName*=&quot;entero&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
 
 [objectName*=&quot;fecha_&quot;]{
 border: none;
@@ -162,6 +183,7 @@ border-bottom: 2px solid #00668c;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
+	min-height:300px;
 }
 
 /* Encabezados de la tabla */
@@ -188,6 +210,9 @@ border-bottom: 2px solid #00668c;
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetDefaultConstraint</enum>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -266,13 +291,13 @@ border-bottom: 2px solid #00668c;
            <widget class="QWidget" name="contenedor_scroll_formulario">
             <property name="geometry">
              <rect>
-              <x>0</x>
+              <x>-222</x>
               <y>0</y>
-              <width>1143</width>
-              <height>703</height>
+              <width>1304</width>
+              <height>957</height>
              </rect>
             </property>
-            <layout class="QGridLayout" name="gridLayout_11">
+            <layout class="QGridLayout" name="gridLayout_13">
              <item row="0" column="0">
               <layout class="QHBoxLayout" name="horizontalLayout_8">
                <item>
@@ -297,7 +322,131 @@ border-bottom: 2px solid #00668c;
                </item>
               </layout>
              </item>
-             <item row="0" column="3" rowspan="10">
+             <item row="0" column="1" rowspan="4" colspan="2">
+              <widget class="QFrame" name="contenedor_FechasCaducidades">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <item row="1" column="0">
+                 <widget class="QFrame" name="contenedor_contenedorFechaCaducidad">
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_12">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="spacing">
+                    <number>0</number>
+                   </property>
+                   <item row="2" column="0">
+                    <layout class="QGridLayout" name="contenedor_fechas">
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="etiqueta_fechaVencimiento">
+                       <property name="text">
+                        <string>Fecha Vencimiento</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="QDateEdit" name="fecha_vencimientoProducto">
+                       <property name="wrapping">
+                        <bool>false</bool>
+                       </property>
+                       <property name="frame">
+                        <bool>true</bool>
+                       </property>
+                       <property name="buttonSymbols">
+                        <enum>QAbstractSpinBox::UpDownArrows</enum>
+                       </property>
+                       <property name="correctionMode">
+                        <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+                       </property>
+                       <property name="displayFormat">
+                        <string>dd/MM/yyyy</string>
+                       </property>
+                       <property name="calendarPopup">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="etiqueta_fechaFabricacion">
+                       <property name="text">
+                        <string>Fecha Fabricación</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QDateEdit" name="fecha_fabricacionProducto">
+                       <property name="displayFormat">
+                        <string>dd/MM/yyyy</string>
+                       </property>
+                       <property name="calendarPopup">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QCheckBox" name="opcion_TieneCaducidad">
+                  <property name="text">
+                   <string>¿Tiene Fecha Caducidad?</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <spacer name="verticalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="3" rowspan="11">
               <widget class="QFrame" name="contenedor_formulario_derecha">
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
@@ -402,121 +551,9 @@ border-bottom: 2px solid #00668c;
                <item>
                 <widget class="QLineEdit" name="txt_nombreProducto"/>
                </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_7">
-                 <item>
-                  <widget class="QLabel" name="etiqueta_categoriaProducto">
-                   <property name="text">
-                    <string>Categoria</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="cajaOpciones_categoriaProducto"/>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="btn_btn_agregar_categoria">
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="../../Source/iconosSVG.qrc">
-                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
-             </item>
-             <item row="2" column="2" rowspan="2">
-              <layout class="QGridLayout" name="gridLayout_4">
-               <item row="0" column="0">
-                <widget class="QLabel" name="etiqueta_fechaVencimiento">
-                 <property name="text">
-                  <string>Fecha Vencimiento</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QDateEdit" name="fecha_vencimientoProducto">
-                 <property name="wrapping">
-                  <bool>false</bool>
-                 </property>
-                 <property name="frame">
-                  <bool>true</bool>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::UpDownArrows</enum>
-                 </property>
-                 <property name="correctionMode">
-                  <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
-                 </property>
-                 <property name="displayFormat">
-                  <string>dd/MM/yyyy</string>
-                 </property>
-                 <property name="calendarPopup">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="etiqueta_fechaFabricacion">
-                 <property name="text">
-                  <string>Fecha Fabricación</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QDateEdit" name="fecha_fabricacionProducto">
-                 <property name="displayFormat">
-                  <string>dd/MM/yyyy</string>
-                 </property>
-                 <property name="calendarPopup">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
               </layout>
              </item>
              <item row="3" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout_3">
-               <item>
-                <widget class="QLabel" name="etiqueta_marca">
-                 <property name="text">
-                  <string>Marca</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="txt_marcaProducto"/>
-               </item>
-               <item>
-                <widget class="QLabel" name="etiqueta_modelo">
-                 <property name="text">
-                  <string>Modelo</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="txt_modeloProducto"/>
-               </item>
-               <item>
-                <widget class="QLabel" name="etiqueta_color">
-                 <property name="text">
-                  <string>Color</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="txt_colorProducto"/>
-               </item>
-              </layout>
-             </item>
-             <item row="4" column="0" colspan="3">
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
                 <widget class="QLabel" name="etiqueta_material">
@@ -529,36 +566,66 @@ border-bottom: 2px solid #00668c;
                 <widget class="QLineEdit" name="txt_materialProducto"/>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_9">
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
                  <item>
-                  <widget class="QLabel" name="etiqueta_unidadMedida">
+                  <widget class="QLabel" name="etiqueta_marca">
                    <property name="text">
-                    <string>Unidad de Medida</string>
+                    <string>Marca</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QComboBox" name="cajaOpciones_unidadMedidaProducto">
-                   <property name="sizeAdjustPolicy">
-                    <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                  <widget class="QLineEdit" name="txt_marcaProducto"/>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="etiqueta_modelo">
+                   <property name="text">
+                    <string>Modelo</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="btn_btn_agregar_unidadMedidaProducto">
-                   <property name="cursor">
-                    <cursorShape>PointingHandCursor</cursorShape>
-                   </property>
+                  <widget class="QLineEdit" name="txt_modeloProducto"/>
+                 </item>
+                 <item>
+                  <widget class="QLabel" name="etiqueta_color">
                    <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset resource="../../Source/iconosSVG.qrc">
-                     <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                    <string>Color</string>
                    </property>
                   </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="txt_colorProducto"/>
                  </item>
                 </layout>
+               </item>
+              </layout>
+             </item>
+             <item row="4" column="0" colspan="3">
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <widget class="QLabel" name="etiqueta_categoriaProducto">
+                 <property name="text">
+                  <string>Categoria</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="cajaOpciones_categoriaProducto"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_btn_agregar_categoria">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../Source/iconosSVG.qrc">
+                   <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                 </property>
+                </widget>
                </item>
                <item>
                 <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -586,17 +653,49 @@ border-bottom: 2px solid #00668c;
                    </property>
                   </widget>
                  </item>
+                 <item>
+                  <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <item>
+                    <widget class="QLabel" name="etiqueta_unidadMedida">
+                     <property name="text">
+                      <string>Unidad de Medida</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="cajaOpciones_unidadMedidaProducto">
+                     <property name="sizeAdjustPolicy">
+                      <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="btn_btn_agregar_unidadMedidaProducto">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                     <property name="icon">
+                      <iconset resource="../../Source/iconosSVG.qrc">
+                       <normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg</iconset>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
                 </layout>
                </item>
               </layout>
              </item>
              <item row="5" column="0" colspan="3">
-              <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,0,0,0,0,0">
+              <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,0,0,0,0,0,0,0">
                <property name="sizeConstraint">
                 <enum>QLayout::SetMinimumSize</enum>
                </property>
-               <item row="1" column="1">
-                <widget class="QDoubleSpinBox" name="decimal_existenciaProducto">
+               <item row="2" column="1">
+                <widget class="QDoubleSpinBox" name="decimal_pesoProducto">
                  <property name="buttonSymbols">
                   <enum>QAbstractSpinBox::NoButtons</enum>
                  </property>
@@ -605,8 +704,21 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
-               <item row="1" column="3">
-                <widget class="QDoubleSpinBox" name="decimal_existenciaMinProducto">
+               <item row="0" column="8">
+                <spacer name="horizontalSpacer_3">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="1">
+                <widget class="QDoubleSpinBox" name="decimal_existenciaProducto">
                  <property name="buttonSymbols">
                   <enum>QAbstractSpinBox::NoButtons</enum>
                  </property>
@@ -622,7 +734,76 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
-               <item row="2" column="2" colspan="4">
+               <item row="0" column="1">
+                <widget class="QDoubleSpinBox" name="decimal_costoInicialProducto">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::NoButtons</enum>
+                 </property>
+                 <property name="maximum">
+                  <double>10000000000.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="etiqueta_existenciaProducto">
+                 <property name="text">
+                  <string>Existencia</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="etiqueta_costoInicialProducto">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Costo Inicial</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="8" rowspan="2">
+                <layout class="QGridLayout" name="gridLayout_11"/>
+               </item>
+               <item row="0" column="6">
+                <widget class="QLabel" name="etiqueta_precioVentaProducto">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Precio Venta</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="7">
+                <widget class="QDoubleSpinBox" name="decimal_precioVentaProducto">
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::NoButtons</enum>
+                 </property>
+                 <property name="maximum">
+                  <double>10000000000.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="etiqueta_existenciaMinProducto">
+                 <property name="text">
+                  <string>Existencia Min.</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="2" colspan="6">
                 <layout class="QHBoxLayout" name="horizontalLayout_4">
                  <item>
                   <widget class="QLabel" name="etiqueta_dimensiones">
@@ -702,79 +883,13 @@ border-bottom: 2px solid #00668c;
                  </item>
                 </layout>
                </item>
-               <item row="0" column="4">
-                <widget class="QLabel" name="etiqueta_costoFinalProducto">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="text">
-                  <string>Costo Final</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="3">
-                <widget class="QDoubleSpinBox" name="decimal_precioVentaProducto">
+               <item row="1" column="3">
+                <widget class="QDoubleSpinBox" name="decimal_existenciaMinProducto">
                  <property name="buttonSymbols">
                   <enum>QAbstractSpinBox::NoButtons</enum>
                  </property>
                  <property name="maximum">
                   <double>10000000000.000000000000000</double>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="etiqueta_existenciaMinProducto">
-                 <property name="text">
-                  <string>Existencia Min.</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="5">
-                <widget class="QDoubleSpinBox" name="decimal_existenciaMaxProducto">
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::NoButtons</enum>
-                 </property>
-                 <property name="maximum">
-                  <double>10000000000.000000000000000</double>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLabel" name="etiqueta_precioVentaProducto">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="text">
-                  <string>Precio Venta</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QDoubleSpinBox" name="decimal_costoInicialProducto">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::NoButtons</enum>
-                 </property>
-                 <property name="maximum">
-                  <double>10000000000.000000000000000</double>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="etiqueta_existenciaProducto">
-                 <property name="text">
-                  <string>Existencia</string>
                  </property>
                 </widget>
                </item>
@@ -791,8 +906,28 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="etiqueta_costoInicialProducto">
+               <item row="1" column="5">
+                <widget class="QDoubleSpinBox" name="decimal_existenciaMaxProducto">
+                 <property name="buttonSymbols">
+                  <enum>QAbstractSpinBox::NoButtons</enum>
+                 </property>
+                 <property name="maximum">
+                  <double>10000000000.000000000000000</double>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="4">
+                <widget class="QLabel" name="etiqueta_margenProducto">
+                 <property name="text">
+                  <string>Ganancia Margen</string>
+                 </property>
+                 <property name="textInteractionFlags">
+                  <set>Qt::NoTextInteraction</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="2">
+                <widget class="QLabel" name="etiqueta_costoFinalProducto">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                    <horstretch>0</horstretch>
@@ -800,11 +935,11 @@ border-bottom: 2px solid #00668c;
                   </sizepolicy>
                  </property>
                  <property name="text">
-                  <string>Costo Inicial</string>
+                  <string>Costo Final</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="5">
+               <item row="0" column="3">
                 <widget class="QDoubleSpinBox" name="decimal_costoFinalProducto">
                  <property name="buttonSymbols">
                   <enum>QAbstractSpinBox::NoButtons</enum>
@@ -814,39 +949,28 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QDoubleSpinBox" name="decimal_pesoProducto">
+               <item row="0" column="5">
+                <widget class="QSpinBox" name="entero_margenProducto">
                  <property name="buttonSymbols">
                   <enum>QAbstractSpinBox::NoButtons</enum>
                  </property>
+                 <property name="suffix">
+                  <string>%</string>
+                 </property>
+                 <property name="prefix">
+                  <string/>
+                 </property>
                  <property name="maximum">
-                  <double>10000000000.000000000000000</double>
+                  <number>100</number>
                  </property>
                 </widget>
-               </item>
-               <item row="0" column="6">
-                <spacer name="horizontalSpacer_3">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
                </item>
               </layout>
              </item>
              <item row="6" column="0" colspan="3">
               <layout class="QGridLayout" name="gridLayout_9">
-               <item row="0" column="0">
-                <widget class="QLabel" name="etiqueta_descripcionProducto">
-                 <property name="text">
-                  <string>Descripción</string>
-                 </property>
-                </widget>
+               <item row="1" column="1">
+                <widget class="QPlainTextEdit" name="txtlargo_notasProducto"/>
                </item>
                <item row="0" column="1">
                 <widget class="QLabel" name="etiqueta_notasProducto">
@@ -855,15 +979,56 @@ border-bottom: 2px solid #00668c;
                  </property>
                 </widget>
                </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="etiqueta_descripcionProducto">
+                 <property name="text">
+                  <string>Descripción</string>
+                 </property>
+                </widget>
+               </item>
                <item row="1" column="0">
                 <widget class="QPlainTextEdit" name="txtlargo_descripcionProducto"/>
                </item>
-               <item row="1" column="1">
-                <widget class="QPlainTextEdit" name="txtlargo_notasProducto"/>
+              </layout>
+             </item>
+             <item row="7" column="1">
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="7" column="2">
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <item>
+                <widget class="QPushButton" name="btn_btn_limpiarTablaProductos">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="text">
+                  <string>Limpiar tabla</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_btn_cargar_CSVProductos">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="text">
+                  <string>Cargar CSV</string>
+                 </property>
+                </widget>
                </item>
               </layout>
              </item>
-             <item row="7" column="0" colspan="3">
+             <item row="8" column="0" colspan="3">
               <widget class="QWidget" name="widget" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_12">
                 <item>
@@ -985,54 +1150,17 @@ border-bottom: 2px solid #00668c;
                </layout>
               </widget>
              </item>
-             <item row="8" column="0">
+             <item row="9" column="0">
               <widget class="QLabel" name="etiqueta_listaProductos">
                <property name="text">
                 <string>Lista de Productos</string>
                </property>
               </widget>
              </item>
-             <item row="8" column="1">
-              <spacer name="verticalSpacer">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>25</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item row="8" column="2">
-              <layout class="QHBoxLayout" name="horizontalLayout_11">
-               <item>
-                <widget class="QPushButton" name="btn_btn_limpiarTablaProductos">
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="text">
-                  <string>Limpiar tabla</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_btn_cargar_CSVProductos">
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="text">
-                  <string>Cargar CSV</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="9" column="0" colspan="3">
+             <item row="10" column="0" colspan="3">
               <widget class="QTableView" name="tabla_productos"/>
              </item>
-             <item row="10" column="0" colspan="4">
+             <item row="11" column="0" colspan="4">
               <widget class="QFrame" name="contenedor_formulario_inferior">
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>

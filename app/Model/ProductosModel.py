@@ -42,6 +42,7 @@ class ProductosModel:
         descripcion_producto,
         costo_inicial,
         costo_final,
+        margen_porcentaje,
         precio,
         existencia,
         existencia_minima,
@@ -73,6 +74,7 @@ class ProductosModel:
                 descripcion_producto=descripcion_producto,
                 costo_inicial=costo_inicial,
                 costo_final=costo_final,
+                margen_porcentaje = margen_porcentaje,
                 precio=precio,
                 existencia=existencia,
                 existencia_minima=existencia_minima,
@@ -108,6 +110,7 @@ class ProductosModel:
                             descripcion_producto,
                             costo_inicial,
                             costo_final,
+                            margen_porcentaje,
                             precio,
                             existencia,
                             existencia_minima,
@@ -136,6 +139,7 @@ class ProductosModel:
         producto_actual.descripcion_producto = descripcion_producto
         producto_actual.costo_inicial = costo_inicial
         producto_actual.costo_final = costo_final
+        producto_actual.margen_porcentaje = margen_porcentaje
         producto_actual.precio = precio
         producto_actual.existencia = existencia
         producto_actual.existencia_minima = existencia_minima

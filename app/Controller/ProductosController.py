@@ -36,6 +36,7 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_actualizar_producto.hide()
         self.ui.contenedor_proveedores_existentes.hide()
         self.ui.contenedor_proveedores_a_vincular.hide()
+        self.ui.contenedor_contenedorFechaCaducidad.hide()
         self.ui.txt_codBarras.setFocus()
         
         pantalla = self.frameGeometry()
@@ -82,6 +83,9 @@ class Admin_productosController(QWidget):
         self.ui.lista_todos_los_proveedores.itemClicked.connect(self.vincular_proveedor_al_producto)
         self.ui.btn_btn_desvincular_proveedores.clicked.connect(self.desvincular_proveedor_al_producto)
         self.ui.btn_btn_eliminar_proveedor_a_vincular.clicked.connect(self.eliminar_proveedor_a_vincular)
+        self.ui.entero_margenProducto.editingFinished.connect(self.calcular_precio_venta)
+        self.ui.opcion_TieneCaducidad.stateChanged.connect(self.mostrar_fechas_caducidad)
+        
         
 #FUNCIONES-VENTANAS EMERGENTES: 
     def agregar_presentacion(self):
@@ -133,6 +137,11 @@ class Admin_productosController(QWidget):
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
 #########################
 #FUNCIONES-INTERACCION CON EL PRODUCTO
+    def mostrar_fechas_caducidad(self, state):
+        if state in [1, 2]:
+            self.ui.contenedor_contenedorFechaCaducidad.show()
+        else:  # Si está desmarcado
+            self.ui.contenedor_contenedorFechaCaducidad.hide()
 
     def campos_productos(self):
         # Crear un diccionario para almacenar los widgets
@@ -148,8 +157,9 @@ class Admin_productosController(QWidget):
             "unidad_medida_producto": self.ui.cajaOpciones_unidadMedidaProducto,
             "presentacion_producto": self.ui.cajaOpciones_presentacionProducto,
             "costo_inicial_producto": self.ui.decimal_costoInicialProducto,
-            "precio_venta_producto": self.ui.decimal_precioVentaProducto,
             "costo_final_producto": self.ui.decimal_costoFinalProducto,
+            "margen_porcentaje": self.ui.entero_margenProducto,
+            "precio_venta_producto": self.ui.decimal_precioVentaProducto,
             "existencia_producto": self.ui.decimal_existenciaProducto,
             "existencia_min_producto": self.ui.decimal_existenciaMinProducto,
             "existencia_max_producto": self.ui.decimal_existenciaMaxProducto,
@@ -209,6 +219,7 @@ class Admin_productosController(QWidget):
             "unidad_medida_producto": self.ui.cajaOpciones_unidadMedidaProducto.currentData(),
             "presentacion_producto": self.ui.cajaOpciones_presentacionProducto.currentData(),
             "costo_inicial_producto": self.ui.decimal_costoInicialProducto.value(),
+            "margen_porcentaje": self.ui.entero_margenProducto.value(),
             "precio_venta_producto": self.ui.decimal_precioVentaProducto.value(),
             "costo_final_producto": self.ui.decimal_costoFinalProducto.value(),
             "existencia_producto": self.ui.decimal_existenciaProducto.value(),
@@ -235,14 +246,14 @@ class Admin_productosController(QWidget):
 
         self.modelo_tabla_productos.setHorizontalHeaderLabels([
             "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color", 
-            "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta", 
-            "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso", 
+            "Material", "Unidad de Medida", "Presentación", "Costo Inicial","Costo Final", "Margen Porcentaje", "Precio Venta", 
+            "Existencia", "Existencia Min", "Existencia Max", "Peso", 
             "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones", 
             "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
         ])
         self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
         
-         # Crear un diccionario con los datos del producto
+        # Crear un diccionario con los datos del producto
         nuevo_producto = {
             "proveedor": datos["proveedor"],
             "codigo_barras": datos["codigo_barras"],
@@ -256,6 +267,7 @@ class Admin_productosController(QWidget):
             "presentacion": datos["presentacion_producto"],
             "costo_inicial": datos["costo_inicial_producto"],
             "precio_venta": datos["precio_venta_producto"],
+            "margen_porcentaje": datos["margen_porcentaje"],
             "costo_final": datos["costo_final_producto"],
             "existencia": datos["existencia_producto"],
             "existencia_min": datos["existencia_min_producto"],
@@ -311,6 +323,7 @@ class Admin_productosController(QWidget):
                         descripcion_producto=producto["descripcion"],
                         costo_inicial=producto["costo_inicial"],
                         costo_final=producto["costo_final"],
+                        margen_porcentaje=f'{producto["margen_porcentaje"]} %',
                         precio=producto["precio_venta"],
                         existencia=producto["existencia"],
                         existencia_minima=producto["existencia_min"],
@@ -369,6 +382,7 @@ class Admin_productosController(QWidget):
                     descripcion_producto = datos_producto["descripcion_producto"],
                     costo_inicial = datos_producto["costo_inicial_producto"],
                     costo_final = datos_producto["costo_final_producto"],
+                    margen_porcentaje=f'{datos_producto["margen_porcentaje"]} %',
                     precio = datos_producto["precio_venta_producto"],
                     existencia = datos_producto["existencia_producto"],
                     existencia_minima = datos_producto["existencia_min_producto"],
@@ -394,7 +408,7 @@ class Admin_productosController(QWidget):
     
     def __cargar_datos_en_campos(self, producto):
         self.ui.txt_codBarras.setEnabled(False)
-        self.producto = producto
+        # self.producto = producto
         if producto is None:
             Mensaje().mensaje_informativo("No haz seleccionado ningun producto")
             return
@@ -405,6 +419,7 @@ class Admin_productosController(QWidget):
         self.ui.etiqueta_proveedor.hide()
         
         self.producto = producto
+        margenPorcentaje_mostrar = int(self.producto.margen_porcentaje.split(" ")[0])
         self.ui.tabla_productos.hide()
         self.ui.btn_btn_agregar_producto.hide()
         self.ui.btn_btn_guardar_producto.hide()
@@ -439,8 +454,9 @@ class Admin_productosController(QWidget):
         self.ui.txtlargo_descripcionProducto.setPlainText(producto.descripcion_producto)
         self.ui.txtlargo_notasProducto.setPlainText(producto.notas)
         self.ui.decimal_costoInicialProducto.setValue(producto.costo_inicial)
-        self.ui.decimal_precioVentaProducto.setValue(producto.precio)
         self.ui.decimal_costoFinalProducto.setValue(producto.costo_final)
+        self.ui.entero_margenProducto.setValue(margenPorcentaje_mostrar)
+        self.ui.decimal_precioVentaProducto.setValue(producto.precio)
         self.ui.decimal_existenciaProducto.setValue(producto.existencia)
         self.ui.decimal_existenciaMinProducto.setValue(producto.existencia_minima)
         self.ui.decimal_existenciaMaxProducto.setValue(producto.existencia_maxima)
@@ -711,8 +727,8 @@ class Admin_productosController(QWidget):
         # Definir las columnas esperadas
         columnas_esperadas = [
             "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color",
-            "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta",
-            "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso",
+            "Material", "Unidad de Medida", "Presentación", "Costo Inicial","Costo Final", "Margen Porcentaje", "Precio Venta",
+            "Existencia", "Existencia Min", "Existencia Max", "Peso",
             "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones",
             "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
         ]
@@ -739,14 +755,14 @@ class Admin_productosController(QWidget):
     def __cargar_datos_en_tabla(self, df):
         self.modelo_tabla_productos.setHorizontalHeaderLabels([
             "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color", 
-            "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Precio Venta", 
-            "Costo Final", "Existencia", "Existencia Min", "Existencia Max", "Peso", 
+            "Material", "Unidad de Medida", "Presentación", "Costo Inicial","Costo Final", "Margen Porcentaje", "Precio Venta", 
+            "Existencia", "Existencia Min", "Existencia Max", "Peso", 
             "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones", 
             "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
         ])
         
-        # Limpiar la tabla antes de agregar los nuevos datos
-        self.ui.tabla_productos.clear()
+        row_count = self.modelo_tabla_productos.rowCount()
+        self.modelo_tabla_productos.removeRows(0, row_count)
         
         # Recorrer el DataFrame y agregar los datos a la tabla
         for row in range(len(df)):
@@ -767,6 +783,12 @@ class Admin_productosController(QWidget):
         if not hasattr(self, 'modelo_tabla_productos'):
                 self.modelo_tabla_productos = QStandardItemModel()
 
+    def calcular_precio_venta(self):
+        costo_final = self.ui.decimal_costoFinalProducto.value()
+        margen = self.ui.entero_margenProducto.value() / 100
+        precio_venta = costo_final + (costo_final * margen)
+        self.ui.decimal_precioVentaProducto.setValue(precio_venta)
+        
 class Productos(QWidget):
     LISTAR_CATEGORIAS_PRODUCTOS = pyqtSignal()
     LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
@@ -846,8 +868,8 @@ class Productos(QWidget):
         # Establecer los encabezados de la tabla
         cabeceras = [
             "Proveedor", "Codigo upc", "Nombre Producto", "Categoria", "Marca", "Modelo", "Color", 
-            "Material", "Unidad de Medida", "Presentacion", "Costo Inicial", "Precio", 
-            "Costo Final", "Existencia", "Existencia Minima", "Existencia Maxima", "Peso", 
+            "Material", "Unidad de Medida", "Presentacion", "Costo Inicial", "Costo Final", "Margen Porcentaje", "Precio", 
+            "Existencia", "Existencia Minima", "Existencia Maxima", "Peso", 
             "Dimensiones", "Descripcion Producto", "Notas", "Fecha Vencimiento", "Fecha Fabricacion", "Imagen"
         ]
         self.modelo_tabla_productos.setHorizontalHeaderLabels(cabeceras)
