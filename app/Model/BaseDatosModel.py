@@ -48,7 +48,7 @@ sucursal_producto = Table(
 producto_proveedor = Table(
     "producto_proveedor",
     Base.metadata,
-    Column("producto_id", Text, ForeignKey("Productos.codigo_upc"), primary_key=True),
+    Column("producto_id", Text, ForeignKey("Productos.codigo_upc", ondelete='CASCADE'), primary_key=True),
     Column("proveedor_id", Integer, ForeignKey("Proveedores.id"), primary_key=True),
     Column("precio_venta", Float),
 )
@@ -249,7 +249,7 @@ class Productos(Base):
     notas = Column(Text)
     presentacion_producto_id = Column(Integer, ForeignKey("Presentacion_productos.id"))
     presentacion_productos = relationship("Presentacion_productos", back_populates="productos")
-    unidad_medida_productos_id = Column(Integer, ForeignKey("Unidad_medida_productos.id"))
+    unidad_medida_productos_id = Column(Integer, ForeignKey("Unidad_medida_productos.id", ondelete='SET NULL'))
     unidad_medida_productos = relationship("Unidad_medida_productos", back_populates="productos")
     categoria_id = Column(Integer, ForeignKey('Categorias_productos.id'), nullable=False)
     categoria = relationship("Categorias_productos", back_populates="productos")

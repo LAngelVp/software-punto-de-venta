@@ -8,7 +8,7 @@ class CategoriasModel:
     def agregar(self, tipo_categoria, nombre, descripcion = None):
         modelo = self.__tipo_categoria(tipo_categoria)
         categoria = self.session.query(modelo).filter(modelo.nombre==nombre).first()
-        if categoria:
+        if categoria is not None:
             return categoria, False
         categoria = modelo(nombre=nombre, descripcion=descripcion)
         self.session.add(categoria)

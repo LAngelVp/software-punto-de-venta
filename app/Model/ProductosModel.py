@@ -8,6 +8,9 @@ class ProductosModel:
     def agregar_presentacion(self, nombre):
         if not nombre:
             return False
+        presentacion = self.session.query(Presentacion_productos).filter(Presentacion_productos.nombre == nombre).first()
+        if presentacion:
+            return presentacion, False
         presentacion = Presentacion_productos(nombre = nombre)
         self.session.add(presentacion)
         self.session.flush()
@@ -23,6 +26,9 @@ class ProductosModel:
     def agregar_unidad_medida(self, nombre):
         if not nombre:
             return False
+        unidad = self.session.query(Unidad_medida_productos).filter(Unidad_medida_productos.nombre == nombre).first()
+        if unidad:
+            return unidad, False
         unidad = Unidad_medida_productos(nombre = nombre)
         self.session.add(unidad)
         self.session.flush()

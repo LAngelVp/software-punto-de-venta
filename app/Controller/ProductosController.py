@@ -18,6 +18,9 @@ from ..View.UserInterfacePy.UI_AGREGARPRODUCTO import Ui_contenedor_agregar_prod
 from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import Ui_Nueva_categoria
 from .PresentacionProductosController import PresentacionProductos
 from .UnidadMedidaProductosController import UnidadMedidaProductos
+
+
+import traceback
                 
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
@@ -288,10 +291,9 @@ class Admin_productosController(QWidget):
         if not producto_existente:
             self.lista_productos.append(nuevo_producto)
         else:
-            Mensaje().mensaje_alerta(f"El producto con código de barras {nuevo_producto['codigo_barras']} ya existe en la lista")
+            Mensaje().mensaje_alerta(f"El producto con código de barras {nuevo_producto['codigo_barras']} que intentas agregar ya existe en la lista")
             return
         
-        print(self.lista_productos)
         nueva_fila = list(nuevo_producto.values())
         self._agregar_fila_a_tabla(nueva_fila)
         self.__limpiar_campos()
@@ -316,6 +318,12 @@ class Admin_productosController(QWidget):
                     dimensiones = str(producto["largo_dimensiones"]) + "-" + str(producto["alto_dimensiones"]) + "-" + str(producto["ancho_dimensiones"])
                     # Buscar el proveedor correspondiente en la base de datos usando el nombre del proveedor
                     proveedor, estatus_proveedor = ProveedoresModel(session).consultar_proveedor(producto["proveedor"])
+                    
+                    presentacion, status_presentacion = ProductosModel(session).agregar_presentacion(nombre=producto["presentacion"])
+                    
+                    unidad_medida, status_unidad_medida = ProductosModel(session).agregar_unidad_medida(nombre=producto["unidad_medida"])
+                    
+                    categoria, status_categoria = CategoriasModel(session).agregar(tipo_categoria="productos", nombre=producto["categoria"])
                     
                     # Asegurarse de que el proveedor es válido (no None)
                     if estatus_proveedor:
@@ -342,11 +350,11 @@ class Admin_productosController(QWidget):
                         material=producto["material"],
                         fecha_fabricacion=producto["fecha_fabricacion"],
                         fecha_vencimiento=producto["fecha_vencimiento"],
-                        imagen=self.imagenProducto if self.imagenProducto else None,  # Imagen (si está disponible)
+                        imagen=self.imagenProducto if self.imagenProducto is not None else producto["imagen"],  # Imagen (si está disponible)
                         notas=producto["notas"],
-                        presentacion_producto_id=producto["presentacion"].id,  
-                        unidad_medida_productos_id=producto["unidad_medida"].id,  
-                        categoria_id=producto["categoria"].id,  
+                        presentacion_producto_id=producto["presentacion"] if producto["presentacion"] is None else presentacion.id,  
+                        unidad_medida_productos_id=producto["unidad_medida"].id if producto["unidad_medida"] is None else unidad_medida.id,  
+                        categoria_id=producto["categoria"].id if producto["categoria"] is None else categoria.id,  
                         sucursales=[],  # Puedes pasar las sucursales como una lista vacía si no las tienes
                         proveedores=proveedores  # Pasamos una lista de proveedores
                     )
@@ -365,6 +373,7 @@ class Admin_productosController(QWidget):
                 return
             self.agregar_productos_en_bd()
         except Exception as e:
+            print(traceback.print_exc())
             print(f"Error al guardar producto: {e}")
 
     def __actualizar_producto(self):
@@ -573,8 +582,6 @@ class Admin_productosController(QWidget):
 
     def listar_proveedores_existentes(self):
         self.ui.lista_todos_los_proveedores.clear()
-        print(f"proveedores vinculados {self.proveedores_vinculados}")
-        print(f"proveedores generales {self.proveedores}")
         self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
         if not self.proveedores_vinculados:  # Si proveedores vinculados está vacío
             # Mostrar todos los proveedores
@@ -615,7 +622,6 @@ class Admin_productosController(QWidget):
                     
                     # Agregar el ítem a la lista
                     self.ui.lista_todos_los_proveedores.addItem(item)
-                    print(f"proveedor: {proveedor_nombre}")
         else:
             self.ui.lista_todos_los_proveedores.clear()
             self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
@@ -647,7 +653,6 @@ class Admin_productosController(QWidget):
                     
                     # Agregar el ítem a la lista
                     self.ui.lista_proveedores_vinculados.addItem(item)
-                    print(f"proveedor: {proveedor_nombre}")
         else:
             self.ui.lista_proveedores_vinculados.clear()
             self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
@@ -661,7 +666,6 @@ class Admin_productosController(QWidget):
                 
                 # Agregar el ítem a la lista
                 self.ui.lista_proveedores_vinculados.addItem(item)
-                print(f"otros proveedores {proveedor_nombre}")
     
     def vincular_proveedor_al_producto(self, item):
         # Obtener el ícono, ID y nombre del proveedor
@@ -758,23 +762,17 @@ class Admin_productosController(QWidget):
             # Verificación de duplicados: Compara código de barras limpio con los existentes
             producto_existente = any(str(p["codigo_barras"]).strip() == nuevo_producto["codigo_barras"] for p in self.lista_productos)
 
-            # Para depuración, puedes imprimir lo que estás comparando
-            print(f"Comparando: {nuevo_producto['codigo_barras']} con {[p['codigo_barras'] for p in self.lista_productos]}")
-
             if not producto_existente:
-                # Si el producto no existe, agregarlo
-                print(f"Agregando producto con código de barras: {nuevo_producto['codigo_barras']}")
                 self.lista_productos.append(nuevo_producto)
             else:
-                print(f"Producto con código de barras {nuevo_producto['codigo_barras']} ya existe, no se agrega.")
+                lista_duplicados_excel.append(producto_existente)
 
-        # Imprimir la lista de productos agregados (para depuración)
-        print("##################################")
-        print("LISTA DE PRODUCTOS SIN REPETIR")
-        print(self.lista_productos)
 
         # Ahora puedes actualizar la tabla si es necesario
         self.__cargar_datos_en_tabla(self.lista_productos)
+        
+        if len(lista_duplicados_excel) > 0:
+            Mensaje().mensaje_informativo("Se encontraron registros duplicados que no fueron agregados.\nSolo se agregaron los registros sin duplicar.")
             
     def __leer_archivo_csv(self):
         documento, _ = QFileDialog.getOpenFileName(self, "Selecciona un documento de Excel", "", "Archivos Excel (*.xlsx *.xls)")
@@ -950,7 +948,7 @@ class Productos(QWidget):
                 elif col.lower() == "unidad de medida":
                     # Asegúrate de acceder correctamente a la relación 'unidad_medida_productos' y a su atributo 'unidad_medida'
                     if producto.unidad_medida_productos:
-                        value = producto.unidad_medida_productos.unidad_medida  # Accedemos al atributo 'unidad_medida'
+                        value = producto.unidad_medida_productos.nombre  # Accedemos al atributo 'unidad_medida'
                     else:
                         value = ""
                 elif col.lower() == "presentacion":
