@@ -219,7 +219,7 @@ class Presentacion_productos(Base):
 class Unidad_medida_productos(Base):
     __tablename__ = "Unidad_medida_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    unidad_medida = Column(String(25), nullable=False)
+    nombre = Column(String(25))
     productos = relationship("Productos", back_populates="unidad_medida_productos")
 
 class Productos(Base):

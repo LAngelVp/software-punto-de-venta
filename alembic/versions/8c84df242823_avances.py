@@ -1,8 +1,8 @@
-"""Agregando base de datos
+"""AVANCES
 
-Revision ID: 15ad2273189a
+Revision ID: 8c84df242823
 Revises: 
-Create Date: 2025-03-21 15:34:41.423779
+Create Date: 2025-03-23 19:29:00.529912
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '15ad2273189a'
+revision: str = '8c84df242823'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -44,7 +44,7 @@ def upgrade() -> None:
     op.create_table('Categorias_proveedores',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nombre', sa.String(length=150), nullable=True),
-    sa.Column('descripcion', sa.String(length=150), nullable=True),
+    sa.Column('descripcion', sa.Text(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
@@ -154,6 +154,7 @@ def upgrade() -> None:
     sa.Column('descripcion_producto', sa.Text(), nullable=True),
     sa.Column('costo_inicial', sa.Float(), nullable=True),
     sa.Column('costo_final', sa.Float(), nullable=True),
+    sa.Column('margen_porcentaje', sa.String(length=5), nullable=True),
     sa.Column('precio', sa.Float(), nullable=True),
     sa.Column('existencia', sa.Float(), nullable=True),
     sa.Column('existencia_minima', sa.Float(), nullable=True),
@@ -193,6 +194,8 @@ def upgrade() -> None:
     sa.Column('pagina_web', sa.Text(), nullable=True),
     sa.Column('correo', sa.String(length=100), nullable=True),
     sa.Column('telefono', sa.String(length=10), nullable=True),
+    sa.Column('clave_moneda', sa.String(length=5), nullable=True),
+    sa.Column('tipo_moneda', sa.String(length=50), nullable=True),
     sa.Column('representante_id', sa.Integer(), nullable=True),
     sa.Column('categoria_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['categoria_id'], ['Categorias_proveedores.id'], ),

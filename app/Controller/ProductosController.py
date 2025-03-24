@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon
 from ..Source.iconsdvg_rc import *
 import pandas as pd
+import numpy as np
 from .FuncionesAuxiliares import *
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
@@ -110,8 +111,8 @@ class Admin_productosController(QWidget):
                 datos, estatus = ProductosModel(session).obtener_presentaciones()
             if estatus:
                 self.ui.cajaOpciones_presentacionProducto.clear()
-                for unidad in datos:
-                    self.ui.cajaOpciones_presentacionProducto.addItem(unidad.nombre, unidad)
+                for presentacion in datos:
+                    self.ui.cajaOpciones_presentacionProducto.addItem(presentacion.nombre, presentacion)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
 
     def listar_unidades_medida(self):
@@ -122,7 +123,7 @@ class Admin_productosController(QWidget):
             if estatus:
                 self.ui.cajaOpciones_unidadMedidaProducto.clear()
                 for unidad in datos:
-                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.unidad_medida, unidad)
+                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.nombre, unidad)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
 
     def listar_categorias(self):
@@ -193,7 +194,7 @@ class Admin_productosController(QWidget):
     def cargar_imagen(self, event):
         options = QFileDialog.Options()
         self.imagenProducto, _ = QFileDialog.getOpenFileName(self, 'SELECCIONA UNA IMAGEN', ' ', 'Archivo de Imagen (*.png *.jpg *.jpeg);; Todos los archivos (*)', options=options)
-        image_accept = size_validator_image(self.imagenProducto)
+        image_accept = FuncionesAuxiliaresController().size_validator_image(self.imagenProducto)
         if self.imagenProducto:
             if image_accept:
                 self.ui.etiqueta_fotoProducto.setText(self.imagenProducto)
@@ -209,7 +210,7 @@ class Admin_productosController(QWidget):
         # Crear un diccionario para almacenar los valores de los campos
         datos = {
             "proveedor": self.ui.txt_proveedor.text().strip().upper(),
-            "codigo_barras": self.ui.txt_codBarras.text().strip().upper(),
+            "codigo_barras": self.ui.txt_codBarras.text().strip(),
             "nombre": self.ui.txt_nombreProducto.text().strip().upper(),
             "categoria_producto": self.ui.cajaOpciones_categoriaProducto.currentData(),
             "marca_producto": self.ui.txt_marcaProducto.text().strip().upper(),
@@ -258,13 +259,13 @@ class Admin_productosController(QWidget):
             "proveedor": datos["proveedor"],
             "codigo_barras": datos["codigo_barras"],
             "nombre": datos["nombre"],
-            "categoria": datos["categoria_producto"],
+            "categoria": datos["categoria_producto"].nombre,
             "marca": datos["marca_producto"],
             "modelo": datos["modelo_producto"],
             "color": datos["color_producto"],
             "material": datos["material_producto"],
-            "unidad_medida": datos["unidad_medida_producto"],
-            "presentacion": datos["presentacion_producto"],
+            "unidad_medida": datos["unidad_medida_producto"].nombre,
+            "presentacion": datos["presentacion_producto"].nombre,
             "costo_inicial": datos["costo_inicial_producto"],
             "precio_venta": datos["precio_venta_producto"],
             "margen_porcentaje": datos["margen_porcentaje"],
@@ -284,11 +285,13 @@ class Admin_productosController(QWidget):
         }
         
         producto_existente = any(p["codigo_barras"] == nuevo_producto["codigo_barras"] for p in self.lista_productos)
-        if producto_existente:
-            Mensaje().mensaje_alerta("El producto ya existe en la tabla de productos")
+        if not producto_existente:
+            self.lista_productos.append(nuevo_producto)
+        else:
+            Mensaje().mensaje_alerta(f"El producto con código de barras {nuevo_producto['codigo_barras']} ya existe en la lista")
             return
         
-        self.lista_productos.append(nuevo_producto)
+        print(self.lista_productos)
         nueva_fila = list(nuevo_producto.values())
         self._agregar_fila_a_tabla(nueva_fila)
         self.__limpiar_campos()
@@ -296,6 +299,9 @@ class Admin_productosController(QWidget):
     def _agregar_fila_a_tabla(self, fila):
         # Convertir cada elemento de la fila en un QStandardItem y añadirlo al modelo
         items = [QStandardItem(str(dato)) for dato in fila]
+        
+        for item in items:
+            item.setTextAlignment(Qt.AlignCenter)
 
         # Añadir la fila al modelo de datos
         self.modelo_tabla_productos.appendRow(items)
@@ -708,6 +714,7 @@ class Admin_productosController(QWidget):
             del self.lista_proveedores_a_asignar[proveedor.id]
 
     def agregarCSV(self):
+        lista_duplicados_excel = []
         # Leer el archivo CSV
         df = self.__leer_archivo_csv()
         
@@ -715,8 +722,59 @@ class Admin_productosController(QWidget):
         if df is None:
             return
         
-        # Cargar los datos en la tabla
-        self.__cargar_datos_en_tabla(df)
+        # Luego de la conversión, transformamos las cadenas de texto
+        df = df.applymap(lambda x: x.upper().strip() if isinstance(x, str) else x)
+        
+        for row in range(len(df)):
+            nuevo_producto = {
+                "proveedor": df.iloc[row]["Proveedor"],
+                "codigo_barras": str(df.iloc[row]["Código de Barras"]).strip(),  # Aseguramos que el código esté limpio
+                "nombre": df.iloc[row]["Nombre"],
+                "categoria": df.iloc[row]["Categoría"],
+                "marca": df.iloc[row]["Marca"],
+                "modelo": df.iloc[row]["Modelo"],
+                "color": df.iloc[row]["Color"],
+                "material": df.iloc[row]["Material"],
+                "unidad_medida": df.iloc[row]["Unidad de Medida"],
+                "presentacion": df.iloc[row]["Presentación"],
+                "costo_inicial": float(df.iloc[row]["Costo Inicial"]),
+                "costo_final": float(df.iloc[row]["Costo Final"]),
+                "margen_porcentaje": int(df.iloc[row]["Margen Porcentaje"]),
+                "precio_venta": float(df.iloc[row]["Precio Venta"]),
+                "existencia": float(df.iloc[row]["Existencia"]),
+                "existencia_min": float(df.iloc[row]["Existencia Min"]),
+                "existencia_max": float(df.iloc[row]["Existencia Max"]),
+                "peso": float(df.iloc[row]["Peso"]),
+                "largo_dimensiones": float(df.iloc[row]["Largo Dimensiones"]),
+                "alto_dimensiones": float(df.iloc[row]["Alto Dimensiones"]),
+                "ancho_dimensiones": float(df.iloc[row]["Ancho Dimensiones"]),
+                "descripcion": df.iloc[row]["Descripción"],
+                "notas": df.iloc[row]["Notas"],
+                "fecha_vencimiento": df.iloc[row]["Fecha Vencimiento"],
+                "fecha_fabricacion": df.iloc[row]["Fecha Fabricación"],
+                "imagen": df.iloc[row]["Imagen"]
+            }
+
+            # Verificación de duplicados: Compara código de barras limpio con los existentes
+            producto_existente = any(str(p["codigo_barras"]).strip() == nuevo_producto["codigo_barras"] for p in self.lista_productos)
+
+            # Para depuración, puedes imprimir lo que estás comparando
+            print(f"Comparando: {nuevo_producto['codigo_barras']} con {[p['codigo_barras'] for p in self.lista_productos]}")
+
+            if not producto_existente:
+                # Si el producto no existe, agregarlo
+                print(f"Agregando producto con código de barras: {nuevo_producto['codigo_barras']}")
+                self.lista_productos.append(nuevo_producto)
+            else:
+                print(f"Producto con código de barras {nuevo_producto['codigo_barras']} ya existe, no se agrega.")
+
+        # Imprimir la lista de productos agregados (para depuración)
+        print("##################################")
+        print("LISTA DE PRODUCTOS SIN REPETIR")
+        print(self.lista_productos)
+
+        # Ahora puedes actualizar la tabla si es necesario
+        self.__cargar_datos_en_tabla(self.lista_productos)
             
     def __leer_archivo_csv(self):
         documento, _ = QFileDialog.getOpenFileName(self, "Selecciona un documento de Excel", "", "Archivos Excel (*.xlsx *.xls)")
@@ -752,7 +810,7 @@ class Admin_productosController(QWidget):
         
         return df
     
-    def __cargar_datos_en_tabla(self, df):
+    def __cargar_datos_en_tabla(self, lista_productos):
         self.modelo_tabla_productos.setHorizontalHeaderLabels([
             "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color", 
             "Material", "Unidad de Medida", "Presentación", "Costo Inicial","Costo Final", "Margen Porcentaje", "Precio Venta", 
@@ -764,14 +822,18 @@ class Admin_productosController(QWidget):
         row_count = self.modelo_tabla_productos.rowCount()
         self.modelo_tabla_productos.removeRows(0, row_count)
         
-        # Recorrer el DataFrame y agregar los datos a la tabla
-        for row in range(len(df)):
-            self.lista_productos = []
-            for col in range(len(df.columns)):
-                item = QStandardItem(str(df.iloc[row, col]))
+        # Recorrer la lista de productos y agregar los datos a la tabla
+        for producto in lista_productos:
+            self.lista_productos_tabla = []
+            
+            # Agregar cada valor del diccionario como una celda en la fila
+            for key in producto:
+                item = QStandardItem(str(producto[key]))
                 item.setTextAlignment(Qt.AlignCenter)  # Centrar el texto
-                self.lista_productos.append(item)
-            self.modelo_tabla_productos.appendRow(self.lista_productos)
+                self.lista_productos_tabla.append(item)
+            
+            # Agregar la fila completa al modelo
+            self.modelo_tabla_productos.appendRow(self.lista_productos_tabla)
         
         # Asignar el modelo a la tabla
         self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
