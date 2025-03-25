@@ -22,6 +22,17 @@ class ProductosModel:
             return presentaciones, True
         else:
             return None, False
+        
+    def eliminar_presentacion_producto(self, presentacion_obj):
+        try:
+            if presentacion_obj:
+                self.session.delete(presentacion_obj)
+                self.session.commit()  # Confirma la eliminación
+                return True
+            return False
+        except Exception as e:
+            print(f"Error al eliminar la unidad de medida: {e}")
+            return False
     
     def agregar_unidad_medida(self, nombre):
         if not nombre:
@@ -40,6 +51,18 @@ class ProductosModel:
             return unidades_medida, True
         else:
             return None, False
+    
+    def eliminar_unidad_medida(self, unidad_obj):
+        try:
+            if unidad_obj:
+                # Elimina la unidad de medida si se encuentra
+                self.session.delete(unidad_obj)
+                self.session.commit()  # Confirma la eliminación
+                return True
+            return False
+        except Exception as e:
+            print(f"Error al eliminar la unidad de medida: {e}")
+            return False
         
     def agregar_producto(
         self,

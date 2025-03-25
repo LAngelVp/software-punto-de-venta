@@ -116,7 +116,7 @@ class Admin_productosController(QWidget):
                 self.ui.cajaOpciones_presentacionProducto.clear()
                 for presentacion in datos:
                     self.ui.cajaOpciones_presentacionProducto.addItem(presentacion.nombre, presentacion)
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
+                AjustarCajaOpciones(ProductosModel(session)).ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
 
     def listar_unidades_medida(self):
         with Conexion_base_datos() as db:
@@ -127,7 +127,7 @@ class Admin_productosController(QWidget):
                 self.ui.cajaOpciones_unidadMedidaProducto.clear()
                 for unidad in datos:
                     self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.nombre, unidad)
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
+                AjustarCajaOpciones(ProductosModel(session)).ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
 
     def listar_categorias(self):
         with Conexion_base_datos() as db:
@@ -138,7 +138,7 @@ class Admin_productosController(QWidget):
                 self.ui.cajaOpciones_categoriaProducto.clear()
                 for categoria in categorias:
                     self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria)
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
+                AjustarCajaOpciones(CategoriasModel(session), 'productos').ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
 #########################
 #FUNCIONES-INTERACCION CON EL PRODUCTO
     def mostrar_fechas_caducidad(self, state):
