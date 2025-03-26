@@ -42,13 +42,13 @@ sucursal_producto = Table(
     "sucursal_producto",
     Base.metadata,
     Column("sucursal_id", BigInteger, ForeignKey("Sucursales.id"), primary_key=True),
-    Column("producto_id", Text, ForeignKey("Productos.codigo_upc"), primary_key=True),
+    Column("producto_id", Integer, ForeignKey("Productos.id"), primary_key=True),
 )
 
 producto_proveedor = Table(
     "producto_proveedor",
     Base.metadata,
-    Column("producto_id", Text, ForeignKey("Productos.codigo_upc", ondelete='CASCADE'), primary_key=True),
+    Column("producto_id", Integer, ForeignKey("Productos.id", ondelete='CASCADE'), primary_key=True),
     Column("proveedor_id", Integer, ForeignKey("Proveedores.id"), primary_key=True),
     Column("precio_venta", Float),
 )
@@ -221,7 +221,7 @@ class Unidad_medida_productos(Base):
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     nombre = Column(String(25))
     productos = relationship("Productos", back_populates="unidad_medida_productos")
-
+    
 class Productos(Base):
     __tablename__ = "Productos"
     id = Column(
@@ -259,8 +259,24 @@ class Productos(Base):
     proveedores = relationship(
         "Proveedores", secondary=producto_proveedor, back_populates="productos", 
     )
+    
     detalles_compras = relationship("Detalles_compras", back_populates="producto")
+    
     detalles_ventas = relationship("Detalles_ventas", back_populates="producto")
+    
+    movimientos_inventario = relationship("Movimientos_Inventario", back_populates="producto")
+
+class Movimientos_Inventario(Base):
+    __tablename__ = "Movimientos_inventario"
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
+    producto_id = Column(Integer, ForeignKey("Productos.id"))
+    cantidad_cambio = Column(Float)  #  Indica la cantidad de productos que entran o salen del inventario.
+    tipo_movimiento = Column(String(20))  # Tipo de movimiento: "entrada" o "salida"
+    fecha_movimiento = Column(Date)
+    notas = Column(Text)
+    
+    # Relación con Productos
+    producto = relationship("Productos", back_populates="movimientos_inventario")
 
 class Categorias_productos(Base):
     __tablename__ = "Categorias_productos"
@@ -299,7 +315,6 @@ class Proveedores(Base):
     )
     compras = relationship("Compras", back_populates="proveedor")
 
-
 class Representantes_proveedores(Base):
     __tablename__ = "Representantes_proveedores"
     id = Column(
@@ -313,7 +328,6 @@ class Representantes_proveedores(Base):
     puesto = Column(String(100))
     proveedores = relationship("Proveedores", back_populates="representante")  # Relación inversa
 
-
 class Categorias_proveedores(Base):
     __tablename__ = "Categorias_proveedores"
     id = Column(
@@ -324,24 +338,6 @@ class Categorias_proveedores(Base):
     proveedores = relationship(
         "Proveedores", back_populates="categoria", 
     )
-
-
-class Ventas(Base):
-    __tablename__ = "Ventas"
-    id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
-    fecha = Column(DateTime)
-    total = Column(Float)
-    estado = Column(String(100))
-    comentarios = Column(Text)
-    cliente_id = Column(Integer, ForeignKey("Clientes.id"), nullable=False)
-    empleado_id = Column(Integer, ForeignKey("Empleados.id"), nullable=False)
-    metodos_pagos_id = Column(Integer, ForeignKey("Metodos_pagos.id"), nullable=False)
-
-    cliente = relationship("Clientes", back_populates="ventas")
-    empleado = relationship("Empleados", back_populates="ventas")
-    metodos_de_pago = relationship("Metodos_pagos", back_populates="ventas")
-    detalles = relationship("Detalles_ventas", back_populates="venta")
-
 
 class Clientes(Base):
     __tablename__ = "Clientes"
@@ -382,9 +378,6 @@ class Clientes(Base):
 
     __mapper_args__ = {"polymorphic_on": tipo_cliente, "polymorphic_identity": "clientes"}
 
-    
-
-
 class Categorias_de_clientes(Base):
     __tablename__ = "Categorias_de_clientes"
     id = Column(
@@ -393,22 +386,6 @@ class Categorias_de_clientes(Base):
     nombre = Column(String(100))
     descripcion = Column(String(255))
     clientes = relationship("Clientes", back_populates="categoria")
-
-
-class Detalles_ventas(Base):
-    __tablename__ = "Detalles_ventas"
-    id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
-    venta_id = Column(BigInteger, ForeignKey("Ventas.id"), nullable=False)
-    producto_id = Column(Text, ForeignKey("Productos.codigo_upc"), nullable=False)
-    cantidad = Column(Float)
-    precio_unitario = Column(Float)
-    subtotal = Column(Float)
-    descuento = Column(Float)
-    total = Column(Float)
-
-    venta = relationship("Ventas", back_populates="detalles")
-    producto = relationship("Productos", back_populates="detalles_ventas")
-
 
 class Compras(Base):
     __tablename__ = "Compras"
@@ -533,8 +510,41 @@ class Representantes_clientes_morales(Base):
     correo = Column(String(100))
     puesto = Column(String(100))
     clientes_morales = relationship("Clientes_morales", back_populates="representante")
+    
+class Detalles_ventas(Base):
+    __tablename__ = "Detalles_ventas"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
+    venta_id = Column(Integer, ForeignKey("Ventas.id"), nullable=False)  # Relación con la venta
+    producto_id = Column(Integer, ForeignKey("Productos.id"), nullable=False)  # Relación con el producto vendido
+    cantidad = Column(Float, nullable=False)  # Cantidad del producto vendido
+    precio_unitario = Column(Float, nullable=False)  # Precio unitario del producto en el momento de la venta
+    subtotal = Column(Float, nullable=False)  # Subtotal: cantidad * precio_unitario
 
+    # Relación con la venta
+    venta = relationship("Ventas", back_populates="detalles_ventas")
 
+    # Relación con el producto
+    producto = relationship("Productos", back_populates="detalles_ventas")
+
+class Ventas(Base):
+    __tablename__ = "Ventas"
+    id = Column(BigInteger, primary_key=True, autoincrement=True, nullable=False)
+    fecha = Column(DateTime)
+    total = Column(Float)
+    estado = Column(String(100))
+    comentarios = Column(Text)
+    cliente_id = Column(Integer, ForeignKey("Clientes.id"), nullable=False)
+    empleado_id = Column(Integer, ForeignKey("Empleados.id"), nullable=False)
+    metodos_pagos_id = Column(Integer, ForeignKey("Metodos_pagos.id"), nullable=False)
+
+    cliente = relationship("Clientes", back_populates="ventas")
+    empleado = relationship("Empleados", back_populates="ventas")
+    metodos_de_pago = relationship("Metodos_pagos", back_populates="ventas")
+    
+    detalles_ventas = relationship("Detalles_ventas", back_populates="venta", cascade="all, delete-orphan")
+    
+    
 # Índices para mejorar el rendimiento en búsquedas
 Index("idx_usuario", Usuarios.usuario)
 Index("idx_curp", Empleados.curp)

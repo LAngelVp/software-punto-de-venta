@@ -21,6 +21,32 @@ from .UnidadMedidaProductosController import UnidadMedidaProductos
 
 
 import traceback
+
+class ExistenciasClase(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Agregar Existencias")
+        
+        layout = QVBoxLayout()
+        
+        # Crear el QLineEdit (campo de texto)
+        self.line_edit = QLineEdit(self)
+        self.line_edit.setPlaceholderText("Escribe algo aquí...")  # Placeholder para el QLineEdit
+
+        # Crear el QPushButton (botón)
+        self.boton = QPushButton('Mostrar texto', self)
+        self.boton.clicked.connect(self.mostrar_texto)  # Conectar el clic con el método
+
+        # Crear el QLabel (etiqueta)
+        self.etiqueta = QLabel('Texto aparecerá aquí', self)
+
+        # Agregar widgets al layout
+        layout.addWidget(self.line_edit)
+        layout.addWidget(self.boton)
+        layout.addWidget(self.etiqueta)
+
+        # Establecer el layout para la ventana
+        self.setLayout(layout)
                 
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
@@ -282,9 +308,9 @@ class Admin_productosController(QWidget):
             "ancho_dimensiones": datos["ancho_dimensiones"],
             "descripcion": datos["descripcion_producto"],
             "notas": datos["notas_producto"],
-            "fecha_vencimiento": datos["fecha_vencimiento_producto"],
-            "fecha_fabricacion": datos["fecha_fabricacion_producto"],
-            "imagen": self.imagenProducto  # Suponiendo que self.imagenProducto tiene la imagen
+            "fecha_vencimiento": datos["fecha_vencimiento_producto"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
+            "fecha_fabricacion": datos["fecha_fabricacion_producto"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
+            "imagen": self.imagenProducto  
         }
         
         producto_existente = any(p["codigo_barras"] == nuevo_producto["codigo_barras"] for p in self.lista_productos)
@@ -348,8 +374,8 @@ class Admin_productosController(QWidget):
                         dimensiones=dimensiones,  # Las dimensiones ya son una cadena concatenada correctamente
                         color=producto["color"],
                         material=producto["material"],
-                        fecha_fabricacion=producto["fecha_fabricacion"],
-                        fecha_vencimiento=producto["fecha_vencimiento"],
+                        fecha_fabricacion=producto["fecha_fabricacion"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
+                        fecha_vencimiento=producto["fecha_vencimiento"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
                         imagen=self.imagenProducto if self.imagenProducto is not None else producto["imagen"],  # Imagen (si está disponible)
                         notas=producto["notas"],
                         presentacion_producto_id=producto["presentacion"] if producto["presentacion"] is None else presentacion.id,  
@@ -454,7 +480,7 @@ class Admin_productosController(QWidget):
                     AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
             if estatusmedida:
                 for medida in unidadades_medida:
-                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(medida.unidad_medida, medida)
+                    self.ui.cajaOpciones_unidadMedidaProducto.addItem(medida.nombre, medida)
                     AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
             if estatuspresentacion:
                 for presentacion in presentaciones:
@@ -476,8 +502,10 @@ class Admin_productosController(QWidget):
         self.ui.decimal_existenciaMinProducto.setValue(producto.existencia_minima)
         self.ui.decimal_existenciaMaxProducto.setValue(producto.existencia_maxima)
         self.ui.decimal_pesoProducto.setValue(producto.peso)
-        self.ui.fecha_fabricacionProducto.setDate(producto.fecha_fabricacion)
-        self.ui.fecha_vencimientoProducto.setDate(producto.fecha_vencimiento)
+        if producto.fecha_fabricacion:
+            self.ui.opcion_TieneCaducidad.setChecked(True)
+            self.ui.fecha_fabricacionProducto.setDate(producto.fecha_fabricacion)
+            self.ui.fecha_vencimientoProducto.setDate(producto.fecha_vencimiento)
         if producto.imagen:
             self.ui.etiqueta_fotoProducto.setPixmap(QPixmap(producto.imagen).scaled(self.ui.etiqueta_fotoProducto.size()))
         
@@ -513,7 +541,7 @@ class Admin_productosController(QWidget):
         
         if producto.unidad_medida_productos:
             if estatusmedida:
-                medida_nombre = producto.unidad_medida_productos.unidad_medida
+                medida_nombre = producto.unidad_medida_productos.nombre
                 caja_medidas = self.ui.cajaOpciones_unidadMedidaProducto
                 indice = caja_medidas.findText(medida_nombre)
 

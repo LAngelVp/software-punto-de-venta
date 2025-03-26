@@ -26,7 +26,7 @@ class Inicio_sistema:
                     PermisosModel(session).crear_permisos_principal()
                     RolesModel(session).crear_grupo_principal()
                 except Exception as e:
-                    Mensaje().mensaje_alerta(f'Existio un error en la creacion de datos principales: {e}')
+                    print(f'Existio un error en la creacion de datos principales: {e}')
 
 def main():
     app = QApplication(sys.argv)
