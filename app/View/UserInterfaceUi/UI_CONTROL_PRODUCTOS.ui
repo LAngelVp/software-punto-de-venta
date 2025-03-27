@@ -228,6 +228,9 @@ border-bottom:2px solid #023375;
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="toolTip">
+                 <string>Agregar nuevo producto</string>
+                </property>
                 <property name="text">
                  <string>AGREGAR</string>
                 </property>
@@ -247,6 +250,9 @@ border-bottom:2px solid #023375;
                <widget class="QPushButton" name="btn_btn_eliminar">
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="toolTip">
+                 <string>Eliminar producto</string>
                 </property>
                 <property name="text">
                  <string>ELIMINAR</string>
@@ -268,6 +274,9 @@ border-bottom:2px solid #023375;
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="toolTip">
+                 <string>Editar producto</string>
+                </property>
                 <property name="text">
                  <string>EDITAR</string>
                 </property>
@@ -280,6 +289,13 @@ border-bottom:2px solid #023375;
                   <width>24</width>
                   <height>24</height>
                  </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_btn_ExistenciaProducto">
+                <property name="text">
+                 <string>Existencia</string>
                 </property>
                </widget>
               </item>
@@ -337,6 +353,9 @@ border-bottom:2px solid #023375;
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
+                <property name="toolTip">
+                 <string>Buscar producto</string>
+                </property>
                 <property name="text">
                  <string>Buscar</string>
                 </property>
@@ -354,6 +373,20 @@ border-bottom:2px solid #023375;
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_btn_ActualizarTablaProductos">
+                <property name="toolTip">
+                 <string>Actualizar tabla productos</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../Source/iconosSVG.qrc">
+                  <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>

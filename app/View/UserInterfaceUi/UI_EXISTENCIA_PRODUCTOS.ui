@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>UI_EXISTENCIA_PRODUCTO</class>
+ <widget class="QWidget" name="UI_EXISTENCIA_PRODUCTO">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>522</width>
+    <height>331</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Existencia Producto</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">[objectName *=&quot;contenedor&quot;]{
+background:#fffefb;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+color: #1d1c1c;
+font-size: 16px;
+font-weight:bold;
+font-family:&quot;Arial&quot;;
+}
+[objectName*=&quot;txt&quot;]{
+border-bottom:  1px solid #787878;
+border-radius: 3px;
+background: #F5F5F5;
+min-width:100px;
+font-size: 14px;
+font-family:&quot;Arial&quot;;
+}
+[objectName*=&quot;txt&quot;]:hover{
+border-bottom:  2px solid #023375;
+}
+[objectName*=&quot;txt&quot;]:focus{
+border-bottom:  2px solid #023375;
+}
+[objectName*=&quot;txtlargo&quot;]{
+max-height:100px;
+}
+[objectName*=&quot;btn_btn&quot;]{
+border:none;
+font-size:14px;
+font-family:&quot;Arial&quot;;
+font-weight:bold;
+padding: 5px;
+background: #00619a;
+color: #fffefb;
+border-radius: 4px;
+}
+[objectName*=&quot;btn_btn&quot;]:hover{
+background: #2196F3;
+}
+[objectName*=&quot;btn_btn&quot;]:pressed{
+background: #1B80D0;
+}
+[objectName*=&quot;cajaOpciones&quot;]{
+border: none;
+border-bottom: 1px solid #787878;
+borde-radius: 3px;
+padding: 2px;
+background-color: #F5F5F5;
+font-size: 14px;
+min-width: 200px;
+font-family:&quot;Arial&quot;;
+color: #1d1c1c;
+}
+[objectName*=&quot;cajaOpciones&quot;]::drop-down{
+subcontrol-origin: padding;
+subcontrol-position: top right;
+padding-right:5px;
+width: 20%;
+border-left-width: 1px;
+borde-radius: 3px;
+background-color: #F5F5F5;
+}
+[objectName*=&quot;cajaOpciones&quot;]::down-arrow{
+image: url(:/Icons/Bootstrap/filter-left.svg);
+width: 17%;
+height: 17%;
+padding-left:5px;
+padding-right:5px;
+}
+[objectName*=&quot;decimal&quot;]{
+min-width:100px;
+background: #F5F5F5;
+borde:none;
+border-radius: 2px;
+border-bottom: 1px solid #787878;
+padding: 0px 2px;
+font-size: 14px;
+font-family: &quot;Arial&quot;;
+}
+[objectName*=&quot;decimal&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;fecha_&quot;]{
+border: none;
+border-bottom: 1px solid #3b3c3d;
+border-radius: 5px;
+padding: 2px;
+background-color: #f5f4f1;
+font-size: 14px;
+min-width:100px;
+}
+*[objectName*=&quot;fecha_&quot;]::drop-down{
+subcontrol-origin: padding;
+subcontrol-position: top right;
+padding-right:5px;
+width: 20%;
+border-left-width: 1px;
+borde-radius: 5px;
+background-color: #f5f4f1;
+}
+*[objectName*=&quot;fecha_&quot;]::down-arrow{
+image: url(:/Icons/Bootstrap/calendar2-date.svg);
+width: 17%;
+height: 17%;
+padding-left:5px;
+padding-right:5px;
+}
+*[objectName*=&quot;fecha_&quot;]::focus{
+border-bottom: 2px solid #00668c;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="etiqueta_Usuario">
+          <property name="text">
+           <string>Usuario:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="etiqueta_NombreUsuario">
+          <property name="text">
+           <string>Nombre</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="etiqueta_Clave">
+          <property name="text">
+           <string>Clave del Producto:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="etiqueta_ClaveProducto">
+          <property name="text">
+           <string>clave</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="1" column="0">
+         <widget class="QLabel" name="etiqueta_TipoMovimiento">
+          <property name="text">
+           <string>Movimiento</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="etiqueta_FechaMovimiento">
+          <property name="text">
+           <string>Fecha del Movimiento</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="etiqueta_NotasExistencia">
+          <property name="text">
+           <string>Notas</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QDateEdit" name="fecha_FechaMovimiento">
+          <property name="calendarPopup">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="etiqueta_CantidadExistencia">
+          <property name="text">
+           <string>Cantidad</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="cajaOpciones_TipoMovimiento">
+          <item>
+           <property name="text">
+            <string>Entrada</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Salida</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QDoubleSpinBox" name="decimal_CantidadExistencia">
+          <property name="buttonSymbols">
+           <enum>QAbstractSpinBox::NoButtons</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="QPlainTextEdit" name="txtlargo_NotasProducto"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_btn_aceptar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string>Aceptar</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>decimal_CantidadExistencia</tabstop>
+  <tabstop>cajaOpciones_TipoMovimiento</tabstop>
+  <tabstop>fecha_FechaMovimiento</tabstop>
+  <tabstop>txtlargo_NotasProducto</tabstop>
+  <tabstop>btn_btn_aceptar</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+ </resources>
+ <connections/>
+</ui>

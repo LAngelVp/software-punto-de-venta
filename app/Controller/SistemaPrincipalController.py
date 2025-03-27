@@ -27,7 +27,7 @@ class SistemaPrincipal(QWidget):
         
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.showFullScreen()
+        self.showMaximized()
         self.ui.btn_btn_sucursales.clicked.connect(self.mostrar_sucursales)
         
         self.ui.label_fotousuario.setCursor(Qt.PointingHandCursor)

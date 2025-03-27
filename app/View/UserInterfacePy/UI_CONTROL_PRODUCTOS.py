@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_PRODUCTOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -189,6 +189,9 @@ class Ui_Control_Productos(object):
         self.btn_btn_modificar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_modificar.setObjectName("btn_btn_modificar")
         self.horizontalLayout.addWidget(self.btn_btn_modificar)
+        self.btn_btn_ExistenciaProducto = QtWidgets.QPushButton(self.contenedor_controles)
+        self.btn_btn_ExistenciaProducto.setObjectName("btn_btn_ExistenciaProducto")
+        self.horizontalLayout.addWidget(self.btn_btn_ExistenciaProducto)
         self.gridLayout_3.addLayout(self.horizontalLayout, 0, 0, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_3.addItem(spacerItem, 0, 1, 1, 1)
@@ -209,6 +212,7 @@ class Ui_Control_Productos(object):
         self.etiqueta_buscar.setObjectName("etiqueta_buscar")
         self.horizontalLayout_2.addWidget(self.etiqueta_buscar)
         self.txt_buscar = QtWidgets.QLineEdit(self.contenedor_tabla)
+        self.txt_buscar.setClearButtonEnabled(True)
         self.txt_buscar.setObjectName("txt_buscar")
         self.horizontalLayout_2.addWidget(self.txt_buscar)
         self.btn_btn_buscar = QtWidgets.QPushButton(self.contenedor_tabla)
@@ -217,6 +221,13 @@ class Ui_Control_Productos(object):
         self.horizontalLayout_2.addWidget(self.btn_btn_buscar)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
+        self.btn_btn_ActualizarTablaProductos = QtWidgets.QPushButton(self.contenedor_tabla)
+        self.btn_btn_ActualizarTablaProductos.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_ActualizarTablaProductos.setIcon(icon3)
+        self.btn_btn_ActualizarTablaProductos.setObjectName("btn_btn_ActualizarTablaProductos")
+        self.horizontalLayout_2.addWidget(self.btn_btn_ActualizarTablaProductos)
         self.gridLayout_4.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
         self.gridLayout_5.addWidget(self.contenedor_tabla, 1, 0, 1, 1)
         self.gridLayout_2.addWidget(self.frame_2, 1, 0, 1, 1)
@@ -229,9 +240,16 @@ class Ui_Control_Productos(object):
         _translate = QtCore.QCoreApplication.translate
         Control_Productos.setWindowTitle(_translate("Control_Productos", "Form"))
         self.etiquetaTitulo_productos.setText(_translate("Control_Productos", "ADMINISTRACIÓN DE PRODUCTOS"))
+        self.btn_btn_agregar.setToolTip(_translate("Control_Productos", "Agregar nuevo producto"))
         self.btn_btn_agregar.setText(_translate("Control_Productos", "AGREGAR"))
+        self.btn_btn_eliminar.setToolTip(_translate("Control_Productos", "Eliminar producto"))
         self.btn_btn_eliminar.setText(_translate("Control_Productos", "ELIMINAR"))
+        self.btn_btn_modificar.setToolTip(_translate("Control_Productos", "Editar producto"))
         self.btn_btn_modificar.setText(_translate("Control_Productos", "EDITAR"))
+        self.btn_btn_ExistenciaProducto.setText(_translate("Control_Productos", "Existencia"))
+        self.txt_buscar.setPlaceholderText(_translate("Control_Productos", "Nombre del producto"))
+        self.btn_btn_buscar.setToolTip(_translate("Control_Productos", "Buscar producto"))
         self.btn_btn_buscar.setText(_translate("Control_Productos", "Buscar"))
+        self.btn_btn_ActualizarTablaProductos.setToolTip(_translate("Control_Productos", "Actualizar tabla productos"))
 from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc

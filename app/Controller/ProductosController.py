@@ -16,6 +16,7 @@ from .CategoriasController import CategoriasController
 from ..View.UserInterfacePy.UI_CONTROL_PRODUCTOS import Ui_Control_Productos
 from ..View.UserInterfacePy.UI_AGREGARPRODUCTO import Ui_contenedor_agregar_productos
 from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import Ui_Nueva_categoria
+from ..View.UserInterfacePy.UI_EXISTENCIA_PRODUCTOS import Ui_UI_EXISTENCIA_PRODUCTO
 from .PresentacionProductosController import PresentacionProductos
 from .UnidadMedidaProductosController import UnidadMedidaProductos
 
@@ -25,28 +26,12 @@ import traceback
 class ExistenciasClase(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Agregar Existencias")
+        self.ui = Ui_UI_EXISTENCIA_PRODUCTO()
+        self.ui.setupUi(self)
         
-        layout = QVBoxLayout()
-        
-        # Crear el QLineEdit (campo de texto)
-        self.line_edit = QLineEdit(self)
-        self.line_edit.setPlaceholderText("Escribe algo aquí...")  # Placeholder para el QLineEdit
-
-        # Crear el QPushButton (botón)
-        self.boton = QPushButton('Mostrar texto', self)
-        self.boton.clicked.connect(self.mostrar_texto)  # Conectar el clic con el método
-
-        # Crear el QLabel (etiqueta)
-        self.etiqueta = QLabel('Texto aparecerá aquí', self)
-
-        # Agregar widgets al layout
-        layout.addWidget(self.line_edit)
-        layout.addWidget(self.boton)
-        layout.addWidget(self.etiqueta)
-
-        # Establecer el layout para la ventana
-        self.setLayout(layout)
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
                 
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
@@ -115,6 +100,7 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_eliminar_proveedor_a_vincular.clicked.connect(self.eliminar_proveedor_a_vincular)
         self.ui.entero_margenProducto.editingFinished.connect(self.calcular_precio_venta)
         self.ui.opcion_TieneCaducidad.stateChanged.connect(self.mostrar_fechas_caducidad)
+        
         
         
 #FUNCIONES-VENTANAS EMERGENTES: 
@@ -890,6 +876,7 @@ class Productos(QWidget):
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_producto)
         self.ui.btn_btn_modificar.clicked.connect(self.modificar_producto)
         self.ui.btn_btn_buscar.clicked.connect(self.buscar_producto)
+        self.ui.btn_btn_ExistenciaProducto.clicked.connect(self.existencia_productos)
         
         
         self.seleccion_conectada_productos = None
@@ -1032,3 +1019,7 @@ class Productos(QWidget):
 
             # Asignar el modelo al QTableView si no está asignado
             self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
+
+    def existencia_productos(self):
+        self.ventana_existencia_productos = ExistenciasClase()
+        self.ventana_existencia_productos.show()
