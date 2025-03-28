@@ -12,9 +12,9 @@ class CredencialesModel:
             session = db.abrir_sesion()
             with session.begin():
                 usuario_existe, estatus = UsuarioModel(session).consultar_usuario(nombre=usuario)
-                if estatus:
-                    if bcrypt.checkpw(contraseña.encode(), usuario_existe.contraseña):
-                        return True
-                    else:
-                        return False
-                return False
+            if estatus:
+                if bcrypt.checkpw(contraseña.encode(), usuario_existe.contraseña):
+                    return usuario_existe, True
+                else:
+                    return None, False
+            return None, False

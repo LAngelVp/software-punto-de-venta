@@ -11,6 +11,7 @@ from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProveedoresModel import ProveedoresModel
 from ..Model.CategoriasModel import CategoriasModel
 from ..Model.ProductosModel import ProductosModel
+from ..Model.UsuarioModel import UsuarioModel
 from .MensajesAlertasController import Mensaje
 from .CategoriasController import CategoriasController
 from ..View.UserInterfacePy.UI_CONTROL_PRODUCTOS import Ui_Control_Productos
@@ -24,15 +25,51 @@ from .UnidadMedidaProductosController import UnidadMedidaProductos
 import traceback
 
 class ExistenciasClase(QWidget):
-    def __init__(self):
+    def __init__(self, usuario_ejecutador, producto):
         super().__init__()
+        self.usuario_existente = usuario_ejecutador
+        self.producto = producto
         self.ui = Ui_UI_EXISTENCIA_PRODUCTO()
         self.ui.setupUi(self)
-        
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
-                
+        self.ui.fecha_FechaMovimiento.setDate(QDate.currentDate())
+        self.ui.etiqueta_ClaveProducto.setText(self.producto.codigo_upc)
+        self.ui.etiqueta_NombreUsuario.setText(self.usuario_existente.upper())
+        self.ui.btn_btn_aceptar.clicked.connect(self.ejecutar_existencias)
+    
+    def ejecutar_existencias(self):
+        cant_existencia = self.ui.decimal_CantidadExistencia.value()
+        tipo_movimiento = self.ui.cajaOpciones_TipoMovimiento.currentText()
+        fecha_movimiento = self.ui.fecha_FechaMovimiento.date().toString('yyyy-MM-dd')
+        notas = self.ui.txtlargo_NotasProducto.toPlainText()
+        if cant_existencia != 0:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
+                with session.begin():
+                    usuario, estatus_usuario = UsuarioModel(session).consultar_usuario(nombre=self.usuario_existente)
+                    if not estatus_usuario:
+                        Mensaje().mensaje_alerta("No se puede lograr la accion sin un usuario.")
+                        return
+                    movimiento, estatus_movimiento = ProductosModel(session).ejecutar_movimiento(
+                        producto=self.producto,
+                        cantidad_cambio=cant_existencia,
+                        tipo_movimiento=tipo_movimiento,
+                        fecha_movimiento=fecha_movimiento,
+                        notas=notas,
+                        usuarioid=usuario.id)
+            
+        
+        print(f"""
+              cantidad movimiientos: {cant_existencia}
+              tipo movimiento : {tipo_movimiento}
+              fecha movimiento: {fecha_movimiento}
+              notas: {notas}
+              codigo del producto: {self.producto.codigo_upc}
+              empleado: {self.usuario_existente}
+              """)
+        return
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
     RECIBIR_PRODUCTO_ACTUALIZAR = pyqtSignal(object)
@@ -323,59 +360,66 @@ class Admin_productosController(QWidget):
         
     def agregar_productos_en_bd(self):
         productos_no_agregados = []
+        print(self.lista_productos)
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
-            with session.begin():
-                for producto in self.lista_productos:
-                    dimensiones = str(producto["largo_dimensiones"]) + "-" + str(producto["alto_dimensiones"]) + "-" + str(producto["ancho_dimensiones"])
-                    # Buscar el proveedor correspondiente en la base de datos usando el nombre del proveedor
-                    proveedor, estatus_proveedor = ProveedoresModel(session).consultar_proveedor(producto["proveedor"])
-                    
-                    presentacion, status_presentacion = ProductosModel(session).agregar_presentacion(nombre=producto["presentacion"])
-                    
-                    unidad_medida, status_unidad_medida = ProductosModel(session).agregar_unidad_medida(nombre=producto["unidad_medida"])
-                    
-                    categoria, status_categoria = CategoriasModel(session).agregar(tipo_categoria="productos", nombre=producto["categoria"])
-                    
-                    # Asegurarse de que el proveedor es válido (no None)
-                    if estatus_proveedor:
-                        proveedores = [proveedor]
-                    else:
-                        proveedores = []  # Si no hay proveedor, pasa una lista vacía
-                    
-                    producto, estatus_producto = ProductosModel(session).agregar_producto(
-                        codigo_upc=producto["codigo_barras"],
-                        nombre_producto=producto["nombre"],  
-                        descripcion_producto=producto["descripcion"],
-                        costo_inicial=producto["costo_inicial"],
-                        costo_final=producto["costo_final"],
-                        margen_porcentaje=f'{producto["margen_porcentaje"]} %',
-                        precio=producto["precio_venta"],
-                        existencia=producto["existencia"],
-                        existencia_minima=producto["existencia_min"],
-                        existencia_maxima=producto["existencia_max"],
-                        marca=producto["marca"],
-                        modelo=producto["modelo"],
-                        peso=producto["peso"],
-                        dimensiones=dimensiones,  # Las dimensiones ya son una cadena concatenada correctamente
-                        color=producto["color"],
-                        material=producto["material"],
-                        fecha_fabricacion=producto["fecha_fabricacion"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
-                        fecha_vencimiento=producto["fecha_vencimiento"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
-                        imagen=self.imagenProducto if self.imagenProducto is not None else producto["imagen"],  # Imagen (si está disponible)
-                        notas=producto["notas"],
-                        presentacion_producto_id=producto["presentacion"] if producto["presentacion"] is None else presentacion.id,  
-                        unidad_medida_productos_id=producto["unidad_medida"].id if producto["unidad_medida"] is None else unidad_medida.id,  
-                        categoria_id=producto["categoria"].id if producto["categoria"] is None else categoria.id,  
-                        sucursales=[],  # Puedes pasar las sucursales como una lista vacía si no las tienes
-                        proveedores=proveedores  # Pasamos una lista de proveedores
-                    )
-                    if not estatus_producto:
-                        productos_no_agregados.append(producto)
+            try:
+                with session.begin():  # Inicia la transacción
+                    for producto in self.lista_productos:
+                        dimensiones = str(producto["largo_dimensiones"]) + "-" + str(producto["alto_dimensiones"]) + "-" + str(producto["ancho_dimensiones"])
+                        print(producto["presentacion"])
+                        proveedor, estatus_proveedor = ProveedoresModel(session).consultar_proveedor(producto["proveedor"])
+                        presentacion, status_presentacion = ProductosModel(session).agregar_presentacion(nombre=producto["presentacion"])
+                        print(presentacion.nombre)
+                        unidad_medida, status_unidad_medida = ProductosModel(session).agregar_unidad_medida(nombre=producto["unidad_medida"])
+                        categoria, status_categoria = CategoriasModel(session).agregar(tipo_categoria="productos", nombre=producto["categoria"])
+                        
+                        if estatus_proveedor:
+                            proveedores = [proveedor]
+                        else:
+                            proveedores = []  # Si no hay proveedor, pasa una lista vacía
+                        
+                        producto, estatus_producto = ProductosModel(session).agregar_producto(
+                            codigo_upc=producto["codigo_barras"],
+                            nombre_producto=producto["nombre"],
+                            descripcion_producto=producto["descripcion"],
+                            costo_inicial=producto["costo_inicial"],
+                            costo_final=producto["costo_final"],
+                            margen_porcentaje=f'{producto["margen_porcentaje"]} %',
+                            precio=producto["precio_venta"],
+                            existencia=producto["existencia"],
+                            existencia_minima=producto["existencia_min"],
+                            existencia_maxima=producto["existencia_max"],
+                            marca=producto["marca"],
+                            modelo=producto["modelo"],
+                            peso=producto["peso"],
+                            dimensiones=dimensiones,
+                            color=producto["color"],
+                            material=producto["material"],
+                            fecha_fabricacion=producto["fecha_fabricacion"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
+                            fecha_vencimiento=producto["fecha_vencimiento"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
+                            imagen=self.imagenProducto if self.imagenProducto is not None else producto["imagen"],
+                            notas=producto["notas"],
+                            presentacion_producto_id=presentacion.id,
+                            unidad_medida_productos_id=unidad_medida.id,
+                            categoria_id=categoria.id,
+                            sucursales=[],  # Si no tienes sucursales, pasa una lista vacía
+                            proveedores=proveedores
+                        )
+                        
+                        if not estatus_producto:
+                            productos_no_agregados.append(producto)
+                
+                session.commit()  # Aquí se hace commit después de finalizar la transacción
+            except Exception as e:
+                session.rollback()  # Si ocurre un error, revertimos los cambios
+                print(f"Error al guardar productos: {e}")
+                Mensaje().mensaje_informativo("Ocurrió un error al guardar los productos. No se realizaron cambios.")
+            
         if productos_no_agregados:
             Mensaje().mensaje_informativo("Existen productos que no se agregaron debido a que ya existen en la base de datos.")
             self.__cargar_datos_en_tabla(productos_no_agregados)
-            
+
         self.PRODUCTOS_AGREGADOS.emit()
     
     def __guardar_producto(self):
@@ -740,21 +784,18 @@ class Admin_productosController(QWidget):
         if df is None:
             return
         
-        # Luego de la conversión, transformamos las cadenas de texto
-        df = df.applymap(lambda x: x.upper().strip() if isinstance(x, str) else x)
-        
         for row in range(len(df)):
             nuevo_producto = {
-                "proveedor": df.iloc[row]["Proveedor"],
+                "proveedor": str(df.iloc[row]["Proveedor"]).strip(),
                 "codigo_barras": str(df.iloc[row]["Código de Barras"]).strip(),  # Aseguramos que el código esté limpio
-                "nombre": df.iloc[row]["Nombre"],
-                "categoria": df.iloc[row]["Categoría"],
-                "marca": df.iloc[row]["Marca"],
-                "modelo": df.iloc[row]["Modelo"],
-                "color": df.iloc[row]["Color"],
-                "material": df.iloc[row]["Material"],
-                "unidad_medida": df.iloc[row]["Unidad de Medida"],
-                "presentacion": df.iloc[row]["Presentación"],
+                "nombre": str(df.iloc[row]["Nombre"]).strip(),
+                "categoria": str(df.iloc[row]["Categoría"]).strip(),
+                "marca": str(df.iloc[row]["Marca"]).strip(),
+                "modelo": str(df.iloc[row]["Modelo"]).strip(),
+                "color": str(df.iloc[row]["Color"]).strip(),
+                "material": str(df.iloc[row]["Material"]).strip(),
+                "unidad_medida": str(df.iloc[row]["Unidad de Medida"]).strip(),
+                "presentacion": str(df.iloc[row]["Presentación"]).strip(),
                 "costo_inicial": float(df.iloc[row]["Costo Inicial"]),
                 "costo_final": float(df.iloc[row]["Costo Final"]),
                 "margen_porcentaje": int(df.iloc[row]["Margen Porcentaje"]),
@@ -766,11 +807,11 @@ class Admin_productosController(QWidget):
                 "largo_dimensiones": float(df.iloc[row]["Largo Dimensiones"]),
                 "alto_dimensiones": float(df.iloc[row]["Alto Dimensiones"]),
                 "ancho_dimensiones": float(df.iloc[row]["Ancho Dimensiones"]),
-                "descripcion": df.iloc[row]["Descripción"],
+                "descripcion": df.iloc[row]["Descripción"].strip(),
                 "notas": df.iloc[row]["Notas"],
                 "fecha_vencimiento": df.iloc[row]["Fecha Vencimiento"],
                 "fecha_fabricacion": df.iloc[row]["Fecha Fabricación"],
-                "imagen": df.iloc[row]["Imagen"]
+                "imagen": df.iloc[row]["Imagen"].strip()
             }
 
             # Verificación de duplicados: Compara código de barras limpio con los existentes
@@ -868,7 +909,7 @@ class Productos(QWidget):
     LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
     LISTAR_PRESENTACIONES_PRODUCTOS = pyqtSignal()
     LISTAR_PROVEEDORES_EXISTENTES_SIGNAL = pyqtSignal()
-    def __init__(self):
+    def __init__(self, usuario_existente):
         super().__init__()
         self.ui = Ui_Control_Productos()
         self.ui.setupUi(self)
@@ -877,8 +918,9 @@ class Productos(QWidget):
         self.ui.btn_btn_modificar.clicked.connect(self.modificar_producto)
         self.ui.btn_btn_buscar.clicked.connect(self.buscar_producto)
         self.ui.btn_btn_ExistenciaProducto.clicked.connect(self.existencia_productos)
+        self.ui.btn_btn_ActualizarTablaProductos.clicked.connect(self.consultar_productos_db)
         
-        
+        self.usuario_existente = usuario_existente
         self.seleccion_conectada_productos = None
         self.codigo_upc_producto = None
         self.AdminProductos = None
@@ -1021,5 +1063,16 @@ class Productos(QWidget):
             self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
 
     def existencia_productos(self):
-        self.ventana_existencia_productos = ExistenciasClase()
-        self.ventana_existencia_productos.show()
+        if self.codigo_upc_producto is None:
+            Mensaje().mensaje_informativo('Selecciona un producto.')
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                producto, estatus = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=self.codigo_upc_producto)
+            if not estatus:
+                Mensaje().mensaje_informativo("No se logro obtener el producto en la base de datos.")
+                return
+            self.ventana_existencia_productos = ExistenciasClase(usuario_ejecutador = self.usuario_existente, producto=producto)
+            self.ventana_existencia_productos.show()
+            

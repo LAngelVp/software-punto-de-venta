@@ -1,4 +1,4 @@
-from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos
+from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos, Movimientos_Inventario
 from sqlalchemy.orm import joinedload
 
 class ProductosModel:
@@ -6,12 +6,12 @@ class ProductosModel:
         self.session = session
     
     def agregar_presentacion(self, nombre):
-        if not nombre:
-            return False
         presentacion = self.session.query(Presentacion_productos).filter(Presentacion_productos.nombre == nombre).first()
-        if presentacion:
+        if presentacion is not None:
             return presentacion, False
+        
         presentacion = Presentacion_productos(nombre = nombre)
+        print(f"esta es la presentacion: {presentacion.nombre}")
         self.session.add(presentacion)
         self.session.flush()
         return presentacion, True
@@ -219,12 +219,14 @@ class ProductosModel:
             return True
         else:
             return False
+    
     def consultar_por_nombre_exacto(self, nombre):
         productos = self.session.query(Productos).filter(Productos.nombre_producto.like(nombre)).all()
         if productos:
             return productos, True
         else:
             return None, False
+    
     def consultar_por_nombre(self, nombre):
         productos = self.session.query(Productos).filter(Productos.nombre_producto.like(f"%{nombre}%")).all()
         if productos:
@@ -243,3 +245,30 @@ class ProductosModel:
             return produto, True
         else:
             return None, False
+        
+    def ejecutar_movimiento(self, producto, cantidad_cambio, tipo_movimiento, fecha_movimiento, notas, usuarioid):
+        if not producto and not usuarioid:
+            return None,False
+        
+        movimiento = Movimientos_Inventario(
+            producto_id = producto.id,
+            cantidad_cambio = cantidad_cambio,
+            tipo_movimiento = tipo_movimiento,
+            fecha_movimiento = fecha_movimiento,
+            notas = notas,
+            usuario_id = usuarioid
+            )
+        
+        producto = self.session.merge(producto)
+        
+        self.session.refresh(producto)
+        
+        
+        if tipo_movimiento.lower() == "entrada":
+            producto.existencia += cantidad_cambio
+        elif tipo_movimiento.lower() == "salida":
+            producto.existencia -= cantidad_cambio
+            
+        self.session.add(movimiento)
+        self.session.flush()
+        return movimiento, True

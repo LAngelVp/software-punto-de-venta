@@ -238,6 +238,12 @@ border-bottom: 2px solid #00668c;
           <property name="buttonSymbols">
            <enum>QAbstractSpinBox::NoButtons</enum>
           </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="maximum">
+           <double>999999999999999929757289024535551219930759168.000000000000000</double>
+          </property>
          </widget>
         </item>
         <item row="4" column="0" colspan="2">

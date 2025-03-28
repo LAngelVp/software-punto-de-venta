@@ -107,6 +107,7 @@ class Usuarios(Base):
     rol_id = Column(Integer, ForeignKey("Roles.id"))
     rol = relationship("Roles", back_populates="usuarios")
     empleado = relationship("Empleados", uselist=False, back_populates="usuario")
+    movimientos_inventario = relationship("Movimientos_Inventario", back_populates="usuario")
 
 
 # Apartado de Puestos
@@ -274,9 +275,12 @@ class Movimientos_Inventario(Base):
     tipo_movimiento = Column(String(20))  # Tipo de movimiento: "entrada" o "salida"
     fecha_movimiento = Column(Date)
     notas = Column(Text)
+    usuario_id = Column(Integer, ForeignKey("Usuarios.id"))
     
     # Relación con Productos
     producto = relationship("Productos", back_populates="movimientos_inventario")
+    
+    usuario = relationship("Usuarios", back_populates="movimientos_inventario")
 
 class Categorias_productos(Base):
     __tablename__ = "Categorias_productos"

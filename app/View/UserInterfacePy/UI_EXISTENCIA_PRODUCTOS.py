@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_EXISTENCIA_PRODUCTOS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_EXISTENCIA_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -175,6 +175,8 @@ class Ui_UI_EXISTENCIA_PRODUCTO(object):
         self.gridLayout_2.addWidget(self.cajaOpciones_TipoMovimiento, 1, 1, 1, 1)
         self.decimal_CantidadExistencia = QtWidgets.QDoubleSpinBox(self.contenedor)
         self.decimal_CantidadExistencia.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.decimal_CantidadExistencia.setDecimals(3)
+        self.decimal_CantidadExistencia.setMaximum(1e+45)
         self.decimal_CantidadExistencia.setObjectName("decimal_CantidadExistencia")
         self.gridLayout_2.addWidget(self.decimal_CantidadExistencia, 0, 1, 1, 1)
         self.txtlargo_NotasProducto = QtWidgets.QPlainTextEdit(self.contenedor)
