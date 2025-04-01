@@ -1,9 +1,97 @@
-from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos, Movimientos_Inventario
+from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos, Movimientos_Inventario, Categorias_productos
 from sqlalchemy.orm import joinedload
+from sqlalchemy import select
 
 class ProductosModel:
     def __init__(self, session):
         self.session = session
+
+# // presentaciones de los productos:
+    @property
+    def insertar_presentaciones_basicas(self):
+        query = select(Presentacion_productos).limit(1)
+        resultado_consulta = self.session.execute(query).fetchone()
+        if resultado_consulta is None:
+            presentaciones_productos = [
+                {"nombre": 'Bolsas y empaques sensibles'},
+                {"nombre": 'Botellas'},
+                {"nombre": 'Latas'},
+                {"nombre": 'Frascos y tarros'},
+                {"nombre": 'Cajas'},
+                {"nombre": 'Packs'},
+                {"nombre": 'Tetra pack'},
+                {"nombre": 'Envase plastico'},
+                {"nombre": 'Envase metalico'},
+                {"nombre": 'Envase cristal'},
+                {"nombre": 'Sacos'},
+                {"nombre": 'Cajitas o cartuchos'},
+                {"nombre": 'Frasco'},
+                {"nombre": 'Pieza'},
+                {"nombre": 'Granel'},
+                {"nombre": 'Rollos'},
+            ]
+            
+            self.session.execute(Presentacion_productos.__table__.insert(), presentaciones_productos)
+            self.session.commit()
+            return True
+        
+    @property
+    def insertar_presentaciones_basicas(self):
+        query = select(Unidad_medida_productos).limit(1)
+        resultado_consulta = self.session.execute(query).fetchone()
+        if resultado_consulta is None:
+            unidades_productos = [
+                {"nombre": 'Kilogramo-(Kg)'},
+                {"nombre": 'Gramo-(g)'},
+                {"nombre": 'Litro-(L)'},
+                {"nombre": 'Mililitro-(ml)'},
+                {"nombre": 'Unidad-(u)'},
+                {"nombre": 'Caja-(caj)'},
+                {"nombre": 'Paquete-(paq)'},
+                {"nombre": 'Docena-(dz)'},
+                {"nombre": 'Pieza-(pza)'},
+                {"nombre": 'Tetra pack-(Tetra)'},
+                {"nombre": 'Sobre-(sob)'},
+                {"nombre": 'Metro-(m)'},
+                {"nombre": 'Centrimetro-(cm)'},
+                {"nombre": 'Set-(set)'},
+                {"nombre": 'Rol-(rol)'},
+                {"nombre": 'Tarro-(tarro)'},
+                {"nombre": 'Cilindro-(cil)'},
+                {"nombre": 'Cilindro-(cil)'},
+                {"nombre": 'Saco-(sac)'},
+            ]
+            
+            self.session.execute(Unidad_medida_productos.__table__.insert(), unidades_productos)
+            self.session.commit()
+            return True
+    
+    @property
+    def insertar_categorias_basicas(self):
+        query = select(Categorias_productos).limit(1)
+        resultado_consulta = self.session.execute(query).fetchone()
+        if resultado_consulta is None:
+            categorias_productos = [
+                {"nombre": 'Alimentos Perecederos', "descripcion": "Productos que requieren refrigeración, como carnes, pescados, lácteos, frutas y verduras frescas"},
+                {"nombre": "Alimentos No Perecederos", "descripcion": "Comestibles que no requieren refrigeración, tales como arroz, pasta, galletas, sopas enlatadas, cereales, y otros productos empaquetados"},
+                {"nombre": "Bebidas", "descripcion": "Refrescos, jugos, agua embotellada, bebidas energéticas, y también bebidas alcohólicas como cervezas, vinos, y licores"},
+                {"nombre": "Productos de Panadería", "descripcion": "Pan, bollería, pasteles, galletas, y otros productos de panadería que se venden en tiendas de abarrotes"},
+                {"nombre": "Congelados", "descripcion": "Alimentos congelados como pizzas, vegetales, carnes y postres helados"},
+                {"nombre": "Comidas Preparadas", "descripcion": "Comidas listas para consumir como platos precocinados, ensaladas envasadas, y snacks de comida rápida"},
+                {"nombre": "Herramientas Manuales", "descripcion": "Martillos, destornilladores, llaves inglesas, sierras, y otros instrumentos de mano"},
+                {"nombre": "Herramientas Eléctricas", "descripcion": "Taladros, sierras eléctricas, lijadoras, y otros equipos que requieren energía para su funcionamiento"},
+                {"nombre": "Materiales de Construcción", "descripcion": "Cemento, pintura, clavos, tornillos, maderas, y otros productos para la construcción y remodelación"},
+                {"nombre": "Plomería", "descripcion": "Tuberías, grifos, llaves, selladores, y otros accesorios para trabajos de plomería"},
+                {"nombre": "Iluminación", "descripcion": "Bombillos, lámparas, focos, linternas y otros productos relacionados con la iluminación"},
+                {"nombre": "Accesorios de Jardinería", "descripcion": "Regaderas, fertilizantes, macetas, semillas y otros elementos para el cuidado de jardines"},
+                {"nombre": "Snacks y Botanas", "descripcion": "Papas fritas, galletas, nueces, palomitas, y otros aperitivos envasados"},
+                {"nombre": "Lácteos y Derivados", "descripcion": "Papas fritas, galletas, nueces, palomitas, y otros"},
+                {"nombre": "Productos de Higiene Personal", "descripcion": "Jabón, shampoo, pasta dental, desodorante, toallas sanitarias y otros productos de cuidado personal"},
+            ]
+            
+            self.session.execute(Categorias_productos.__table__.insert(), categorias_productos)
+            self.session.commit()
+            return True
     
     def agregar_presentacion(self, nombre):
         presentacion = self.session.query(Presentacion_productos).filter(Presentacion_productos.nombre == nombre).first()

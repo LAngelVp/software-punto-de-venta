@@ -1,4 +1,5 @@
 import uuid
+from sqlalchemy import event
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import (
     Column,
@@ -214,13 +215,13 @@ class Departamentos(Base):
 class Presentacion_productos(Base):
     __tablename__ = "Presentacion_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    nombre = Column(String(25), nullable=False)
+    nombre = Column(String(100), nullable=False)
     productos = relationship("Productos", back_populates="presentacion_productos")
     
 class Unidad_medida_productos(Base):
     __tablename__ = "Unidad_medida_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    nombre = Column(String(25))
+    nombre = Column(String(100))
     productos = relationship("Productos", back_populates="unidad_medida_productos")
     
 class Productos(Base):
@@ -285,7 +286,7 @@ class Movimientos_Inventario(Base):
 class Categorias_productos(Base):
     __tablename__ = "Categorias_productos"
     id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
-    nombre = Column(String(50))
+    nombre = Column(String(100))
     descripcion = Column(Text)
     # Relación con Productos (una categoría tiene muchos productos)
     productos = relationship("Productos", back_populates="categoria")

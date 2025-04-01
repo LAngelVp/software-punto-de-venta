@@ -1,10 +1,38 @@
 from sqlalchemy.orm import joinedload
+from sqlalchemy import select
 from .BaseDatosModel import Proveedores, Categorias_proveedores, Representantes_proveedores, Productos, producto_proveedor
 import logging
 
 class ProveedoresModel:
     def __init__(self, session):
         self.session = session
+        
+    @property
+    def insertar_categoria_proveedor_basicas(self):
+        query = select(Categorias_proveedores).limit(1)
+        resultado_consulta = self.session.execute(query).fetchone()
+        if resultado_consulta is None:
+            categorias_proveedor = [
+                {"nombre": 'Bebidas Alcohólicas', "descripcion": "Proveedores que distribuyen cervezas, vinos, tequilas y mezcales, tanto nacionales como internacionales, en diferentes presentaciones. Sus productos son clave en la industria de bebidas para restaurantes, tiendas y supermercados, ofreciendo opciones variadas en calidad y presentación"},
+                {"nombre": 'Bebidas No Alcohólicas', "descripcion": "Proveedores que comercializan refrescos, jugos, agua embotellada y bebidas energéticas. Estas marcas están presentes en el mercado ofreciendo productos refrescantes y saludables, con opciones en diferentes sabores y fórmulas, disponibles en varios tamaños y presentaciones"},
+                {"nombre": 'Productos Lácteos', "descripcion": "Proveedores que ofrecen leche, yogurt, queso, crema y mantequilla. Estos productos son esenciales en la canasta básica mexicana, garantizando calidad en la producción y distribución en tiendas, supermercados y puntos de venta"},
+                {"nombre": 'Alimentos Empacados', "descripcion": "Proveedores que distribuyen productos alimenticios como pan, galletas, cereales, alimentos congelados, sopas, entre otros. Estos productos están disponibles en tiendas de abarrotes, supermercados y puntos de venta especializados, ofreciendo conveniencia y variedad al consumidor"},
+                {"nombre": 'Snacks y Botanas', "descripcion": "Proveedores de botanas saladas y dulces, como papas fritas, galletas, nachos y otros aperitivos. Este sector es popular en tiendas de abarrotes, gasolineras y supermercados, proporcionando opciones de snack para diferentes gustos"},
+                {"nombre": 'Productos de Higiene y Cuidado Personal', "descripcion": "Proveedores de artículos para la higiene personal, como jabones, champús, cremas, desodorantes y toallas sanitarias. Estos productos son esenciales para el bienestar y cuidado diario, y están disponibles en tiendas y grandes cadenas de distribución"},
+                {"nombre": 'Productos de Limpieza', "descripcion": "Proveedores de productos para limpieza del hogar y oficina, como detergentes, desinfectantes, limpiadores multiusos, blanqueadores, entre otros. Estos productos cubren todas las necesidades de limpieza, desde productos para pisos hasta limpieza de superficies"},
+                {"nombre": 'Tecnología y Electrónica', "descripcion": "Proveedores de dispositivos electrónicos como computadoras, smartphones, televisores, cámaras y accesorios tecnológicos. Estas empresas ofrecen productos innovadores, siendo esenciales tanto para el hogar como para el ámbito profesional"},
+                {"nombre": 'Ferretería y Herramientas', "descripcion": "Proveedores que ofrecen herramientas manuales y eléctricas, materiales de construcción, pinturas, tornillos y otros suministros para proyectos domésticos o industriales. Están presentes en tiendas especializadas y cadenas de ferreterías, ofreciendo productos de alta calidad"},
+                {"nombre": 'Automotriz y Repuestos', "descripcion": "Proveedores de autopartes y accesorios para vehículos, como frenos, aceites, filtros, llantas y herramientas automotrices. Estos proveedores garantizan la disponibilidad de repuestos y accesorios necesarios para mantener y reparar vehículos en talleres, distribuidores y tiendas especializadas"},
+                {"nombre": 'Ropa y Calzado', "descripcion": "Proveedores que ofrecen ropa y calzado para hombres, mujeres y niños, incluyendo desde ropa casual hasta deportiva, formal y accesorios de moda. Estos productos están disponibles en tiendas de moda, grandes almacenes y comercios en línea"},
+                {"nombre": 'Muebles y Decoración', "descripcion": "Proveedores que ofrecen muebles para el hogar, oficina y jardín, como sofás, mesas, camas, sillas y artículos decorativos. Estos productos buscan combinar estética y funcionalidad, y son distribuidos en grandes almacenes y tiendas de decoración"},
+                {"nombre": 'Herramientas y Material de Construcción', "descripcion": "Proveedores de materiales para la construcción, como cemento, bloques, varilla, y herramientas como martillos, sierras y taladros. Estos productos son fundamentales para proyectos de obra, desde pequeños proyectos en el hogar hasta grandes desarrollos inmobiliarios"},
+                {"nombre": 'Productos para Mascotas', "descripcion": "Proveedores de alimentos, juguetes, accesorios, camas, y artículos de cuidado para mascotas como perros, gatos, aves, entre otros. Estos productos están disponibles en tiendas especializadas y grandes cadenas, atendiendo las necesidades de los dueños de mascotas"},
+                {"nombre": 'Artículos de Oficina', "descripcion": "Proveedores que distribuyen productos para oficina como papelería, mobiliario, equipos de computo y accesorios. Estos artículos son necesarios tanto para oficinas corporativas como para el hogar, ayudando a optimizar el trabajo diario con calidad y funcionalidad"},
+            ]
+            
+            self.session.execute(Categorias_proveedores.__table__.insert(), categorias_proveedor)
+            self.session.commit()
+            return True
 
     def agregar_proveedor(self, 
                         categoria_id,

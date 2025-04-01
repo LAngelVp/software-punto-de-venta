@@ -35,7 +35,6 @@ class PermisosModel:
                 permiso_creado = Permisos(nombre=permiso_upper)
                 self.session.add(permiso_creado)
 
-
     def buscar_por_nombre(self, nombre):
         if nombre is not None:
             permiso = self.session.query(Permisos).filter_by(nombre=nombre.upper()).first()
