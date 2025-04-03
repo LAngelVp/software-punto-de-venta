@@ -1,3 +1,4 @@
+from  sqlalchemy.orm import joinedload
 import bcrypt
 from ..Model.BaseDatosModel import Usuarios
 from ..Model.UsuarioModel import UsuarioModel
@@ -11,8 +12,9 @@ class CredencialesModel:
         with self.conexion as db:
             session = db.abrir_sesion()
             with session.begin():
-                usuario_existe, estatus = UsuarioModel(session).consultar_usuario(nombre=usuario)
-            if estatus:
+                # usuario_existe, estatus = UsuarioModel(session).consultar_usuario(nombre=usuario)
+                usuario_existe = session.query(Usuarios).options(joinedload(Usuarios.empleado)).filter_by(usuario=usuario).first()
+            if usuario_existe:
                 if bcrypt.checkpw(contraseña.encode(), usuario_existe.contraseña):
                     return usuario_existe, True
                 else:

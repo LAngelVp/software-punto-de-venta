@@ -27,16 +27,13 @@ class Mensaje:
         self.mensaje.setIcon(QMessageBox.Critical)
         self.mensaje.setWindowTitle('Critico')
         self.mensaje.setText(cuerpo)
-        self.mensaje.setStandardButtons(QMessageBox.Abort | QMessageBox.Retry | QMessageBox.Ignore)
+        self.mensaje.setStandardButtons(QMessageBox.Abort | QMessageBox.Retry)
         # Personalizando los botones
         boton_abortar = self.mensaje.button(QMessageBox.Abort)
         boton_abortar.setText("Detener")
 
         boton_reintentar = self.mensaje.button(QMessageBox.Retry)
         boton_reintentar.setText("Reintentar")
-
-        boton_ignorar = self.mensaje.button(QMessageBox.Ignore)
-        boton_ignorar.setText("Ignorar")
 
         respuesta = self.mensaje.exec_()
         

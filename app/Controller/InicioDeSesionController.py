@@ -50,9 +50,14 @@ class Login(QWidget):
         usuario_existente, estatus_consulta = CredencialesModel().verificar_credenciales(usuario = usuario, contraseña = password)
         # usuario_nombre = str(usuario_existente.usuario)
         if estatus_consulta:
-            usuario_nombre =   {"nombre" : usuario_existente.usuario}
+            datos_usuario =   {
+                "id_usuario": usuario_existente.id,
+                "nombre_usuario" : usuario_existente.usuario,
+                "id_empleado": usuario_existente.empleado.id,
+                "nombre_empleado": f'{usuario_existente.empleado.nombre} {usuario_existente.empleado.apellido_paterno} {usuario_existente.empleado.apellido_materno}' 
+                }
             self.close()
-            ventana =  SistemaPrincipal(usuario_existente = usuario_nombre["nombre"])
+            ventana =  SistemaPrincipal(datos_usuario = datos_usuario)
             ventana.show()
         else:
             Mensaje().mensaje_alerta("Las credenciales que estas ingresando son incorrectas, !vuelvelo a intentar¡")

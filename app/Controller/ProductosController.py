@@ -25,9 +25,9 @@ from .UnidadMedidaProductosController import UnidadMedidaProductos
 import traceback
 
 class ExistenciasClase(QWidget):
-    def __init__(self, usuario_ejecutador, producto):
+    def __init__(self, datos_usuario, producto):
         super().__init__()
-        self.usuario_existente = usuario_ejecutador
+        self.datos_usuario = datos_usuario
         self.producto = producto
         self.ui = Ui_UI_EXISTENCIA_PRODUCTO()
         self.ui.setupUi(self)
@@ -36,7 +36,7 @@ class ExistenciasClase(QWidget):
         self.move(pantalla.topLeft())
         self.ui.fecha_FechaMovimiento.setDate(QDate.currentDate())
         self.ui.etiqueta_ClaveProducto.setText(self.producto.codigo_upc)
-        self.ui.etiqueta_NombreUsuario.setText(self.usuario_existente.upper())
+        self.ui.etiqueta_NombreUsuario.setText(self.datos_usuario["nombre_empleado"].upper())
         self.ui.btn_btn_aceptar.clicked.connect(self.ejecutar_existencias)
     
     def ejecutar_existencias(self):
@@ -48,27 +48,17 @@ class ExistenciasClase(QWidget):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    usuario, estatus_usuario = UsuarioModel(session).consultar_usuario(nombre=self.usuario_existente)
-                    if not estatus_usuario:
-                        Mensaje().mensaje_alerta("No se puede lograr la accion sin un usuario.")
-                        return
+                    # usuario, estatus_usuario = UsuarioModel(session).consultar_usuario(nombre=self.datos_usuario["nombre_empleado"])
+                    # if not estatus_usuario:
+                    #     Mensaje().mensaje_alerta("No se puede lograr la accion sin un usuario.")
+                    #     return
                     movimiento, estatus_movimiento = ProductosModel(session).ejecutar_movimiento(
                         producto=self.producto,
                         cantidad_cambio=cant_existencia,
                         tipo_movimiento=tipo_movimiento,
                         fecha_movimiento=fecha_movimiento,
                         notas=notas,
-                        usuarioid=usuario.id)
-            
-        
-        print(f"""
-              cantidad movimiientos: {cant_existencia}
-              tipo movimiento : {tipo_movimiento}
-              fecha movimiento: {fecha_movimiento}
-              notas: {notas}
-              codigo del producto: {self.producto.codigo_upc}
-              empleado: {self.usuario_existente}
-              """)
+                        usuarioid=self.datos_usuario["id_empleado"])
         return
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
@@ -619,6 +609,7 @@ class Admin_productosController(QWidget):
     
     def __limpiar_tabla_productos(self):
         self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
+        self.lista_productos = []
                 
     def __obtener_proveedores(self):
         with Conexion_base_datos() as db:
@@ -676,19 +667,19 @@ class Admin_productosController(QWidget):
                     
                     # Establecer el ícono en el ítem
                     item.setIcon(self.icono_proveedor)
-                    item.setData(Qt.UserRole, proveedor_id)
+                    item.setData(Qt.UserRole, proveedor)
                     
                     # Agregar el ítem a la lista
                     self.ui.lista_todos_los_proveedores.addItem(item)
         else:
             self.ui.lista_todos_los_proveedores.clear()
             self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
-            for proveedor_id, proveedor in self.proveedores.items():
+            for proveedor, proveedor in self.proveedores.items():
                 proveedor_nombre = proveedor.nombre
                 item = QListWidgetItem(proveedor_nombre)
                 # Establecer el ícono en el ítem
                 item.setIcon(self.icono_proveedor)
-                item.setData(Qt.UserRole, proveedor_id)
+                item.setData(Qt.UserRole, proveedor)
                 # Agregar el ítem a la lista
                 self.ui.lista_todos_los_proveedores.addItem(item)
     
@@ -739,16 +730,19 @@ class Admin_productosController(QWidget):
             nuevo_proveedor.setData(Qt.UserRole, proveedor)
 
             # Agregar el proveedor al diccionario y a la lista visual
+            print(self.lista_proveedores_a_asignar)
             self.lista_proveedores_a_asignar[proveedor.id] = proveedor
             self.ui.lista_proveedores_a_vincular.addItem(nuevo_proveedor)
             return
 
         # Si el proveedor no está ya en el diccionario, agregarlo
         if proveedor.id not in self.lista_proveedores_a_asignar:
+            print(self.lista_proveedores_a_asignar)
+            print(proveedor.id)
             self.lista_proveedores_a_asignar[proveedor.id] = proveedor
             nuevo_proveedor = QListWidgetItem(proveedor.nombre)
             nuevo_proveedor.setIcon(icono)
-            nuevo_proveedor.setData(Qt.UserRole, proveedor.id)
+            nuevo_proveedor.setData(Qt.UserRole, proveedor)
             self.ui.lista_proveedores_a_vincular.addItem(nuevo_proveedor)
     
     def desvincular_proveedor_al_producto(self):
@@ -909,7 +903,7 @@ class Productos(QWidget):
     LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
     LISTAR_PRESENTACIONES_PRODUCTOS = pyqtSignal()
     LISTAR_PROVEEDORES_EXISTENTES_SIGNAL = pyqtSignal()
-    def __init__(self, usuario_existente):
+    def __init__(self, datos_usuario):
         super().__init__()
         self.ui = Ui_Control_Productos()
         self.ui.setupUi(self)
@@ -920,7 +914,7 @@ class Productos(QWidget):
         self.ui.btn_btn_ExistenciaProducto.clicked.connect(self.existencia_productos)
         self.ui.btn_btn_ActualizarTablaProductos.clicked.connect(self.consultar_productos_db)
         
-        self.usuario_existente = usuario_existente
+        self.datos_usuario = datos_usuario
         self.seleccion_conectada_productos = None
         self.codigo_upc_producto = None
         self.AdminProductos = None
@@ -1073,6 +1067,6 @@ class Productos(QWidget):
             if not estatus:
                 Mensaje().mensaje_informativo("No se logro obtener el producto en la base de datos.")
                 return
-            self.ventana_existencia_productos = ExistenciasClase(usuario_ejecutador = self.usuario_existente, producto=producto)
+            self.ventana_existencia_productos = ExistenciasClase(datos_usuario = self.datos_usuario, producto=producto)
             self.ventana_existencia_productos.show()
             

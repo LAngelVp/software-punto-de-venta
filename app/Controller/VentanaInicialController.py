@@ -9,6 +9,15 @@ from PyQt5.QtWidgets import QApplication, QWidget
 from app.View.UserInterfacePy.UI_BIENVENIDA import *
 from .RegistroInicialController import Registro_personal_inicial
 
+#comment : importar para conexion a la base de datos
+from ..DataBase.conexionBD import Conexion_base_datos
+
+#comment: importacion para inicializar tablas
+from ..Model.GruposyPermisosModel import PermisosModel, RolesModel
+from ..Model.ProductosModel import ProductosModel
+from ..Model.ProveedoresModel import ProveedoresModel
+from ..Model.ClientesFisicosAndMoralesModel import ClientesFisicosAndMorales
+
 class Inicio_principal(QWidget):
     def __init__(self):
         super().__init__()
@@ -21,6 +30,9 @@ class Inicio_principal(QWidget):
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        
+    #// inicializar valores de algunas tablas
+        self.crear_datos_principales()
 
         
     def abrir_registro(self):
@@ -28,6 +40,21 @@ class Inicio_principal(QWidget):
         self.registro.variable_primer_registro = True
         self.registro.show()
         self.close()
+        
+    def crear_datos_principales(self):
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                try:
+                    PermisosModel(session).crear_permisos_principal
+                    RolesModel(session).crear_grupo_principal
+                    ProductosModel(session).insertar_presentaciones_basicas
+                    ProductosModel(session).insertar_categorias_basicas
+                    ProveedoresModel(session).insertar_categoria_proveedor_basicas
+                    ClientesFisicosAndMorales(session).insertar_areas_negocio_basicas
+                    ClientesFisicosAndMorales(session).insertar_categorias_negocio_basicas
+                except Exception as e:
+                    print(f'Existio un error en la creacion de datos principales: {e}')
     
 if __name__ == "__main__":
     app = QApplication(sys.argv)

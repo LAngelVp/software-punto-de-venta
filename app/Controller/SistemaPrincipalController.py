@@ -21,13 +21,13 @@ class SistemaPrincipal(QWidget):
     LISTAR_AREAS_VCLIENTES = pyqtSignal()
     LISTAR_CATEGORIAS_VCLIENTES = pyqtSignal()
     LISTAR_CLIENTES_VCLIENTES = pyqtSignal()
-    def __init__(self, usuario_existente):
+    def __init__(self, datos_usuario):
         super().__init__()
         self.ui = Ui_Principal_sistema()
         self.ui.setupUi(self)
-        self.usuario_existente = usuario_existente
+        self.datos_usuario = datos_usuario
         
-        Mensaje().mensaje_informativo(f"¡Quete encuentres de maravilla {self.usuario_existente}!\n¡Que tengas un excelente día y mucho éxito en tus ventas!")
+        Mensaje().mensaje_informativo(f"¡Quete encuentres de maravilla {self.datos_usuario["nombre_empleado"]}!\n¡Que tengas un excelente día y mucho éxito en tus ventas!")
         
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
@@ -55,7 +55,7 @@ class SistemaPrincipal(QWidget):
         self.empleados= EmpleadosController()
         self.proveedores= Control_proveedores()
         self.clientes= Clientes()
-        self.productos= Productos(usuario_existente = self.usuario_existente)
+        self.productos= Productos(datos_usuario = self.datos_usuario)
         self.ui.w_cuerpo_contenido.addWidget(self.perfil)
         self.ui.w_cuerpo_contenido.addWidget(self.venta)
         self.ui.w_cuerpo_contenido.addWidget(self.ventas)

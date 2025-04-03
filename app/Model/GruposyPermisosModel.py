@@ -22,7 +22,7 @@ class PermisosModel:
                 'crearturnos', 'eliminarturnos', 'modificarturnos',
                 'crearusuarios', 'eliminarusuarios', 'modificarusuarios'
         ]
-
+    @property
     def crear_permisos_principal(self):
         # Verificar si los permisos ya existen en la base de datos
         permisos_existentes = self.session.query(Permisos.nombre).filter(Permisos.nombre.in_([p.upper() for p in self.lista_permisos])).all()
@@ -50,7 +50,7 @@ class RolesModel:
             'descripcion' :  'Administrador del sistema',
             'permisos' : 'administrador'
         }
-    
+    @property
     def crear_grupo_principal(self):
         try:
             rol_principal = self.session.query(Roles).filter_by(nombre = self.rol_propietario['nombre'].upper()).first()

@@ -22,8 +22,6 @@ class Conexion_base_datos:
                 sys.exit()
             elif mensaje == QMessageBox.Retry:
                 self.conectar()
-            elif mensaje == QMessageBox.Ignore:
-                pass
 
 
     def abrir_sesion(self):
