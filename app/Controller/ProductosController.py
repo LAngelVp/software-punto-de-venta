@@ -655,11 +655,11 @@ class Admin_productosController(QWidget):
     
     def buscar_proveedor_existente(self):
         nombre = self.ui.txt_buscar_proveedor_a_vincular.text().upper().strip()
+        self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
         if not self.producto.proveedores:
             return
         if nombre:
             self.ui.lista_todos_los_proveedores.clear()
-            self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
             for proveedor_id, proveedor in self.proveedores.items():
                 proveedor_nombre = proveedor.nombre
                 if nombre in proveedor_nombre.upper():
@@ -673,15 +673,15 @@ class Admin_productosController(QWidget):
                     self.ui.lista_todos_los_proveedores.addItem(item)
         else:
             self.ui.lista_todos_los_proveedores.clear()
-            self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
-            for proveedor, proveedor in self.proveedores.items():
-                proveedor_nombre = proveedor.nombre
-                item = QListWidgetItem(proveedor_nombre)
-                # Establecer el ícono en el ítem
-                item.setIcon(self.icono_proveedor)
-                item.setData(Qt.UserRole, proveedor)
-                # Agregar el ítem a la lista
-                self.ui.lista_todos_los_proveedores.addItem(item)
+            for proveedor_id, proveedor in self.proveedores.items():
+                # Comprobar si el proveedor ya está vinculado
+                if proveedor_id not in self.proveedores_vinculados:
+                    proveedor_nombre = proveedor.nombre
+                    item = QListWidgetItem(proveedor_nombre)
+                    item.setIcon(self.icono_proveedor)  # Establecer el ícono en el ítem
+                    item.setData(Qt.UserRole, proveedor)  # Establecer el proveedor como datos
+                    # Agregar el ítem a la lista
+                    self.ui.lista_todos_los_proveedores.addItem(item)
     
     def buscar_proveedor_vinculado(self):
         nombre = self.ui.txt_buscar_proveedor_vinculado.text().upper().strip()
@@ -730,15 +730,12 @@ class Admin_productosController(QWidget):
             nuevo_proveedor.setData(Qt.UserRole, proveedor)
 
             # Agregar el proveedor al diccionario y a la lista visual
-            print(self.lista_proveedores_a_asignar)
             self.lista_proveedores_a_asignar[proveedor.id] = proveedor
             self.ui.lista_proveedores_a_vincular.addItem(nuevo_proveedor)
             return
 
         # Si el proveedor no está ya en el diccionario, agregarlo
         if proveedor.id not in self.lista_proveedores_a_asignar:
-            print(self.lista_proveedores_a_asignar)
-            print(proveedor.id)
             self.lista_proveedores_a_asignar[proveedor.id] = proveedor
             nuevo_proveedor = QListWidgetItem(proveedor.nombre)
             nuevo_proveedor.setIcon(icono)
@@ -955,6 +952,7 @@ class Productos(QWidget):
             self.codigo_upc_producto = None
     
     def modificar_producto(self):
+        self.AdminProductos = Admin_productosController()
         if self.codigo_upc_producto is None:
             Mensaje().mensaje_informativo("No has seleccionado un producto de la tabla para proceder a modificarlo")
             return
@@ -965,10 +963,9 @@ class Productos(QWidget):
             with session.begin():
                 producto, estatus = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=self.codigo_upc_producto)
             if estatus:
-                self.AdminProductos = Admin_productosController()
-                self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR.emit(producto)
                 self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(self.AdminProductos.listar_proveedores_existentes)
                 self.AdminProductos.PRODUCTOS_AGREGADOS.connect(self.consultar_productos_db)
+                self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR.emit(producto)
                 self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.emit()
                 self.AdminProductos.show()
         self.codigo_upc_producto = None
