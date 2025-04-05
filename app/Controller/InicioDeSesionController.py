@@ -11,8 +11,10 @@ from .CreadencialesUsuarioController import *
 from ..Model.ValidacionesModel import Validaciones
 
 class Login(QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
+        self.ventana = None
+        self.datos_usuario = None
         self.ui = Ui_Inicio_Sesion()
         self.ui.setupUi(self)
 
@@ -23,8 +25,8 @@ class Login(QWidget):
 
         self.ui.labelNombreEmpresa.mouseDoubleClickEvent = self.empresa()
 
-        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) 
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        # self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) 
+        # self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.ui.principal.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=35, xOffset=10, yOffset=0))
         self.ui.btnAceptar.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0))
@@ -49,16 +51,16 @@ class Login(QWidget):
         password = self.ui.txt_Password.text().strip()
         usuario_existente, estatus_consulta = CredencialesModel().verificar_credenciales(usuario = usuario, contraseña = password)
         # usuario_nombre = str(usuario_existente.usuario)
+        self.datos_usuario =   {
+            "id_usuario": usuario_existente.id,
+            "nombre_usuario" : usuario_existente.usuario,
+            "id_empleado": usuario_existente.empleado.id,
+            "nombre_empleado": f'{usuario_existente.empleado.nombre} {usuario_existente.empleado.apellido_paterno} {usuario_existente.empleado.apellido_materno}' 
+            }
         if estatus_consulta:
-            datos_usuario =   {
-                "id_usuario": usuario_existente.id,
-                "nombre_usuario" : usuario_existente.usuario,
-                "id_empleado": usuario_existente.empleado.id,
-                "nombre_empleado": f'{usuario_existente.empleado.nombre} {usuario_existente.empleado.apellido_paterno} {usuario_existente.empleado.apellido_materno}' 
-                }
             self.close()
-            ventana =  SistemaPrincipal(datos_usuario = datos_usuario)
-            ventana.show()
+            self.ventana =  SistemaPrincipal(parent=None, datos_usuario = self.datos_usuario)
+            self.ventana.show()
         else:
             Mensaje().mensaje_alerta("Las credenciales que estas ingresando son incorrectas, !vuelvelo a intentar¡")
 

@@ -730,6 +730,6 @@ class Ui_contenedor_agregar_productos(object):
         self.btn_btn_agregar_producto.setText(_translate("contenedor_agregar_productos", "Agregar producto"))
         self.btn_btn_actualizar_producto.setText(_translate("contenedor_agregar_productos", "Actualizar"))
         self.btn_btn_guardar_producto.setText(_translate("contenedor_agregar_productos", "Guardar"))
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
-from ...Source import iconsdvg_rc
+# from ...Source import ibootstrap_rc
+# from ...Source import iconosSVG_rc
+# from ...Source import iconsdvg_rc

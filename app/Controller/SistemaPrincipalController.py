@@ -21,16 +21,16 @@ class SistemaPrincipal(QWidget):
     LISTAR_AREAS_VCLIENTES = pyqtSignal()
     LISTAR_CATEGORIAS_VCLIENTES = pyqtSignal()
     LISTAR_CLIENTES_VCLIENTES = pyqtSignal()
-    def __init__(self, datos_usuario):
-        super().__init__()
+    def __init__(self, parent = None, datos_usuario = None):
+        super().__init__(parent)
         self.ui = Ui_Principal_sistema()
         self.ui.setupUi(self)
         self.datos_usuario = datos_usuario
         
         Mensaje().mensaje_informativo(f"¡Quete encuentres de maravilla {self.datos_usuario["nombre_empleado"]}!\n¡Que tengas un excelente día y mucho éxito en tus ventas!")
         
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        # self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        # self.setAttribute(Qt.WA_TranslucentBackground)
         self.showMaximized()
         self.ui.btn_btn_sucursales.clicked.connect(self.mostrar_sucursales)
         
@@ -55,7 +55,7 @@ class SistemaPrincipal(QWidget):
         self.empleados= EmpleadosController()
         self.proveedores= Control_proveedores()
         self.clientes= Clientes()
-        self.productos= Productos(datos_usuario = self.datos_usuario)
+        self.productos= Productos(self, datos_usuario = self.datos_usuario)
         self.ui.w_cuerpo_contenido.addWidget(self.perfil)
         self.ui.w_cuerpo_contenido.addWidget(self.venta)
         self.ui.w_cuerpo_contenido.addWidget(self.ventas)
@@ -102,3 +102,4 @@ class SistemaPrincipal(QWidget):
     def mostrar_sucursales(self):
         self.ventana_sucursales = ControlSucursalesController()
         self.ventana_sucursales.show()
+

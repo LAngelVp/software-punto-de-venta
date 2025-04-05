@@ -33,8 +33,8 @@ class Registro_personal_inicial(QWidget):
     listar_sucursales_en_departamentos_signal = pyqtSignal()
     tabla_puestos = pyqtSignal()
     registro_agregado_signal = pyqtSignal()
-    def __init__(self, id_empleado = None):
-        super().__init__()
+    def __init__(self, parent = None, id_empleado = None):
+        super().__init__(parent)
         self.ui = Ui_RegistroAdministrador()
         self.ui.setupUi(self)
 

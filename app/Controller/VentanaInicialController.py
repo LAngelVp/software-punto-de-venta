@@ -19,8 +19,9 @@ from ..Model.ProveedoresModel import ProveedoresModel
 from ..Model.ClientesFisicosAndMoralesModel import ClientesFisicosAndMorales
 
 class Inicio_principal(QWidget):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
+        self.registro = None
         self.ui = Ui_Bienvenida()
         self.ui.setupUi(self)
         self.ui.etiqueta_imagen.setStyleSheet('image: url(:/Icons/SVG/DrawKit(17).svg)')
@@ -36,7 +37,7 @@ class Inicio_principal(QWidget):
 
         
     def abrir_registro(self):
-        self.registro = Registro_personal_inicial()
+        self.registro = Registro_personal_inicial(self)
         self.registro.variable_primer_registro = True
         self.registro.show()
         self.close()
@@ -56,8 +57,8 @@ class Inicio_principal(QWidget):
                 except Exception as e:
                     print(f'Existio un error en la creacion de datos principales: {e}')
     
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ui = Inicio_principal()
-    ui.show()
-    sys.exit(app.exec())
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     ui = Inicio_principal()
+#     ui.show()
+#     sys.exit(app.exec())

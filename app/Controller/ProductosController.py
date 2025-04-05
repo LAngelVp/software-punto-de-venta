@@ -64,10 +64,14 @@ class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
     RECIBIR_PRODUCTO_ACTUALIZAR = pyqtSignal(object)
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.ui = Ui_contenedor_agregar_productos()
         self.ui.setupUi(self)
+        # self.setWindowFlags(self.windowFlags() | Qt.WindowCloseButtonHint)
+        
+        # # Asegurar que no hay translucidez
+        # self.setAttribute(Qt.WA_TranslucentBackground, False)
         icon = QIcon(':Icons/IconosSVG/productos.png')
         self.setWindowIcon(icon)
         self.setWindowTitle("Administración de productos")
@@ -900,8 +904,8 @@ class Productos(QWidget):
     LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
     LISTAR_PRESENTACIONES_PRODUCTOS = pyqtSignal()
     LISTAR_PROVEEDORES_EXISTENTES_SIGNAL = pyqtSignal()
-    def __init__(self, datos_usuario):
-        super().__init__()
+    def __init__(self, parent = None, datos_usuario = None):
+        super().__init__(parent)
         self.ui = Ui_Control_Productos()
         self.ui.setupUi(self)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_producto)
@@ -910,6 +914,8 @@ class Productos(QWidget):
         self.ui.btn_btn_buscar.clicked.connect(self.buscar_producto)
         self.ui.btn_btn_ExistenciaProducto.clicked.connect(self.existencia_productos)
         self.ui.btn_btn_ActualizarTablaProductos.clicked.connect(self.consultar_productos_db)
+        
+        
         
         self.datos_usuario = datos_usuario
         self.seleccion_conectada_productos = None
@@ -952,12 +958,32 @@ class Productos(QWidget):
             self.codigo_upc_producto = None
     
     def modificar_producto(self):
-        self.AdminProductos = Admin_productosController()
         if self.codigo_upc_producto is None:
             Mensaje().mensaje_informativo("No has seleccionado un producto de la tabla para proceder a modificarlo")
             return
-        if self.AdminProductos and self.AdminProductos.isVisible():
-            self.AdminProductos.close()
+        if self.AdminProductos is None or self.AdminProductos.isVisible():
+            self.AdminProductos = Admin_productosController(parent=None)
+            self.AdminProductos.setWindowFlags(
+                Qt.Window |
+                Qt.WindowTitleHint |
+                Qt.WindowSystemMenuHint |
+                Qt.WindowMinMaxButtonsHint |
+                Qt.WindowCloseButtonHint
+            )
+            self.AdminProductos.setAttribute(Qt.WA_TranslucentBackground, False)
+            
+            # Conexión de señales
+            self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(
+                self.AdminProductos.listar_proveedores_existentes
+            )
+            self.AdminProductos.PRODUCTOS_AGREGADOS.connect(
+                self.consultar_productos_db
+            )
+            
+            self.AdminProductos.show()
+        else:
+            self.AdminProductos.raise_()
+            
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
@@ -967,7 +993,7 @@ class Productos(QWidget):
                 self.AdminProductos.PRODUCTOS_AGREGADOS.connect(self.consultar_productos_db)
                 self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR.emit(producto)
                 self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.emit()
-                self.AdminProductos.show()
+                
         self.codigo_upc_producto = None
 
     def listar_productos(self, productos):

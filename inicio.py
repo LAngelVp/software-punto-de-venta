@@ -6,32 +6,39 @@ from app.Model.BaseDatosModel import Usuarios
 from app.Controller.MensajesAlertasController import Mensaje
 class Inicio_sistema:
     def __init__(self):
-        pass
-#funciones principales:
+        super().__init__()
+        self.ventana_principal = None
+        self.Login = None
+        self.app = QApplication(sys.argv)
+
+    def comprobar_usuarios(self) -> int:
+        """Verifica si hay usuarios registrados en la base de datos.
         
-    def comprobar_usuarios(self):
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
+        Returns:
+            int: Número de usuarios (0 si no hay o hay error).
+        """
+        try:
+            with Conexion_base_datos() as db:
+                session = db.abrir_sesion()
                 consulta = select(func.count()).select_from(Usuarios)
-                result = session.execute(consulta).scalar()
-                return result
+                return session.execute(consulta).scalar() or 0
+        except Exception as e:
+            Mensaje.mostrar_error(f"Error al verificar usuarios: {e}")
+            return 0
 
-def main():
-    app = QApplication(sys.argv)
-    
-    sistema = Inicio_sistema()
-    resultado = sistema.comprobar_usuarios()
+    def ejecutar(self):
+        """Lógica principal para iniciar la aplicación."""
+        num_usuarios = self.comprobar_usuarios()
 
+        if num_usuarios > 0:
+            self.login = Login()
+            self.login.show()
+        else:
+            self.ventana_principal = Inicio_principal()
+            self.ventana_principal.show()
 
-    if resultado > 0:
-        login_window = Login()
-        login_window.show()
-    else:
-        principal_window = Inicio_principal() 
-        principal_window.show()
-
-    sys.exit(app.exec())
+        sys.exit(self.app.exec_())
 
 if __name__ == "__main__":
-    main()
+    sistema = Inicio_sistema()
+    sistema.ejecutar()
