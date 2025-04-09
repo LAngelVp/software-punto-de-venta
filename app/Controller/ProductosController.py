@@ -63,15 +63,15 @@ class ExistenciasClase(QWidget):
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
     RECIBIR_PRODUCTO_ACTUALIZAR = pyqtSignal(object)
+    VENTANA_CERRADA = pyqtSignal()
     
     def __init__(self, parent = None):
         super().__init__(parent)
+        # # Asegurar que no hay translucidez
+        self.setAttribute(Qt.WA_TranslucentBackground, False)
         self.ui = Ui_contenedor_agregar_productos()
         self.ui.setupUi(self)
-        # self.setWindowFlags(self.windowFlags() | Qt.WindowCloseButtonHint)
-        
-        # # Asegurar que no hay translucidez
-        # self.setAttribute(Qt.WA_TranslucentBackground, False)
+        # self.setStyleSheet(self.styleSheet())
         icon = QIcon(':Icons/IconosSVG/productos.png')
         self.setWindowIcon(icon)
         self.setWindowTitle("Administración de productos")
@@ -131,9 +131,12 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_eliminar_proveedor_a_vincular.clicked.connect(self.eliminar_proveedor_a_vincular)
         self.ui.entero_margenProducto.editingFinished.connect(self.calcular_precio_venta)
         self.ui.opcion_TieneCaducidad.stateChanged.connect(self.mostrar_fechas_caducidad)
+        self.ui.btn_btn_minimizar.clicked.connect(lambda: self.showMinimized())
+        self.ui.btn_btn_cerrar.clicked.connect(self.close)
         
-        
-        
+    def closeEvent(self, event):
+        self.VENTANA_CERRADA.emit()  # Emitimos la señal al cerrar la ventana
+        event.accept()  # Aceptamos el evento de cierre
 #FUNCIONES-VENTANAS EMERGENTES: 
     def agregar_presentacion(self):
         self.ui_presentacion = PresentacionProductos()
@@ -962,16 +965,10 @@ class Productos(QWidget):
             Mensaje().mensaje_informativo("No has seleccionado un producto de la tabla para proceder a modificarlo")
             return
         if self.AdminProductos is None or self.AdminProductos.isVisible():
-            self.AdminProductos = Admin_productosController(parent=None)
-            self.AdminProductos.setWindowFlags(
-                Qt.Window |
-                Qt.WindowTitleHint |
-                Qt.WindowSystemMenuHint |
-                Qt.WindowMinMaxButtonsHint |
-                Qt.WindowCloseButtonHint
-            )
-            self.AdminProductos.setAttribute(Qt.WA_TranslucentBackground, False)
+            self.AdminProductos = Admin_productosController()
             
+            self.AdminProductos.setParent(self)
+            self.AdminProductos.setStyleSheet(self.AdminProductos.styleSheet())
             # Conexión de señales
             self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(
                 self.AdminProductos.listar_proveedores_existentes
@@ -979,7 +976,7 @@ class Productos(QWidget):
             self.AdminProductos.PRODUCTOS_AGREGADOS.connect(
                 self.consultar_productos_db
             )
-            
+            self.AdminProductos.VENTANA_CERRADA.connect(self.ventana_cerrada)
             self.AdminProductos.show()
         else:
             self.AdminProductos.raise_()
@@ -995,6 +992,10 @@ class Productos(QWidget):
                 self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.emit()
                 
         self.codigo_upc_producto = None
+        
+    def ventana_cerrada(self):
+        print("cerrando ventana")
+        self.AdminProductos = None
 
     def listar_productos(self, productos):
         self.comprobar_modelo_tabla_productos()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PRODUCTOS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -29,12 +29,12 @@ class Ui_Control_Productos(object):
 "padding-left: 5px;\n"
 "}\n"
 "[objectName*=\"btn_btn_\"]{\n"
-"height: 25px;\n"
+"max-height: 15px;\n"
 "border:none;\n"
 "border-radius:5px;\n"
 "color:#fffefb;\n"
 "background:#023375;\n"
-"font-size:14px;\n"
+"font-size:12px;\n"
 "font-family:Arial;\n"
 "font-weight:bold;\n"
 "padding-left: 5px;\n"
@@ -154,7 +154,7 @@ class Ui_Control_Productos(object):
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.frame_2)
-        self.gridLayout_5.setContentsMargins(0, -1, 0, 0)
+        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.contenedor_controles = QtWidgets.QFrame(self.frame_2)
@@ -200,35 +200,41 @@ class Ui_Control_Productos(object):
         self.contenedor_tabla.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_tabla.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor_tabla.setObjectName("contenedor_tabla")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.contenedor_tabla)
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.tabla_productos = QtWidgets.QTableView(self.contenedor_tabla)
-        self.tabla_productos.setObjectName("tabla_productos")
-        self.gridLayout_4.addWidget(self.tabla_productos, 1, 0, 1, 1)
-        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.contenedor_tabla)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.frame = QtWidgets.QFrame(self.contenedor_tabla)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.frame)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.etiqueta_buscar = QtWidgets.QLabel(self.contenedor_tabla)
+        self.etiqueta_buscar = QtWidgets.QLabel(self.frame)
         self.etiqueta_buscar.setText("")
         self.etiqueta_buscar.setObjectName("etiqueta_buscar")
         self.horizontalLayout_2.addWidget(self.etiqueta_buscar)
-        self.txt_buscar = QtWidgets.QLineEdit(self.contenedor_tabla)
+        self.txt_buscar = QtWidgets.QLineEdit(self.frame)
         self.txt_buscar.setClearButtonEnabled(True)
         self.txt_buscar.setObjectName("txt_buscar")
         self.horizontalLayout_2.addWidget(self.txt_buscar)
-        self.btn_btn_buscar = QtWidgets.QPushButton(self.contenedor_tabla)
+        self.btn_btn_buscar = QtWidgets.QPushButton(self.frame)
         self.btn_btn_buscar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_buscar.setObjectName("btn_btn_buscar")
-        self.horizontalLayout_2.addWidget(self.btn_btn_buscar)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addWidget(self.btn_btn_buscar, 0, QtCore.Qt.AlignVCenter)
+        spacerItem1 = QtWidgets.QSpacerItem(290, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
-        self.btn_btn_ActualizarTablaProductos = QtWidgets.QPushButton(self.contenedor_tabla)
+        self.btn_btn_ActualizarTablaProductos = QtWidgets.QPushButton(self.frame)
         self.btn_btn_ActualizarTablaProductos.setText("")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_ActualizarTablaProductos.setIcon(icon3)
         self.btn_btn_ActualizarTablaProductos.setObjectName("btn_btn_ActualizarTablaProductos")
-        self.horizontalLayout_2.addWidget(self.btn_btn_ActualizarTablaProductos)
-        self.gridLayout_4.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
+        self.horizontalLayout_2.addWidget(self.btn_btn_ActualizarTablaProductos, 0, QtCore.Qt.AlignVCenter)
+        self.verticalLayout.addWidget(self.frame, 0, QtCore.Qt.AlignVCenter)
+        self.tabla_productos = QtWidgets.QTableView(self.contenedor_tabla)
+        self.tabla_productos.setObjectName("tabla_productos")
+        self.verticalLayout.addWidget(self.tabla_productos)
         self.gridLayout_5.addWidget(self.contenedor_tabla, 1, 0, 1, 1)
         self.gridLayout_2.addWidget(self.frame_2, 1, 0, 1, 1)
         self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)

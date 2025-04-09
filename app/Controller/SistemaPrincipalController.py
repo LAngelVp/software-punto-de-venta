@@ -29,21 +29,20 @@ class SistemaPrincipal(QWidget):
         
         Mensaje().mensaje_informativo(f"¡Quete encuentres de maravilla {self.datos_usuario["nombre_empleado"]}!\n¡Que tengas un excelente día y mucho éxito en tus ventas!")
         
-        # self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        # self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.showMaximized()
-        self.ui.btn_btn_sucursales.clicked.connect(self.mostrar_sucursales)
+        self.ui.btn_laterales_btn_sucursales.clicked.connect(self.mostrar_sucursales)
         
         self.ui.label_fotousuario.setCursor(Qt.PointingHandCursor)
         self.ui.label_fotousuario.mousePressEvent = self.mostrar_perfil
 
-        self.ui.btn_proceso_venta.clicked.connect(self.mostrar_venta)
-        self.ui.btn_ventas.clicked.connect(self.mostrar_ventas)
-        self.ui.btn_compras.clicked.connect(self.mostrar_compras)
-        self.ui.btn_empleados.clicked.connect(self.mostrar_empleados)
-        self.ui.btn_proveedores.clicked.connect(self.mostrar_proveedores)
-        self.ui.btn_clientes.clicked.connect(self.mostrar_clientes)
-        self.ui.btn_productos.clicked.connect(self.mostrar_productos)
+        self.ui.btn_laterales_proceso_venta.clicked.connect(self.mostrar_venta)
+        self.ui.btn_laterales_ventas.clicked.connect(self.mostrar_ventas)
+        self.ui.btn_laterales_compras.clicked.connect(self.mostrar_compras)
+        self.ui.btn_laterales_empleados.clicked.connect(self.mostrar_empleados)
+        self.ui.btn_laterales_proveedores.clicked.connect(self.mostrar_proveedores)
+        self.ui.btn_laterales_clientes.clicked.connect(self.mostrar_clientes)
+        self.ui.btn_laterales_productos.clicked.connect(self.mostrar_productos)
 
         self.ui.btc_cerrar_2.clicked.connect(lambda: sys.exit())
         self.ui.btc_minimizar_2.clicked.connect(lambda: self.showMinimized())

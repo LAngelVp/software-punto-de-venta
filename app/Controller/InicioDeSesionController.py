@@ -25,8 +25,8 @@ class Login(QWidget):
 
         self.ui.labelNombreEmpresa.mouseDoubleClickEvent = self.empresa()
 
-        # self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) 
-        # self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) 
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
 
         self.ui.principal.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=35, xOffset=10, yOffset=0))
         self.ui.btnAceptar.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0))

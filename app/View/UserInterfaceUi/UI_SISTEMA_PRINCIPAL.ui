@@ -59,7 +59,7 @@ min-height:40px;
 background-repeat: no-repeat;
 background-position: center;
 }
-[objectName^=&quot;btn&quot;]{
+[objectName^=&quot;btn_laterales&quot;]{
 background-color: transparent;
 border: none;
 max-height:35px;
@@ -311,7 +311,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_proceso_venta">
+             <widget class="QToolButton" name="btn_laterales_proceso_venta">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -340,7 +340,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_ventas">
+             <widget class="QToolButton" name="btn_laterales_ventas">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -363,7 +363,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_compras">
+             <widget class="QToolButton" name="btn_laterales_compras">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -386,7 +386,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_empleados">
+             <widget class="QToolButton" name="btn_laterales_empleados">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -409,7 +409,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_proveedores">
+             <widget class="QToolButton" name="btn_laterales_proveedores">
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -432,7 +432,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_clientes">
+             <widget class="QToolButton" name="btn_laterales_clientes">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -449,7 +449,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_productos">
+             <widget class="QToolButton" name="btn_laterales_productos">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -472,7 +472,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_btn_sucursales">
+             <widget class="QToolButton" name="btn_laterales_btn_sucursales">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -489,7 +489,7 @@ qproperty-iconSize: 20px 20px;
              </widget>
             </item>
             <item>
-             <widget class="QToolButton" name="btn_mas_opciones">
+             <widget class="QToolButton" name="btn_laterales_mas_opciones">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>

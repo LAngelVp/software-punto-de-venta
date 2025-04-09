@@ -20,15 +20,14 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">[objectName*=&quot;contenedor&quot;]{
-background: #fffefb;
-}
-#etiqueta_barras{
+   <string notr="true">#etiqueta_barras{
 image: url(:/Icons/Bootstrap/upc-scan.svg);
 min-width:30px;
 }
-#etiqueta_titulo_ventana{
+#contenedor_encabezado{
 background: #023375;
+}
+#etiqueta_titulo_ventana{
 font-size: 20px;
 max-height:40px;
 padding-left: 2px;
@@ -70,6 +69,7 @@ padding: 5px;
 background: #00619a;
 color: #fffefb;
 border-radius: 4px;
+max-height: 15px;
 }
 #btn_btn_agregar_categoria{
 padding: 3px;
@@ -207,7 +207,9 @@ border-bottom: 2px solid #00668c;
     background-color: #023375;
     color: white;
 }
-</string>
+[objectName*=&quot;contenedor&quot;]{
+background: #fffefb;
+}</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="sizeConstraint">
@@ -236,10 +238,7 @@ border-bottom: 2px solid #00668c;
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <property name="spacing">
-       <number>0</number>
-      </property>
+     <layout class="QGridLayout" name="gridLayout_14">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -252,14 +251,79 @@ border-bottom: 2px solid #00668c;
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item>
-       <widget class="QLabel" name="etiqueta_titulo_ventana">
-        <property name="text">
-         <string>AGREGAR PRODUCTO</string>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QFrame" name="contenedor_encabezado">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
         </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="etiqueta_titulo_ventana">
+           <property name="text">
+            <string>AGREGAR PRODUCTO</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_btn_minimizar">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/ibootstrap.qrc">
+             <normaloff>:/Icons/Bootstrap/dash-lg.svg</normaloff>:/Icons/Bootstrap/dash-lg.svg</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_btn_cerrar">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/ibootstrap.qrc">
+             <normaloff>:/Icons/Bootstrap/x-lg.svg</normaloff>:/Icons/Bootstrap/x-lg.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item>
+      <item row="1" column="0">
        <widget class="QFrame" name="contenedor_informacion">
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -291,10 +355,10 @@ border-bottom: 2px solid #00668c;
            <widget class="QWidget" name="contenedor_scroll_formulario">
             <property name="geometry">
              <rect>
-              <x>-222</x>
+              <x>0</x>
               <y>0</y>
               <width>1304</width>
-              <height>957</height>
+              <height>953</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_13">
