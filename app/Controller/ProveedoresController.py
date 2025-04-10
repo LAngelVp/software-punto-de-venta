@@ -77,17 +77,21 @@ class Control_proveedores(QWidget):
         
     def ventana_cerrada_productos_proveedor(self):
         self.ventana_productos_precios = None
+        self.proveedor_seleccionado = None
 
     def mostrar_productos_y_precios(self):
         if not self.proveedor_seleccionado:
             Mensaje().mensaje_informativo("No haz seleccionado un proveedor para poder visualizar la lista de productos y precios.")
             return
         if self.proveedor_seleccionado:
-            self.ventana_productos_precios = Productos_de_proveedorController(self, self.proveedor_seleccionado)
-            self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
-            self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
-            self.ventana_productos_precios.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.connect(self.ventana_cerrada_productos_proveedor)
-            self.ventana_productos_precios.show()
+            if self.ventana_productos_precios is None or self.ventana_productos_precios.isVisible():
+                self.ventana_productos_precios = Productos_de_proveedorController(parent=self, proveedor=self.proveedor_seleccionado)
+                self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
+                self.ventana_productos_precios.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.connect(self.ventana_cerrada_productos_proveedor)
+                self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
+                self.ventana_productos_precios.show()
+            else:
+                self.ventana_productos_precios.raise_()
     
     
     def mostrar_categorias(self):

@@ -52,7 +52,7 @@ min-height: 25px;
 border: none;
 border-radius: 5px;
 color: #fffefb;
-padding: 3px 10px;
+padding: 3px 5px;
 }
 [objectName*=&quot;btn_producto_del_proveedor&quot;]:hover{
 background: #2196F3;
@@ -72,10 +72,12 @@ background: #68a67d;
 [objectName*=&quot;btn_producto_del_proveedor_agregar&quot;]:pressed{
 background: #578B69;
 }
-#btn_productoProveedor_cerrar{
+#btn_producto_del_proveedor_cerrar{
 background: #fffefb;
+min-height:15px;
+max-width:15px;
 }
-#btn_productoProveedor_cerrar:pressed{
+#btn_producto_del_proveedor_cerrar:pressed{
 background: rgb(222, 221, 218);
 }
 [objectName^=&quot;cajaopciones_&quot;]{
@@ -155,6 +157,12 @@ padding-right:5px;
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
       <item>
        <widget class="QLabel" name="etiqueta_encabezado_productosProveedor">
         <property name="text">
@@ -176,7 +184,7 @@ padding-right:5px;
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_productoProveedor_cerrar">
+       <widget class="QPushButton" name="btn_producto_del_proveedor_cerrar">
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
@@ -203,7 +211,7 @@ padding-right:5px;
         <x>0</x>
         <y>0</y>
         <width>1018</width>
-        <height>422</height>
+        <height>438</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -276,7 +284,7 @@ padding-right:5px;
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
                    <property name="text">
-                    <string>Editar</string>
+                    <string>Manejar Precio</string>
                    </property>
                    <property name="icon">
                     <iconset resource="../../Source/iconosSVG.qrc">
@@ -368,14 +376,14 @@ padding-right:5px;
                 <property name="gridStyle">
                  <enum>Qt::DashLine</enum>
                 </property>
-                <attribute name="horizontalHeaderMinimumSectionSize">
-                 <number>150</number>
-                </attribute>
                 <attribute name="horizontalHeaderDefaultSectionSize">
                  <number>200</number>
                 </attribute>
+                <attribute name="horizontalHeaderMinimumSectionSize">
+                 <number>150</number>
+                </attribute>
                 <attribute name="horizontalHeaderStretchLastSection">
-                 <bool>false</bool>
+                 <bool>true</bool>
                 </attribute>
                 <attribute name="verticalHeaderVisible">
                  <bool>false</bool>
@@ -502,11 +510,14 @@ padding-right:5px;
                 <property name="gridStyle">
                  <enum>Qt::DashLine</enum>
                 </property>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>200</number>
+                </attribute>
                 <attribute name="horizontalHeaderMinimumSectionSize">
                  <number>150</number>
                 </attribute>
-                <attribute name="horizontalHeaderDefaultSectionSize">
-                 <number>200</number>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
                 </attribute>
                 <attribute name="verticalHeaderVisible">
                  <bool>false</bool>
@@ -548,7 +559,11 @@ padding-right:5px;
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QTableView" name="tabla_Productos_A_VincularProveedor"/>
+               <widget class="QTableView" name="tabla_Productos_A_VincularProveedor">
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>true</bool>
+                </attribute>
+               </widget>
               </item>
              </layout>
             </widget>

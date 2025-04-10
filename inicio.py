@@ -12,11 +12,6 @@ class Inicio_sistema:
         self.app = QApplication(sys.argv)
 
     def comprobar_usuarios(self) -> int:
-        """Verifica si hay usuarios registrados en la base de datos.
-        
-        Returns:
-            int: Número de usuarios (0 si no hay o hay error).
-        """
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()

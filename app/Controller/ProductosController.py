@@ -111,7 +111,7 @@ class Admin_productosController(QWidget):
         self.lista_productos = []
         self.lista_proveedores_a_asignar = {}
         self.proveedores_vinculados = {}
-        self._ventanaCentrada = False 
+        self._ventanaCentradaProductoExistente = False 
 #// funciones principales:
         self.__obtener_proveedores()
         completar = QCompleter([proveedor.nombre for proveedor in self.proveedores.values()])
@@ -143,13 +143,14 @@ class Admin_productosController(QWidget):
 
     def showEvent(self, event):
         super().showEvent(event)
-        if not self._ventanaCentrada:
+        if not self._ventanaCentradaProductoExistente:
             FuncionesAuxiliaresController.centrar_en_padre(self)
-            self._ventanaCentrada = True
+            self._ventanaCentradaProductoExistente = True
 
     def closeEvent(self, event):
         self.VENTANA_CERRADA.emit() 
         event.accept()
+        
 #FUNCIONES-VENTANAS EMERGENTES: 
     def agregar_presentacion(self):
         self.ui_presentacion = PresentacionProductos()
