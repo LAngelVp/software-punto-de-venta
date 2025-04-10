@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_EXISTENCIA_PRODUCTOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_EXISTENCIA_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,8 +14,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_UI_EXISTENCIA_PRODUCTO(object):
     def setupUi(self, UI_EXISTENCIA_PRODUCTO):
         UI_EXISTENCIA_PRODUCTO.setObjectName("UI_EXISTENCIA_PRODUCTO")
-        UI_EXISTENCIA_PRODUCTO.resize(522, 331)
-        UI_EXISTENCIA_PRODUCTO.setStyleSheet("[objectName *=\"contenedor\"]{\n"
+        UI_EXISTENCIA_PRODUCTO.resize(547, 385)
+        UI_EXISTENCIA_PRODUCTO.setStyleSheet("#contenedor_encabezado{\n"
+"background: #023375;\n"
+"}\n"
+"#etiqueta_encabezado_existenciaProducto{\n"
+"color: #fffefb;\n"
+"font-size: 18px;\n"
+"font-weight:bold;\n"
+"font-family:\"Arial\";\n"
+"}\n"
+"[objectName *=\"contenedor\"]{\n"
 "background:#fffefb;\n"
 "}\n"
 "[objectName*=\"etiqueta_\"]{\n"
@@ -41,7 +50,7 @@ class Ui_UI_EXISTENCIA_PRODUCTO(object):
 "[objectName*=\"txtlargo\"]{\n"
 "max-height:100px;\n"
 "}\n"
-"[objectName*=\"btn_btn\"]{\n"
+"[objectName*=\"btn_existencia\"]{\n"
 "border:none;\n"
 "font-size:14px;\n"
 "font-family:\"Arial\";\n"
@@ -51,11 +60,17 @@ class Ui_UI_EXISTENCIA_PRODUCTO(object):
 "color: #fffefb;\n"
 "border-radius: 4px;\n"
 "}\n"
-"[objectName*=\"btn_btn\"]:hover{\n"
+"[objectName*=\"btn_existencia\"]:hover{\n"
 "background: #2196F3;\n"
 "}\n"
-"[objectName*=\"btn_btn\"]:pressed{\n"
+"[objectName*=\"btn_existencia\"]:pressed{\n"
 "background: #1B80D0;\n"
+"}\n"
+"#btn_existenciaProducto_cerrar{\n"
+"background: #fffefb;\n"
+"}\n"
+"#btn_existenciaProducto_cerrar:pressed{\n"
+"background: rgb(222, 221, 218);\n"
 "}\n"
 "[objectName*=\"cajaOpciones\"]{\n"
 "border: none;\n"
@@ -133,9 +148,78 @@ class Ui_UI_EXISTENCIA_PRODUCTO(object):
         self.contenedor.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor.setObjectName("contenedor")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.contenedor)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.gridLayout_5 = QtWidgets.QGridLayout(self.contenedor)
+        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_5.setSpacing(0)
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.gridLayout_2 = QtWidgets.QGridLayout()
+        self.gridLayout_2.setContentsMargins(10, 10, 10, -1)
+        self.gridLayout_2.setVerticalSpacing(10)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.etiqueta_NotasExistencia = QtWidgets.QLabel(self.contenedor)
+        self.etiqueta_NotasExistencia.setObjectName("etiqueta_NotasExistencia")
+        self.gridLayout_2.addWidget(self.etiqueta_NotasExistencia, 3, 0, 1, 1)
+        self.txtlargo_NotasProducto = QtWidgets.QPlainTextEdit(self.contenedor)
+        self.txtlargo_NotasProducto.setObjectName("txtlargo_NotasProducto")
+        self.gridLayout_2.addWidget(self.txtlargo_NotasProducto, 4, 0, 1, 2)
+        self.etiqueta_FechaMovimiento = QtWidgets.QLabel(self.contenedor)
+        self.etiqueta_FechaMovimiento.setObjectName("etiqueta_FechaMovimiento")
+        self.gridLayout_2.addWidget(self.etiqueta_FechaMovimiento, 2, 0, 1, 1)
+        self.decimal_CantidadExistencia = QtWidgets.QDoubleSpinBox(self.contenedor)
+        self.decimal_CantidadExistencia.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
+        self.decimal_CantidadExistencia.setDecimals(3)
+        self.decimal_CantidadExistencia.setMaximum(1e+45)
+        self.decimal_CantidadExistencia.setObjectName("decimal_CantidadExistencia")
+        self.gridLayout_2.addWidget(self.decimal_CantidadExistencia, 0, 1, 1, 1)
+        self.etiqueta_TipoMovimiento = QtWidgets.QLabel(self.contenedor)
+        self.etiqueta_TipoMovimiento.setObjectName("etiqueta_TipoMovimiento")
+        self.gridLayout_2.addWidget(self.etiqueta_TipoMovimiento, 1, 0, 1, 1)
+        self.cajaOpciones_TipoMovimiento = QtWidgets.QComboBox(self.contenedor)
+        self.cajaOpciones_TipoMovimiento.setObjectName("cajaOpciones_TipoMovimiento")
+        self.cajaOpciones_TipoMovimiento.addItem("")
+        self.cajaOpciones_TipoMovimiento.addItem("")
+        self.gridLayout_2.addWidget(self.cajaOpciones_TipoMovimiento, 1, 1, 1, 1)
+        self.fecha_FechaMovimiento = QtWidgets.QDateEdit(self.contenedor)
+        self.fecha_FechaMovimiento.setCalendarPopup(True)
+        self.fecha_FechaMovimiento.setObjectName("fecha_FechaMovimiento")
+        self.gridLayout_2.addWidget(self.fecha_FechaMovimiento, 2, 1, 1, 1)
+        self.etiqueta_CantidadExistencia = QtWidgets.QLabel(self.contenedor)
+        self.etiqueta_CantidadExistencia.setObjectName("etiqueta_CantidadExistencia")
+        self.gridLayout_2.addWidget(self.etiqueta_CantidadExistencia, 0, 0, 1, 1)
+        self.gridLayout_5.addLayout(self.gridLayout_2, 2, 0, 1, 3)
+        self.frame = QtWidgets.QFrame(self.contenedor)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.frame)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.btn_existenciaProducto_aceptar = QtWidgets.QPushButton(self.frame)
+        self.btn_existenciaProducto_aceptar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_existenciaProducto_aceptar.setObjectName("btn_existenciaProducto_aceptar")
+        self.gridLayout_4.addWidget(self.btn_existenciaProducto_aceptar, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.frame, 4, 0, 1, 3)
+        self.contenedor_encabezado = QtWidgets.QFrame(self.contenedor)
+        self.contenedor_encabezado.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.contenedor_encabezado.setObjectName("contenedor_encabezado")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_encabezado)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.etiqueta_encabezado_existenciaProducto = QtWidgets.QLabel(self.contenedor_encabezado)
+        self.etiqueta_encabezado_existenciaProducto.setObjectName("etiqueta_encabezado_existenciaProducto")
+        self.horizontalLayout.addWidget(self.etiqueta_encabezado_existenciaProducto)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.btn_existenciaProducto_cerrar = QtWidgets.QPushButton(self.contenedor_encabezado)
+        self.btn_existenciaProducto_cerrar.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/x-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_existenciaProducto_cerrar.setIcon(icon)
+        self.btn_existenciaProducto_cerrar.setObjectName("btn_existenciaProducto_cerrar")
+        self.horizontalLayout.addWidget(self.btn_existenciaProducto_cerrar)
+        self.gridLayout_5.addWidget(self.contenedor_encabezado, 0, 0, 1, 3)
         self.gridLayout_3 = QtWidgets.QGridLayout()
+        self.gridLayout_3.setContentsMargins(10, 10, 10, -1)
+        self.gridLayout_3.setVerticalSpacing(10)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.etiqueta_Usuario = QtWidgets.QLabel(self.contenedor)
         self.etiqueta_Usuario.setObjectName("etiqueta_Usuario")
@@ -149,46 +233,9 @@ class Ui_UI_EXISTENCIA_PRODUCTO(object):
         self.etiqueta_ClaveProducto = QtWidgets.QLabel(self.contenedor)
         self.etiqueta_ClaveProducto.setObjectName("etiqueta_ClaveProducto")
         self.gridLayout_3.addWidget(self.etiqueta_ClaveProducto, 1, 1, 1, 1)
-        self.verticalLayout.addLayout(self.gridLayout_3)
-        self.gridLayout_2 = QtWidgets.QGridLayout()
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.etiqueta_TipoMovimiento = QtWidgets.QLabel(self.contenedor)
-        self.etiqueta_TipoMovimiento.setObjectName("etiqueta_TipoMovimiento")
-        self.gridLayout_2.addWidget(self.etiqueta_TipoMovimiento, 1, 0, 1, 1)
-        self.etiqueta_FechaMovimiento = QtWidgets.QLabel(self.contenedor)
-        self.etiqueta_FechaMovimiento.setObjectName("etiqueta_FechaMovimiento")
-        self.gridLayout_2.addWidget(self.etiqueta_FechaMovimiento, 2, 0, 1, 1)
-        self.etiqueta_NotasExistencia = QtWidgets.QLabel(self.contenedor)
-        self.etiqueta_NotasExistencia.setObjectName("etiqueta_NotasExistencia")
-        self.gridLayout_2.addWidget(self.etiqueta_NotasExistencia, 3, 0, 1, 1)
-        self.fecha_FechaMovimiento = QtWidgets.QDateEdit(self.contenedor)
-        self.fecha_FechaMovimiento.setCalendarPopup(True)
-        self.fecha_FechaMovimiento.setObjectName("fecha_FechaMovimiento")
-        self.gridLayout_2.addWidget(self.fecha_FechaMovimiento, 2, 1, 1, 1)
-        self.etiqueta_CantidadExistencia = QtWidgets.QLabel(self.contenedor)
-        self.etiqueta_CantidadExistencia.setObjectName("etiqueta_CantidadExistencia")
-        self.gridLayout_2.addWidget(self.etiqueta_CantidadExistencia, 0, 0, 1, 1)
-        self.cajaOpciones_TipoMovimiento = QtWidgets.QComboBox(self.contenedor)
-        self.cajaOpciones_TipoMovimiento.setObjectName("cajaOpciones_TipoMovimiento")
-        self.cajaOpciones_TipoMovimiento.addItem("")
-        self.cajaOpciones_TipoMovimiento.addItem("")
-        self.gridLayout_2.addWidget(self.cajaOpciones_TipoMovimiento, 1, 1, 1, 1)
-        self.decimal_CantidadExistencia = QtWidgets.QDoubleSpinBox(self.contenedor)
-        self.decimal_CantidadExistencia.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
-        self.decimal_CantidadExistencia.setDecimals(3)
-        self.decimal_CantidadExistencia.setMaximum(1e+45)
-        self.decimal_CantidadExistencia.setObjectName("decimal_CantidadExistencia")
-        self.gridLayout_2.addWidget(self.decimal_CantidadExistencia, 0, 1, 1, 1)
-        self.txtlargo_NotasProducto = QtWidgets.QPlainTextEdit(self.contenedor)
-        self.txtlargo_NotasProducto.setObjectName("txtlargo_NotasProducto")
-        self.gridLayout_2.addWidget(self.txtlargo_NotasProducto, 4, 0, 1, 2)
-        self.verticalLayout.addLayout(self.gridLayout_2)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout.addItem(spacerItem)
-        self.btn_btn_aceptar = QtWidgets.QPushButton(self.contenedor)
-        self.btn_btn_aceptar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_aceptar.setObjectName("btn_btn_aceptar")
-        self.verticalLayout.addWidget(self.btn_btn_aceptar)
+        self.gridLayout_5.addLayout(self.gridLayout_3, 1, 0, 1, 3)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_5.addItem(spacerItem1, 3, 0, 1, 3)
         self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
 
         self.retranslateUi(UI_EXISTENCIA_PRODUCTO)
@@ -196,20 +243,21 @@ class Ui_UI_EXISTENCIA_PRODUCTO(object):
         UI_EXISTENCIA_PRODUCTO.setTabOrder(self.decimal_CantidadExistencia, self.cajaOpciones_TipoMovimiento)
         UI_EXISTENCIA_PRODUCTO.setTabOrder(self.cajaOpciones_TipoMovimiento, self.fecha_FechaMovimiento)
         UI_EXISTENCIA_PRODUCTO.setTabOrder(self.fecha_FechaMovimiento, self.txtlargo_NotasProducto)
-        UI_EXISTENCIA_PRODUCTO.setTabOrder(self.txtlargo_NotasProducto, self.btn_btn_aceptar)
+        UI_EXISTENCIA_PRODUCTO.setTabOrder(self.txtlargo_NotasProducto, self.btn_existenciaProducto_aceptar)
 
     def retranslateUi(self, UI_EXISTENCIA_PRODUCTO):
         _translate = QtCore.QCoreApplication.translate
         UI_EXISTENCIA_PRODUCTO.setWindowTitle(_translate("UI_EXISTENCIA_PRODUCTO", "Existencia Producto"))
+        self.etiqueta_NotasExistencia.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Notas"))
+        self.etiqueta_FechaMovimiento.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Fecha del Movimiento"))
+        self.etiqueta_TipoMovimiento.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Movimiento"))
+        self.cajaOpciones_TipoMovimiento.setItemText(0, _translate("UI_EXISTENCIA_PRODUCTO", "Entrada"))
+        self.cajaOpciones_TipoMovimiento.setItemText(1, _translate("UI_EXISTENCIA_PRODUCTO", "Salida"))
+        self.etiqueta_CantidadExistencia.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Cantidad"))
+        self.btn_existenciaProducto_aceptar.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Aceptar"))
+        self.etiqueta_encabezado_existenciaProducto.setText(_translate("UI_EXISTENCIA_PRODUCTO", "EXISTENCIA"))
         self.etiqueta_Usuario.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Usuario:"))
         self.etiqueta_NombreUsuario.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Nombre"))
         self.etiqueta_Clave.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Clave del Producto:"))
         self.etiqueta_ClaveProducto.setText(_translate("UI_EXISTENCIA_PRODUCTO", "clave"))
-        self.etiqueta_TipoMovimiento.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Movimiento"))
-        self.etiqueta_FechaMovimiento.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Fecha del Movimiento"))
-        self.etiqueta_NotasExistencia.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Notas"))
-        self.etiqueta_CantidadExistencia.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Cantidad"))
-        self.cajaOpciones_TipoMovimiento.setItemText(0, _translate("UI_EXISTENCIA_PRODUCTO", "Entrada"))
-        self.cajaOpciones_TipoMovimiento.setItemText(1, _translate("UI_EXISTENCIA_PRODUCTO", "Salida"))
-        self.btn_btn_aceptar.setText(_translate("UI_EXISTENCIA_PRODUCTO", "Aceptar"))
 from ...Source import ibootstrap_rc

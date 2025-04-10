@@ -37,7 +37,7 @@ class Inicio_principal(QWidget):
 
         
     def abrir_registro(self):
-        self.registro = Registro_personal_inicial(self)
+        self.registro = Registro_personal_inicial()
         self.registro.variable_primer_registro = True
         self.registro.show()
         self.close()
@@ -49,16 +49,11 @@ class Inicio_principal(QWidget):
                 try:
                     PermisosModel(session).crear_permisos_principal
                     RolesModel(session).crear_grupo_principal
-                    ProductosModel(session).insertar_presentaciones_basicas
-                    ProductosModel(session).insertar_categorias_basicas
-                    ProveedoresModel(session).insertar_categoria_proveedor_basicas
-                    ClientesFisicosAndMorales(session).insertar_areas_negocio_basicas
+                    ProductosModel(session).insertar_presentaciones_basicas()
+                    ProductosModel(session).insertar_categorias_basicas()
+                    ProveedoresModel(session).insertar_categoria_proveedor_basicas()
+                    ClientesFisicosAndMorales(session).insertar_areas_negocio_basicas()
                     ClientesFisicosAndMorales(session).insertar_categorias_negocio_basicas
                 except Exception as e:
                     print(f'Existio un error en la creacion de datos principales: {e}')
     
-# if __name__ == "__main__":
-#     app = QApplication(sys.argv)
-#     ui = Inicio_principal()
-#     ui.show()
-#     sys.exit(app.exec())

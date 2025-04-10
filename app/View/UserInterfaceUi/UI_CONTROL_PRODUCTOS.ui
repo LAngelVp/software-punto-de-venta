@@ -27,8 +27,8 @@ font-size: 24px;
 font-weight: bold;
 padding-left: 5px;
 }
-[objectName*=&quot;btn_btn_&quot;]{
-max-height: 15px;
+[objectName*=&quot;btn_btn_adminProductos&quot;]{
+height: 25px;
 border:none;
 border-radius:5px;
 color:#fffefb;
@@ -227,7 +227,7 @@ border-bottom:2px solid #023375;
             <item row="0" column="0">
              <layout class="QHBoxLayout" name="horizontalLayout">
               <item>
-               <widget class="QPushButton" name="btn_btn_agregar">
+               <widget class="QPushButton" name="btn_btn_adminProductos_agregar">
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
@@ -250,7 +250,7 @@ border-bottom:2px solid #023375;
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_btn_eliminar">
+               <widget class="QPushButton" name="btn_btn_adminProductos_eliminar">
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
@@ -273,7 +273,7 @@ border-bottom:2px solid #023375;
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_btn_modificar">
+               <widget class="QPushButton" name="btn_btn_adminProductos_modificar">
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
@@ -296,7 +296,7 @@ border-bottom:2px solid #023375;
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="btn_btn_ExistenciaProducto">
+               <widget class="QPushButton" name="btn_btn_adminProductos_ExistenciaProducto">
                 <property name="text">
                  <string>Existencia</string>
                 </property>
@@ -371,7 +371,7 @@ border-bottom:2px solid #023375;
                 </widget>
                </item>
                <item alignment="Qt::AlignVCenter">
-                <widget class="QPushButton" name="btn_btn_buscar">
+                <widget class="QPushButton" name="btn_btn_adminProductos_buscar">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
@@ -397,7 +397,7 @@ border-bottom:2px solid #023375;
                 </spacer>
                </item>
                <item alignment="Qt::AlignVCenter">
-                <widget class="QPushButton" name="btn_btn_ActualizarTablaProductos">
+                <widget class="QPushButton" name="btn_btn_adminProductos_ActualizarTablaProductos">
                  <property name="toolTip">
                   <string>Actualizar tabla productos</string>
                  </property>

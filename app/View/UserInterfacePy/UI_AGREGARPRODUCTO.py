@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_AGREGARPRODUCTO.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_AGREGARPRODUCTO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -57,7 +57,7 @@ class Ui_contenedor_agregar_productos(object):
 "[objectName*=\"txtlargo\"]{\n"
 "max-height:100px;\n"
 "}\n"
-"[objectName*=\"btn_btn\"]{\n"
+"[objectName*=\"btn_btn_addProduct\"]{\n"
 "border:none;\n"
 "font-size:14px;\n"
 "font-family:\"Arial\";\n"
@@ -68,7 +68,7 @@ class Ui_contenedor_agregar_productos(object):
 "border-radius: 4px;\n"
 "max-height: 15px;\n"
 "}\n"
-"#btn_btn_agregar_categoria{\n"
+"#btn_btn_addProduct_agregar_categoria{\n"
 "padding: 3px;\n"
 "}\n"
 "[objectName*=\"btn_btn\"]:hover{\n"
@@ -77,17 +77,23 @@ class Ui_contenedor_agregar_productos(object):
 "[objectName*=\"btn_btn\"]:pressed{\n"
 "background:#1B80D0;\n"
 "}\n"
-"#btn_btn_guardar_producto:hover{\n"
+"#btn_btn_addProduct_guardar_producto:hover{\n"
 "background:#68a67d;\n"
 "}\n"
-"#btn_btn_agregar_producto:pressed{\n"
+"#btn_btn_addProduct_agregar_producto:pressed{\n"
 "background:#578B69;\n"
 "}\n"
-"[objectName*=\"btn_btn_eliminar\"]:hover{\n"
+"[objectName*=\"btn_btn_addProduct_eliminar\"]:hover{\n"
 "background:#ee1d52;\n"
 "}\n"
-"[objectName*=\"btn_btn_eliminar\"]:pressed{\n"
+"[objectName*=\"btn_btn_addProduct_eliminar\"]:pressed{\n"
 "background:#B13636;\n"
+"}\n"
+"#btn_btn_addProduct_cerrar{\n"
+"background: #fffefb;\n"
+"}\n"
+"#btn_btn_addProduct_cerrar:pressed{\n"
+"background: rgb(222, 221, 218);\n"
 "}\n"
 "[objectName*=\"opcion_\"]{\n"
 "font-size: 14px;\n"
@@ -225,7 +231,7 @@ class Ui_contenedor_agregar_productos(object):
         self.contenedor_encabezado.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor_encabezado.setObjectName("contenedor_encabezado")
         self.horizontalLayout_13 = QtWidgets.QHBoxLayout(self.contenedor_encabezado)
-        self.horizontalLayout_13.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_13.setContentsMargins(0, 5, 5, 5)
         self.horizontalLayout_13.setSpacing(5)
         self.horizontalLayout_13.setObjectName("horizontalLayout_13")
         self.etiqueta_titulo_ventana = QtWidgets.QLabel(self.contenedor_encabezado)
@@ -233,20 +239,14 @@ class Ui_contenedor_agregar_productos(object):
         self.horizontalLayout_13.addWidget(self.etiqueta_titulo_ventana)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_13.addItem(spacerItem)
-        self.btn_btn_minimizar = QtWidgets.QPushButton(self.contenedor_encabezado)
-        self.btn_btn_minimizar.setText("")
+        self.btn_btn_addProduct_cerrar = QtWidgets.QPushButton(self.contenedor_encabezado)
+        self.btn_btn_addProduct_cerrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_cerrar.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/dash-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_minimizar.setIcon(icon)
-        self.btn_btn_minimizar.setObjectName("btn_btn_minimizar")
-        self.horizontalLayout_13.addWidget(self.btn_btn_minimizar)
-        self.btn_btn_cerrar = QtWidgets.QPushButton(self.contenedor_encabezado)
-        self.btn_btn_cerrar.setText("")
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/x-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_cerrar.setIcon(icon1)
-        self.btn_btn_cerrar.setObjectName("btn_btn_cerrar")
-        self.horizontalLayout_13.addWidget(self.btn_btn_cerrar)
+        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/x-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_addProduct_cerrar.setIcon(icon)
+        self.btn_btn_addProduct_cerrar.setObjectName("btn_btn_addProduct_cerrar")
+        self.horizontalLayout_13.addWidget(self.btn_btn_addProduct_cerrar)
         self.gridLayout_14.addWidget(self.contenedor_encabezado, 0, 0, 1, 1)
         self.contenedor_informacion = QtWidgets.QFrame(self.contenedor_general)
         self.contenedor_informacion.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -260,7 +260,7 @@ class Ui_contenedor_agregar_productos(object):
         self.contenedor_formulario_izquierda.setWidgetResizable(True)
         self.contenedor_formulario_izquierda.setObjectName("contenedor_formulario_izquierda")
         self.contenedor_scroll_formulario = QtWidgets.QWidget()
-        self.contenedor_scroll_formulario.setGeometry(QtCore.QRect(0, 0, 1304, 953))
+        self.contenedor_scroll_formulario.setGeometry(QtCore.QRect(0, 0, 1289, 949))
         self.contenedor_scroll_formulario.setObjectName("contenedor_scroll_formulario")
         self.gridLayout_13 = QtWidgets.QGridLayout(self.contenedor_scroll_formulario)
         self.gridLayout_13.setObjectName("gridLayout_13")
@@ -405,14 +405,14 @@ class Ui_contenedor_agregar_productos(object):
         self.cajaOpciones_categoriaProducto = QtWidgets.QComboBox(self.contenedor_scroll_formulario)
         self.cajaOpciones_categoriaProducto.setObjectName("cajaOpciones_categoriaProducto")
         self.horizontalLayout_7.addWidget(self.cajaOpciones_categoriaProducto)
-        self.btn_btn_agregar_categoria = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
-        self.btn_btn_agregar_categoria.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_agregar_categoria.setText("")
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_agregar_categoria.setIcon(icon2)
-        self.btn_btn_agregar_categoria.setObjectName("btn_btn_agregar_categoria")
-        self.horizontalLayout_7.addWidget(self.btn_btn_agregar_categoria)
+        self.btn_btn_addProduct_agregar_categoria = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
+        self.btn_btn_addProduct_agregar_categoria.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_agregar_categoria.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/agregar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_addProduct_agregar_categoria.setIcon(icon1)
+        self.btn_btn_addProduct_agregar_categoria.setObjectName("btn_btn_addProduct_agregar_categoria")
+        self.horizontalLayout_7.addWidget(self.btn_btn_addProduct_agregar_categoria)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.etiqueta_presentacionProducto = QtWidgets.QLabel(self.contenedor_scroll_formulario)
@@ -421,12 +421,12 @@ class Ui_contenedor_agregar_productos(object):
         self.cajaOpciones_presentacionProducto = QtWidgets.QComboBox(self.contenedor_scroll_formulario)
         self.cajaOpciones_presentacionProducto.setObjectName("cajaOpciones_presentacionProducto")
         self.horizontalLayout_5.addWidget(self.cajaOpciones_presentacionProducto)
-        self.btn_btn_agregarPresentacionProducto = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
-        self.btn_btn_agregarPresentacionProducto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_agregarPresentacionProducto.setText("")
-        self.btn_btn_agregarPresentacionProducto.setIcon(icon2)
-        self.btn_btn_agregarPresentacionProducto.setObjectName("btn_btn_agregarPresentacionProducto")
-        self.horizontalLayout_5.addWidget(self.btn_btn_agregarPresentacionProducto)
+        self.btn_btn_addProduct_agregarPresentacionProducto = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
+        self.btn_btn_addProduct_agregarPresentacionProducto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_agregarPresentacionProducto.setText("")
+        self.btn_btn_addProduct_agregarPresentacionProducto.setIcon(icon1)
+        self.btn_btn_addProduct_agregarPresentacionProducto.setObjectName("btn_btn_addProduct_agregarPresentacionProducto")
+        self.horizontalLayout_5.addWidget(self.btn_btn_addProduct_agregarPresentacionProducto)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.etiqueta_unidadMedida = QtWidgets.QLabel(self.contenedor_scroll_formulario)
@@ -436,12 +436,12 @@ class Ui_contenedor_agregar_productos(object):
         self.cajaOpciones_unidadMedidaProducto.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
         self.cajaOpciones_unidadMedidaProducto.setObjectName("cajaOpciones_unidadMedidaProducto")
         self.horizontalLayout_9.addWidget(self.cajaOpciones_unidadMedidaProducto)
-        self.btn_btn_agregar_unidadMedidaProducto = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
-        self.btn_btn_agregar_unidadMedidaProducto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_agregar_unidadMedidaProducto.setText("")
-        self.btn_btn_agregar_unidadMedidaProducto.setIcon(icon2)
-        self.btn_btn_agregar_unidadMedidaProducto.setObjectName("btn_btn_agregar_unidadMedidaProducto")
-        self.horizontalLayout_9.addWidget(self.btn_btn_agregar_unidadMedidaProducto)
+        self.btn_btn_addProduct_agregar_unidadMedidaProducto = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
+        self.btn_btn_addProduct_agregar_unidadMedidaProducto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_agregar_unidadMedidaProducto.setText("")
+        self.btn_btn_addProduct_agregar_unidadMedidaProducto.setIcon(icon1)
+        self.btn_btn_addProduct_agregar_unidadMedidaProducto.setObjectName("btn_btn_addProduct_agregar_unidadMedidaProducto")
+        self.horizontalLayout_9.addWidget(self.btn_btn_addProduct_agregar_unidadMedidaProducto)
         self.horizontalLayout_5.addLayout(self.horizontalLayout_9)
         self.horizontalLayout_7.addLayout(self.horizontalLayout_5)
         self.gridLayout_13.addLayout(self.horizontalLayout_7, 4, 0, 1, 3)
@@ -591,14 +591,14 @@ class Ui_contenedor_agregar_productos(object):
         self.gridLayout_13.addItem(spacerItem6, 7, 1, 1, 1)
         self.horizontalLayout_11 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
-        self.btn_btn_limpiarTablaProductos = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
-        self.btn_btn_limpiarTablaProductos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_limpiarTablaProductos.setObjectName("btn_btn_limpiarTablaProductos")
-        self.horizontalLayout_11.addWidget(self.btn_btn_limpiarTablaProductos)
-        self.btn_btn_cargar_CSVProductos = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
-        self.btn_btn_cargar_CSVProductos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_cargar_CSVProductos.setObjectName("btn_btn_cargar_CSVProductos")
-        self.horizontalLayout_11.addWidget(self.btn_btn_cargar_CSVProductos)
+        self.btn_btn_addProduct_limpiarTablaProductos = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
+        self.btn_btn_addProduct_limpiarTablaProductos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_limpiarTablaProductos.setObjectName("btn_btn_addProduct_limpiarTablaProductos")
+        self.horizontalLayout_11.addWidget(self.btn_btn_addProduct_limpiarTablaProductos)
+        self.btn_btn_addProduct_cargar_CSVProductos = QtWidgets.QPushButton(self.contenedor_scroll_formulario)
+        self.btn_btn_addProduct_cargar_CSVProductos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_cargar_CSVProductos.setObjectName("btn_btn_addProduct_cargar_CSVProductos")
+        self.horizontalLayout_11.addWidget(self.btn_btn_addProduct_cargar_CSVProductos)
         self.gridLayout_13.addLayout(self.horizontalLayout_11, 7, 2, 1, 1)
         self.widget = QtWidgets.QWidget(self.contenedor_scroll_formulario)
         self.widget.setObjectName("widget")
@@ -610,10 +610,10 @@ class Ui_contenedor_agregar_productos(object):
         self.contenedor_proveedores_vinculados.setObjectName("contenedor_proveedores_vinculados")
         self.gridLayout_8 = QtWidgets.QGridLayout(self.contenedor_proveedores_vinculados)
         self.gridLayout_8.setObjectName("gridLayout_8")
-        self.btn_btn_desvincular_proveedores = QtWidgets.QPushButton(self.contenedor_proveedores_vinculados)
-        self.btn_btn_desvincular_proveedores.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_desvincular_proveedores.setObjectName("btn_btn_desvincular_proveedores")
-        self.gridLayout_8.addWidget(self.btn_btn_desvincular_proveedores, 4, 0, 1, 1)
+        self.btn_btn_addProduct_desvincular_proveedores = QtWidgets.QPushButton(self.contenedor_proveedores_vinculados)
+        self.btn_btn_addProduct_desvincular_proveedores.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_desvincular_proveedores.setObjectName("btn_btn_addProduct_desvincular_proveedores")
+        self.gridLayout_8.addWidget(self.btn_btn_addProduct_desvincular_proveedores, 4, 0, 1, 1)
         self.etiqueta_proveedores_vinculados = QtWidgets.QLabel(self.contenedor_proveedores_vinculados)
         self.etiqueta_proveedores_vinculados.setObjectName("etiqueta_proveedores_vinculados")
         self.gridLayout_8.addWidget(self.etiqueta_proveedores_vinculados, 1, 0, 1, 1)
@@ -637,10 +637,10 @@ class Ui_contenedor_agregar_productos(object):
         self.lista_proveedores_a_vincular = QtWidgets.QListWidget(self.contenedor_proveedores_a_vincular)
         self.lista_proveedores_a_vincular.setObjectName("lista_proveedores_a_vincular")
         self.gridLayout_6.addWidget(self.lista_proveedores_a_vincular, 1, 0, 1, 1)
-        self.btn_btn_eliminar_proveedor_a_vincular = QtWidgets.QPushButton(self.contenedor_proveedores_a_vincular)
-        self.btn_btn_eliminar_proveedor_a_vincular.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_eliminar_proveedor_a_vincular.setObjectName("btn_btn_eliminar_proveedor_a_vincular")
-        self.gridLayout_6.addWidget(self.btn_btn_eliminar_proveedor_a_vincular, 2, 0, 1, 1)
+        self.btn_btn_addProduct_eliminar_proveedor_a_vincular = QtWidgets.QPushButton(self.contenedor_proveedores_a_vincular)
+        self.btn_btn_addProduct_eliminar_proveedor_a_vincular.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_eliminar_proveedor_a_vincular.setObjectName("btn_btn_addProduct_eliminar_proveedor_a_vincular")
+        self.gridLayout_6.addWidget(self.btn_btn_addProduct_eliminar_proveedor_a_vincular, 2, 0, 1, 1)
         self.horizontalLayout_12.addWidget(self.contenedor_proveedores_a_vincular)
         self.contenedor_proveedores_existentes = QtWidgets.QFrame(self.widget)
         self.contenedor_proveedores_existentes.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -655,10 +655,10 @@ class Ui_contenedor_agregar_productos(object):
         self.lista_todos_los_proveedores = QtWidgets.QListWidget(self.contenedor_proveedores_existentes)
         self.lista_todos_los_proveedores.setObjectName("lista_todos_los_proveedores")
         self.gridLayout_10.addWidget(self.lista_todos_los_proveedores, 2, 0, 1, 1)
-        self.btn_btn_vincular_proveedor = QtWidgets.QPushButton(self.contenedor_proveedores_existentes)
-        self.btn_btn_vincular_proveedor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_vincular_proveedor.setObjectName("btn_btn_vincular_proveedor")
-        self.gridLayout_10.addWidget(self.btn_btn_vincular_proveedor, 3, 0, 1, 1)
+        self.btn_btn_addProduct_vincular_proveedor = QtWidgets.QPushButton(self.contenedor_proveedores_existentes)
+        self.btn_btn_addProduct_vincular_proveedor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_vincular_proveedor.setObjectName("btn_btn_addProduct_vincular_proveedor")
+        self.gridLayout_10.addWidget(self.btn_btn_addProduct_vincular_proveedor, 3, 0, 1, 1)
         self.etiqueta_proveedores_existentes = QtWidgets.QLabel(self.contenedor_proveedores_existentes)
         self.etiqueta_proveedores_existentes.setObjectName("etiqueta_proveedores_existentes")
         self.gridLayout_10.addWidget(self.etiqueta_proveedores_existentes, 0, 0, 1, 1)
@@ -683,19 +683,19 @@ class Ui_contenedor_agregar_productos(object):
         self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.contenedor_botones)
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        self.btn_btn_agregar_producto = QtWidgets.QPushButton(self.contenedor_botones)
-        self.btn_btn_agregar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_agregar_producto.setObjectName("btn_btn_agregar_producto")
-        self.horizontalLayout_6.addWidget(self.btn_btn_agregar_producto)
-        self.btn_btn_actualizar_producto = QtWidgets.QPushButton(self.contenedor_botones)
-        self.btn_btn_actualizar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_actualizar_producto.setObjectName("btn_btn_actualizar_producto")
-        self.horizontalLayout_6.addWidget(self.btn_btn_actualizar_producto)
+        self.btn_btn_addProduct_agregar_producto = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_addProduct_agregar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_agregar_producto.setObjectName("btn_btn_addProduct_agregar_producto")
+        self.horizontalLayout_6.addWidget(self.btn_btn_addProduct_agregar_producto)
+        self.btn_btn_addProduct_actualizar_producto = QtWidgets.QPushButton(self.contenedor_botones)
+        self.btn_btn_addProduct_actualizar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_actualizar_producto.setObjectName("btn_btn_addProduct_actualizar_producto")
+        self.horizontalLayout_6.addWidget(self.btn_btn_addProduct_actualizar_producto)
         self.gridLayout_7.addWidget(self.contenedor_botones, 0, 0, 1, 1, QtCore.Qt.AlignLeft)
-        self.btn_btn_guardar_producto = QtWidgets.QPushButton(self.contenedor_formulario_inferior)
-        self.btn_btn_guardar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_guardar_producto.setObjectName("btn_btn_guardar_producto")
-        self.gridLayout_7.addWidget(self.btn_btn_guardar_producto, 0, 1, 1, 1, QtCore.Qt.AlignRight)
+        self.btn_btn_addProduct_guardar_producto = QtWidgets.QPushButton(self.contenedor_formulario_inferior)
+        self.btn_btn_addProduct_guardar_producto.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_addProduct_guardar_producto.setObjectName("btn_btn_addProduct_guardar_producto")
+        self.gridLayout_7.addWidget(self.btn_btn_addProduct_guardar_producto, 0, 1, 1, 1, QtCore.Qt.AlignRight)
         self.gridLayout_13.addWidget(self.contenedor_formulario_inferior, 11, 0, 1, 4)
         self.contenedor_formulario_izquierda.setWidget(self.contenedor_scroll_formulario)
         self.gridLayout_3.addWidget(self.contenedor_formulario_izquierda, 0, 0, 1, 1)
@@ -743,20 +743,20 @@ class Ui_contenedor_agregar_productos(object):
         self.entero_margenProducto.setSuffix(_translate("contenedor_agregar_productos", "%"))
         self.etiqueta_notasProducto.setText(_translate("contenedor_agregar_productos", "Notas"))
         self.etiqueta_descripcionProducto.setText(_translate("contenedor_agregar_productos", "Descripción"))
-        self.btn_btn_limpiarTablaProductos.setText(_translate("contenedor_agregar_productos", "Limpiar tabla"))
-        self.btn_btn_cargar_CSVProductos.setText(_translate("contenedor_agregar_productos", "Cargar CSV"))
-        self.btn_btn_desvincular_proveedores.setText(_translate("contenedor_agregar_productos", "Desvincular Proveedor"))
+        self.btn_btn_addProduct_limpiarTablaProductos.setText(_translate("contenedor_agregar_productos", "Limpiar tabla"))
+        self.btn_btn_addProduct_cargar_CSVProductos.setText(_translate("contenedor_agregar_productos", "Cargar excel"))
+        self.btn_btn_addProduct_desvincular_proveedores.setText(_translate("contenedor_agregar_productos", "Desvincular Proveedor"))
         self.etiqueta_proveedores_vinculados.setText(_translate("contenedor_agregar_productos", "Proveedores Asignados"))
         self.txt_buscar_proveedor_vinculado.setPlaceholderText(_translate("contenedor_agregar_productos", "Nombre del Proveedor"))
         self.etiqueta_proveedores_a_vincular.setText(_translate("contenedor_agregar_productos", "Proveedores a Vincular"))
-        self.btn_btn_eliminar_proveedor_a_vincular.setText(_translate("contenedor_agregar_productos", "Remover Proveedor"))
+        self.btn_btn_addProduct_eliminar_proveedor_a_vincular.setText(_translate("contenedor_agregar_productos", "Remover Proveedor"))
         self.txt_buscar_proveedor_a_vincular.setPlaceholderText(_translate("contenedor_agregar_productos", "Nombre del proveedor"))
-        self.btn_btn_vincular_proveedor.setText(_translate("contenedor_agregar_productos", "Vincular Proveedor"))
+        self.btn_btn_addProduct_vincular_proveedor.setText(_translate("contenedor_agregar_productos", "Vincular Proveedor"))
         self.etiqueta_proveedores_existentes.setText(_translate("contenedor_agregar_productos", "Proveedores Existentes"))
         self.etiqueta_listaProductos.setText(_translate("contenedor_agregar_productos", "Lista de Productos"))
-        self.btn_btn_agregar_producto.setText(_translate("contenedor_agregar_productos", "Agregar producto"))
-        self.btn_btn_actualizar_producto.setText(_translate("contenedor_agregar_productos", "Actualizar"))
-        self.btn_btn_guardar_producto.setText(_translate("contenedor_agregar_productos", "Guardar"))
+        self.btn_btn_addProduct_agregar_producto.setText(_translate("contenedor_agregar_productos", "Agregar producto"))
+        self.btn_btn_addProduct_actualizar_producto.setText(_translate("contenedor_agregar_productos", "Actualizar"))
+        self.btn_btn_addProduct_guardar_producto.setText(_translate("contenedor_agregar_productos", "Guardar"))
 from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc
 from ...Source import iconsdvg_rc

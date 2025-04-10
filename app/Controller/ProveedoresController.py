@@ -21,8 +21,8 @@ import traceback
 class Control_proveedores(QWidget):
     PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
     LISTAR_PROVEEDORES_EN_TABLA_SIGNAL = pyqtSignal()
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.ui = Ui_Control_Proveedores()
         self.ui.setupUi(self)
         self.ejecutando_trabajo = False
@@ -73,17 +73,22 @@ class Control_proveedores(QWidget):
         self.representante = None
         self.seleccion_conectada_proveedores = None
         self.lista_categorias = {}
+        self.ventana_productos_precios = None
         
+    def ventana_cerrada_productos_proveedor(self):
+        self.ventana_productos_precios = None
 
     def mostrar_productos_y_precios(self):
         if not self.proveedor_seleccionado:
             Mensaje().mensaje_informativo("No haz seleccionado un proveedor para poder visualizar la lista de productos y precios.")
             return
         if self.proveedor_seleccionado:
-            self.ventana_productos_precios = Productos_de_proveedorController(self.proveedor_seleccionado)
+            self.ventana_productos_precios = Productos_de_proveedorController(self, self.proveedor_seleccionado)
             self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
             self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
+            self.ventana_productos_precios.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.connect(self.ventana_cerrada_productos_proveedor)
             self.ventana_productos_precios.show()
+    
     
     def mostrar_categorias(self):
         with Conexion_base_datos() as db:

@@ -7,7 +7,7 @@ class ClientesFisicosAndMorales:
     def __init__(self, session):
         self.session = session
         
-    @property
+    
     def insertar_areas_negocio_basicas(self):
         query = select(Areas_negocios).limit(1)
         resultado_consulta = self.session.execute(query).fetchone()
@@ -31,10 +31,10 @@ class ClientesFisicosAndMorales:
             ]
             
             self.session.execute(Areas_negocios.__table__.insert(), areas_basicas)
-            self.session.commit()
+            # self.session.commit()
             return True
         
-    @property
+    
     def insertar_categorias_negocio_basicas(self):
         query = select(Categorias_de_clientes).limit(1)
         resultado_consulta = self.session.execute(query).fetchone()
@@ -96,7 +96,7 @@ class ClientesFisicosAndMorales:
             ]
             
             self.session.execute(Categorias_de_clientes.__table__.insert(), categorias_basicas)
-            self.session.commit()
+            # self.session.commit()
             return True
 
     def agregar_cliente_fisico(self, nombre, correo, rfc, telefono, pais, estado, ciudad, avenidas, calles, codigo_postal, direccion_adicional, entidad_legalizada, categoria_cliente_id, credito, estado_credito, limite_credito, porcentaje_interes, fecha_ultimo_reporte, credito_disponible, credito_utilizado, tipo_cliente, aplica_descuento, porcentaje_descuento, comentarios, areas_de_negocios_id, apellido_paterno, apellido_materno, curp, fecha_nacimiento, num_identificacion, ocupacion, ingresos, estado_civil, foto):

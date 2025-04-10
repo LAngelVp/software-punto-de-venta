@@ -1,4 +1,6 @@
 import unicodedata, os
+from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import QRect
 class FuncionesAuxiliaresController:
     def __init__(self):
          pass
@@ -36,3 +38,18 @@ class FuncionesAuxiliaresController:
                 caja_opciones.clear()
                 for nombre, id_elemento in elementos:
                     caja_opciones.addItem(nombre, id_elemento)
+                    
+    @staticmethod
+    def centrar_en_padre(ventana: QWidget):
+        """
+        Centra la ventana dada respecto a su ventana padre (si tiene).
+        """
+        padre = ventana.parent()
+        if padre:
+            geo_padre: QRect = padre.frameGeometry()
+            centro_padre = geo_padre.center()
+
+            geo_hija = ventana.frameGeometry()
+            geo_hija.moveCenter(centro_padre)
+
+            ventana.move(geo_hija.topLeft())

@@ -6,15 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>779</width>
-    <height>492</height>
+    <width>1020</width>
+    <height>468</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">[objectName*=&quot;contenedor&quot;]{
+   <string notr="true">#contenedor_encabezado{
+background: #023375;
+}
+#etiqueta_encabezado_productosProveedor{
+color: #fffefb;
+font-size: 18px;
+font-weight:bold;
+font-family:&quot;Arial&quot;;
+}
+[objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
 }
 [objectName*=&quot;etiqueta_&quot;]{
@@ -34,7 +43,7 @@ border-bottom: 1px solid #787878;
 [objectName*=&quot;txt_&quot;]:focus{
 border-bottom: 2px solid #023375;
 }
-[objectName*=&quot;btn_btn&quot;]{
+[objectName*=&quot;btn_producto_del_proveedor&quot;]{
 background: #00619a;
 font-size: 14px;
 font-family: Arial;
@@ -45,23 +54,29 @@ border-radius: 5px;
 color: #fffefb;
 padding: 3px 10px;
 }
-[objectName*=&quot;btn_btn&quot;]:hover{
+[objectName*=&quot;btn_producto_del_proveedor&quot;]:hover{
 background: #2196F3;
 }
-[objectName*=&quot;btn_btn&quot;]:pressed{
+[objectName*=&quot;btn_producto_del_proveedor&quot;]:pressed{
 background: #1B80D0;
 }
-[objectName*=&quot;btn_btn_eliminar&quot;]:hover{
+[objectName*=&quot;btn_producto_del_proveedor_eliminar&quot;]:hover{
 background: #ee1d52;
 }
-[objectName*=&quot;btn_btn_eliminar&quot;]:pressed{
+[objectName*=&quot;btn_producto_del_proveedor_eliminar&quot;]:pressed{
 background: #B13636;
 }
-[objectName*=&quot;btn_btn_agregar&quot;]:hover{
+[objectName*=&quot;btn_producto_del_proveedor_agregar&quot;]:hover{
 background: #68a67d;
 }
-[objectName*=&quot;btn_btn_agregar&quot;]:pressed{
+[objectName*=&quot;btn_producto_del_proveedor_agregar&quot;]:pressed{
 background: #578B69;
+}
+#btn_productoProveedor_cerrar{
+background: #fffefb;
+}
+#btn_productoProveedor_cerrar:pressed{
+background: rgb(222, 221, 218);
 }
 [objectName^=&quot;cajaopciones_&quot;]{
 border: none;
@@ -115,7 +130,10 @@ padding-right:5px;
     color: white;
 }</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -128,10 +146,53 @@ padding-right:5px;
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <property name="spacing">
-    <number>0</number>
-   </property>
-   <item row="0" column="0">
+   <item>
+    <widget class="QFrame" name="contenedor_encabezado">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="etiqueta_encabezado_productosProveedor">
+        <property name="text">
+         <string>PRODUCTOS DEL PROVEEDOR</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_productoProveedor_cerrar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../../Source/ibootstrap.qrc">
+          <normaloff>:/Icons/Bootstrap/x-lg.svg</normaloff>:/Icons/Bootstrap/x-lg.svg</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="QScrollArea" name="contenedor_scrollarea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -141,11 +202,18 @@ padding-right:5px;
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>777</width>
-        <height>490</height>
+        <width>1018</width>
+        <height>422</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_2">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="etiqueta_nombre_del_proveedor">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QTabWidget" name="contenedor_tabs">
          <property name="font">
@@ -203,7 +271,7 @@ padding-right:5px;
                 </property>
                 <layout class="QGridLayout" name="gridLayout_4">
                  <item row="1" column="3" alignment="Qt::AlignRight">
-                  <widget class="QPushButton" name="btn_btn_editar_producto_del_proveedor">
+                  <widget class="QPushButton" name="btn_producto_del_proveedor_editar">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
@@ -217,7 +285,7 @@ padding-right:5px;
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QPushButton" name="btn_btn_actualizar_tabla_productos_del_proveedor">
+                  <widget class="QPushButton" name="btn_producto_del_proveedor_actualizar_tabla">
                    <property name="text">
                     <string>Actualizar Tabla</string>
                    </property>
@@ -228,7 +296,7 @@ padding-right:5px;
                   </widget>
                  </item>
                  <item row="1" column="2">
-                  <widget class="QPushButton" name="btn_btn_eliminar_producto_del_proveedor">
+                  <widget class="QPushButton" name="btn_producto_del_proveedor_eliminar">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
@@ -300,11 +368,11 @@ padding-right:5px;
                 <property name="gridStyle">
                  <enum>Qt::DashLine</enum>
                 </property>
-                <attribute name="horizontalHeaderDefaultSectionSize">
-                 <number>200</number>
-                </attribute>
                 <attribute name="horizontalHeaderMinimumSectionSize">
                  <number>150</number>
+                </attribute>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>200</number>
                 </attribute>
                 <attribute name="horizontalHeaderStretchLastSection">
                  <bool>false</bool>
@@ -354,7 +422,7 @@ padding-right:5px;
                </spacer>
               </item>
               <item row="0" column="1">
-               <widget class="QPushButton" name="btn_btn_agregar_producto_al_proveedor">
+               <widget class="QPushButton" name="btn_producto_del_proveedor_para_agregar">
                 <property name="cursor">
                  <cursorShape>PointingHandCursor</cursorShape>
                 </property>
@@ -434,11 +502,11 @@ padding-right:5px;
                 <property name="gridStyle">
                  <enum>Qt::DashLine</enum>
                 </property>
-                <attribute name="horizontalHeaderDefaultSectionSize">
-                 <number>200</number>
-                </attribute>
                 <attribute name="horizontalHeaderMinimumSectionSize">
                  <number>150</number>
+                </attribute>
+                <attribute name="horizontalHeaderDefaultSectionSize">
+                 <number>200</number>
                 </attribute>
                 <attribute name="verticalHeaderVisible">
                  <bool>false</bool>
@@ -487,13 +555,6 @@ padding-right:5px;
            </item>
           </layout>
          </widget>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="etiqueta_nombre_del_proveedor">
-         <property name="text">
-          <string/>
-         </property>
         </widget>
        </item>
       </layout>

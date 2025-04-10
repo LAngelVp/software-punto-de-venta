@@ -27,7 +27,7 @@ class SistemaPrincipal(QWidget):
         self.ui.setupUi(self)
         self.datos_usuario = datos_usuario
         
-        Mensaje().mensaje_informativo(f"¡Quete encuentres de maravilla {self.datos_usuario["nombre_empleado"]}!\n¡Que tengas un excelente día y mucho éxito en tus ventas!")
+        Mensaje().mensaje_informativo(f'¡Quete encuentres de maravilla {self.datos_usuario["nombre_empleado"]}!\n¡Que tengas un excelente día y mucho éxito en tus ventas!')
         
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.showMaximized()
@@ -52,7 +52,7 @@ class SistemaPrincipal(QWidget):
         self.ventas= Ventas()
         self.compras= Compras()
         self.empleados= EmpleadosController()
-        self.proveedores= Control_proveedores()
+        self.proveedores= Control_proveedores(self)
         self.clientes= Clientes()
         self.productos= Productos(self, datos_usuario = self.datos_usuario)
         self.ui.w_cuerpo_contenido.addWidget(self.perfil)

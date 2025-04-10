@@ -60,7 +60,7 @@ border-bottom:  2px solid #023375;
 [objectName*=&quot;txtlargo&quot;]{
 max-height:100px;
 }
-[objectName*=&quot;btn_btn&quot;]{
+[objectName*=&quot;btn_btn_addProduct&quot;]{
 border:none;
 font-size:14px;
 font-family:&quot;Arial&quot;;
@@ -71,7 +71,7 @@ color: #fffefb;
 border-radius: 4px;
 max-height: 15px;
 }
-#btn_btn_agregar_categoria{
+#btn_btn_addProduct_agregar_categoria{
 padding: 3px;
 }
 [objectName*=&quot;btn_btn&quot;]:hover{
@@ -80,17 +80,23 @@ background:#2196F3;
 [objectName*=&quot;btn_btn&quot;]:pressed{
 background:#1B80D0;
 }
-#btn_btn_guardar_producto:hover{
+#btn_btn_addProduct_guardar_producto:hover{
 background:#68a67d;
 }
-#btn_btn_agregar_producto:pressed{
+#btn_btn_addProduct_agregar_producto:pressed{
 background:#578B69;
 }
-[objectName*=&quot;btn_btn_eliminar&quot;]:hover{
+[objectName*=&quot;btn_btn_addProduct_eliminar&quot;]:hover{
 background:#ee1d52;
 }
-[objectName*=&quot;btn_btn_eliminar&quot;]:pressed{
+[objectName*=&quot;btn_btn_addProduct_eliminar&quot;]:pressed{
 background:#B13636;
+}
+#btn_btn_addProduct_cerrar{
+background: #fffefb;
+}
+#btn_btn_addProduct_cerrar:pressed{
+background: rgb(222, 221, 218);
 }
 [objectName*=&quot;opcion_&quot;]{
 font-size: 14px;
@@ -270,13 +276,13 @@ background: #fffefb;
           <number>0</number>
          </property>
          <property name="topMargin">
-          <number>0</number>
+          <number>5</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>5</number>
          </property>
          <property name="bottomMargin">
-          <number>0</number>
+          <number>5</number>
          </property>
          <item>
           <widget class="QLabel" name="etiqueta_titulo_ventana">
@@ -299,18 +305,10 @@ background: #fffefb;
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="btn_btn_minimizar">
-           <property name="text">
-            <string/>
+          <widget class="QPushButton" name="btn_btn_addProduct_cerrar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
-           <property name="icon">
-            <iconset resource="../../Source/ibootstrap.qrc">
-             <normaloff>:/Icons/Bootstrap/dash-lg.svg</normaloff>:/Icons/Bootstrap/dash-lg.svg</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="btn_btn_cerrar">
            <property name="text">
             <string/>
            </property>
@@ -357,8 +355,8 @@ background: #fffefb;
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>1304</width>
-              <height>953</height>
+              <width>1289</width>
+              <height>949</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_13">
@@ -678,7 +676,7 @@ background: #fffefb;
                 <widget class="QComboBox" name="cajaOpciones_categoriaProducto"/>
                </item>
                <item>
-                <widget class="QPushButton" name="btn_btn_agregar_categoria">
+                <widget class="QPushButton" name="btn_btn_addProduct_agregar_categoria">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
@@ -704,7 +702,7 @@ background: #fffefb;
                   <widget class="QComboBox" name="cajaOpciones_presentacionProducto"/>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="btn_btn_agregarPresentacionProducto">
+                  <widget class="QPushButton" name="btn_btn_addProduct_agregarPresentacionProducto">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
                    </property>
@@ -734,7 +732,7 @@ background: #fffefb;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="btn_btn_agregar_unidadMedidaProducto">
+                    <widget class="QPushButton" name="btn_btn_addProduct_agregar_unidadMedidaProducto">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
@@ -1071,7 +1069,7 @@ background: #fffefb;
              <item row="7" column="2">
               <layout class="QHBoxLayout" name="horizontalLayout_11">
                <item>
-                <widget class="QPushButton" name="btn_btn_limpiarTablaProductos">
+                <widget class="QPushButton" name="btn_btn_addProduct_limpiarTablaProductos">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
@@ -1081,12 +1079,12 @@ background: #fffefb;
                 </widget>
                </item>
                <item>
-                <widget class="QPushButton" name="btn_btn_cargar_CSVProductos">
+                <widget class="QPushButton" name="btn_btn_addProduct_cargar_CSVProductos">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="text">
-                  <string>Cargar CSV</string>
+                  <string>Cargar excel</string>
                  </property>
                 </widget>
                </item>
@@ -1105,7 +1103,7 @@ background: #fffefb;
                   </property>
                   <layout class="QGridLayout" name="gridLayout_8">
                    <item row="4" column="0">
-                    <widget class="QPushButton" name="btn_btn_desvincular_proveedores">
+                    <widget class="QPushButton" name="btn_btn_addProduct_desvincular_proveedores">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
@@ -1157,7 +1155,7 @@ background: #fffefb;
                     <widget class="QListWidget" name="lista_proveedores_a_vincular"/>
                    </item>
                    <item row="2" column="0">
-                    <widget class="QPushButton" name="btn_btn_eliminar_proveedor_a_vincular">
+                    <widget class="QPushButton" name="btn_btn_addProduct_eliminar_proveedor_a_vincular">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
@@ -1192,7 +1190,7 @@ background: #fffefb;
                     <widget class="QListWidget" name="lista_todos_los_proveedores"/>
                    </item>
                    <item row="3" column="0">
-                    <widget class="QPushButton" name="btn_btn_vincular_proveedor">
+                    <widget class="QPushButton" name="btn_btn_addProduct_vincular_proveedor">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
@@ -1255,7 +1253,7 @@ background: #fffefb;
                     <number>0</number>
                    </property>
                    <item>
-                    <widget class="QPushButton" name="btn_btn_agregar_producto">
+                    <widget class="QPushButton" name="btn_btn_addProduct_agregar_producto">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
@@ -1265,7 +1263,7 @@ background: #fffefb;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="btn_btn_actualizar_producto">
+                    <widget class="QPushButton" name="btn_btn_addProduct_actualizar_producto">
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
@@ -1278,7 +1276,7 @@ background: #fffefb;
                  </widget>
                 </item>
                 <item row="0" column="1" alignment="Qt::AlignRight">
-                 <widget class="QPushButton" name="btn_btn_guardar_producto">
+                 <widget class="QPushButton" name="btn_btn_addProduct_guardar_producto">
                   <property name="cursor">
                    <cursorShape>PointingHandCursor</cursorShape>
                   </property>

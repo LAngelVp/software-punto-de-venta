@@ -8,28 +8,30 @@ from ..Model.Proveedores_ProductosModel import Proveedores_productoModel
 from ..View.UserInterfacePy.PRODUCTOS_PROVEEDORES import *
 from .AjustarCajaOpcionesGlobal import *
 from .MensajesAlertasController import Mensaje
+from .FuncionesAuxiliares import FuncionesAuxiliaresController
 class Productos_de_proveedorController(QWidget):
     PRODUCTO_DE_PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
     PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL=pyqtSignal(object)
     PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL=pyqtSignal(object)
     LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR = pyqtSignal()
     PRODUCTO_VINCULADO_SIGNAL = pyqtSignal()
-    def __init__(self, proveedor = None):
-        super().__init__()
+    VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR = pyqtSignal()
+    def __init__(self, parent = None, proveedor = None):
+        super().__init__(parent)
         self.ui = Ui_contenedor_productos_proveedores()
         self.ui.setupUi(self)
-        self.proveedor = proveedor
-        pantalla = self.frameGeometry()
-        pantalla.moveCenter(self.screen().availableGeometry().center())
-        self.move(pantalla.topLeft())
-        self.ui.btn_btn_eliminar_producto_del_proveedor.clicked.connect(self.eliminar_producto_del_proveedor_metodo)
+        
+        self.ui.btn_producto_del_proveedor_eliminar.clicked.connect(self.eliminar_producto_del_proveedor_metodo)
         self.ui.txt_nombre_productodelsistema.returnPressed.connect(self.filtrar_productos_sistema)
         self.ui.txt_nombre_producto.returnPressed.connect(self.filtrar_productos_de_proveedor)
-        self.ui.btn_btn_agregar_producto_al_proveedor.clicked.connect(self.vincular_producto_al_proveedor_funcion)
-        self.ui.btn_btn_actualizar_tabla_productos_del_proveedor.clicked.connect(self.mostrar_productos_proveedor)
+        self.ui.btn_producto_del_proveedor_para_agregar.clicked.connect(self.vincular_producto_al_proveedor_funcion)
+        self.ui.btn_producto_del_proveedor_actualizar_tabla.clicked.connect(self.mostrar_productos_proveedor)
+        self.ui.btn_productoProveedor_cerrar.clicked.connect(self.close)
         
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre)
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre_productos_del_sistema)
+        
+        self.proveedor = proveedor
         self.seleccion_conectada_productos = False
         self.producto_seleccionado = None
         self.seleccion_conectada_productos_sistema=False
@@ -50,6 +52,16 @@ class Productos_de_proveedorController(QWidget):
         self.PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL.connect(self.vincular_producto_al_proveedor_signal)
         
         self.PRODUCTO_A_VINCULAR_SELECCIONADO_SIGNAL.connect(self.quitar_producto_para_vincular)
+        
+    def showEvent(self, event):
+        super().showEvent(event)
+        if not self._ventanaCentrada:
+            FuncionesAuxiliaresController.centrar_en_padre(self)
+            self._ventanaCentrada = True
+    
+    def closeEvent(self, event):
+        self.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.emit() 
+        event.accept()
         
     def mostrar_productos_proveedor(self):
         if not self.proveedor:
@@ -299,4 +311,3 @@ class Productos_de_proveedorController(QWidget):
         except Exception as e:
             print(f"error: {e}")
 
-        

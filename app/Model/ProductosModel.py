@@ -35,7 +35,7 @@ class ProductosModel:
             self.session.commit()
             return True
         
-    @property
+    
     def insertar_presentaciones_basicas(self):
         query = select(Unidad_medida_productos).limit(1)
         resultado_consulta = self.session.execute(query).fetchone()
@@ -63,10 +63,10 @@ class ProductosModel:
             ]
             
             self.session.execute(Unidad_medida_productos.__table__.insert(), unidades_productos)
-            self.session.commit()
+            # self.session.commit()
             return True
     
-    @property
+    
     def insertar_categorias_basicas(self):
         query = select(Categorias_productos).limit(1)
         resultado_consulta = self.session.execute(query).fetchone()
@@ -90,7 +90,7 @@ class ProductosModel:
             ]
             
             self.session.execute(Categorias_productos.__table__.insert(), categorias_productos)
-            self.session.commit()
+            # self.session.commit()
             return True
     
     def agregar_presentacion(self, nombre):

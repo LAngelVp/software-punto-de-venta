@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'PRODUCTOS_PROVEEDORES.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/PRODUCTOS_PROVEEDORES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,8 +14,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_contenedor_productos_proveedores(object):
     def setupUi(self, contenedor_productos_proveedores):
         contenedor_productos_proveedores.setObjectName("contenedor_productos_proveedores")
-        contenedor_productos_proveedores.resize(779, 492)
-        contenedor_productos_proveedores.setStyleSheet("[objectName*=\"contenedor\"]{\n"
+        contenedor_productos_proveedores.resize(1020, 468)
+        contenedor_productos_proveedores.setStyleSheet("#contenedor_encabezado{\n"
+"background: #023375;\n"
+"}\n"
+"#etiqueta_encabezado_productosProveedor{\n"
+"color: #fffefb;\n"
+"font-size: 18px;\n"
+"font-weight:bold;\n"
+"font-family:\"Arial\";\n"
+"}\n"
+"[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
 "}\n"
 "[objectName*=\"etiqueta_\"]{\n"
@@ -35,7 +44,7 @@ class Ui_contenedor_productos_proveedores(object):
 "[objectName*=\"txt_\"]:focus{\n"
 "border-bottom: 2px solid #023375;\n"
 "}\n"
-"[objectName*=\"btn_btn\"]{\n"
+"[objectName*=\"btn_producto_del_proveedor\"]{\n"
 "background: #00619a;\n"
 "font-size: 14px;\n"
 "font-family: Arial;\n"
@@ -46,23 +55,29 @@ class Ui_contenedor_productos_proveedores(object):
 "color: #fffefb;\n"
 "padding: 3px 10px;\n"
 "}\n"
-"[objectName*=\"btn_btn\"]:hover{\n"
+"[objectName*=\"btn_producto_del_proveedor\"]:hover{\n"
 "background: #2196F3;\n"
 "}\n"
-"[objectName*=\"btn_btn\"]:pressed{\n"
+"[objectName*=\"btn_producto_del_proveedor\"]:pressed{\n"
 "background: #1B80D0;\n"
 "}\n"
-"[objectName*=\"btn_btn_eliminar\"]:hover{\n"
+"[objectName*=\"btn_producto_del_proveedor_eliminar\"]:hover{\n"
 "background: #ee1d52;\n"
 "}\n"
-"[objectName*=\"btn_btn_eliminar\"]:pressed{\n"
+"[objectName*=\"btn_producto_del_proveedor_eliminar\"]:pressed{\n"
 "background: #B13636;\n"
 "}\n"
-"[objectName*=\"btn_btn_agregar\"]:hover{\n"
+"[objectName*=\"btn_producto_del_proveedor_agregar\"]:hover{\n"
 "background: #68a67d;\n"
 "}\n"
-"[objectName*=\"btn_btn_agregar\"]:pressed{\n"
+"[objectName*=\"btn_producto_del_proveedor_agregar\"]:pressed{\n"
 "background: #578B69;\n"
+"}\n"
+"#btn_productoProveedor_cerrar{\n"
+"background: #fffefb;\n"
+"}\n"
+"#btn_productoProveedor_cerrar:pressed{\n"
+"background: rgb(222, 221, 218);\n"
 "}\n"
 "[objectName^=\"cajaopciones_\"]{\n"
 "border: none;\n"
@@ -115,18 +130,42 @@ class Ui_contenedor_productos_proveedores(object):
 "    background-color: #023375;\n"
 "    color: white;\n"
 "}")
-        self.gridLayout = QtWidgets.QGridLayout(contenedor_productos_proveedores)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setSpacing(0)
-        self.gridLayout.setObjectName("gridLayout")
+        self.verticalLayout = QtWidgets.QVBoxLayout(contenedor_productos_proveedores)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setSpacing(0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.contenedor_encabezado = QtWidgets.QFrame(contenedor_productos_proveedores)
+        self.contenedor_encabezado.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.contenedor_encabezado.setObjectName("contenedor_encabezado")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.contenedor_encabezado)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.etiqueta_encabezado_productosProveedor = QtWidgets.QLabel(self.contenedor_encabezado)
+        self.etiqueta_encabezado_productosProveedor.setObjectName("etiqueta_encabezado_productosProveedor")
+        self.horizontalLayout_3.addWidget(self.etiqueta_encabezado_productosProveedor)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem)
+        self.btn_productoProveedor_cerrar = QtWidgets.QPushButton(self.contenedor_encabezado)
+        self.btn_productoProveedor_cerrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_productoProveedor_cerrar.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/x-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_productoProveedor_cerrar.setIcon(icon)
+        self.btn_productoProveedor_cerrar.setObjectName("btn_productoProveedor_cerrar")
+        self.horizontalLayout_3.addWidget(self.btn_productoProveedor_cerrar)
+        self.verticalLayout.addWidget(self.contenedor_encabezado)
         self.contenedor_scrollarea = QtWidgets.QScrollArea(contenedor_productos_proveedores)
         self.contenedor_scrollarea.setWidgetResizable(True)
         self.contenedor_scrollarea.setObjectName("contenedor_scrollarea")
         self.contenedor_contenido_scrollarea = QtWidgets.QWidget()
-        self.contenedor_contenido_scrollarea.setGeometry(QtCore.QRect(0, 0, 777, 490))
+        self.contenedor_contenido_scrollarea.setGeometry(QtCore.QRect(0, 0, 1018, 422))
         self.contenedor_contenido_scrollarea.setObjectName("contenedor_contenido_scrollarea")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.contenedor_contenido_scrollarea)
-        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.contenedor_contenido_scrollarea)
+        self.gridLayout.setObjectName("gridLayout")
+        self.etiqueta_nombre_del_proveedor = QtWidgets.QLabel(self.contenedor_contenido_scrollarea)
+        self.etiqueta_nombre_del_proveedor.setText("")
+        self.etiqueta_nombre_del_proveedor.setObjectName("etiqueta_nombre_del_proveedor")
+        self.gridLayout.addWidget(self.etiqueta_nombre_del_proveedor, 0, 0, 1, 1)
         self.contenedor_tabs = QtWidgets.QTabWidget(self.contenedor_contenido_scrollarea)
         font = QtGui.QFont()
         font.setBold(True)
@@ -152,28 +191,28 @@ class Ui_contenedor_productos_proveedores(object):
         self.contenedor_botones_superior.setObjectName("contenedor_botones_superior")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.contenedor_botones_superior)
         self.gridLayout_4.setObjectName("gridLayout_4")
-        self.btn_btn_editar_producto_del_proveedor = QtWidgets.QPushButton(self.contenedor_botones_superior)
-        self.btn_btn_editar_producto_del_proveedor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_editar_producto_del_proveedor.setIcon(icon)
-        self.btn_btn_editar_producto_del_proveedor.setObjectName("btn_btn_editar_producto_del_proveedor")
-        self.gridLayout_4.addWidget(self.btn_btn_editar_producto_del_proveedor, 1, 3, 1, 1, QtCore.Qt.AlignRight)
-        self.btn_btn_actualizar_tabla_productos_del_proveedor = QtWidgets.QPushButton(self.contenedor_botones_superior)
+        self.btn_producto_del_proveedor_editar = QtWidgets.QPushButton(self.contenedor_botones_superior)
+        self.btn_producto_del_proveedor_editar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_actualizar_tabla_productos_del_proveedor.setIcon(icon1)
-        self.btn_btn_actualizar_tabla_productos_del_proveedor.setObjectName("btn_btn_actualizar_tabla_productos_del_proveedor")
-        self.gridLayout_4.addWidget(self.btn_btn_actualizar_tabla_productos_del_proveedor, 1, 1, 1, 1)
-        self.btn_btn_eliminar_producto_del_proveedor = QtWidgets.QPushButton(self.contenedor_botones_superior)
-        self.btn_btn_eliminar_producto_del_proveedor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_producto_del_proveedor_editar.setIcon(icon1)
+        self.btn_producto_del_proveedor_editar.setObjectName("btn_producto_del_proveedor_editar")
+        self.gridLayout_4.addWidget(self.btn_producto_del_proveedor_editar, 1, 3, 1, 1, QtCore.Qt.AlignRight)
+        self.btn_producto_del_proveedor_actualizar_tabla = QtWidgets.QPushButton(self.contenedor_botones_superior)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/cerrar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_eliminar_producto_del_proveedor.setIcon(icon2)
-        self.btn_btn_eliminar_producto_del_proveedor.setObjectName("btn_btn_eliminar_producto_del_proveedor")
-        self.gridLayout_4.addWidget(self.btn_btn_eliminar_producto_del_proveedor, 1, 2, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_4.addItem(spacerItem, 1, 0, 1, 1)
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_producto_del_proveedor_actualizar_tabla.setIcon(icon2)
+        self.btn_producto_del_proveedor_actualizar_tabla.setObjectName("btn_producto_del_proveedor_actualizar_tabla")
+        self.gridLayout_4.addWidget(self.btn_producto_del_proveedor_actualizar_tabla, 1, 1, 1, 1)
+        self.btn_producto_del_proveedor_eliminar = QtWidgets.QPushButton(self.contenedor_botones_superior)
+        self.btn_producto_del_proveedor_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/cerrar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_producto_del_proveedor_eliminar.setIcon(icon3)
+        self.btn_producto_del_proveedor_eliminar.setObjectName("btn_producto_del_proveedor_eliminar")
+        self.gridLayout_4.addWidget(self.btn_producto_del_proveedor_eliminar, 1, 2, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_4.addItem(spacerItem1, 1, 0, 1, 1)
         self.gridLayout_5.addWidget(self.contenedor_botones_superior, 0, 0, 1, 1)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setSpacing(10)
@@ -201,9 +240,9 @@ class Ui_contenedor_productos_proveedores(object):
         self.tabla_productos_del_proveedor.verticalHeader().setStretchLastSection(False)
         self.gridLayout_5.addWidget(self.tabla_productos_del_proveedor, 2, 0, 1, 1)
         self.gridLayout_3.addWidget(self.contenedor_productos_proveedor, 0, 0, 1, 1)
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/box-seam.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.contenedor_tabs.addTab(self.contenedor_tab_productos_de_proveedor, icon3, "")
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/box-seam.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.contenedor_tabs.addTab(self.contenedor_tab_productos_de_proveedor, icon4, "")
         self.contenedor_tab_productos_de_sistema = QtWidgets.QWidget()
         self.contenedor_tab_productos_de_sistema.setObjectName("contenedor_tab_productos_de_sistema")
         self.gridLayout_9 = QtWidgets.QGridLayout(self.contenedor_tab_productos_de_sistema)
@@ -214,15 +253,15 @@ class Ui_contenedor_productos_proveedores(object):
         self.contenedor_botones_superior_productos_del_sistema.setObjectName("contenedor_botones_superior_productos_del_sistema")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.contenedor_botones_superior_productos_del_sistema)
         self.gridLayout_7.setObjectName("gridLayout_7")
-        spacerItem1 = QtWidgets.QSpacerItem(577, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_7.addItem(spacerItem1, 0, 0, 1, 1)
-        self.btn_btn_agregar_producto_al_proveedor = QtWidgets.QPushButton(self.contenedor_botones_superior_productos_del_sistema)
-        self.btn_btn_agregar_producto_al_proveedor.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/vincular.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_agregar_producto_al_proveedor.setIcon(icon4)
-        self.btn_btn_agregar_producto_al_proveedor.setObjectName("btn_btn_agregar_producto_al_proveedor")
-        self.gridLayout_7.addWidget(self.btn_btn_agregar_producto_al_proveedor, 0, 1, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(577, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_7.addItem(spacerItem2, 0, 0, 1, 1)
+        self.btn_producto_del_proveedor_para_agregar = QtWidgets.QPushButton(self.contenedor_botones_superior_productos_del_sistema)
+        self.btn_producto_del_proveedor_para_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/vincular.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_producto_del_proveedor_para_agregar.setIcon(icon5)
+        self.btn_producto_del_proveedor_para_agregar.setObjectName("btn_producto_del_proveedor_para_agregar")
+        self.gridLayout_7.addWidget(self.btn_producto_del_proveedor_para_agregar, 0, 1, 1, 1)
         self.gridLayout_9.addWidget(self.contenedor_botones_superior_productos_del_sistema, 0, 0, 1, 2)
         self.contenedor_contenido_tab_productos_del_sistema = QtWidgets.QFrame(self.contenedor_tab_productos_de_sistema)
         self.contenedor_contenido_tab_productos_del_sistema.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -270,16 +309,12 @@ class Ui_contenedor_productos_proveedores(object):
         self.tabla_Productos_A_VincularProveedor.setObjectName("tabla_Productos_A_VincularProveedor")
         self.gridLayout_6.addWidget(self.tabla_Productos_A_VincularProveedor, 1, 0, 1, 1)
         self.gridLayout_9.addWidget(self.frame, 1, 1, 1, 1)
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/boxes.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.contenedor_tabs.addTab(self.contenedor_tab_productos_de_sistema, icon5, "")
-        self.gridLayout_2.addWidget(self.contenedor_tabs, 1, 0, 1, 1)
-        self.etiqueta_nombre_del_proveedor = QtWidgets.QLabel(self.contenedor_contenido_scrollarea)
-        self.etiqueta_nombre_del_proveedor.setText("")
-        self.etiqueta_nombre_del_proveedor.setObjectName("etiqueta_nombre_del_proveedor")
-        self.gridLayout_2.addWidget(self.etiqueta_nombre_del_proveedor, 0, 0, 1, 1)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/boxes.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.contenedor_tabs.addTab(self.contenedor_tab_productos_de_sistema, icon6, "")
+        self.gridLayout.addWidget(self.contenedor_tabs, 1, 0, 1, 1)
         self.contenedor_scrollarea.setWidget(self.contenedor_contenido_scrollarea)
-        self.gridLayout.addWidget(self.contenedor_scrollarea, 0, 0, 1, 1)
+        self.verticalLayout.addWidget(self.contenedor_scrollarea)
 
         self.retranslateUi(contenedor_productos_proveedores)
         self.contenedor_tabs.setCurrentIndex(0)
@@ -288,15 +323,16 @@ class Ui_contenedor_productos_proveedores(object):
     def retranslateUi(self, contenedor_productos_proveedores):
         _translate = QtCore.QCoreApplication.translate
         contenedor_productos_proveedores.setWindowTitle(_translate("contenedor_productos_proveedores", "Form"))
-        self.btn_btn_editar_producto_del_proveedor.setText(_translate("contenedor_productos_proveedores", "Editar"))
-        self.btn_btn_actualizar_tabla_productos_del_proveedor.setText(_translate("contenedor_productos_proveedores", "Actualizar Tabla"))
-        self.btn_btn_eliminar_producto_del_proveedor.setText(_translate("contenedor_productos_proveedores", "Quitar"))
+        self.etiqueta_encabezado_productosProveedor.setText(_translate("contenedor_productos_proveedores", "PRODUCTOS DEL PROVEEDOR"))
+        self.btn_producto_del_proveedor_editar.setText(_translate("contenedor_productos_proveedores", "Editar"))
+        self.btn_producto_del_proveedor_actualizar_tabla.setText(_translate("contenedor_productos_proveedores", "Actualizar Tabla"))
+        self.btn_producto_del_proveedor_eliminar.setText(_translate("contenedor_productos_proveedores", "Quitar"))
         self.etiqueta_nombre_producto.setText(_translate("contenedor_productos_proveedores", "Buscar Producto"))
         self.cajaopciones_filtro_nombre.setItemText(0, _translate("contenedor_productos_proveedores", "Igual A"))
         self.cajaopciones_filtro_nombre.setItemText(1, _translate("contenedor_productos_proveedores", "Que Contenga"))
         self.txt_nombre_producto.setPlaceholderText(_translate("contenedor_productos_proveedores", "Nombre del Producto"))
         self.contenedor_tabs.setTabText(self.contenedor_tabs.indexOf(self.contenedor_tab_productos_de_proveedor), _translate("contenedor_productos_proveedores", "Productos del Proveedor"))
-        self.btn_btn_agregar_producto_al_proveedor.setText(_translate("contenedor_productos_proveedores", "Vincular al proveedor"))
+        self.btn_producto_del_proveedor_para_agregar.setText(_translate("contenedor_productos_proveedores", "Vincular al proveedor"))
         self.etiqueta_nombreproducto_del_sistema.setText(_translate("contenedor_productos_proveedores", "Nombre del Producto:"))
         self.cajaopciones_filtro_nombre_productos_del_sistema.setItemText(0, _translate("contenedor_productos_proveedores", "Es Igual"))
         self.cajaopciones_filtro_nombre_productos_del_sistema.setItemText(1, _translate("contenedor_productos_proveedores", "Que Contenga"))

@@ -7,7 +7,7 @@ class ProveedoresModel:
     def __init__(self, session):
         self.session = session
         
-    @property
+    
     def insertar_categoria_proveedor_basicas(self):
         query = select(Categorias_proveedores).limit(1)
         resultado_consulta = self.session.execute(query).fetchone()
@@ -31,7 +31,7 @@ class ProveedoresModel:
             ]
             
             self.session.execute(Categorias_proveedores.__table__.insert(), categorias_proveedor)
-            self.session.commit()
+            # self.session.commit()
             return True
 
     def agregar_proveedor(self, 
