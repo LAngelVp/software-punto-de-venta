@@ -53,7 +53,7 @@ class Inicio_principal(QWidget):
                     ProductosModel(session).insertar_categorias_basicas()
                     ProveedoresModel(session).insertar_categoria_proveedor_basicas()
                     ClientesFisicosAndMorales(session).insertar_areas_negocio_basicas()
-                    ClientesFisicosAndMorales(session).insertar_categorias_negocio_basicas
+                    ClientesFisicosAndMorales(session).insertar_categorias_negocio_basicas()
                 except Exception as e:
                     print(f'Existio un error en la creacion de datos principales: {e}')
     

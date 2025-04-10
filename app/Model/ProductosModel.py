@@ -7,35 +7,6 @@ class ProductosModel:
         self.session = session
 
 # // presentaciones de los productos:
-    @property
-    def insertar_presentaciones_basicas(self):
-        query = select(Presentacion_productos).limit(1)
-        resultado_consulta = self.session.execute(query).fetchone()
-        if resultado_consulta is None:
-            presentaciones_productos = [
-                {"nombre": 'Bolsas y empaques sensibles'},
-                {"nombre": 'Botellas'},
-                {"nombre": 'Latas'},
-                {"nombre": 'Frascos y tarros'},
-                {"nombre": 'Cajas'},
-                {"nombre": 'Packs'},
-                {"nombre": 'Tetra pack'},
-                {"nombre": 'Envase plastico'},
-                {"nombre": 'Envase metalico'},
-                {"nombre": 'Envase cristal'},
-                {"nombre": 'Sacos'},
-                {"nombre": 'Cajitas o cartuchos'},
-                {"nombre": 'Frasco'},
-                {"nombre": 'Pieza'},
-                {"nombre": 'Granel'},
-                {"nombre": 'Rollos'},
-            ]
-            
-            self.session.execute(Presentacion_productos.__table__.insert(), presentaciones_productos)
-            self.session.commit()
-            return True
-        
-    
     def insertar_presentaciones_basicas(self):
         query = select(Unidad_medida_productos).limit(1)
         resultado_consulta = self.session.execute(query).fetchone()
@@ -65,7 +36,6 @@ class ProductosModel:
             self.session.execute(Unidad_medida_productos.__table__.insert(), unidades_productos)
             # self.session.commit()
             return True
-    
     
     def insertar_categorias_basicas(self):
         query = select(Categorias_productos).limit(1)
