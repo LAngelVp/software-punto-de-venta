@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_REGISTRO_EMPLEADO.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_REGISTRO_EMPLEADO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -17,6 +17,10 @@ class Ui_RegistroAdministrador(object):
         RegistroAdministrador.resize(1192, 679)
         RegistroAdministrador.setStyleSheet("#RegistroAdministrador{\n"
 "background: #fffefb;\n"
+"}\n"
+"#logotipo_cabecera_ventana{\n"
+"image: url(:/Icons/IconosSVG/logo_devrous.png);\n"
+"min-width:65px;\n"
 "}\n"
 "#contenedor_baja{\n"
 "background:#EE1D52;\n"
@@ -57,15 +61,7 @@ class Ui_RegistroAdministrador(object):
 "#widget_contenedor{\n"
 "    background-color: #fffefb;\n"
 "}\n"
-"#label_fotousuario{\n"
-"    font-size:15px;\n"
-"    font-family:\"Arial\";\n"
-"    font-weight:bold;\n"
-"    min-width:200px;\n"
-"    min-height:200px;\n"
-"    border:solid 2px black;\n"
-"    background-color:#F5F5F5;\n"
-"}\n"
+"\n"
 "#opcion_usodelsistema{\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
@@ -276,7 +272,7 @@ class Ui_RegistroAdministrador(object):
 "#btn_btn_recontratar:hover{\n"
 "    background-color: #68a67d;\n"
 "}\n"
-"#label_fotousuario{\n"
+"#foto_usuario{\n"
 "    min-height: 100px;\n"
 "    min-width: 100px;\n"
 "    height: 180px;\n"
@@ -348,9 +344,13 @@ class Ui_RegistroAdministrador(object):
         self.widget_2.setStyleSheet("")
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget_2)
-        self.horizontalLayout.setContentsMargins(0, 0, 3, 0)
+        self.horizontalLayout.setContentsMargins(5, 0, 5, 0)
         self.horizontalLayout.setSpacing(3)
         self.horizontalLayout.setObjectName("horizontalLayout")
+        self.logotipo_cabecera_ventana = QtWidgets.QLabel(self.widget_2)
+        self.logotipo_cabecera_ventana.setText("")
+        self.logotipo_cabecera_ventana.setObjectName("logotipo_cabecera_ventana")
+        self.horizontalLayout.addWidget(self.logotipo_cabecera_ventana)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
         self.btc_minimizar = QtWidgets.QPushButton(self.widget_2)
@@ -429,12 +429,12 @@ class Ui_RegistroAdministrador(object):
         self.etiqueta_sucursal = QtWidgets.QLabel(self.contenedor_datosderecha)
         self.etiqueta_sucursal.setObjectName("etiqueta_sucursal")
         self.gridLayout_3.addWidget(self.etiqueta_sucursal, 1, 0, 1, 1)
-        self.label_fotousuario = QtWidgets.QLabel(self.contenedor_datosderecha)
-        self.label_fotousuario.setMinimumSize(QtCore.QSize(180, 180))
-        self.label_fotousuario.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.label_fotousuario.setScaledContents(False)
-        self.label_fotousuario.setObjectName("label_fotousuario")
-        self.gridLayout_3.addWidget(self.label_fotousuario, 0, 0, 1, 1)
+        self.foto_usuario = QtWidgets.QLabel(self.contenedor_datosderecha)
+        self.foto_usuario.setMinimumSize(QtCore.QSize(180, 180))
+        self.foto_usuario.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.foto_usuario.setScaledContents(False)
+        self.foto_usuario.setObjectName("foto_usuario")
+        self.gridLayout_3.addWidget(self.foto_usuario, 0, 0, 1, 1)
         self.Button_nuevasucursal = QtWidgets.QPushButton(self.contenedor_datosderecha)
         self.Button_nuevasucursal.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.Button_nuevasucursal.setText("")
@@ -795,7 +795,7 @@ class Ui_RegistroAdministrador(object):
         self.etiqueta_departamento.setText(_translate("RegistroAdministrador", "Departamento"))
         self.etiqueta_puesto.setText(_translate("RegistroAdministrador", "Puesto"))
         self.etiqueta_sucursal.setText(_translate("RegistroAdministrador", "Sucursal"))
-        self.label_fotousuario.setText(_translate("RegistroAdministrador", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.foto_usuario.setText(_translate("RegistroAdministrador", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Cantarell\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"

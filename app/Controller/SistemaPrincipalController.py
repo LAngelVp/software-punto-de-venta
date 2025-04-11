@@ -51,7 +51,7 @@ class SistemaPrincipal(QWidget):
         self.venta= Venta()
         self.ventas= Ventas()
         self.compras= Compras()
-        self.empleados= EmpleadosController()
+        self.empleados= EmpleadosController(parent=self)
         self.proveedores= Control_proveedores(self)
         self.clientes= Clientes()
         self.productos= Productos(self, datos_usuario = self.datos_usuario)

@@ -963,6 +963,7 @@ class Productos(QWidget):
             self.AdminProductos.show()
         else:
             self.AdminProductos.raise_()
+    
     def eliminar_producto(self):
         if self.codigo_upc_producto is None:
             Mensaje().mensaje_informativo("Debes de seleccionar un producto de la tabla para proceder a eliminarlo")

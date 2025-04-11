@@ -17,7 +17,7 @@ from ..Model.PuestoModel import PuestoModel
 from ..Model.DepartamentosModel import DepartamentosModel
 from ..Model.SucursalesModel import SucursalesModel
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
-from .FuncionesAuxiliares import *
+from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
 from .SucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
@@ -25,7 +25,7 @@ from .PuestosController import PuestosController
 
 import traceback
 
-class Registro_personal_inicial(QWidget):
+class Registro_personal_inicial(QDialog):
     listar_sucursales_signal = pyqtSignal()
     listar_departamentos_signal = pyqtSignal()
     listar_puestos_signal = pyqtSignal()
@@ -33,6 +33,7 @@ class Registro_personal_inicial(QWidget):
     listar_sucursales_en_departamentos_signal = pyqtSignal()
     tabla_puestos = pyqtSignal()
     registro_agregado_signal = pyqtSignal()
+    VENTANA_REGISTRO_CERRADA = pyqtSignal()
     def __init__(self, parent = None, id_empleado = None):
         super().__init__(parent)
         self.ui = Ui_RegistroAdministrador()
@@ -56,6 +57,8 @@ class Registro_personal_inicial(QWidget):
         self.ui.fecha_fechacontratacion.setDate(QDate.currentDate())
         self.ui.Button_actualizar.hide()
         self.ui.Button_agregarUsuario.hide()
+        self.setWindowTitle("Formulario del perosonal")
+        self.ui.btc_minimizar.hide()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
@@ -87,10 +90,10 @@ class Registro_personal_inicial(QWidget):
         self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(10)
         self.ui.txt_nombre.setFocus()
 # señales: acciones de los botones
-        self.ui.btc_cerrar.clicked.connect(lambda: self.close())
+        self.ui.btc_cerrar.clicked.connect(self.close)
         self.ui.btc_minimizar.clicked.connect(lambda: self.showMinimized())
-        self.ui.Button_cancelar.clicked.connect(lambda: self.close())
-        self.ui.label_fotousuario.mousePressEvent = self.cargar_imagen
+        self.ui.Button_cancelar.clicked.connect(self.close)
+        self.ui.foto_usuario.mousePressEvent = self.cargar_imagen
         self.ui.btc_maximizar.clicked.connect(self.maximizar)
         self.ui.Button_nuevasucursal.clicked.connect(self.agregar_sucursal)
         self.ui.Button_aceptar.clicked.connect(self.almacenar_informacion)
@@ -127,6 +130,7 @@ class Registro_personal_inicial(QWidget):
         self.lista_puestos = []
         self.variable_primer_registro = False
         self.empleado_existente = None
+        self._ventanaCerradaRegistro = False
         
 #funciones principales:
         self.listar_grupo_permisos_rol()
@@ -145,6 +149,16 @@ class Registro_personal_inicial(QWidget):
         
         if id_empleado is not None:
             self.cargar_datos_empleado()
+    
+    def showEvent(self, event):
+        super().showEvent(event)
+        if not self._ventanaCerradaRegistro:
+            FuncionesAuxiliaresController.centrar_en_padre(self)
+            self._ventanaCerradaRegistro = True
+    
+    def closeEvent(self, event):
+        self.VENTANA_REGISTRO_CERRADA.emit()
+        event.accept()
         
 
 # FUNCIONES GENERALES:
@@ -284,7 +298,7 @@ class Registro_personal_inicial(QWidget):
                     self.ui.txt_ninterior.setText(self.empleado_existente.num_interior)
                     self.ui.txt_nexterior.setText(self.empleado_existente.num_exterior)
                     self.ui.txtlargo_direccion_completa.setPlainText(self.empleado_existente.direccion_adicional)
-                    self.ui.label_fotousuario.setPixmap(QPixmap(self.empleado_existente.foto).scaled(self.ui.label_fotousuario.size()))
+                    self.ui.foto_usuario.setPixmap(QPixmap(self.empleado_existente.foto).scaled(self.ui.foto_usuario.size()))
                     self.file_name = self.empleado_existente.foto
                     
                     self.ui.Button_aceptar.hide()
@@ -444,11 +458,11 @@ class Registro_personal_inicial(QWidget):
         image_accept = FuncionesAuxiliaresController().size_validator_image(self.file_name)
         if self.file_name:
             if image_accept:
-                self.ui.label_fotousuario.setText(self.file_name)
+                self.ui.foto_usuario.setText(self.file_name)
                 pixmap = QPixmap(self.file_name)
-                self.ui.label_fotousuario.setPixmap(pixmap)
-                self.ui.label_fotousuario.setScaledContents(True)
-                self.ui.label_fotousuario.adjustSize()
+                self.ui.foto_usuario.setPixmap(pixmap)
+                self.ui.foto_usuario.setScaledContents(True)
+                self.ui.foto_usuario.adjustSize()
             else:
                 Mensaje().mensaje_alerta("El tamaño de la imagen sobre pasa los 5Mb")
         return

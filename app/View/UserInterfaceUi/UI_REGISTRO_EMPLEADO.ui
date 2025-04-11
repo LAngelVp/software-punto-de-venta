@@ -17,6 +17,10 @@
    <string notr="true">#RegistroAdministrador{
 background: #fffefb;
 }
+#logotipo_cabecera_ventana{
+image: url(:/Icons/IconosSVG/logo_devrous.png);
+min-width:65px;
+}
 #contenedor_baja{
 background:#EE1D52;
 border-radius:5px;
@@ -56,15 +60,7 @@ background-color: rgb(255, 255, 255);
 #widget_contenedor{
 	background-color: #fffefb;
 }
-#label_fotousuario{
-	font-size:15px;
-	font-family:&quot;Arial&quot;;
-	font-weight:bold;
-	min-width:200px;
-	min-height:200px;
-	border:solid 2px black;
-	background-color:#F5F5F5;
-}
+
 #opcion_usodelsistema{
 	font-family: Arial;
 	font-size: 14px;
@@ -275,7 +271,7 @@ background: #2196F3;
 #btn_btn_recontratar:hover{
 	background-color: #68a67d;
 }
-#label_fotousuario{
+#foto_usuario{
 	min-height: 100px;
 	min-width: 100px;
 	height: 180px;
@@ -404,17 +400,24 @@ border-bottom: 2px solid #00668c;
              <number>3</number>
             </property>
             <property name="leftMargin">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="topMargin">
              <number>0</number>
             </property>
             <property name="rightMargin">
-             <number>3</number>
+             <number>5</number>
             </property>
             <property name="bottomMargin">
              <number>0</number>
             </property>
+            <item>
+             <widget class="QLabel" name="logotipo_cabecera_ventana">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
             <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
@@ -609,7 +612,7 @@ border-bottom: 2px solid #00668c;
              </widget>
             </item>
             <item row="0" column="0">
-             <widget class="QLabel" name="label_fotousuario">
+             <widget class="QLabel" name="foto_usuario">
               <property name="minimumSize">
                <size>
                 <width>180</width>

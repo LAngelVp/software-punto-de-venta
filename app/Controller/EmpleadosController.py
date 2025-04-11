@@ -14,10 +14,13 @@ from .ComprobarValoresTablasController import Comprobacion
 
 class EmpleadosController(QWidget):
     registro_listar_puestos = pyqtSignal()
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.ui = Ui_Control_empleados()
         self.ui.setupUi(self)
+        self.ventana_registro = None
+        self.ventana_registro_cerrada = False
+        
         self.ui.txt_idempleado.setValidator(Validaciones().get_int_validator)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_empleado)
         self.ui.btn_btn_buscar.clicked.connect(self.buscar_empleado)
@@ -32,8 +35,19 @@ class EmpleadosController(QWidget):
         self.seleccion_conectada_empleados = None
         self.id_empleado = None
         self.empleados = None
-
         
+    def ventana_cerrada_nuevo_personal(self):
+        self.ventana_registro = None
+        
+    def agregar_empleado(self):
+        if self.ventana_registro is None or self.ventana_registro.isVisible():
+            self.ventana_registro = Registro_personal_inicial(parent=self)
+            self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
+            self.ventana_registro.VENTANA_REGISTRO_CERRADA.connect(self.ventana_cerrada_nuevo_personal)
+            self.registro_listar_puestos.emit()
+            self.ventana_registro.exec_()
+        else:
+            self.ventana_registro.raise_()
 
     def limpiar(self):
         self.ui.txt_idempleado.clear()
@@ -60,12 +74,6 @@ class EmpleadosController(QWidget):
         self.roles =  Control_rol()
         self.roles.show()
 
-    def agregar_empleado(self):
-        self.ventana = Registro_personal_inicial()
-        self.registro_listar_puestos.emit()
-        self.ventana.registro_agregado_signal.connect(self.listar_empleados)
-        self.ventana.show()
-
     def eliminar_empleado(self):
         if self.id_empleado:
             with Conexion_base_datos() as db:
@@ -78,12 +86,15 @@ class EmpleadosController(QWidget):
             
     def editar_empleado_seleccionado(self):
         if self.id_empleado:
-            id = int(self.id_empleado)
-            self.ventana = Registro_personal_inicial()
-            self.ventana.obtener_id(self.id_empleado)
-            self.ventana.registro_agregado_signal.connect(self.listar_empleados)
-            self.ventana.show()
-            self.id_empleado = None
+            if self.ventana_registro is None or self.ventana_registro.isVisible():
+                id = int(self.id_empleado)
+                self.ventana_registro = Registro_personal_inicial(parent=self)
+                self.ventana_registro.obtener_id(self.id_empleado)
+                self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
+                self.ventana_registro.exec_()
+            else:
+                self.ventana_registro.raise_()
+        self.id_empleado = None
     
     def listar_empleados(self):
         with Conexion_base_datos() as db:
