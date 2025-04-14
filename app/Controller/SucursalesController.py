@@ -9,11 +9,18 @@ from ..View.UserInterfacePy.UI_CONTROL_SUCURSALES import *
 from .MensajesAlertasController import *
 from ..Model.SucursalesModel import SucursalesModel
 from ..Model.DepartamentosModel import DepartamentosModel
+from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
-class SucursalesController(QWidget):
+class SucursalesController(QDialog):
+    VENTANA_SUCURSALES_CERRADA = pyqtSignal()
     signal_sucursal_agregada = pyqtSignal()
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None, cabecera = True):
+        super().__init__(parent)
+        
+        self._ventanaCentradaSucursales = False
+        self.id_sucursal = None
+        self.sucursales = None
+        
         self.ui = Ui_Nueva_sucursal()
         self.ui.setupUi(self)
         pantalla = self.frameGeometry()
@@ -33,14 +40,26 @@ class SucursalesController(QWidget):
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar)
         self.ui.btn_btn_actualizar.clicked.connect(self.actualizar)
+        self.ui.btn_cerrar_encabezado.clicked.connect(self.close)
 
 
         # señales:
         self.ui.txt_buscarsucursales.returnPressed.connect(self.buscar_sucursal)
         self.obtener_sucursales()
-        self.id_sucursal = None
-        self.sucursales = None
+        
+        if cabecera is False:
+            self.ui.contenedor_encabezado.hide()
+        
 
+    def showEvent(self, event):
+        super().showEvent(event)
+        if not self._ventanaCentradaSucursales:
+            FuncionesAuxiliaresController.centrar_en_padre(self)
+            self._ventanaCentradaSucursales = True
+    
+    def closeEvent(self, event):
+        self.VENTANA_SUCURSALES_CERRADA.emit() 
+        event.accept()
 
     def buscar_sucursal(self):
         nombre_sucursal = self.ui.txt_buscarsucursales.text()

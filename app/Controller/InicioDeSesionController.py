@@ -1,4 +1,5 @@
 import sys
+from ..Source.iconsdvg_rc import *
 from sqlalchemy import MetaData, Table, select, func
 from ..DataBase.conexionBD import Conexion_base_datos
 from PyQt5.QtCore import *
@@ -24,6 +25,8 @@ class Login(QWidget):
         self.ui.imgWhatsapp.mousePressEvent = self.whatsapp()
 
         self.ui.labelNombreEmpresa.mouseDoubleClickEvent = self.empresa()
+        self.setWindowIcon(QIcon(":Icons/IconosSVG/logo_devrous.svg"))
+        self.setWindowTitle("Inicio de sesión")
 
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) 
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)

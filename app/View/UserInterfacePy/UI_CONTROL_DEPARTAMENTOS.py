@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_DEPARTAMENTOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_DEPARTAMENTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -21,9 +21,12 @@ class Ui_Control_departamentos(object):
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
 "}\n"
-"#etiquetaTitulo{\n"
-"color: #1d1c1c;\n"
-"font-size:20px;\n"
+"#contenedor_encabezado{\n"
+"background: #023375;\n"
+"}\n"
+"#etiquetaTituloEncabezado{\n"
+"color: #fffefb;\n"
+"font-size:18px;\n"
 "font-weight:bold;\n"
 "font-family:Arial;\n"
 "}\n"
@@ -124,46 +127,75 @@ class Ui_Control_departamentos(object):
 "    border-radius: 4px;\n"
 "}\n"
 "")
-        self.gridLayout = QtWidgets.QGridLayout(Control_departamentos)
+        self.gridLayout_6 = QtWidgets.QGridLayout(Control_departamentos)
+        self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_6.setSpacing(0)
+        self.gridLayout_6.setObjectName("gridLayout_6")
+        self.frame = QtWidgets.QFrame(Control_departamentos)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
-        self.contenedor = QtWidgets.QFrame(Control_departamentos)
+        self.contenedor_encabezado = QtWidgets.QFrame(self.frame)
+        self.contenedor_encabezado.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.contenedor_encabezado.setObjectName("contenedor_encabezado")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_encabezado)
+        self.horizontalLayout.setContentsMargins(5, 5, 5, 5)
+        self.horizontalLayout.setSpacing(5)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.etiquetaTituloEncabezado = QtWidgets.QLabel(self.contenedor_encabezado)
+        self.etiquetaTituloEncabezado.setObjectName("etiquetaTituloEncabezado")
+        self.horizontalLayout.addWidget(self.etiquetaTituloEncabezado)
+        spacerItem = QtWidgets.QSpacerItem(692, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.btn_cerrar = QtWidgets.QPushButton(self.contenedor_encabezado)
+        self.btn_cerrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_cerrar.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/x-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_cerrar.setIcon(icon)
+        self.btn_cerrar.setObjectName("btn_cerrar")
+        self.horizontalLayout.addWidget(self.btn_cerrar)
+        self.gridLayout.addWidget(self.contenedor_encabezado, 0, 0, 1, 1)
+        self.contenedor = QtWidgets.QFrame(self.frame)
         self.contenedor.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor.setObjectName("contenedor")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.contenedor)
-        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_2.setContentsMargins(0, 10, 0, 0)
         self.gridLayout_2.setHorizontalSpacing(0)
         self.gridLayout_2.setVerticalSpacing(15)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.btn_btn_eliminar = QtWidgets.QPushButton(self.contenedor)
         self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_eliminar.setIcon(icon)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_eliminar.setIcon(icon1)
         self.btn_btn_eliminar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
         self.gridLayout_2.addWidget(self.btn_btn_eliminar, 0, 5, 1, 1)
         self.btn_btn_guardar = QtWidgets.QPushButton(self.contenedor)
         self.btn_btn_guardar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_guardar.setIcon(icon1)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_guardar.setIcon(icon2)
         self.btn_btn_guardar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_guardar.setObjectName("btn_btn_guardar")
         self.gridLayout_2.addWidget(self.btn_btn_guardar, 0, 3, 1, 1)
         self.btn_btn_actualizar = QtWidgets.QPushButton(self.contenedor)
         self.btn_btn_actualizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_actualizar.setIcon(icon2)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_actualizar.setIcon(icon3)
         self.btn_btn_actualizar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_actualizar.setObjectName("btn_btn_actualizar")
         self.gridLayout_2.addWidget(self.btn_btn_actualizar, 0, 4, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_2.addItem(spacerItem, 0, 1, 1, 1)
-        self.etiquetaTitulo = QtWidgets.QLabel(self.contenedor)
-        self.etiquetaTitulo.setObjectName("etiquetaTitulo")
-        self.gridLayout_2.addWidget(self.etiquetaTitulo, 0, 0, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_2.addItem(spacerItem1, 0, 1, 1, 1)
         self.contenedor_formulario = QtWidgets.QFrame(self.contenedor)
         self.contenedor_formulario.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_formulario.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -173,8 +205,8 @@ class Ui_Control_departamentos(object):
         self.etiqueta_nombredepartamento = QtWidgets.QLabel(self.contenedor_formulario)
         self.etiqueta_nombredepartamento.setObjectName("etiqueta_nombredepartamento")
         self.gridLayout_5.addWidget(self.etiqueta_nombredepartamento, 0, 0, 1, 1)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout_5.addItem(spacerItem1, 0, 2, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_5.addItem(spacerItem2, 0, 2, 1, 1)
         self.etiquetasubtitulo_departamentosexistentes = QtWidgets.QLabel(self.contenedor_formulario)
         self.etiquetasubtitulo_departamentosexistentes.setObjectName("etiquetasubtitulo_departamentosexistentes")
         self.gridLayout_5.addWidget(self.etiquetasubtitulo_departamentosexistentes, 1, 4, 1, 1)
@@ -213,18 +245,18 @@ class Ui_Control_departamentos(object):
         self.btn_btn_vincular = QtWidgets.QPushButton(self.contenedor_botonesvincular)
         self.btn_btn_vincular.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_vincular.setText("")
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/flecha_derecha_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_vincular.setIcon(icon3)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/flecha_derecha_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_vincular.setIcon(icon4)
         self.btn_btn_vincular.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_vincular.setObjectName("btn_btn_vincular")
         self.gridLayout_3.addWidget(self.btn_btn_vincular, 0, 0, 1, 1)
         self.btn_btn_desvincular = QtWidgets.QPushButton(self.contenedor_botonesvincular)
         self.btn_btn_desvincular.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_desvincular.setText("")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/flecha_izquierda_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_desvincular.setIcon(icon4)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/flecha_izquierda_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_desvincular.setIcon(icon5)
         self.btn_btn_desvincular.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_desvincular.setObjectName("btn_btn_desvincular")
         self.gridLayout_3.addWidget(self.btn_btn_desvincular, 1, 0, 1, 1)
@@ -253,13 +285,14 @@ class Ui_Control_departamentos(object):
         self.btn_btn_limpiar = QtWidgets.QPushButton(self.contenedor)
         self.btn_btn_limpiar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_limpiar.setText("")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_limpiar.setIcon(icon5)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_limpiar.setIcon(icon6)
         self.btn_btn_limpiar.setIconSize(QtCore.QSize(25, 25))
         self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
         self.gridLayout_2.addWidget(self.btn_btn_limpiar, 0, 2, 1, 1)
-        self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.contenedor, 1, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.frame, 0, 0, 1, 1)
 
         self.retranslateUi(Control_departamentos)
         QtCore.QMetaObject.connectSlotsByName(Control_departamentos)
@@ -278,10 +311,10 @@ class Ui_Control_departamentos(object):
     def retranslateUi(self, Control_departamentos):
         _translate = QtCore.QCoreApplication.translate
         Control_departamentos.setWindowTitle(_translate("Control_departamentos", "Form"))
+        self.etiquetaTituloEncabezado.setText(_translate("Control_departamentos", "Departamentos"))
         self.btn_btn_eliminar.setText(_translate("Control_departamentos", "Eliminar"))
         self.btn_btn_guardar.setText(_translate("Control_departamentos", "Guardar"))
         self.btn_btn_actualizar.setText(_translate("Control_departamentos", "Actualizar"))
-        self.etiquetaTitulo.setText(_translate("Control_departamentos", "Departamentos"))
         self.etiqueta_nombredepartamento.setText(_translate("Control_departamentos", "Nombre del departamento:"))
         self.etiquetasubtitulo_departamentosexistentes.setText(_translate("Control_departamentos", "Departamentos existentes"))
         self.etiquetasubtitulo_puestosasignados.setText(_translate("Control_departamentos", "Puestos Asignados"))
@@ -291,5 +324,6 @@ class Ui_Control_departamentos(object):
         self.btn_btn_vincular.setToolTip(_translate("Control_departamentos", "Vincular"))
         self.btn_btn_desvincular.setToolTip(_translate("Control_departamentos", "Desvincular"))
         self.txt_buscardepartamento.setPlaceholderText(_translate("Control_departamentos", " Buscar Departamento"))
+from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc
 from ...Source import iconsdvg_rc

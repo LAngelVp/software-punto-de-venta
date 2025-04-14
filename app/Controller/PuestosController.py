@@ -10,11 +10,13 @@ from ..Model.DepartamentosModel import DepartamentosModel
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
 
-class PuestosController(QWidget):
+class PuestosController(QDialog):
     signal_puesto_agregado =  pyqtSignal()
     elemento_seleccionado = pyqtSignal(str)
-    def __init__(self):
-        super().__init__()
+    VENTANA_PUESTOS_CERRADA = pyqtSignal()
+    def __init__(self, parent = None, cabecera = True):
+        super().__init__(parent)
+        self._ventanaCentradaPuestos = False
         self.ui = Ui_Formulario_puestos()
         self.ui.setupUi(self)
         pantalla = self.frameGeometry()
@@ -35,6 +37,7 @@ class PuestosController(QWidget):
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
         self.ui.btn_btn_roles.clicked.connect(self.roles)
         self.ui.btn_btn_actualizar.clicked.connect(self.actualizar)
+        self.ui.btn_cerrar.clicked.connect(self.close)
 
         # señales principales:
         self.ui.cajaopcion_lunes.stateChanged.connect(self.comprobar_caja_verificacion)
@@ -60,9 +63,20 @@ class PuestosController(QWidget):
         self.puestos = None
         self.seleccion_conectada = False
 
+        if cabecera is False:
+            self.ui.contenedor_encabezado.hide()
 
     #funciones:
+    def showEvent(self, event):
+        super().showEvent(event)
+        if not self._ventanaCentradaPuestos:
+            FuncionesAuxiliaresController.centrar_en_padre(self)
+            self._ventanaCentradaPuestos = True
     
+    def closeEvent(self, event):
+        self.VENTANA_PUESTOS_CERRADA.emit() 
+        event.accept()
+        
     def buscar_puesto(self):
         nombre_puesto = self.ui.txt_buscarpuesto.text()
         with Conexion_base_datos() as db:

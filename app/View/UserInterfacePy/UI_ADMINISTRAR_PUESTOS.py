@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_ADMINISTRAR_PUESTOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_ADMINISTRAR_PUESTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Formulario_puestos(object):
     def setupUi(self, Formulario_puestos):
         Formulario_puestos.setObjectName("Formulario_puestos")
-        Formulario_puestos.resize(878, 569)
+        Formulario_puestos.resize(880, 569)
         Formulario_puestos.setMinimumSize(QtCore.QSize(0, 0))
         Formulario_puestos.setMaximumSize(QtCore.QSize(16777215, 16777215))
         Formulario_puestos.setStyleSheet("#Formulario_puestos{\n"
@@ -23,11 +23,14 @@ class Ui_Formulario_puestos(object):
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
 "}\n"
+"#contenedor_encabezado{\n"
+"background: #023375;\n"
+"}\n"
 "[objectName*=\"etiquetaTitulo_\"]{\n"
 "font-size: 18px;\n"
 "font-weight:bold;\n"
 "font-family:Arial;\n"
-"color: #1d1c1c;\n"
+"color: #fffefb;\n"
 "}\n"
 "[objectName*=\"etiqueta_\"]{\n"
 "font-size: 14px;\n"
@@ -147,42 +150,6 @@ class Ui_Formulario_puestos(object):
 "    font-size: 14px;\n"
 "}\n"
 "\n"
-"/* Barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 12px;  /* Fijamos el tamaño de la barra vertical */\n"
-"    border-radius: 4px;\n"
-"    margin: 22px 0 22px 0;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
-"    background: #023375;\n"
-"    min-height: 20px;  /* Altura mínima del manejador */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Elementos de la flecha de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
-"[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
-"    background-color: none;\n"
-"}\n"
-"\n"
-"/* Barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Fijamos el tamaño de la barra horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Altura del manejador horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
 "/* Encabezados de la tabla */\n"
 "[objectName*=\"tabla_\"] QHeaderView::section {\n"
 "    background-color: #023375;\n"
@@ -205,20 +172,111 @@ class Ui_Formulario_puestos(object):
 "    color: white;\n"
 "}\n"
 "")
-        self.gridLayout = QtWidgets.QGridLayout(Formulario_puestos)
+        self.gridLayout_7 = QtWidgets.QGridLayout(Formulario_puestos)
+        self.gridLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_7.setSpacing(0)
+        self.gridLayout_7.setObjectName("gridLayout_7")
+        self.frame_2 = QtWidgets.QFrame(Formulario_puestos)
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame_2)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
-        self.contenedor = QtWidgets.QFrame(Formulario_puestos)
+        self.contenedor_encabezado = QtWidgets.QFrame(self.frame_2)
+        self.contenedor_encabezado.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.contenedor_encabezado.setObjectName("contenedor_encabezado")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_encabezado)
+        self.horizontalLayout.setContentsMargins(5, 5, 5, 5)
+        self.horizontalLayout.setSpacing(5)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.etiquetaTitulo_administrarpuestos = QtWidgets.QLabel(self.contenedor_encabezado)
+        self.etiquetaTitulo_administrarpuestos.setObjectName("etiquetaTitulo_administrarpuestos")
+        self.horizontalLayout.addWidget(self.etiquetaTitulo_administrarpuestos)
+        spacerItem = QtWidgets.QSpacerItem(755, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
+        self.btn_cerrar = QtWidgets.QPushButton(self.contenedor_encabezado)
+        self.btn_cerrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_cerrar.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/x-lg.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_cerrar.setIcon(icon)
+        self.btn_cerrar.setObjectName("btn_cerrar")
+        self.horizontalLayout.addWidget(self.btn_cerrar)
+        self.gridLayout.addWidget(self.contenedor_encabezado, 0, 0, 1, 1)
+        self.contenedor = QtWidgets.QFrame(self.frame_2)
         self.contenedor.setStyleSheet("")
         self.contenedor.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor.setObjectName("contenedor")
         self.gridLayout_6 = QtWidgets.QGridLayout(self.contenedor)
         self.gridLayout_6.setObjectName("gridLayout_6")
-        self.etiquetaTitulo_administrarpuestos = QtWidgets.QLabel(self.contenedor)
-        self.etiquetaTitulo_administrarpuestos.setObjectName("etiquetaTitulo_administrarpuestos")
-        self.gridLayout_6.addWidget(self.etiquetaTitulo_administrarpuestos, 0, 0, 1, 1)
+        self.frame = QtWidgets.QFrame(self.contenedor)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.frame)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.tabla_listapuestos = QtWidgets.QTableView(self.frame)
+        self.tabla_listapuestos.setMinimumSize(QtCore.QSize(420, 0))
+        self.tabla_listapuestos.setObjectName("tabla_listapuestos")
+        self.tabla_listapuestos.horizontalHeader().setDefaultSectionSize(200)
+        self.tabla_listapuestos.horizontalHeader().setMinimumSectionSize(200)
+        self.tabla_listapuestos.horizontalHeader().setStretchLastSection(False)
+        self.gridLayout_2.addWidget(self.tabla_listapuestos, 2, 0, 1, 3)
+        self.etiqueta_puestosexistentes = QtWidgets.QLabel(self.frame)
+        self.etiqueta_puestosexistentes.setObjectName("etiqueta_puestosexistentes")
+        self.gridLayout_2.addWidget(self.etiqueta_puestosexistentes, 0, 0, 1, 1)
+        self.txt_buscarpuesto = QtWidgets.QLineEdit(self.frame)
+        self.txt_buscarpuesto.setObjectName("txt_buscarpuesto")
+        self.gridLayout_2.addWidget(self.txt_buscarpuesto, 1, 0, 1, 3)
+        self.gridLayout_6.addWidget(self.frame, 1, 1, 1, 1)
+        self.gridLayout_3 = QtWidgets.QGridLayout()
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.btn_btn_limpiar = QtWidgets.QPushButton(self.contenedor)
+        self.btn_btn_limpiar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_limpiar.setText("")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_limpiar.setIcon(icon1)
+        self.btn_btn_limpiar.setIconSize(QtCore.QSize(25, 25))
+        self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
+        self.gridLayout_3.addWidget(self.btn_btn_limpiar, 0, 0, 1, 1)
+        self.btn_btn_agregar = QtWidgets.QPushButton(self.contenedor)
+        font = QtGui.QFont()
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
+        self.btn_btn_agregar.setFont(font)
+        self.btn_btn_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_agregar.setAccessibleName("")
+        self.btn_btn_agregar.setAccessibleDescription("")
+        self.btn_btn_agregar.setAutoFillBackground(False)
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_agregar.setIcon(icon2)
+        self.btn_btn_agregar.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_agregar.setObjectName("btn_btn_agregar")
+        self.gridLayout_3.addWidget(self.btn_btn_agregar, 0, 1, 1, 1)
+        self.btn_btn_actualizar = QtWidgets.QPushButton(self.contenedor)
+        self.btn_btn_actualizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_actualizar.setIcon(icon3)
+        self.btn_btn_actualizar.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_actualizar.setObjectName("btn_btn_actualizar")
+        self.gridLayout_3.addWidget(self.btn_btn_actualizar, 0, 2, 1, 1)
+        self.btn_btn_eliminar = QtWidgets.QPushButton(self.contenedor)
+        self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_eliminar.setIcon(icon4)
+        self.btn_btn_eliminar.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
+        self.gridLayout_3.addWidget(self.btn_btn_eliminar, 0, 3, 1, 1)
+        self.gridLayout_6.addLayout(self.gridLayout_3, 0, 1, 1, 1)
         self.contenedor_formulario = QtWidgets.QFrame(self.contenedor)
         self.contenedor_formulario.setStyleSheet("")
         self.contenedor_formulario.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -236,6 +294,7 @@ class Ui_Formulario_puestos(object):
         self.etiqueta_salario.setObjectName("etiqueta_salario")
         self.gridLayout_4.addWidget(self.etiqueta_salario, 1, 0, 1, 1)
         self.decimal_salario = QtWidgets.QDoubleSpinBox(self.contenedor_formulario)
+        self.decimal_salario.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.decimal_salario.setMaximum(1e+31)
         self.decimal_salario.setObjectName("decimal_salario")
         self.gridLayout_4.addWidget(self.decimal_salario, 1, 1, 1, 1)
@@ -243,6 +302,7 @@ class Ui_Formulario_puestos(object):
         self.etiqueta_horas_laborales.setObjectName("etiqueta_horas_laborales")
         self.gridLayout_4.addWidget(self.etiqueta_horas_laborales, 2, 0, 1, 1)
         self.decimal_horaslaborales = QtWidgets.QDoubleSpinBox(self.contenedor_formulario)
+        self.decimal_horaslaborales.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.decimal_horaslaborales.setMaximum(1e+31)
         self.decimal_horaslaborales.setObjectName("decimal_horaslaborales")
         self.gridLayout_4.addWidget(self.decimal_horaslaborales, 2, 1, 1, 1)
@@ -250,6 +310,7 @@ class Ui_Formulario_puestos(object):
         self.etiqueta_horaentrada.setObjectName("etiqueta_horaentrada")
         self.gridLayout_4.addWidget(self.etiqueta_horaentrada, 3, 0, 1, 1)
         self.tiempo_horaentrada = QtWidgets.QTimeEdit(self.contenedor_formulario)
+        self.tiempo_horaentrada.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.tiempo_horaentrada.setCalendarPopup(True)
         self.tiempo_horaentrada.setObjectName("tiempo_horaentrada")
         self.gridLayout_4.addWidget(self.tiempo_horaentrada, 3, 1, 1, 1)
@@ -257,6 +318,7 @@ class Ui_Formulario_puestos(object):
         self.etiqueta_horasalida.setObjectName("etiqueta_horasalida")
         self.gridLayout_4.addWidget(self.etiqueta_horasalida, 4, 0, 1, 1)
         self.tiempo_horasalida = QtWidgets.QTimeEdit(self.contenedor_formulario)
+        self.tiempo_horasalida.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.tiempo_horasalida.setCalendarPopup(True)
         self.tiempo_horasalida.setObjectName("tiempo_horasalida")
         self.gridLayout_4.addWidget(self.tiempo_horasalida, 4, 1, 1, 1)
@@ -290,8 +352,8 @@ class Ui_Formulario_puestos(object):
         self.cajaopcion_martes = QtWidgets.QCheckBox(self.contenedor_diaslaborales)
         self.cajaopcion_martes.setObjectName("cajaopcion_martes")
         self.gridLayout_5.addWidget(self.cajaopcion_martes, 1, 0, 1, 1)
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.gridLayout_5.addItem(spacerItem, 4, 0, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_5.addItem(spacerItem1, 4, 0, 1, 1)
         self.cajaopcion_lunes = QtWidgets.QCheckBox(self.contenedor_diaslaborales)
         self.cajaopcion_lunes.setObjectName("cajaopcion_lunes")
         self.gridLayout_5.addWidget(self.cajaopcion_lunes, 0, 0, 1, 1)
@@ -316,68 +378,10 @@ class Ui_Formulario_puestos(object):
         self.btn_btn_roles.setObjectName("btn_btn_roles")
         self.gridLayout_4.addWidget(self.btn_btn_roles, 11, 0, 1, 1)
         self.gridLayout_6.addWidget(self.contenedor_formulario, 1, 0, 1, 1)
-        self.frame = QtWidgets.QFrame(self.contenedor)
-        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.frame)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.tabla_listapuestos = QtWidgets.QTableView(self.frame)
-        self.tabla_listapuestos.setMinimumSize(QtCore.QSize(420, 0))
-        self.tabla_listapuestos.setObjectName("tabla_listapuestos")
-        self.gridLayout_2.addWidget(self.tabla_listapuestos, 2, 0, 1, 3)
-        self.etiqueta_puestosexistentes = QtWidgets.QLabel(self.frame)
-        self.etiqueta_puestosexistentes.setObjectName("etiqueta_puestosexistentes")
-        self.gridLayout_2.addWidget(self.etiqueta_puestosexistentes, 0, 0, 1, 1)
-        self.txt_buscarpuesto = QtWidgets.QLineEdit(self.frame)
-        self.txt_buscarpuesto.setObjectName("txt_buscarpuesto")
-        self.gridLayout_2.addWidget(self.txt_buscarpuesto, 1, 0, 1, 3)
-        self.gridLayout_6.addWidget(self.frame, 1, 1, 1, 1)
-        self.gridLayout_3 = QtWidgets.QGridLayout()
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        self.btn_btn_limpiar = QtWidgets.QPushButton(self.contenedor)
-        self.btn_btn_limpiar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_limpiar.setText("")
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/Icons/IconosSVG/borrador.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_limpiar.setIcon(icon)
-        self.btn_btn_limpiar.setIconSize(QtCore.QSize(25, 25))
-        self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
-        self.gridLayout_3.addWidget(self.btn_btn_limpiar, 0, 0, 1, 1)
-        self.btn_btn_agregar = QtWidgets.QPushButton(self.contenedor)
-        font = QtGui.QFont()
-        font.setPointSize(-1)
-        font.setBold(True)
-        font.setWeight(75)
-        self.btn_btn_agregar.setFont(font)
-        self.btn_btn_agregar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_agregar.setAccessibleName("")
-        self.btn_btn_agregar.setAccessibleDescription("")
-        self.btn_btn_agregar.setAutoFillBackground(False)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_agregar.setIcon(icon1)
-        self.btn_btn_agregar.setIconSize(QtCore.QSize(16, 16))
-        self.btn_btn_agregar.setObjectName("btn_btn_agregar")
-        self.gridLayout_3.addWidget(self.btn_btn_agregar, 0, 1, 1, 1)
-        self.btn_btn_actualizar = QtWidgets.QPushButton(self.contenedor)
-        self.btn_btn_actualizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_actualizar.setIcon(icon2)
-        self.btn_btn_actualizar.setIconSize(QtCore.QSize(16, 16))
-        self.btn_btn_actualizar.setObjectName("btn_btn_actualizar")
-        self.gridLayout_3.addWidget(self.btn_btn_actualizar, 0, 2, 1, 1)
-        self.btn_btn_eliminar = QtWidgets.QPushButton(self.contenedor)
-        self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_eliminar.setIcon(icon3)
-        self.btn_btn_eliminar.setIconSize(QtCore.QSize(16, 16))
-        self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
-        self.gridLayout_3.addWidget(self.btn_btn_eliminar, 0, 3, 1, 1)
-        self.gridLayout_6.addLayout(self.gridLayout_3, 0, 1, 1, 1)
-        self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout_6.addItem(spacerItem2, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.contenedor, 1, 0, 1, 1)
+        self.gridLayout_7.addWidget(self.frame_2, 0, 0, 1, 1)
 
         self.retranslateUi(Formulario_puestos)
         QtCore.QMetaObject.connectSlotsByName(Formulario_puestos)
@@ -401,7 +405,12 @@ class Ui_Formulario_puestos(object):
     def retranslateUi(self, Formulario_puestos):
         _translate = QtCore.QCoreApplication.translate
         Formulario_puestos.setWindowTitle(_translate("Formulario_puestos", "Form"))
-        self.etiquetaTitulo_administrarpuestos.setText(_translate("Formulario_puestos", "Administrar puestos"))
+        self.etiquetaTitulo_administrarpuestos.setText(_translate("Formulario_puestos", "Puestos"))
+        self.etiqueta_puestosexistentes.setText(_translate("Formulario_puestos", "Puestos Existentes"))
+        self.txt_buscarpuesto.setPlaceholderText(_translate("Formulario_puestos", "Nombre del puesto"))
+        self.btn_btn_agregar.setText(_translate("Formulario_puestos", "Agregar"))
+        self.btn_btn_actualizar.setText(_translate("Formulario_puestos", "Actualizar"))
+        self.btn_btn_eliminar.setText(_translate("Formulario_puestos", "Eliminar"))
         self.etiqueta_nombrepuesto.setText(_translate("Formulario_puestos", "Nombre:"))
         self.txt_nombrepuesto.setPlaceholderText(_translate("Formulario_puestos", "Nombre"))
         self.etiqueta_salario.setText(_translate("Formulario_puestos", "Salario:"))
@@ -419,11 +428,6 @@ class Ui_Formulario_puestos(object):
         self.cajaopcion_sabado.setText(_translate("Formulario_puestos", "Sabado"))
         self.cajaopcion_domingo.setText(_translate("Formulario_puestos", "Domingo"))
         self.btn_btn_roles.setText(_translate("Formulario_puestos", "Grupos"))
-        self.etiqueta_puestosexistentes.setText(_translate("Formulario_puestos", "Puestos Existentes"))
-        self.txt_buscarpuesto.setPlaceholderText(_translate("Formulario_puestos", "Nombre del puesto"))
-        self.btn_btn_agregar.setText(_translate("Formulario_puestos", "Agregar"))
-        self.btn_btn_actualizar.setText(_translate("Formulario_puestos", "Actualizar"))
-        self.btn_btn_eliminar.setText(_translate("Formulario_puestos", "Eliminar"))
 from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc
 from ...Source import iconsdvg_rc

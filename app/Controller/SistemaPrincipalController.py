@@ -31,6 +31,7 @@ class SistemaPrincipal(QWidget):
         
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.showMaximized()
+        self.setWindowTitle("RousPos")
         self.ui.btn_laterales_btn_sucursales.clicked.connect(self.mostrar_sucursales)
         
         self.ui.label_fotousuario.setCursor(Qt.PointingHandCursor)
@@ -99,6 +100,6 @@ class SistemaPrincipal(QWidget):
     
             
     def mostrar_sucursales(self):
-        self.ventana_sucursales = ControlSucursalesController()
+        self.ventana_sucursales = ControlSucursalesController(self)
         self.ventana_sucursales.show()
 

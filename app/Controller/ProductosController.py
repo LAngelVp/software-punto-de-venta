@@ -73,7 +73,7 @@ class ExistenciasClase(QWidget):
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
     RECIBIR_PRODUCTO_ACTUALIZAR = pyqtSignal(object)
-    VENTANA_CERRADA = pyqtSignal()
+    VENTANA_CERRADA_PRODUCTOS = pyqtSignal()
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -148,7 +148,7 @@ class Admin_productosController(QWidget):
             self._ventanaCentradaProductoExistente = True
 
     def closeEvent(self, event):
-        self.VENTANA_CERRADA.emit() 
+        self.VENTANA_CERRADA_PRODUCTOS.emit() 
         event.accept()
         
 #FUNCIONES-VENTANAS EMERGENTES: 
@@ -956,13 +956,18 @@ class Productos(QWidget):
             self.LISTAR_CATEGORIAS_PRODUCTOS.connect(self.AdminProductos.listar_categorias)
             self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.connect(self.AdminProductos.listar_unidades_medida)
             self.LISTAR_PRESENTACIONES_PRODUCTOS.connect(self.AdminProductos.listar_presentaciones_productos)
+            self.AdminProductos.VENTANA_CERRADA_PRODUCTOS.connect(self.ventana_productos_cerrada)
+            self.AdminProductos.PRODUCTOS_AGREGADOS.connect(self.consultar_productos_db)
             self.LISTAR_CATEGORIAS_PRODUCTOS.emit()
             self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.emit()
             self.LISTAR_PRESENTACIONES_PRODUCTOS.emit()
-            self.AdminProductos.PRODUCTOS_AGREGADOS.connect(self.consultar_productos_db)
             self.AdminProductos.show()
         else:
             self.AdminProductos.raise_()
+            self.AdminProductos.activateWindow()
+            
+    def ventana_productos_cerrada(self):
+        self.AdminProductos = None
     
     def eliminar_producto(self):
         if self.codigo_upc_producto is None:
@@ -982,7 +987,7 @@ class Productos(QWidget):
         if self.codigo_upc_producto is None:
             Mensaje().mensaje_informativo("No has seleccionado un producto de la tabla para proceder a modificarlo")
             return
-        if self.AdminProductos is None or self.AdminProductos.isVisible():
+        if self.AdminProductos is None or not self.AdminProductos.isVisible():
             self.AdminProductos = Admin_productosController(self)
             
             self.AdminProductos.setParent(self)
@@ -994,10 +999,11 @@ class Productos(QWidget):
             self.AdminProductos.PRODUCTOS_AGREGADOS.connect(
                 self.consultar_productos_db
             )
-            self.AdminProductos.VENTANA_CERRADA.connect(self.ventana_cerrada_form_producto)
+            self.AdminProductos.VENTANA_CERRADA_PRODUCTOS.connect(self.ventana_productos_cerrada)
             self.AdminProductos.show()
         else:
             self.AdminProductos.raise_()
+            self.AdminProductos.activateWindow()
             
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
@@ -1108,9 +1114,6 @@ class Productos(QWidget):
             self.ventana_existencia_productos = ExistenciasClase(self, datos_usuario = self.datos_usuario, producto=producto)
             self.ventana_existencia_productos.VENTANA_CERRADA_EXISTENCIA.connect(self.ventana_cerrada_form_existencia)
             self.ventana_existencia_productos.show()
-    
-    def ventana_cerrada_form_producto(self):
-        self.AdminProductos = None
         
     def ventana_cerrada_form_existencia(self):
         self.ventana_existencia_productos = None

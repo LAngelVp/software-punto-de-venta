@@ -20,9 +20,12 @@ background: #fffefb;
 [objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
 }
-#etiquetaTitulo{
-color: #1d1c1c;
-font-size:20px;
+#contenedor_encabezado{
+background: #023375;
+}
+#etiquetaTituloEncabezado{
+color: #fffefb;
+font-size:18px;
 font-weight:bold;
 font-family:Arial;
 }
@@ -124,16 +127,31 @@ QListWidget::horizontal-scrollbar::handle {
 }
 </string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_6">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
    <item row="0" column="0">
-    <widget class="QFrame" name="contenedor">
+    <widget class="QFrame" name="frame">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
+     <layout class="QGridLayout" name="gridLayout">
       <property name="leftMargin">
        <number>0</number>
       </property>
@@ -146,110 +164,159 @@ QListWidget::horizontal-scrollbar::handle {
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <property name="horizontalSpacing">
+      <property name="spacing">
        <number>0</number>
       </property>
-      <property name="verticalSpacing">
-       <number>15</number>
-      </property>
-      <item row="0" column="5">
-       <widget class="QPushButton" name="btn_btn_eliminar">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Eliminar</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../../Source/iconosSVG.qrc">
-          <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="btn_btn_guardar">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Guardar</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../../Source/iconosSVG.qrc">
-          <normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QPushButton" name="btn_btn_actualizar">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Actualizar</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../../Source/iconosSVG.qrc">
-          <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="etiquetaTitulo">
-        <property name="text">
-         <string>Departamentos</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="7">
-       <widget class="QFrame" name="contenedor_formulario">
+       <widget class="QFrame" name="contenedor_encabezado">
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
         </property>
         <property name="frameShadow">
          <enum>QFrame::Raised</enum>
         </property>
-        <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="0">
-          <widget class="QLabel" name="etiqueta_nombredepartamento">
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="etiquetaTituloEncabezado">
            <property name="text">
-            <string>Nombre del departamento:</string>
+            <string>Departamentos</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
-          <spacer name="horizontalSpacer_2">
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>692</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_cerrar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/ibootstrap.qrc">
+             <normaloff>:/Icons/Bootstrap/x-lg.svg</normaloff>:/Icons/Bootstrap/x-lg.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QFrame" name="contenedor">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>10</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="horizontalSpacing">
+          <number>0</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>15</number>
+         </property>
+         <item row="0" column="5">
+          <widget class="QPushButton" name="btn_btn_eliminar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Eliminar</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/iconosSVG.qrc">
+             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QPushButton" name="btn_btn_guardar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Guardar</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/iconosSVG.qrc">
+             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QPushButton" name="btn_btn_actualizar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Actualizar</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/iconosSVG.qrc">
+             <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>24</width>
+             <height>24</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <spacer name="horizontalSpacer">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -261,175 +328,207 @@ QListWidget::horizontal-scrollbar::handle {
            </property>
           </spacer>
          </item>
-         <item row="1" column="4">
-          <widget class="QLabel" name="etiquetasubtitulo_departamentosexistentes">
-           <property name="text">
-            <string>Departamentos existentes</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="5">
-          <widget class="QLabel" name="etiquetasubtitulo_puestosasignados">
-           <property name="text">
-            <string>Puestos Asignados</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0" colspan="2">
-          <widget class="QLabel" name="etiqueta_descripciondepartamento">
-           <property name="text">
-            <string>Descripcion del departamento:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="4" rowspan="4">
-          <widget class="QListWidget" name="lista_departamentosexistentes"/>
-         </item>
-         <item row="2" column="5" rowspan="4">
-          <widget class="QListWidget" name="lista_puestosasignados"/>
-         </item>
-         <item row="3" column="0" colspan="4">
-          <widget class="QPlainTextEdit" name="txtlargo_descripciondepartamento">
-           <property name="cursor" stdset="0">
-            <cursorShape>IBeamCursor</cursorShape>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="etiquetasubtitulo_sucursalesexistentes">
-           <property name="text">
-            <string>Sucursales existentes:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2" colspan="2">
-          <widget class="QLabel" name="etiquetasubtitulo_sucursalesvinculadas">
-           <property name="text">
-            <string>Sucusales vinculadas</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
-          <widget class="QListWidget" name="lista_sucursalesexistentes"/>
-         </item>
-         <item row="5" column="1">
-          <widget class="QFrame" name="contenedor_botonesvincular">
+         <item row="1" column="0" colspan="7">
+          <widget class="QFrame" name="contenedor_formulario">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_3">
+           <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="0">
-             <widget class="QPushButton" name="btn_btn_vincular">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="toolTip">
-               <string>Vincular</string>
-              </property>
+             <widget class="QLabel" name="etiqueta_nombredepartamento">
               <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_derecha_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_derecha_blanco.svg</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
+               <string>Nombre del departamento:</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QPushButton" name="btn_btn_desvincular">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
+            <item row="0" column="2">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-              <property name="toolTip">
-               <string>Desvincular</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_izquierda_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_izquierda_blanco.svg</iconset>
-              </property>
-              <property name="iconSize">
+              <property name="sizeHint" stdset="0">
                <size>
-                <width>24</width>
-                <height>24</height>
+                <width>40</width>
+                <height>20</height>
                </size>
               </property>
+             </spacer>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="etiquetasubtitulo_departamentosexistentes">
+              <property name="text">
+               <string>Departamentos existentes</string>
+              </property>
              </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLabel" name="etiquetasubtitulo_puestosasignados">
+              <property name="text">
+               <string>Puestos Asignados</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="QLabel" name="etiqueta_descripciondepartamento">
+              <property name="text">
+               <string>Descripcion del departamento:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4" rowspan="4">
+             <widget class="QListWidget" name="lista_departamentosexistentes"/>
+            </item>
+            <item row="2" column="5" rowspan="4">
+             <widget class="QListWidget" name="lista_puestosasignados"/>
+            </item>
+            <item row="3" column="0" colspan="4">
+             <widget class="QPlainTextEdit" name="txtlargo_descripciondepartamento">
+              <property name="cursor" stdset="0">
+               <cursorShape>IBeamCursor</cursorShape>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="etiquetasubtitulo_sucursalesexistentes">
+              <property name="text">
+               <string>Sucursales existentes:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="2" colspan="2">
+             <widget class="QLabel" name="etiquetasubtitulo_sucursalesvinculadas">
+              <property name="text">
+               <string>Sucusales vinculadas</string>
+              </property>
+              <property name="wordWrap">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QListWidget" name="lista_sucursalesexistentes"/>
+            </item>
+            <item row="5" column="1">
+             <widget class="QFrame" name="contenedor_botonesvincular">
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_3">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="btn_btn_vincular">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="toolTip">
+                  <string>Vincular</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../Source/iconosSVG.qrc">
+                   <normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_derecha_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_derecha_blanco.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>24</width>
+                   <height>24</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QPushButton" name="btn_btn_desvincular">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="toolTip">
+                  <string>Desvincular</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../Source/iconosSVG.qrc">
+                   <normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_izquierda_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/flecha_izquierda_blanco.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>24</width>
+                   <height>24</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item row="5" column="2" colspan="2">
+             <widget class="QListWidget" name="lista_sucursalesvinculadas"/>
+            </item>
+            <item row="1" column="0" colspan="2">
+             <widget class="QLineEdit" name="txt_nombredepartamento"/>
+            </item>
+            <item row="0" column="4" colspan="2">
+             <layout class="QGridLayout" name="gridLayout_4">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="txt_buscardepartamento">
+                <property name="placeholderText">
+                 <string> Buscar Departamento</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="etiqueta_buscardepartamento">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="../../Source/iconosSVG.qrc">:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </widget>
          </item>
-         <item row="5" column="2" colspan="2">
-          <widget class="QListWidget" name="lista_sucursalesvinculadas"/>
-         </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QLineEdit" name="txt_nombredepartamento"/>
-         </item>
-         <item row="0" column="4" colspan="2">
-          <layout class="QGridLayout" name="gridLayout_4">
-           <property name="spacing">
-            <number>0</number>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="btn_btn_limpiar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
            </property>
-           <item row="0" column="1">
-            <widget class="QLineEdit" name="txt_buscardepartamento">
-             <property name="placeholderText">
-              <string> Buscar Departamento</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="etiqueta_buscardepartamento">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap resource="../../Source/iconosSVG.qrc">:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg</pixmap>
-             </property>
-             <property name="scaledContents">
-              <bool>true</bool>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-          </layout>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/iconsdvg.qrc">
+             <normaloff>:/Icons/IconosSVG/borrador.png</normaloff>:/Icons/IconosSVG/borrador.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>25</width>
+             <height>25</height>
+            </size>
+           </property>
+          </widget>
          </item>
         </layout>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="btn_btn_limpiar">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="icon">
-         <iconset resource="../../Source/iconsdvg.qrc">
-          <normaloff>:/Icons/IconosSVG/borrador.png</normaloff>:/Icons/IconosSVG/borrador.png</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>25</width>
-          <height>25</height>
-         </size>
-        </property>
        </widget>
       </item>
      </layout>
@@ -453,6 +552,7 @@ QListWidget::horizontal-scrollbar::handle {
  </tabstops>
  <resources>
   <include location="../../Source/iconsdvg.qrc"/>
+  <include location="../../Source/ibootstrap.qrc"/>
   <include location="../../Source/iconosSVG.qrc"/>
  </resources>
  <connections/>

@@ -36,10 +36,30 @@ class Registro_personal_inicial(QDialog):
     VENTANA_REGISTRO_CERRADA = pyqtSignal()
     def __init__(self, parent = None, id_empleado = None):
         super().__init__(parent)
+        # comment: variables globales:
+        self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
+        self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
+        self.parentesco_contacto = ['BISABUELO/A', 'ABUELO/A', 'MADRE', 'PADRE', 'TIO/A', 'ESPOSO/A', 'NIETO/A', 'HIJO/A', 'HERMANO/A', 'SOBRINO/A', 'PRIMO/A', 'CUÑADO/A' 'SUEGRO/A', 'YERNO', 'NUERA', 'OTRO']
+        self.generos = ["MASCULINO","FEMENINO", "NO BINARIO", "TRANSEXUAL", "INTERGÉNERO", "AGÉNERO", "OTRO"]
+        self.drag_start_position = None
+        self.file_name = '' # ALMACENAMOS LA FOTO
+        self.departamentos = None
+        self.puestos = None
+        # self.sucursales = SucursalesController()
+        self.sucursales = None
+        self.id_empleado = None
+        self.lista_puestos = []
+        self.variable_primer_registro = False
+        self.empleado_existente = None
+        self._ventanaCerradaRegistro = False
+        
+        # comment: inicializacion de la ventana
         self.ui = Ui_RegistroAdministrador()
         self.ui.setupUi(self)
 
         #// edicion de la ventana:
+        self.setWindowTitle("Formulario del perosonal")
+        self.showMaximized()
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         
@@ -57,7 +77,6 @@ class Registro_personal_inicial(QDialog):
         self.ui.fecha_fechacontratacion.setDate(QDate.currentDate())
         self.ui.Button_actualizar.hide()
         self.ui.Button_agregarUsuario.hide()
-        self.setWindowTitle("Formulario del perosonal")
         self.ui.btc_minimizar.hide()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
@@ -85,13 +104,11 @@ class Registro_personal_inicial(QDialog):
         self.ui.txt_colonia.setMaxLength(50)
         self.ui.txt_ninterior.setMaxLength(10)
         self.ui.txt_nexterior.setMaxLength(10)
-        
         self.ui.txt_usuario_iniciosesion.setMaxLength(60)
         self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(10)
         self.ui.txt_nombre.setFocus()
 # señales: acciones de los botones
         self.ui.btc_cerrar.clicked.connect(self.close)
-        self.ui.btc_minimizar.clicked.connect(lambda: self.showMinimized())
         self.ui.Button_cancelar.clicked.connect(self.close)
         self.ui.foto_usuario.mousePressEvent = self.cargar_imagen
         self.ui.btc_maximizar.clicked.connect(self.maximizar)
@@ -107,10 +124,7 @@ class Registro_personal_inicial(QDialog):
         self.ui.Button_actualizar.clicked.connect(self.actualizar_empleado)
         self.ui.Button_agregarUsuario.clicked.connect(self.agregar_usuario)
 #// agregar elementos:
-        self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
-        self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
-        self.parentesco_contacto = ['BISABUELO/A', 'ABUELO/A', 'MADRE', 'PADRE', 'TIO/A', 'ESPOSO/A', 'NIETO/A', 'HIJO/A', 'HERMANO/A', 'SOBRINO/A', 'PRIMO/A', 'CUÑADO/A' 'SUEGRO/A', 'YERNO', 'NUERA', 'OTRO']
-        self.generos = ["MASCULINO","FEMENINO", "NO BINARIO", "TRANSEXUAL", "INTERGÉNERO", "AGÉNERO", "OTRO"]
+        
         self.ui.cajaopciones_nivelacademico.addItems(self.niveles_academicos)
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_nivelacademico)
         self.ui.cajaopciones_estadocvil.addItems(self.estados_civiles)
@@ -121,16 +135,7 @@ class Registro_personal_inicial(QDialog):
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_genero)
         
 #// variables globales:
-        self.drag_start_position = None
-        self.file_name = '' # ALMACENAMOS LA FOTO
-        self.departamentos = DepartamentosController()
-        self.puestos = PuestosController()
-        self.sucursales = SucursalesController()
-        self.id_empleado = None
-        self.lista_puestos = []
-        self.variable_primer_registro = False
-        self.empleado_existente = None
-        self._ventanaCerradaRegistro = False
+        
         
 #funciones principales:
         self.listar_grupo_permisos_rol()
@@ -141,11 +146,11 @@ class Registro_personal_inicial(QDialog):
         self.listar_sucursales()
 
 # señales y slots:
-        self.listar_sucursales_signal.connect(self.sucursales.obtener_sucursales)
-        self.listar_departamentos_signal.connect(self.departamentos.obtener_departamentos)
-        self.listar_puestos_signal.connect(self.puestos.listar_puestos)
-        self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
-        self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
+        # self.listar_sucursales_signal.connect(self.sucursales.obtener_sucursales)
+        # self.listar_departamentos_signal.connect(self.departamentos.obtener_departamentos)
+        # self.listar_puestos_signal.connect(self.puestos.listar_puestos)
+        # self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
+        # self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
         
         if id_empleado is not None:
             self.cargar_datos_empleado()
@@ -378,21 +383,58 @@ class Registro_personal_inicial(QDialog):
             self.ui.fecha_fechadespido.setDate(empleado.fecha_despido)
     
     def agregar_sucursal(self):
-        self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
-        self.listar_sucursales_signal.emit()
-        self.sucursales.show()
+        if self.sucursales is None or not self.sucursales.isVisible():
+            self.sucursales = SucursalesController()
+            self.sucursales.setParent(self)
+            self.listar_sucursales_signal.connect(self.sucursales.obtener_sucursales)
+            self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
+            self.sucursales.VENTANA_SUCURSALES_CERRADA.connect(self.ventana_sucursales_cerrada)
+            self.listar_sucursales_signal.emit()
+            self.sucursales.setModal(True)
+            self.sucursales.exec_()
+        else:
+            self.sucursales.raise_()
+            self.sucursales.activateWindow()
 
+    def ventana_sucursales_cerrada(self):
+        self.sucursales = None
+    
     def ventana_departamentos(self):
-        self.departamentos.signal_departamento_agregado.connect(self.listar_departamentos)
-        self.listar_sucursales_en_departamentos_signal.emit()
-        self.listar_departamentos_signal.emit()
-        self.departamentos.show()
+        if self.departamentos is None or not self.departamentos.isVisible():
+            self.departamentos = DepartamentosController()
+            self.departamentos.setParent(self)
+            self.listar_departamentos_signal.connect(self.departamentos.obtener_departamentos)
+            self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
+            self.departamentos.signal_departamento_agregado.connect(self.listar_departamentos)
+            self.departamentos.VENTANA_DEPARTAMENTOS_CERRADA.connect(self.ventana_departamentos_cerrada)
+            self.listar_sucursales_en_departamentos_signal.emit()
+            self.listar_departamentos_signal.emit()
+            self.departamentos.setModal(True)
+            self.departamentos.exec_()
+        else:
+            self.departamentos.raise_()
+            self.departamentos.activateWindow()
+            
+    def ventana_departamentos_cerrada(self):
+        self.departamentos = None
     
     def ventana_puestos(self):
-        self.puestos.signal_puesto_agregado.connect(self.listar_puestos)
-        self.listar_depas_en_puestos_signal.emit()
-        self.listar_puestos_signal.emit()
-        self.puestos.show()
+        if self.puestos is None or not self.puestos.isVisible():
+            self.puestos = PuestosController()
+            self.puestos.setParent(self)
+            self.puestos.signal_puesto_agregado.connect(self.listar_puestos)
+            self.puestos.VENTANA_PUESTOS_CERRADA.connect(self.ventana_puestos_cerrada)
+            self.listar_puestos_signal.connect(self.puestos.listar_puestos)
+            self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
+            self.listar_depas_en_puestos_signal.emit()
+            self.listar_puestos_signal.emit()
+            self.puestos.exec_()
+        else:
+            self.puestos.raise_()
+            self.puestos.activateWindow()
+            
+    def ventana_puestos_cerrada(self):
+        self.puestos = None
 
     def listar_sucursales(self):
         self.ui.cajaopciones_sucursales.clear()

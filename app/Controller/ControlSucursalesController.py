@@ -9,24 +9,25 @@ from app.Controller.SucursalesController import SucursalesController
 from app.Controller.DepartamentosController import DepartamentosController
 from app.Controller.PuestosController import PuestosController
 
-class ControlSucursalesController(QWidget):
+class ControlSucursalesController(QDialog):
     listar_sucursales = pyqtSignal(set)
     listar_departamentos = pyqtSignal()
     listar_departamentos_puestos = pyqtSignal()
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.ui = Ui_Control_SucursalesDepartamentosPuestos()
         self.ui.setupUi(self)
         self.setWindowTitle("Administración de sucursales, puestos y departamentos")
         icon = QIcon(':Icons/IconosSVG/sucursales.png')
         self.setWindowIcon(icon)
+        self.setWindowTitle("Administración de puestos")
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
 
-        self.sucursales = SucursalesController()
-        self.departamentos = DepartamentosController()
-        self.puestos = PuestosController()
+        self.sucursales = SucursalesController(parent=self,cabecera=False)
+        self.departamentos = DepartamentosController(parent=self, cabecera=False)
+        self.puestos = PuestosController(parent=self, cabecera=False)
 
 
         self.ui.contenedor_paginas.addWidget(self.sucursales)

@@ -18,7 +18,7 @@ class Inicio_sistema:
                 consulta = select(func.count()).select_from(Usuarios)
                 return session.execute(consulta).scalar() or 0
         except Exception as e:
-            Mensaje.mostrar_error(f"Error al verificar usuarios: {e}")
+            Mensaje().mensaje_alerta(f"Error al verificar usuarios: {e}")
             return 0
 
     def ejecutar(self):

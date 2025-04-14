@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_SUCUDEPAPUESTO.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_SUCUDEPAPUESTO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -54,25 +54,20 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
         self.contenedor_botones.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_botones.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor_botones.setObjectName("contenedor_botones")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.contenedor_botones)
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.contenedor_botonessecundario = QtWidgets.QGridLayout()
-        self.contenedor_botonessecundario.setHorizontalSpacing(20)
-        self.contenedor_botonessecundario.setVerticalSpacing(0)
-        self.contenedor_botonessecundario.setObjectName("contenedor_botonessecundario")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_botones)
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.btn_btn_sucursales = QtWidgets.QPushButton(self.contenedor_botones)
-        self.btn_btn_sucursales.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_sucursales.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.btn_btn_sucursales.setObjectName("btn_btn_sucursales")
-        self.contenedor_botonessecundario.addWidget(self.btn_btn_sucursales, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.btn_btn_sucursales)
         self.btn_btn_departamentos = QtWidgets.QPushButton(self.contenedor_botones)
-        self.btn_btn_departamentos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_departamentos.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.btn_btn_departamentos.setObjectName("btn_btn_departamentos")
-        self.contenedor_botonessecundario.addWidget(self.btn_btn_departamentos, 0, 1, 1, 1)
+        self.horizontalLayout.addWidget(self.btn_btn_departamentos)
         self.btn_btn_puestos = QtWidgets.QPushButton(self.contenedor_botones)
-        self.btn_btn_puestos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_puestos.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
         self.btn_btn_puestos.setObjectName("btn_btn_puestos")
-        self.contenedor_botonessecundario.addWidget(self.btn_btn_puestos, 0, 2, 1, 1)
-        self.gridLayout_4.addLayout(self.contenedor_botonessecundario, 0, 0, 1, 1)
+        self.horizontalLayout.addWidget(self.btn_btn_puestos)
         self.gridLayout_2.addWidget(self.contenedor_botones, 0, 0, 1, 1)
         self.contenedor_formularios = QtWidgets.QFrame(self.contenedor)
         self.contenedor_formularios.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -83,6 +78,7 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
         self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.contenedor_paginas = QtWidgets.QStackedWidget(self.contenedor_formularios)
+        self.contenedor_paginas.setEnabled(True)
         self.contenedor_paginas.setStyleSheet("")
         self.contenedor_paginas.setObjectName("contenedor_paginas")
         self.pagina_inicial = QtWidgets.QWidget()
@@ -90,6 +86,8 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
         self.gridLayout_3 = QtWidgets.QGridLayout(self.pagina_inicial)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.label = QtWidgets.QLabel(self.pagina_inicial)
+        self.label.setEnabled(False)
+        self.label.setMouseTracking(False)
         self.label.setStyleSheet("image: url(:/Icons/IconosSVG/logo_devrous.png);")
         self.label.setText("")
         self.label.setObjectName("label")

@@ -7,11 +7,13 @@ from ..DataBase.conexionBD import Conexion_base_datos
 from ..View.UserInterfacePy.UI_CONTROL_DEPARTAMENTOS import Ui_Control_departamentos
 from ..Model.SucursalesModel import SucursalesModel
 from ..Model.DepartamentosModel import DepartamentosModel
-
-class DepartamentosController(QWidget):
+from .FuncionesAuxiliares import FuncionesAuxiliaresController
+class DepartamentosController(QDialog):
     signal_departamento_agregado = pyqtSignal()
-    def __init__(self):
-        super().__init__()
+    VENTANA_DEPARTAMENTOS_CERRADA = pyqtSignal()
+    def __init__(self, parent = None, cabecera = True):
+        super().__init__(parent)
+        self._ventanaCentradaDepartamentos = False
         self.ui = Ui_Control_departamentos()
         self.ui.setupUi(self)
         pantalla = self.frameGeometry()
@@ -27,6 +29,7 @@ class DepartamentosController(QWidget):
         self.ui.btn_btn_vincular.clicked.connect(self.vincular_sucursal)
         self.ui.btn_btn_desvincular.clicked.connect(self.desvincular_sucursal)
         self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
+        self.ui.btn_cerrar.clicked.connect(self.close)
 
         # señales:
         self.ui.lista_departamentosexistentes.itemClicked.connect(self.obtenerId)
@@ -42,8 +45,20 @@ class DepartamentosController(QWidget):
         self.iconSucursal = QIcon(':/Icons/Bootstrap/building-fill-check.svg')
         self.iconDepartamento = QIcon(':/Icons/Bootstrap/diagram-2-fill.svg')
 
+        if cabecera is False:
+            self.ui.contenedor_encabezado.hide()
+        
         #// funciones iniciales:
 
+    def showEvent(self, event):
+        super().showEvent(event)
+        if not self._ventanaCentradaDepartamentos:
+            FuncionesAuxiliaresController.centrar_en_padre(self)
+            self._ventanaCentradaDepartamentos = True
+    
+    def closeEvent(self, event):
+        self.VENTANA_DEPARTAMENTOS_CERRADA.emit() 
+        event.accept()
     
     #funciones:
     def buscar(self):

@@ -37,7 +37,7 @@ class Inicio_principal(QWidget):
 
         
     def abrir_registro(self):
-        self.registro = Registro_personal_inicial()
+        self.registro = Registro_personal_inicial(parent=None)
         self.registro.variable_primer_registro = True
         self.registro.show()
         self.close()
@@ -49,8 +49,9 @@ class Inicio_principal(QWidget):
                 try:
                     PermisosModel(session).crear_permisos_principal
                     RolesModel(session).crear_grupo_principal
-                    ProductosModel(session).insertar_presentaciones_basicas()
+                    ProductosModel(session).insertar_unida_de_medida_basicas()
                     ProductosModel(session).insertar_categorias_basicas()
+                    ProductosModel(session).insertar_presentaciones_basicas()
                     ProveedoresModel(session).insertar_categoria_proveedor_basicas()
                     ClientesFisicosAndMorales(session).insertar_areas_negocio_basicas()
                     ClientesFisicosAndMorales(session).insertar_categorias_negocio_basicas()

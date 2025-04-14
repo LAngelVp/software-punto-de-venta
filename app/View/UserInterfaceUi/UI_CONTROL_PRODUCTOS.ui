@@ -72,42 +72,6 @@ border-bottom:2px solid #023375;
     font-size: 14px;
 }
 
-/* Barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
-    border: 1px solid gray;
-    background: #023375;
-    width: 12px;  /* Fijamos el tamaño de la barra vertical */
-    border-radius: 4px;
-    margin: 22px 0 22px 0;
-}
-
-/* Manejador de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
-    background: #023375;
-    min-height: 20px;  /* Altura mínima del manejador */
-    border-radius: 4px;
-}
-
-/* Elementos de la flecha de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
-[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
-    background-color: none;
-}
-
-/* Barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
-    background: #023375;
-    height: 12px;  /* Fijamos el tamaño de la barra horizontal */
-    border-radius: 4px;
-}
-
-/* Manejador de la barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
-    background: #023375;
-    height: 12px;  /* Altura del manejador horizontal */
-    border-radius: 4px;
-}
-
 /* Encabezados de la tabla */
 [objectName*=&quot;tabla_&quot;] QHeaderView::section {
     background-color: #023375;

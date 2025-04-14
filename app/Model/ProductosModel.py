@@ -7,7 +7,7 @@ class ProductosModel:
         self.session = session
 
 # // presentaciones de los productos:
-    def insertar_presentaciones_basicas(self):
+    def insertar_unida_de_medida_basicas(self):
         query = select(Unidad_medida_productos).limit(1)
         resultado_consulta = self.session.execute(query).fetchone()
         if resultado_consulta is None:
@@ -34,7 +34,6 @@ class ProductosModel:
             ]
             
             self.session.execute(Unidad_medida_productos.__table__.insert(), unidades_productos)
-            # self.session.commit()
             return True
     
     def insertar_categorias_basicas(self):
@@ -60,7 +59,41 @@ class ProductosModel:
             ]
             
             self.session.execute(Categorias_productos.__table__.insert(), categorias_productos)
-            # self.session.commit()
+            return True
+    
+    def insertar_presentaciones_basicas(self):
+        query = select(Presentacion_productos).limit(1)
+        resultado_consulta = self.session.execute(query).fetchone()
+        if resultado_consulta is None:
+            presentaciones = [
+                {"nombre": "Unidad"},
+                {"nombre": "Pieza"},
+                {"nombre": "Paquete"},
+                {"nombre": "Caja"},
+                {"nombre": "Bolsa"},
+                {"nombre": "Saco"},
+                {"nombre": "Docena"},
+                {"nombre": "Litro"},
+                {"nombre": "Mililitro"},
+                {"nombre": "Kilogramo"},
+                {"nombre": "Gramo"},
+                {"nombre": "Tarro"},
+                {"nombre": "Tetra pack"},
+                {"nombre": "Sobre"},
+                {"nombre": "Frasco"},
+                {"nombre": "Set"},
+                {"nombre": "Rollo"},
+                {"nombre": "Cilindro"},
+                {"nombre": "Balde"},
+                {"nombre": "Metro"},
+                {"nombre": "Centímetro"},
+                {"nombre": "Galón"},
+                {"nombre": "Bidón"},
+                {"nombre": "Blíster"},
+                {"nombre": "Estuche"}
+            ]
+            
+            self.session.execute(Presentacion_productos.__table__.insert(), presentaciones)
             return True
     
     def agregar_presentacion(self, nombre):
