@@ -21,6 +21,7 @@ import traceback
 class Control_proveedores(QWidget):
     PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
     LISTAR_PROVEEDORES_EN_TABLA_SIGNAL = pyqtSignal()
+    LIMPIAR_CAMPOS_INTERNOS = pyqtSignal()
     def __init__(self, parent = None):
         super().__init__(parent)
         self.ui = Ui_Control_Proveedores()
@@ -88,6 +89,8 @@ class Control_proveedores(QWidget):
                 self.ventana_productos_precios = Productos_de_proveedorController(parent=self, proveedor=self.proveedor_seleccionado)
                 self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
                 self.ventana_productos_precios.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.connect(self.ventana_cerrada_productos_proveedor)
+                self.LIMPIAR_CAMPOS_INTERNOS.connect(self.limpiar_campos)
+                self.LIMPIAR_CAMPOS_INTERNOS.emit()
                 self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
                 self.ventana_productos_precios.show()
             else:
@@ -384,8 +387,8 @@ class Control_proveedores(QWidget):
             campos_faltantes = ', '.join(campos_vacios)  # Unir los nombres de los campos vacíos en un string
             Mensaje().mensaje_alerta(f"Completa los siguientes campos: {campos_faltantes}.")
             return  # Salir de la función si los datos no están completos
-
-        if self.proveedor_seleccionado.id:  # Verifica si hay un ID de proveedor para actualizar
+        
+        if self.proveedor_seleccionado :  # Verifica si hay un ID de proveedor para actualizar
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():

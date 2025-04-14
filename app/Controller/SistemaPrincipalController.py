@@ -16,6 +16,7 @@ from .MensajesAlertasController import Mensaje
 class SistemaPrincipal(QWidget):
     LISTAR_PROVEEDORES_VPROVEEDORES = pyqtSignal()
     LISTAR_CATEGORIAS_VPROVEEDORES = pyqtSignal()
+    LIMPIAR_CAMPOS_PROVEEDORES = pyqtSignal()
     LISTAR_EMPLEADOS_VEMPLEADOS = pyqtSignal()
     LISTAR_PRODUCTOS_VPRODUCTOS = pyqtSignal()
     LISTAR_AREAS_VCLIENTES = pyqtSignal()
@@ -83,6 +84,8 @@ class SistemaPrincipal(QWidget):
         self.ui.w_cuerpo_contenido.setCurrentWidget(self.proveedores)
         self.LISTAR_PROVEEDORES_VPROVEEDORES.connect(self.proveedores.listar_proveedores_tabla)
         self.LISTAR_CATEGORIAS_VPROVEEDORES.connect(self.proveedores.mostrar_categorias)
+        self.LIMPIAR_CAMPOS_PROVEEDORES.connect(self.proveedores.limpiar_campos)
+        self.LIMPIAR_CAMPOS_PROVEEDORES.emit()
         self.LISTAR_PROVEEDORES_VPROVEEDORES.emit()
         self.LISTAR_CATEGORIAS_VPROVEEDORES.emit()
     def mostrar_clientes(self):
