@@ -109,6 +109,8 @@ class SistemaPrincipal(QWidget):
     def mostrar_sucursales(self):
         if self.ventana_sucursales is None or not self.ventana_sucursales.isVisible:
             self.ventana_sucursales = ControlSucursalesController(parent=self)
+            self.ventana_sucursales.setWindowModality(Qt.ApplicationModal)
+            self.ventana_sucursales.setWindowFlags(Qt.Dialog)
             self.ventana_sucursales.show()
         else:
             self.ventana_sucursales.raise_()
