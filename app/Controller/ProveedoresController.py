@@ -38,6 +38,7 @@ class Control_proveedores(QWidget):
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_proveedor)
         self.ui.btn_btn_listadeproductoyprecios.clicked.connect(self.mostrar_productos_y_precios)
         self.ui.txtlargo_descripcioncategoria.setReadOnly(True)
+        self.ui.btn_btn_ActualizaTablaProveedores.clicked.connect(self.listar_proveedores_tabla)
 #comment : validaciones:
 
         self.ui.btn_btn_buscarproveedor.clicked.connect(self.buscar_proveedor)

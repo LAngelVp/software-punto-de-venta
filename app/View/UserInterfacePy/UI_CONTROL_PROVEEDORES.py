@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_PROVEEDORES.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PROVEEDORES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -64,21 +64,14 @@ class Ui_Control_Proveedores(object):
 "font-size: 12px;\n"
 "font-family: Arial;\n"
 "font-weight: bold;\n"
-"min-height: 25px;\n"
 "border: none;\n"
 "border-radius: 5px;\n"
 "color: #fffefb;\n"
-"margin-left: 5px;\n"
-"margin-right: 5px;\n"
 "padding-left:5px;\n"
 "padding-right:5px;\n"
 "}\n"
-"#btn_btn_agregarcategoria{\n"
-"padding-left:5px;\n"
-"padding-right:5px;\n"
-"}\n"
-"#btn_btn_buscarproveedor{\n"
-"width: 30px;\n"
+"#btn_btn_listadeproductoyprecios{\n"
+"font-size: 14px;\n"
 "}\n"
 "[objectName*=\"btnradio\"]{\n"
 "font-size:14px;\n"
@@ -391,6 +384,7 @@ class Ui_Control_Proveedores(object):
         self.etiquetaTitulo_proveedor.setObjectName("etiquetaTitulo_proveedor")
         self.gridLayout_4.addWidget(self.etiquetaTitulo_proveedor, 0, 0, 1, 1)
         self.gridLayout_5 = QtWidgets.QGridLayout()
+        self.gridLayout_5.setHorizontalSpacing(3)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.txt_buscarproveedor = QtWidgets.QLineEdit(self.contenedor_tablareproveedores)
         self.txt_buscarproveedor.setObjectName("txt_buscarproveedor")
@@ -404,6 +398,15 @@ class Ui_Control_Proveedores(object):
         self.btn_btn_buscarproveedor.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_buscarproveedor.setObjectName("btn_btn_buscarproveedor")
         self.gridLayout_5.addWidget(self.btn_btn_buscarproveedor, 0, 1, 1, 1)
+        self.btn_btn_ActualizaTablaProveedores = QtWidgets.QPushButton(self.contenedor_tablareproveedores)
+        self.btn_btn_ActualizaTablaProveedores.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_btn_ActualizaTablaProveedores.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_ActualizaTablaProveedores.setIcon(icon3)
+        self.btn_btn_ActualizaTablaProveedores.setIconSize(QtCore.QSize(24, 26))
+        self.btn_btn_ActualizaTablaProveedores.setObjectName("btn_btn_ActualizaTablaProveedores")
+        self.gridLayout_5.addWidget(self.btn_btn_ActualizaTablaProveedores, 0, 2, 1, 1)
         self.tabla_proveedores = QtWidgets.QTableView(self.contenedor_tablareproveedores)
         self.tabla_proveedores.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tabla_proveedores.setGridStyle(QtCore.Qt.DashLine)
@@ -414,35 +417,35 @@ class Ui_Control_Proveedores(object):
         self.tabla_proveedores.horizontalHeader().setStretchLastSection(False)
         self.tabla_proveedores.verticalHeader().setVisible(False)
         self.tabla_proveedores.verticalHeader().setStretchLastSection(False)
-        self.gridLayout_5.addWidget(self.tabla_proveedores, 1, 0, 1, 2)
+        self.gridLayout_5.addWidget(self.tabla_proveedores, 1, 0, 1, 3)
         self.gridLayout_4.addLayout(self.gridLayout_5, 1, 0, 1, 1)
-        self.contenedor_botones_inferior_derecha = QtWidgets.QWidget(self.contenedor_tablareproveedores)
-        self.contenedor_botones_inferior_derecha.setObjectName("contenedor_botones_inferior_derecha")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_botones_inferior_derecha)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setSpacing(0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.btn_btn_guardar = QtWidgets.QToolButton(self.contenedor_botones_inferior_derecha)
+        self.frame = QtWidgets.QFrame(self.contenedor_tablareproveedores)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.frame)
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
+        self.btn_btn_guardar = QtWidgets.QToolButton(self.frame)
         self.btn_btn_guardar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_guardar.setIcon(icon3)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/guardar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_guardar.setIcon(icon4)
         self.btn_btn_guardar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_guardar.setPopupMode(QtWidgets.QToolButton.DelayedPopup)
         self.btn_btn_guardar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.btn_btn_guardar.setAutoRaise(True)
         self.btn_btn_guardar.setArrowType(QtCore.Qt.NoArrow)
         self.btn_btn_guardar.setObjectName("btn_btn_guardar")
-        self.horizontalLayout.addWidget(self.btn_btn_guardar)
-        self.btn_btn_actualizar = QtWidgets.QPushButton(self.contenedor_botones_inferior_derecha)
+        self.horizontalLayout_2.addWidget(self.btn_btn_guardar)
+        self.btn_btn_actualizar = QtWidgets.QPushButton(self.frame)
         self.btn_btn_actualizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_actualizar.setIcon(icon4)
-        self.btn_btn_actualizar.setIconSize(QtCore.QSize(24, 24))
+        self.btn_btn_actualizar.setIcon(icon3)
+        self.btn_btn_actualizar.setIconSize(QtCore.QSize(24, 26))
         self.btn_btn_actualizar.setObjectName("btn_btn_actualizar")
-        self.horizontalLayout.addWidget(self.btn_btn_actualizar)
-        self.btn_btn_eliminar = QtWidgets.QToolButton(self.contenedor_botones_inferior_derecha)
+        self.horizontalLayout_2.addWidget(self.btn_btn_actualizar)
+        self.btn_btn_eliminar = QtWidgets.QToolButton(self.frame)
         self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -450,8 +453,15 @@ class Ui_Control_Proveedores(object):
         self.btn_btn_eliminar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_eliminar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
-        self.horizontalLayout.addWidget(self.btn_btn_eliminar)
-        self.gridLayout_4.addWidget(self.contenedor_botones_inferior_derecha, 2, 0, 1, 1, QtCore.Qt.AlignRight)
+        self.horizontalLayout_2.addWidget(self.btn_btn_eliminar)
+        self.gridLayout_4.addWidget(self.frame, 2, 0, 1, 1)
+        self.contenedor_botones_inferior_derecha = QtWidgets.QWidget(self.contenedor_tablareproveedores)
+        self.contenedor_botones_inferior_derecha.setObjectName("contenedor_botones_inferior_derecha")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.contenedor_botones_inferior_derecha)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.gridLayout_4.addWidget(self.contenedor_botones_inferior_derecha, 3, 0, 1, 1)
         self.gridLayout_7.addWidget(self.contenedor_tablareproveedores, 1, 1, 1, 1)
         self.btn_btn_listadeproductoyprecios = QtWidgets.QPushButton(self.contenedor_scroll_area_contenido)
         self.btn_btn_listadeproductoyprecios.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -488,9 +498,7 @@ class Ui_Control_Proveedores(object):
         Control_Proveedores.setTabOrder(self.txt_correorepresentante, self.txt_buscarproveedor)
         Control_Proveedores.setTabOrder(self.txt_buscarproveedor, self.btn_btn_buscarproveedor)
         Control_Proveedores.setTabOrder(self.btn_btn_buscarproveedor, self.btn_btn_limpiardatos)
-        Control_Proveedores.setTabOrder(self.btn_btn_limpiardatos, self.btn_btn_guardar)
-        Control_Proveedores.setTabOrder(self.btn_btn_guardar, self.btn_btn_eliminar)
-        Control_Proveedores.setTabOrder(self.btn_btn_eliminar, self.txtlargo_descripcioncategoria)
+        Control_Proveedores.setTabOrder(self.btn_btn_limpiardatos, self.txtlargo_descripcioncategoria)
 
     def retranslateUi(self, Control_Proveedores):
         _translate = QtCore.QCoreApplication.translate
@@ -502,6 +510,7 @@ class Ui_Control_Proveedores(object):
         self.etiqueta_puestorepresentante.setText(_translate("Control_Proveedores", "Puesto"))
         self.etiqueta_telefonorepresentante.setText(_translate("Control_Proveedores", "Telefono"))
         self.etiqueta_correorepresentante.setText(_translate("Control_Proveedores", "Correo"))
+        self.btn_btn_agregarcategoria.setToolTip(_translate("Control_Proveedores", "Nueva Categoria"))
         self.etiqueta_telefono.setText(_translate("Control_Proveedores", "Telefono"))
         self.etiqueta_avenidas.setText(_translate("Control_Proveedores", "Avenida/s"))
         self.etiqueta_direccionadicional.setText(_translate("Control_Proveedores", "Direccion Adiccional"))
@@ -514,6 +523,7 @@ class Ui_Control_Proveedores(object):
         self.etiqueta_rfc.setText(_translate("Control_Proveedores", "RFC"))
         self.etiqueta_codigopostal.setText(_translate("Control_Proveedores", "Codigo Postal"))
         self.etiqueta_descripcioncategoria.setText(_translate("Control_Proveedores", "Descripcion Cat."))
+        self.btn_btn_limpiardatos.setToolTip(_translate("Control_Proveedores", "Limpiar Campos"))
         self.etiqueta_web.setText(_translate("Control_Proveedores", "Web"))
         self.etiqueta_estado.setText(_translate("Control_Proveedores", "Estado"))
         self.etiqueta_nombre.setText(_translate("Control_Proveedores", "Nombre"))
@@ -539,9 +549,15 @@ class Ui_Control_Proveedores(object):
         self.cajaopciones_tipomoneda.setItemText(15, _translate("Control_Proveedores", "KRW: Won surcoreano."))
         self.etiquetaTitulo_proveedor.setText(_translate("Control_Proveedores", "Lista de proveedores"))
         self.txt_buscarproveedor.setPlaceholderText(_translate("Control_Proveedores", "Nombre del proveedor"))
+        self.btn_btn_buscarproveedor.setToolTip(_translate("Control_Proveedores", "Buscar Proveedor"))
+        self.btn_btn_ActualizaTablaProveedores.setToolTip(_translate("Control_Proveedores", "Actualizar Tabla"))
+        self.btn_btn_guardar.setToolTip(_translate("Control_Proveedores", "Guardar"))
         self.btn_btn_guardar.setText(_translate("Control_Proveedores", "GUARDAR"))
+        self.btn_btn_actualizar.setToolTip(_translate("Control_Proveedores", "Actualizar"))
         self.btn_btn_actualizar.setText(_translate("Control_Proveedores", "ACTUALIZAR"))
+        self.btn_btn_eliminar.setToolTip(_translate("Control_Proveedores", "Eliminar"))
         self.btn_btn_eliminar.setText(_translate("Control_Proveedores", "ELIMINAR"))
+        self.btn_btn_listadeproductoyprecios.setToolTip(_translate("Control_Proveedores", "Lista de Precios y Produtos Relacionados"))
         self.btn_btn_listadeproductoyprecios.setText(_translate("Control_Proveedores", "Lista de Productos y Precios"))
 from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc

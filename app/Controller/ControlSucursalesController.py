@@ -9,7 +9,7 @@ from app.Controller.SucursalesController import SucursalesController
 from app.Controller.DepartamentosController import DepartamentosController
 from app.Controller.PuestosController import PuestosController
 
-class ControlSucursalesController(QDialog):
+class ControlSucursalesController(QWidget):
     listar_sucursales = pyqtSignal(set)
     listar_departamentos = pyqtSignal()
     listar_departamentos_puestos = pyqtSignal()

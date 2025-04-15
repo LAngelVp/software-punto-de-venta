@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_EMPLEADOS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_EMPLEADOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -260,9 +260,14 @@ class Ui_Control_empleados(object):
         _translate = QtCore.QCoreApplication.translate
         Control_empleados.setWindowTitle(_translate("Control_empleados", "Form"))
         self.label_we_titulo_empleado.setText(_translate("Control_empleados", "ADMINISTRACIÓN DE EMPLEADOS"))
+        self.btn_btn_agregar.setToolTip(_translate("Control_empleados", "Agregar empleado"))
         self.btn_btn_agregar.setText(_translate("Control_empleados", "Agregar"))
+        self.btn_btn_eliminar.setToolTip(_translate("Control_empleados", "Eliminar empleado"))
         self.btn_btn_eliminar.setText(_translate("Control_empleados", "Eliminar"))
+        self.btn_btn_editarempleado.setToolTip(_translate("Control_empleados", "Editar empleado"))
         self.btn_btn_editarempleado.setText(_translate("Control_empleados", "EDItar"))
+        self.btn_btn_limpiar.setToolTip(_translate("Control_empleados", "Actualizar tabla"))
+        self.btn_btn_buscar.setToolTip(_translate("Control_empleados", "Buscar empleado"))
         self.txt_nombreempleado.setPlaceholderText(_translate("Control_empleados", "Nombre de empleado"))
         self.txt_idempleado.setPlaceholderText(_translate("Control_empleados", "Id del empleado"))
         self.cajaopciones_filtroNombreEmpleado.setItemText(0, _translate("Control_empleados", "IGUAL A"))

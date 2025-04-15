@@ -225,6 +225,9 @@ padding-right:5px;
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Agregar empleado</string>
+              </property>
               <property name="text">
                <string>Agregar</string>
               </property>
@@ -251,6 +254,9 @@ padding-right:5px;
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
+              <property name="toolTip">
+               <string>Eliminar empleado</string>
+              </property>
               <property name="text">
                <string>Eliminar</string>
               </property>
@@ -273,6 +279,9 @@ padding-right:5px;
              <widget class="QPushButton" name="btn_btn_editarempleado">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>Editar empleado</string>
               </property>
               <property name="text">
                <string>EDItar</string>
@@ -306,6 +315,9 @@ padding-right:5px;
              <widget class="QToolButton" name="btn_btn_limpiar">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>Actualizar tabla</string>
               </property>
               <property name="text">
                <string/>
@@ -396,6 +408,9 @@ padding-right:5px;
               </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>Buscar empleado</string>
               </property>
               <property name="text">
                <string/>
