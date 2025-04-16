@@ -373,6 +373,12 @@ padding-right:5px;
               </item>
               <item row="2" column="0">
                <widget class="QTableView" name="tabla_productos_del_proveedor">
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
                 <property name="gridStyle">
                  <enum>Qt::DashLine</enum>
                 </property>
@@ -507,6 +513,12 @@ padding-right:5px;
               </item>
               <item row="2" column="0">
                <widget class="QTableView" name="tabla_productos_del_sistema">
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
                 <property name="gridStyle">
                  <enum>Qt::DashLine</enum>
                 </property>
@@ -560,6 +572,12 @@ padding-right:5px;
               </item>
               <item row="1" column="0">
                <widget class="QTableView" name="tabla_Productos_A_VincularProveedor">
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
                 <attribute name="horizontalHeaderStretchLastSection">
                  <bool>true</bool>
                 </attribute>

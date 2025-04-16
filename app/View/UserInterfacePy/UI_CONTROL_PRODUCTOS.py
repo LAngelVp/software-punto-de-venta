@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PRODUCTOS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -197,7 +197,12 @@ class Ui_Control_Productos(object):
         self.horizontalLayout_2.addWidget(self.btn_btn_adminProductos_ActualizarTablaProductos, 0, QtCore.Qt.AlignVCenter)
         self.verticalLayout.addWidget(self.frame, 0, QtCore.Qt.AlignVCenter)
         self.tabla_productos = QtWidgets.QTableView(self.contenedor_tabla)
+        self.tabla_productos.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tabla_productos.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.tabla_productos.setGridStyle(QtCore.Qt.DashDotLine)
         self.tabla_productos.setObjectName("tabla_productos")
+        self.tabla_productos.horizontalHeader().setDefaultSectionSize(200)
+        self.tabla_productos.horizontalHeader().setMinimumSectionSize(200)
         self.verticalLayout.addWidget(self.tabla_productos)
         self.gridLayout_5.addWidget(self.contenedor_tabla, 1, 0, 1, 1)
         self.gridLayout_2.addWidget(self.frame_2, 1, 0, 1, 1)

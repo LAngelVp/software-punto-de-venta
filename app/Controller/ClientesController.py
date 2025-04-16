@@ -21,19 +21,19 @@ class Clientes(QWidget):
         self.ui = Ui_Control_Clientes()
         self.ui.setupUi(self)
         self.clienteFisico = True
-        self.ui.cajaDecimal_wpc_ingresosclienteFisico.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_wpc_limite_credito.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_wpc_limite_credito_moral.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_creditodisponible_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_creditodisponible_moral.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_creditoutilizado_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_creditoutilizado_moral.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_interesesaplicados_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_porcentajeintereses_moral.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_porcentajedescuento_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.cajaDecimal_porcentajedescuento_moral.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.fecha_ultimoreporte_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        self.ui.fecha_ultimoreporte_moral.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_wpc_ingresosclienteFisico.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_wpc_limite_credito.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_wpc_limite_credito_moral.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_creditodisponible_fisico.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_creditodisponible_moral.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_creditoutilizado_fisico.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_creditoutilizado_moral.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_interesesaplicados_fisico.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_porcentajeintereses_moral.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_porcentajedescuento_fisico.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.cajaDecimal_porcentajedescuento_moral.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.fecha_ultimoreporte_fisico.setButtonSymbols(QSpinBox.NoButtons)
+        # self.ui.fecha_ultimoreporte_moral.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.btnRadio_wpc_clienteFisico.setChecked(self.clienteFisico)
         self.ui.wpc_contenedor_pila.setCurrentIndex(0)
         self.ui.cajaDecimal_wpc_limite_credito.setEnabled(False)
@@ -263,6 +263,7 @@ class Clientes(QWidget):
                 try:
                     if self.ui.btnRadio_wpc_clienteFisico.isChecked():
                         cliente = ClientesFisicosAndMorales(session).obtener_cliente_fisico_por_id(id)
+                        
                         if  cliente:
                             campo, cliente_fisico = cliente
                             datos  = self.campos_cliente_fisico()
@@ -307,25 +308,27 @@ class Clientes(QWidget):
                             self.foto_cliente = campo.foto
 
                             if campo.categoria:
-                                categoria_nombre = campo.categoria.nombre
-                                caja_categorias = datos["categoria del cliente"]
-                                indice = caja_categorias.findText(categoria_nombre)
+                                categoria = campo.categoria.nombre
+                                caja_categoria = datos["categoria del cliente"]
+                                indice = caja_categoria.findText(categoria)
                                 if  indice != -1:
-                                    caja_categorias.removeItem(indice)
+                                    caja_categoria.removeItem(indice)
 
-                                caja_categorias.insertItem(0, categoria_nombre)
-                                caja_categorias.setCurrentIndex(0)
+                                caja_categoria.insertItem(0, categoria)
+                                caja_categoria.setItemData(0, campo.categoria)
+                                caja_categoria.setCurrentIndex(0)
 
 
                             if campo.areas_de_negocios:
-                                area_nombre = campo.areas_de_negocios.nombre
-                                caja_areas = datos["area de negocio"]
-                                indice = caja_areas.findText(area_nombre)
+                                categoria = campo.areas_de_negocios.nombre
+                                caja_area = datos["area de negocio"]
+                                indice = caja_area.findText(categoria)
                                 if  indice != -1:
-                                    caja_areas.removeItem(indice)
+                                    caja_area.removeItem(indice)
 
-                                caja_areas.insertItem(0, area_nombre)
-                                caja_areas.setCurrentIndex(0)
+                                caja_area.insertItem(0, categoria)
+                                caja_area.setItemData(0, campo.areas_de_negocios)
+                                caja_area.setCurrentIndex(0)
                             
                     elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
                         cliente = ClientesFisicosAndMorales(session).obtener_cliente_moral_por_id(id)
@@ -376,25 +379,27 @@ class Clientes(QWidget):
                                 datos['correo electronico representante'].setText(representante.correo)
 
                             if campo.categoria:
-                                categoria_nombre = campo.categoria.nombre
-                                caja_categorias = datos["categoria del cliente"]
-                                indice = caja_categorias.findText(categoria_nombre)
+                                categoria = campo.categoria.nombre
+                                caja_categoria = datos["categoria del cliente"]
+                                indice = caja_categoria.findText(categoria)
                                 if  indice != -1:
-                                    caja_categorias.removeItem(indice)
+                                    caja_categoria.removeItem(indice)
 
-                                caja_categorias.insertItem(0, categoria_nombre)
-                                caja_categorias.setCurrentIndex(0)
+                                caja_categoria.insertItem(0, categoria)
+                                caja_categoria.setItemData(0, campo.categoria)
+                                caja_categoria.setCurrentIndex(0)
 
 
                             if campo.areas_de_negocios:
-                                area_nombre = campo.areas_de_negocios.nombre
-                                caja_areas = datos["area de negocio"]
-                                indice = caja_areas.findText(area_nombre)
+                                categoria = campo.areas_de_negocios.nombre
+                                caja_area = datos["area de negocio"]
+                                indice = caja_area.findText(categoria)
                                 if  indice != -1:
-                                    caja_areas.removeItem(indice)
+                                    caja_area.removeItem(indice)
 
-                                caja_areas.insertItem(0, area_nombre)
-                                caja_areas.setCurrentIndex(0)
+                                caja_area.insertItem(0, categoria)
+                                caja_area.setItemData(0, campo.areas_de_negocios)
+                                caja_area.setCurrentIndex(0)
 
                 except Exception as e:
                     Mensaje().mensaje_critico("Error al obtener proveedor por lo siguiente: " + str(e))
@@ -536,8 +541,8 @@ class Clientes(QWidget):
                     "fecha de nacimiento" : self.ui.fecha_fechanacimiento.date().toPyDate(),
                     "numero identificacion" : self.ui.txt_ine_fisico.text().strip().upper(),
                     "ocupacion" : self.ui.txt_ocupacion_fisico.text().strip().upper(),
-                    "area de negocio" : self.ui.cajaopciones_areasnegocio_fisico.currentText().strip().upper(),
-                    "clasificacion cliente": self.ui.cajaopciones_categoriaFisico.currentText().strip().upper(),
+                    "area de negocio" : self.ui.cajaopciones_areasnegocio_fisico.currentData(),
+                    "clasificacion cliente": self.ui.cajaopciones_categoriaFisico.currentData(),
                     "estado civil": self.ui.cajaopciones_estadocivil_fisico.currentText().strip().upper(),
                     "comentarios" : self.ui.txtlargo_comentarioclientefisico.toPlainText().strip().upper(),
                     "entidad legalizada" : self.ui.casillaverificacion_entidadlegalizada_fisico.isChecked(),
@@ -600,9 +605,9 @@ class Clientes(QWidget):
             'sector' : self.ui.txt_sector_empre_moral.text().strip().upper(),
             'estado' : self.ui.txt_estado_moral.text().strip().upper(),
             'codigo postal' : self.ui.txt_codigopostal_moral.text().strip().upper(),
-            'area de negocio' : self.ui.cajaopciones_areasnegocio_moral.currentText().strip().upper(),
+            'area de negocio' : self.ui.cajaopciones_areasnegocio_moral.currentData(),
             "fecha de constitucion" : self.ui.fecha_fechaconstitucion.date().toPyDate(),
-            'clasificacion de cliente' : self.ui.cajaopciones_categoriaMoral.currentText().strip().upper(),
+            'clasificacion de cliente' : self.ui.cajaopciones_categoriaMoral.currentData(),
             'direccion adicional' : self.ui.txtlargo_direccionadicional_moral.toPlainText().strip().upper(),
             'representante moral' : self.ui.txt_nombre_repre_moral.text().strip().upper(),
             'telefono representante' : self.ui.txt_telefono_repre_moral.text().strip().upper(),
@@ -646,19 +651,12 @@ class Clientes(QWidget):
             #comment: datos cliente fisico 
             
             foto = self.foto_cliente
-
-            nombre_categoria = datos['clasificacion cliente']
-            nombre_area_de_negocio = datos['area de negocio']
-
             #comment:_obetnemos los ids de categoria y area
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        id_categoria_cliente, estatus = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre = nombre_categoria, descripcion=None)
-                        id_area_de_negocio = AreaNegocioClientesModel(session).agregar_area(nombre = nombre_area_de_negocio, descripcion=None)
-
-                        nuevo_cliente = ClientesFisicosAndMorales(session).agregar_cliente_fisico(
+                        nuevo_cliente, estado_cliente = ClientesFisicosAndMorales(session).agregar_cliente_fisico(
                             nombre=datos['nombre'], 
                             correo=datos['correo electronico'],
                             rfc=datos['rfc'],
@@ -671,8 +669,8 @@ class Clientes(QWidget):
                             codigo_postal=datos['codigo postal'], 
                             direccion_adicional=datos['direccion adicional'], 
                             entidad_legalizada=datos["entidad legalizada"], 
-                            categoria_cliente_id=id_categoria_cliente.id,
-                            credito=datos["limite del credito"], 
+                            categoria_cliente_id=datos['clasificacion cliente'].id,
+                            credito=datos["credito autorizado"], 
                             estado_credito=datos["estado del credito"], 
                             limite_credito=limite_credito, 
                             porcentaje_interes=datos["porcentaje del interes"],
@@ -683,7 +681,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["aplica descuento"],
                             porcentaje_descuento = datos["porcentaje del descuento"],
                             comentarios = datos["comentarios"],
-                            areas_de_negocios_id=id_area_de_negocio.id,
+                            areas_de_negocios_id=datos["area de negocio"].id,
                             apellido_paterno=datos['apellido paterno'], 
                             apellido_materno=datos['apellido materno'], 
                             curp=datos['curp'], 
@@ -696,6 +694,12 @@ class Clientes(QWidget):
                             )
                     except Exception as e:
                         Mensaje().mensaje_alerta(f'No se logro hacer la creacion del cliente fisico: ,  {str(e)}')
+                if estado_cliente is None:
+                    Mensaje().mensaje_informativo("El cliente ya existe en la base de datos")
+                elif estado_cliente is True:
+                    Mensaje().mensaje_informativo("Operación éxitosa")
+                else:
+                    Mensaje().mensaje_alerta("Ocurrio un error.")
             self.tabla_listar_clientes()
             self.limpiar_campos()
 
@@ -712,10 +716,7 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        id_categoria_cliente = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre = datos["clasificacion de cliente"],)
-                        id_area_de_negocio = AreaNegocioClientesModel(session).agregar_area(nombre = datos["area de negocio"])
-
-                        nuevo_cliente = ClientesFisicosAndMorales(session).agregar_cliente_moral(
+                        nuevo_cliente, estado_cliente = ClientesFisicosAndMorales(session).agregar_cliente_moral(
                             nombre=datos['nombre'], 
                             correo=datos['correo electronico empresa'],
                             rfc=datos['rfc'],
@@ -728,7 +729,7 @@ class Clientes(QWidget):
                             codigo_postal=datos['codigo postal'], 
                             direccion_adicional=datos['direccion adicional'], 
                             entidad_legalizada=datos["entidad legalizada"], 
-                            categoria_cliente_id=id_categoria_cliente.id,
+                            categoria_cliente_id=datos['clasificacion de cliente'].id,
                             credito=datos["credito autorizado"], 
                             estado_credito=datos["estado del credito"], 
                             limite_credito=datos["limite del credito"], 
@@ -740,7 +741,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["descuento autorizado"], 
                             porcentaje_descuento = datos["porcentaje del descuento"],
                             comentarios = datos["comentarios"],
-                            areas_de_negocios_id=id_area_de_negocio.id,
+                            areas_de_negocios_id=datos["area de negocio"].id,
                             razon_social=datos["razon social"],
                             fecha_constitucion=datos["fecha de constitucion"],
                             web=datos["web"],
@@ -757,7 +758,14 @@ class Clientes(QWidget):
 
                         nuevo_cliente.representante = representante
                     except Exception as e:
+                        print(e)
                         Mensaje().mensaje_critico(f'No se logro hacer la creacion del cliente moral: ,  {str(e)}')
+                if estado_cliente is None:
+                    Mensaje().mensaje_informativo("El cliente ya existe en la base de datos")
+                elif estado_cliente is True:
+                    Mensaje().mensaje_informativo("Operación éxitosa")
+                else:
+                    Mensaje().mensaje_alerta("Ocurrio un error.")
             self.tabla_listar_clientes()
             self.limpiar_campos()
 
@@ -772,8 +780,8 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        categoria_id = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre=datos["clasificacion cliente"], descripcion=None)
-                        area_cliente_id = AreaNegocioClientesModel(session).agregar_area(datos["area de negocio"])
+                        clasificacion = session.merge(datos["clasificacion cliente"])
+                        area = session.merge(datos["area de negocio"])
                         cliente = ClientesFisicosAndMorales(session).actualizar_cliente_fisico(
                             id = self.id_cliente,
                             nombre = datos['nombre'],
@@ -788,7 +796,7 @@ class Clientes(QWidget):
                             codigo_postal=datos["codigo postal"],
                             direccion_adicional=datos["direccion adicional"],
                             entidad_legalizada=datos["entidad legalizada"],
-                            categoria_cliente_id=categoria_id.id,
+                            categoria_cliente_id=clasificacion.id,
                             credito=datos["credito autorizado"],
                             estado_credito=datos["estado del credito"],
                             limite_credito=datos["limite del credito"],
@@ -799,7 +807,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["aplica descuento"],
                             porcentaje_descuento=datos["porcentaje del descuento"],
                             comentarios=datos["comentarios"],
-                            areas_de_negocios_id=area_cliente_id.id,
+                            areas_de_negocios_id=area.id,
                             apellido_paterno=datos["apellido paterno"],
                             apellido_materno=datos["apellido materno"],
                             curp=datos["curp"],
@@ -812,9 +820,11 @@ class Clientes(QWidget):
                             
                         )
                     except Exception as e:
+                        print(e)
                         Mensaje().mensaje_critico(f'No se logro hacer la actualizacion del cliente fisico:  {e}')
 
                 if cliente:
+                    Mensaje().mensaje_informativo("Actualizado con exito")
                     self.tabla_listar_clientes()
                 else:
                     Mensaje().mensaje_alerta('No se logro actualizar el cliente fisico')
@@ -831,8 +841,8 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     try:
-                        categoria_id = CategoriasModel(session).agregar(tipo_categoria="clientes", nombre=datos["clasificacion de cliente"])
-                        area_cliente_id = AreaNegocioClientesModel(session).agregar_area(datos["area de negocio"])
+                        clasificacion = session.merge(datos["clasificacion de cliente"])
+                        area = session.merge(datos["area de negocio"])
                         cliente = ClientesFisicosAndMorales(session).actualizar_cliente_moral(
                             id = self.id_cliente,
                             nombre = datos['nombre'],
@@ -847,7 +857,7 @@ class Clientes(QWidget):
                             codigo_postal=datos["codigo postal"],
                             direccion_adicional=datos["direccion adicional"],
                             entidad_legalizada=datos["entidad legalizada"],
-                            categoria_cliente_id=categoria_id.id,
+                            categoria_cliente_id=clasificacion.id,
                             credito=datos["credito autorizado"],
                             estado_credito=datos["estado del credito"],
                             limite_credito=datos["limite del credito"],
@@ -858,7 +868,7 @@ class Clientes(QWidget):
                             aplica_descuento=datos["descuento autorizado"],
                             porcentaje_descuento=datos["porcentaje del descuento"],
                             comentarios=datos["comentarios"],
-                            areas_de_negocios_id=area_cliente_id.id,
+                            areas_de_negocios_id=area.id,
                             razon_social=datos["razon social"],
                             fecha_constitucion=datos["fecha de constitucion"],
                             web=datos["web"],
@@ -872,6 +882,7 @@ class Clientes(QWidget):
                     except Exception as e:
                         Mensaje().mensaje_critico(f'No se logro hacer la actualizacion del cliente moral: {e}')
                 if cliente:
+                    Mensaje().mensaje_informativo("Actualizado con exito")
                     self.tabla_listar_clientes()
                 else:
                     Mensaje().mensaje_alerta('No se logro hacer la actualizacion del cliente moral')
@@ -933,18 +944,14 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 areas = AreaNegocioClientesModel(session).obtener_areas()
                 if areas:
-                    lista = [area.nombre for area in areas]
                     if self.ui.btnRadio_wpc_clienteFisico.isChecked():
-                        self.ui.cajaopciones_areasnegocio_fisico.addItems(lista)
+                        for a in areas:
+                            self.ui.cajaopciones_areasnegocio_fisico.addItem(a.nombre, a) 
                         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_areasnegocio_fisico)
                     else:
-                        self.ui.cajaopciones_areasnegocio_moral.addItems(lista)
+                        for a in areas:
+                            self.ui.cajaopciones_areasnegocio_moral.addItem(a.nombre, a)
                         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_areasnegocio_moral)
-                else:
-                    if self.ui.btnRadio_wpc_clienteFisico.isChecked():
-                        self.ui.cajaopciones_areasnegocio_fisico.addItem("Sin Área")
-                    else:
-                        self.ui.cajaopciones_areasnegocio_moral.addItem("Sin Área")
         except Exception as e:
             Mensaje().mensaje_critico(f'No se logro listar las areas por lo siguiente: {e}')
 
@@ -963,18 +970,14 @@ class Clientes(QWidget):
                 session = db.abrir_sesion()
                 categorias, estado = CategoriasModel(session).obtener_todo(tipo_categoria="clientes")
                 if estado:
-                    lista = [categoria.nombre for categoria in categorias]
                     if self.ui.btnRadio_wpc_clienteFisico.isChecked():
-                        self.ui.cajaopciones_categoriaFisico.addItems(lista)
+                        for c in categorias:
+                            self.ui.cajaopciones_categoriaFisico.addItem(c.nombre, c)
                         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_categoriaFisico)
                     else:
-                        self.ui.cajaopciones_categoriaMoral.addItems(lista)
+                        for c in categorias:
+                            self.ui.cajaopciones_categoriaMoral.addItem(c.nombre, c)
                         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_categoriaMoral)
-                else:
-                    if self.ui.btnRadio_wpc_clienteFisico.isChecked():
-                        self.ui.cajaopciones_categoriaFisico.addItem("Sin Clasificación")
-                    else:
-                        self.ui.cajaopciones_categoriaMoral.addItem("Sin Clasificación")
         except Exception as e:
             Mensaje().mensaje_critico(f'No se logro listar las categorias por lo siguiente: {e}')
 

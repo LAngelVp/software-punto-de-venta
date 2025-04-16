@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PROVEEDORES.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PROVEEDORES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -410,7 +410,8 @@ class Ui_Control_Proveedores(object):
         self.gridLayout_5.addWidget(self.btn_btn_ActualizaTablaProveedores, 0, 2, 1, 1)
         self.tabla_proveedores = QtWidgets.QTableView(self.contenedor_tablareproveedores)
         self.tabla_proveedores.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.tabla_proveedores.setGridStyle(QtCore.Qt.DashLine)
+        self.tabla_proveedores.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+        self.tabla_proveedores.setGridStyle(QtCore.Qt.DashDotDotLine)
         self.tabla_proveedores.setObjectName("tabla_proveedores")
         self.tabla_proveedores.horizontalHeader().setCascadingSectionResizes(False)
         self.tabla_proveedores.horizontalHeader().setDefaultSectionSize(200)
