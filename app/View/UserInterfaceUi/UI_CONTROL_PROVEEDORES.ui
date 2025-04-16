@@ -670,6 +670,9 @@ padding-right:5px;
                  <property name="placeholderText">
                   <string>Nombre del proveedor</string>
                  </property>
+                 <property name="clearButtonEnabled">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item row="0" column="1">
@@ -729,11 +732,11 @@ padding-right:5px;
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
                  </attribute>
-                 <attribute name="horizontalHeaderDefaultSectionSize">
-                  <number>200</number>
-                 </attribute>
                  <attribute name="horizontalHeaderMinimumSectionSize">
                   <number>150</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderDefaultSectionSize">
+                  <number>200</number>
                  </attribute>
                  <attribute name="horizontalHeaderStretchLastSection">
                   <bool>false</bool>

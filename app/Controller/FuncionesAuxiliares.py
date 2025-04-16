@@ -44,12 +44,25 @@ class FuncionesAuxiliaresController:
         """
         Centra la ventana dada respecto a su ventana padre (si tiene).
         """
-        padre = ventana.parent()
+        padre = ventana.parentWidget()
         if padre:
-            geo_padre: QRect = padre.frameGeometry()
+            geo_padre: QRect = padre.geometry()  # usar geometry() en lugar de frameGeometry()
             centro_padre = geo_padre.center()
+
+            # Asegúrate de que la ventana hija tenga una geometría válida
+            if not ventana.isVisible():
+                ventana.show()
+                ventana.hide()  # opcional, si no quieres mostrarla aún
 
             geo_hija = ventana.frameGeometry()
             geo_hija.moveCenter(centro_padre)
 
             ventana.move(geo_hija.topLeft())
+        # if padre:
+        #     geo_padre: QRect = padre.frameGeometry()
+        #     centro_padre = geo_padre.center()
+
+        #     geo_hija = ventana.frameGeometry()
+        #     geo_hija.moveCenter(centro_padre)
+
+        #     ventana.move(geo_hija.topLeft())

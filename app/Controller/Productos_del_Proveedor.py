@@ -54,11 +54,12 @@ class Productos_de_proveedorController(QWidget):
     def editar_precio_producto(self):
         if self.producto_seleccionado is not None:
             if self.ventana_precio_producto is None or self.ventana_precio_producto.isVisible():
-                self.ventana_precio_producto = CambioPreciosProductosProveedores(self, self.producto_seleccionado, self.proveedor)
+                self.ventana_precio_producto = CambioPreciosProductosProveedores(parent = self, producto = self.producto_seleccionado, proveedor = self.proveedor)
                 self.ventana_precio_producto.VENTANA_CERRADA_PRECIO_PRODUCTO.connect(self.cerrar_precio_productos)
-                self.ventana_precio_producto.exec_()
+                self.ventana_precio_producto.show()
             else:
                 self.ventana_precio_producto.raise_()
+                self.ventana_precio_producto.activateWindow()
         else:
             Mensaje().mensaje_informativo("Selecciona un producto de la tabla.")
             
@@ -122,13 +123,14 @@ class Productos_de_proveedorController(QWidget):
                 return
             
             # Rellenar la tabla con los productos
-            for producto in productos:
+            for producto, precio_venta in productos:
                 if producto is not None:
                     # Crear los datos para cada fila
                     fila = [
                         str(producto.codigo_upc),
                         producto.nombre_producto,
                         producto.descripcion_producto,
+                        f"{precio_venta:.2f}" if precio_venta is not None else ""
                     ]
                     print(producto.nombre_producto)
                     # Crear los QStandardItems para la fila
@@ -170,8 +172,8 @@ class Productos_de_proveedorController(QWidget):
             with session.begin():
                 if self.ui.cajaopciones_filtro_nombre.currentText() .lower()== "igual a":
                     productos, estatus = ProveedoresModel(session).filtrar_productos_del_proveedor_exacto_nombre(proveedor_id=id_proveedor, nombre=nombre_producto)
-                # else:
-                #     productos, estatus = ProductosModel(session).consultar_por_nombre(nombre=nombre)
+                else:
+                    productos, estatus = ProveedoresModel(session).filtrar_productos_del_proveedor_contenga_nombre(proveedor_id=id_proveedor, nombre=nombre_producto)
             if estatus:
                 self.productos_proveedores_tabla(productos)
     
@@ -284,6 +286,7 @@ class Productos_de_proveedorController(QWidget):
                         str(producto.codigo_upc),
                         producto.nombre_producto,
                         producto.descripcion_producto,
+                        
                     ]
                     
                     # Crear los QStandardItems para la fila
@@ -340,11 +343,26 @@ class CambioPreciosProductosProveedores(QDialog):
         self.proveedor = proveedor
         self._ventanaCentradaPrecioProducto = False
         self.ui.btn_precio_producto_cancelar.clicked.connect(self.close)
+        self.ui.btn_precio_producto_aceptar.clicked.connect(self.cambiar_precio)
         
         self.ui.txt_codigoupc_producto.setText(self.producto.codigo_upc)
         self.ui.txt_nombre_producto.setText(self.producto.nombre_producto)
         self.ui.etiqueta_nombre_del_proveedor.setText(self.proveedor.nombre)
         
+    def cambiar_precio(self):
+        precio = self.ui.decimal_costo_venta_proveedor.value()
+        if precio <= 0:
+            Mensaje().mensaje_informativo("El precio del producto debe ser mayor a 0")
+            return
+        with Conexion_base_datos() as db:
+            session = db.abrir_sesion()
+            with session.begin():
+                estatdo_del_cambio = Proveedores_productoModel(session).establecer_precio_producto_del_proveedor(proveedor_id=self.proveedor.id, producto_id=self.producto.id, precio=precio)
+            if not estatdo_del_cambio:
+                Mensaje().mensaje_alerta("No se logro realizar la operación.")
+                return
+        Mensaje().mensaje_informativo("Operación exitosa")
+        return
         
     def closeEvent(self, event):
         self.VENTANA_CERRADA_PRECIO_PRODUCTO.emit()
@@ -352,6 +370,6 @@ class CambioPreciosProductosProveedores(QDialog):
         
     def showEvent(self, event):
         super().showEvent(event)
-        if not self._ventanaCentradaPrecioProducto:
-            FuncionesAuxiliaresController.centrar_en_padre(self)
-            self._ventanaCentradaPrecioProducto = True
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())

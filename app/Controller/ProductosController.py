@@ -58,10 +58,6 @@ class ExistenciasClase(QWidget):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    # usuario, estatus_usuario = UsuarioModel(session).consultar_usuario(nombre=self.datos_usuario["nombre_empleado"])
-                    # if not estatus_usuario:
-                    #     Mensaje().mensaje_alerta("No se puede lograr la accion sin un usuario.")
-                    #     return
                     movimiento, estatus_movimiento = ProductosModel(session).ejecutar_movimiento(
                         producto=self.producto,
                         cantidad_cambio=cant_existencia,
@@ -69,6 +65,10 @@ class ExistenciasClase(QWidget):
                         fecha_movimiento=fecha_movimiento,
                         notas=notas,
                         usuarioid=self.datos_usuario["id_empleado"])
+                if not estatus_movimiento:
+                    Mensaje().mensaje_alerta("No se logro realizar el movimiento de la existencia.")
+                    return
+        Mensaje().mensaje_informativo("Se realizo el movimiento correctamente.")
         return
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PROVEEDORES.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PROVEEDORES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -387,6 +387,7 @@ class Ui_Control_Proveedores(object):
         self.gridLayout_5.setHorizontalSpacing(3)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.txt_buscarproveedor = QtWidgets.QLineEdit(self.contenedor_tablareproveedores)
+        self.txt_buscarproveedor.setClearButtonEnabled(True)
         self.txt_buscarproveedor.setObjectName("txt_buscarproveedor")
         self.gridLayout_5.addWidget(self.txt_buscarproveedor, 0, 0, 1, 1)
         self.btn_btn_buscarproveedor = QtWidgets.QToolButton(self.contenedor_tablareproveedores)

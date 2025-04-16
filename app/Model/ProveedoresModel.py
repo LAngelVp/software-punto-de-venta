@@ -232,12 +232,27 @@ class ProveedoresModel:
             return False
 
     def filtrar_productos_del_proveedor_exacto_nombre(self, proveedor_id, nombre):
-        productos = self.session.query(Productos).join(
+        productos = self.session.query(Productos, producto_proveedor.c.precio_venta).join(
             producto_proveedor, Productos.id == producto_proveedor.c.producto_id
         ).join(
             Proveedores, Proveedores.id == producto_proveedor.c.proveedor_id
         ).filter(
             Productos.nombre_producto == nombre,
+            Proveedores.id == proveedor_id
+        ).all()
+        
+        if productos:
+            return productos, True
+        else:
+            return None, False
+        
+    def filtrar_productos_del_proveedor_contenga_nombre(self, proveedor_id, nombre):
+        productos = self.session.query(Productos, producto_proveedor.c.precio_venta).join(
+            producto_proveedor, Productos.id == producto_proveedor.c.producto_id
+        ).join(
+            Proveedores, Proveedores.id == producto_proveedor.c.proveedor_id
+        ).filter(
+            Productos.nombre_producto.like(f"%{nombre}%"),
             Proveedores.id == proveedor_id
         ).all()
         
