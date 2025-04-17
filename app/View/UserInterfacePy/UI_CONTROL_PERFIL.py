@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_PERFIL.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PERFIL.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -26,12 +26,14 @@ class Ui_Formulario_Datos_Empleado(object):
 "border-radius:5px;\n"
 "}\n"
 "#label_wp_titulo_usuario{\n"
-"background-color: rgb(3, 51, 116);\n"
-"max-height: 40px;\n"
-"font-size:20px;\n"
+"color:#1d1c1c;\n"
+"background-color: #fffefb;\n"
+"font-size: 24px;\n"
 "font-weight: bold;\n"
-"color: #fffefb;\n"
-"padding-left:5px;\n"
+"padding-left: 5px;\n"
+"text-transform: uppercase;\n"
+"font-family: \"Arial\";\n"
+"padding-top: 5px;\n"
 "}\n"
 "#tarjeta_usuario{\n"
 "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.818455, y2:0.824, stop:0 rgba(115, 115, 115, 255), stop:1 rgba(5, 95, 212, 219));\n"
@@ -361,14 +363,17 @@ class Ui_Formulario_Datos_Empleado(object):
         self.gridLayout_5.addWidget(self.etiqueta_password, 13, 0, 1, 1)
         self.cajaopciones_puestos = QtWidgets.QComboBox(self.frame_4)
         self.cajaopciones_puestos.setEnabled(False)
+        self.cajaopciones_puestos.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.cajaopciones_puestos.setObjectName("cajaopciones_puestos")
         self.gridLayout_5.addWidget(self.cajaopciones_puestos, 4, 1, 1, 3)
         self.cajaopciones_departamentos = QtWidgets.QComboBox(self.frame_4)
         self.cajaopciones_departamentos.setEnabled(False)
+        self.cajaopciones_departamentos.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.cajaopciones_departamentos.setObjectName("cajaopciones_departamentos")
         self.gridLayout_5.addWidget(self.cajaopciones_departamentos, 3, 1, 1, 3)
         self.cajaopciones_sucursales = QtWidgets.QComboBox(self.frame_4)
         self.cajaopciones_sucursales.setEnabled(False)
+        self.cajaopciones_sucursales.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.cajaopciones_sucursales.setObjectName("cajaopciones_sucursales")
         self.gridLayout_5.addWidget(self.cajaopciones_sucursales, 2, 1, 1, 3)
         self.gridLayout_3.addWidget(self.frame_4, 2, 0, 1, 2)
@@ -503,6 +508,7 @@ class Ui_Formulario_Datos_Empleado(object):
         self.gridLayout.addWidget(self.etiqueta_parentescocontactoemergencia, 18, 2, 1, 1)
         self.cajaopciones_parentescocontactoemergencia = QtWidgets.QComboBox(self.contenedorIzquierdo)
         self.cajaopciones_parentescocontactoemergencia.setEnabled(False)
+        self.cajaopciones_parentescocontactoemergencia.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.cajaopciones_parentescocontactoemergencia.setObjectName("cajaopciones_parentescocontactoemergencia")
         self.cajaopciones_parentescocontactoemergencia.addItem("")
         self.cajaopciones_parentescocontactoemergencia.addItem("")
@@ -557,6 +563,7 @@ class Ui_Formulario_Datos_Empleado(object):
         self.gridLayout.addWidget(self.etiqueta_numerosegurosocial, 3, 0, 1, 1)
         self.cajaopciones_estadosocial = QtWidgets.QComboBox(self.contenedorIzquierdo)
         self.cajaopciones_estadosocial.setEnabled(False)
+        self.cajaopciones_estadosocial.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContents)
         self.cajaopciones_estadosocial.setObjectName("cajaopciones_estadosocial")
         self.gridLayout.addWidget(self.cajaopciones_estadosocial, 3, 3, 1, 1)
         self.etiqueta_fechanacimiento = QtWidgets.QLabel(self.contenedorIzquierdo)
@@ -646,7 +653,7 @@ class Ui_Formulario_Datos_Empleado(object):
         self.gridLayout_6.addWidget(self.contenedor, 1, 0, 1, 1)
         self.label_wp_titulo_usuario = QtWidgets.QLabel(Formulario_Datos_Empleado)
         self.label_wp_titulo_usuario.setMinimumSize(QtCore.QSize(0, 0))
-        self.label_wp_titulo_usuario.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.label_wp_titulo_usuario.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.label_wp_titulo_usuario.setObjectName("label_wp_titulo_usuario")
         self.gridLayout_6.addWidget(self.label_wp_titulo_usuario, 0, 0, 1, 1)
 

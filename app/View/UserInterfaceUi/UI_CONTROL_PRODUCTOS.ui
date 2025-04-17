@@ -21,11 +21,14 @@ background: #fffefb;
 background: #fffefb;
 }
 #etiquetaTitulo_productos{
-background-color: rgb(3, 51, 116);
-color:#fffefb;
+color:#1d1c1c;
+background-color: #fffefb;
 font-size: 24px;
 font-weight: bold;
 padding-left: 5px;
+text-transform: uppercase;
+font-family: &quot;Arial&quot;;
+padding-top: 5px;
 }
 [objectName*=&quot;btn_btn_adminProductos&quot;]{
 height: 25px;

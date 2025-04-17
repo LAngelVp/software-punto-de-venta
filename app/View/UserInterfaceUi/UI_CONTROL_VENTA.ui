@@ -25,6 +25,9 @@ background: #B0C5D1;
 border-radius: 10px;
 min-width: 300px;
 }
+[objectName*=&quot;contenedor&quot;]{
+background: #fffefb;
+}
 [objectName*=&quot;etiqueta_&quot;]{
 font-size: 14px;
 font-family:Arial;

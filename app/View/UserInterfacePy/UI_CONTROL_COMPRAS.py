@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_COMPRAS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_COMPRAS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -25,12 +25,14 @@ class Ui_control_compras(object):
 "margin-bottom:20px;\n"
 "}\n"
 "#label_wc_titulo_compras{\n"
-"background-color: rgb(3, 51, 116);\n"
-"color:#fffefb;\n"
+"color:#1d1c1c;\n"
+"background-color: #fffefb;\n"
 "font-size: 24px;\n"
 "font-weight: bold;\n"
 "padding-left: 5px;\n"
 "text-transform: uppercase;\n"
+"font-family: \"Arial\";\n"
+"padding-top: 5px;\n"
 "}\n"
 "#tabla_listaempleados {\n"
 "    border: 1px solid;\n"

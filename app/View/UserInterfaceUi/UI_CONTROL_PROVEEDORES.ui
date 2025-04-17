@@ -21,13 +21,14 @@ background: #fffefb;
 background: #fffefb;
 }
 #label_wp_titulo_proveedores{
-background: #023375;
-min-height: 40px;
-max-height: 40px;
-font-size:20px;
+color:#1d1c1c;
+background-color: #fffefb;
+font-size: 24px;
 font-weight: bold;
-color:#fffefb;
-padding-left:5px;
+padding-left: 5px;
+text-transform: uppercase;
+font-family: &quot;Arial&quot;;
+padding-top: 5px;
 }
 *[objectName*=&quot;etiquetaTitulo_&quot;]{
 font-size:18px;
@@ -173,13 +174,13 @@ padding-right:5px;
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>40</height>
+       <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>40</height>
+       <height>16777215</height>
       </size>
      </property>
      <property name="text">
@@ -222,7 +223,7 @@ padding-right:5px;
            <x>0</x>
            <y>0</y>
            <width>1008</width>
-           <height>577</height>
+           <height>583</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_7">

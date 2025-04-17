@@ -22,13 +22,14 @@ class Ui_Control_Proveedores(object):
 "background: #fffefb;\n"
 "}\n"
 "#label_wp_titulo_proveedores{\n"
-"background: #023375;\n"
-"min-height: 40px;\n"
-"max-height: 40px;\n"
-"font-size:20px;\n"
+"color:#1d1c1c;\n"
+"background-color: #fffefb;\n"
+"font-size: 24px;\n"
 "font-weight: bold;\n"
-"color:#fffefb;\n"
-"padding-left:5px;\n"
+"padding-left: 5px;\n"
+"text-transform: uppercase;\n"
+"font-family: \"Arial\";\n"
+"padding-top: 5px;\n"
 "}\n"
 "*[objectName*=\"etiquetaTitulo_\"]{\n"
 "font-size:18px;\n"
@@ -157,8 +158,8 @@ class Ui_Control_Proveedores(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.label_wp_titulo_proveedores = QtWidgets.QLabel(Control_Proveedores)
-        self.label_wp_titulo_proveedores.setMinimumSize(QtCore.QSize(0, 40))
-        self.label_wp_titulo_proveedores.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.label_wp_titulo_proveedores.setMinimumSize(QtCore.QSize(0, 0))
+        self.label_wp_titulo_proveedores.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.label_wp_titulo_proveedores.setObjectName("label_wp_titulo_proveedores")
         self.gridLayout.addWidget(self.label_wp_titulo_proveedores, 0, 0, 1, 1)
         self.contenedor = QtWidgets.QFrame(Control_Proveedores)
@@ -173,7 +174,7 @@ class Ui_Control_Proveedores(object):
         self.contenedor_scrollArea.setWidgetResizable(True)
         self.contenedor_scrollArea.setObjectName("contenedor_scrollArea")
         self.contenedor_scroll_area_contenido = QtWidgets.QWidget()
-        self.contenedor_scroll_area_contenido.setGeometry(QtCore.QRect(0, 0, 1008, 577))
+        self.contenedor_scroll_area_contenido.setGeometry(QtCore.QRect(0, 0, 1008, 583))
         self.contenedor_scroll_area_contenido.setObjectName("contenedor_scroll_area_contenido")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.contenedor_scroll_area_contenido)
         self.gridLayout_7.setObjectName("gridLayout_7")

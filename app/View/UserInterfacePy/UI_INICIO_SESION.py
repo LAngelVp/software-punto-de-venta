@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_INICIO_SESION.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_INICIO_SESION.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Inicio_Sesion(object):
     def setupUi(self, Inicio_Sesion):
         Inicio_Sesion.setObjectName("Inicio_Sesion")
-        Inicio_Sesion.resize(654, 539)
+        Inicio_Sesion.resize(616, 468)
         Inicio_Sesion.setMinimumSize(QtCore.QSize(600, 450))
         Inicio_Sesion.setMaximumSize(QtCore.QSize(16777215, 16777215))
         Inicio_Sesion.setStyleSheet("#principal{\n"
@@ -22,9 +22,11 @@ class Ui_Inicio_Sesion(object):
 "    border-bottom-right-radius: 25px;\n"
 "    border-top-right-radius: 25px;\n"
 "}\n"
-"#contenedor_formulario{\n"
-"    background: #fffefb;\n"
-"    border-radius: 25px;\n"
+"#contenedor_global{\n"
+"border-top-left-radius: 25px;\n"
+"border-bottom-left-radius: 25px;\n"
+"border-bottom-right-radius: 25px;\n"
+"border-top-right-radius: 25px;\n"
 "}\n"
 "#imgFormulario{\n"
 "image: url(:/Icons/IconosSVG/logo_devrous.png);\n"
@@ -84,8 +86,16 @@ class Ui_Inicio_Sesion(object):
 "background:transparent;\n"
 "image: url(:/iconosBlancos/Icons/iconos/Blanco/password_blanco.svg);\n"
 "}")
-        self.contenedor_formulario = QtWidgets.QFrame(Inicio_Sesion)
-        self.contenedor_formulario.setGeometry(QtCore.QRect(20, 20, 601, 481))
+        self.contenedor_global = QtWidgets.QFrame(Inicio_Sesion)
+        self.contenedor_global.setGeometry(QtCore.QRect(20, 20, 551, 421))
+        self.contenedor_global.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.contenedor_global.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.contenedor_global.setObjectName("contenedor_global")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.contenedor_global)
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_4.setSpacing(0)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.contenedor_formulario = QtWidgets.QFrame(self.contenedor_global)
         self.contenedor_formulario.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor_formulario.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor_formulario.setObjectName("contenedor_formulario")
@@ -94,8 +104,7 @@ class Ui_Inicio_Sesion(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName("gridLayout")
         self.imgFormulario = QtWidgets.QLabel(self.contenedor_formulario)
-        self.imgFormulario.setStyleSheet("\n"
-"")
+        self.imgFormulario.setStyleSheet("")
         self.imgFormulario.setText("")
         self.imgFormulario.setObjectName("imgFormulario")
         self.gridLayout.addWidget(self.imgFormulario, 0, 0, 1, 1)
@@ -103,17 +112,17 @@ class Ui_Inicio_Sesion(object):
         self.principal.setStyleSheet("")
         self.principal.setObjectName("principal")
         self.img_Login = QtWidgets.QLabel(self.principal)
-        self.img_Login.setGeometry(QtCore.QRect(70, 68, 161, 121))
+        self.img_Login.setGeometry(QtCore.QRect(86, 70, 111, 81))
         self.img_Login.setStyleSheet("")
         self.img_Login.setText("")
         self.img_Login.setObjectName("img_Login")
         self.btnAceptar = QtWidgets.QPushButton(self.principal)
-        self.btnAceptar.setGeometry(QtCore.QRect(56, 328, 191, 31))
+        self.btnAceptar.setGeometry(QtCore.QRect(20, 270, 231, 31))
         self.btnAceptar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnAceptar.setStyleSheet("")
         self.btnAceptar.setObjectName("btnAceptar")
         self.labelNombreEmpresa = QtWidgets.QLabel(self.principal)
-        self.labelNombreEmpresa.setGeometry(QtCore.QRect(76, 438, 141, 21))
+        self.labelNombreEmpresa.setGeometry(QtCore.QRect(60, 370, 141, 21))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(10)
@@ -123,7 +132,7 @@ class Ui_Inicio_Sesion(object):
         self.labelNombreEmpresa.setAlignment(QtCore.Qt.AlignCenter)
         self.labelNombreEmpresa.setObjectName("labelNombreEmpresa")
         self.widget = QtWidgets.QWidget(self.principal)
-        self.widget.setGeometry(QtCore.QRect(230, 10, 61, 31))
+        self.widget.setGeometry(QtCore.QRect(200, 10, 61, 31))
         self.widget.setStyleSheet("background: none;")
         self.widget.setObjectName("widget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
@@ -153,7 +162,7 @@ class Ui_Inicio_Sesion(object):
         self.btnCerrar.setObjectName("btnCerrar")
         self.horizontalLayout.addWidget(self.btnCerrar)
         self.widget_2 = QtWidgets.QWidget(self.principal)
-        self.widget_2.setGeometry(QtCore.QRect(56, 378, 191, 48))
+        self.widget_2.setGeometry(QtCore.QRect(40, 320, 191, 48))
         self.widget_2.setStyleSheet("background-color:none;")
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_2)
@@ -188,14 +197,14 @@ class Ui_Inicio_Sesion(object):
         self.imgWhatsapp.setAlignment(QtCore.Qt.AlignCenter)
         self.imgWhatsapp.setObjectName("imgWhatsapp")
         self.horizontalLayout_2.addWidget(self.imgWhatsapp)
-        self.widget1 = QtWidgets.QWidget(self.principal)
-        self.widget1.setGeometry(QtCore.QRect(21, 278, 261, 22))
-        self.widget1.setObjectName("widget1")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.widget1)
+        self.layoutWidget = QtWidgets.QWidget(self.principal)
+        self.layoutWidget.setGeometry(QtCore.QRect(21, 220, 231, 22))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.layoutWidget)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setHorizontalSpacing(5)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.img_Password = QtWidgets.QLabel(self.widget1)
+        self.img_Password = QtWidgets.QLabel(self.layoutWidget)
         self.img_Password.setMinimumSize(QtCore.QSize(25, 0))
         self.img_Password.setMaximumSize(QtCore.QSize(25, 16777215))
         self.img_Password.setStyleSheet("")
@@ -203,7 +212,7 @@ class Ui_Inicio_Sesion(object):
         self.img_Password.setAlignment(QtCore.Qt.AlignCenter)
         self.img_Password.setObjectName("img_Password")
         self.gridLayout_2.addWidget(self.img_Password, 0, 0, 1, 1)
-        self.txt_Password = QtWidgets.QLineEdit(self.widget1)
+        self.txt_Password = QtWidgets.QLineEdit(self.layoutWidget)
         font = QtGui.QFont()
         font.setPointSize(-1)
         self.txt_Password.setFont(font)
@@ -212,14 +221,14 @@ class Ui_Inicio_Sesion(object):
         self.txt_Password.setAlignment(QtCore.Qt.AlignCenter)
         self.txt_Password.setObjectName("txt_Password")
         self.gridLayout_2.addWidget(self.txt_Password, 0, 1, 1, 1)
-        self.widget2 = QtWidgets.QWidget(self.principal)
-        self.widget2.setGeometry(QtCore.QRect(20, 238, 261, 22))
-        self.widget2.setObjectName("widget2")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.widget2)
+        self.layoutWidget1 = QtWidgets.QWidget(self.principal)
+        self.layoutWidget1.setGeometry(QtCore.QRect(20, 180, 231, 22))
+        self.layoutWidget1.setObjectName("layoutWidget1")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.layoutWidget1)
         self.gridLayout_3.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_3.setHorizontalSpacing(5)
         self.gridLayout_3.setObjectName("gridLayout_3")
-        self.img_User = QtWidgets.QLabel(self.widget2)
+        self.img_User = QtWidgets.QLabel(self.layoutWidget1)
         self.img_User.setMinimumSize(QtCore.QSize(25, 0))
         self.img_User.setMaximumSize(QtCore.QSize(25, 16777215))
         self.img_User.setStyleSheet("")
@@ -227,7 +236,7 @@ class Ui_Inicio_Sesion(object):
         self.img_User.setAlignment(QtCore.Qt.AlignCenter)
         self.img_User.setObjectName("img_User")
         self.gridLayout_3.addWidget(self.img_User, 0, 0, 1, 1)
-        self.txt_User = QtWidgets.QLineEdit(self.widget2)
+        self.txt_User = QtWidgets.QLineEdit(self.layoutWidget1)
         font = QtGui.QFont()
         font.setPointSize(-1)
         self.txt_User.setFont(font)
@@ -237,6 +246,7 @@ class Ui_Inicio_Sesion(object):
         self.txt_User.setObjectName("txt_User")
         self.gridLayout_3.addWidget(self.txt_User, 0, 1, 1, 1)
         self.gridLayout.addWidget(self.principal, 0, 1, 1, 1)
+        self.gridLayout_4.addWidget(self.contenedor_formulario, 0, 0, 1, 1)
 
         self.retranslateUi(Inicio_Sesion)
         QtCore.QMetaObject.connectSlotsByName(Inicio_Sesion)

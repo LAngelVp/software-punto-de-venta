@@ -24,12 +24,14 @@ background-color: #fffefb;
 margin-bottom:20px;
 }
 #label_wc_titulo_compras{
-background-color: rgb(3, 51, 116);
-color:#fffefb;
+color:#1d1c1c;
+background-color: #fffefb;
 font-size: 24px;
 font-weight: bold;
 padding-left: 5px;
 text-transform: uppercase;
+font-family: &quot;Arial&quot;;
+padding-top: 5px;
 }
 #tabla_listaempleados {
     border: 1px solid;

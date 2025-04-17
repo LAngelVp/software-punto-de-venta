@@ -18,7 +18,7 @@
 background-color: rgb(255, 255, 255);
 }
 #label_logoempresa{
-image: url(:/Icons/IconosSVG/logo_devrous.png);
+image: url(:/Icons/IconosSVG/logo_dev_rous_blanco.png);
 min-width:80px;
 margin-top: 2px;
 }
@@ -36,7 +36,7 @@ background-color: rgb(255, 255, 255);
 	background-color: rgb(214, 214, 214);
 }
 #w_encabezado{
-background-color:#cccbc8;
+background-color:#1F3A5F;
 height:30px;
 min-height: 30px;
 max-height: 30px;
@@ -50,7 +50,7 @@ background-color: rgb(255, 255, 255);
 #w_cuerpo_menu{
 min-width:40px;
 max-width:70px;
-background-color: rgb(204, 203, 200);
+background-color: #1F3A5F;
 }
 #label_fotousuario{
 image: url(:/Icons/IconosSVG/perfil.png);
@@ -485,26 +485,6 @@ qproperty-iconSize: 20px 20px;
               <property name="icon">
                <iconset resource="../../Source/iconsdvg.qrc">
                 <normaloff>:/Icons/IconosSVG/sucursales.png</normaloff>:/Icons/IconosSVG/sucursales.png</iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="btn_laterales_mas_opciones">
-              <property name="cursor">
-               <cursorShape>PointingHandCursor</cursorShape>
-              </property>
-              <property name="toolTip">
-               <string>Más Opciones</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset resource="../../Source/ibootstrap.qrc">
-                <normaloff>:/Icons/Bootstrap/plus-circle.svg</normaloff>:/Icons/Bootstrap/plus-circle.svg</iconset>
-              </property>
-              <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonIconOnly</enum>
               </property>
              </widget>
             </item>

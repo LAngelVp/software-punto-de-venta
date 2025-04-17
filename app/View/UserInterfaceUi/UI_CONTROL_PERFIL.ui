@@ -25,12 +25,14 @@ background:#EE1D52;
 border-radius:5px;
 }
 #label_wp_titulo_usuario{
-background-color: rgb(3, 51, 116);
-max-height: 40px;
-font-size:20px;
+color:#1d1c1c;
+background-color: #fffefb;
+font-size: 24px;
 font-weight: bold;
-color: #fffefb;
-padding-left:5px;
+padding-left: 5px;
+text-transform: uppercase;
+font-family: &quot;Arial&quot;;
+padding-top: 5px;
 }
 #tarjeta_usuario{
 background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0.818455, y2:0.824, stop:0 rgba(115, 115, 115, 255), stop:1 rgba(5, 95, 212, 219));
@@ -1284,7 +1286,7 @@ background:none;</string>
      <property name="maximumSize">
       <size>
        <width>16777215</width>
-       <height>40</height>
+       <height>16777215</height>
       </size>
      </property>
      <property name="text">

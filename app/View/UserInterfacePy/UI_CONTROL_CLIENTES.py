@@ -22,13 +22,14 @@ class Ui_Control_Clientes(object):
 "background-color: #fffefb;\n"
 "}\n"
 "#label_wp_titulo_clientes{\n"
-"background-color: #023375;\n"
-"min-height: 40px;\n"
-"max-height: 40px;\n"
-"font-size:20px;\n"
+"color:#1d1c1c;\n"
+"background-color: #fffefb;\n"
+"font-size: 24px;\n"
 "font-weight: bold;\n"
-"color:#fffefb;\n"
-"padding-left:5px;\n"
+"padding-left: 5px;\n"
+"text-transform: uppercase;\n"
+"font-family: \"Arial\";\n"
+"padding-top: 5px;\n"
 "}\n"
 "#label_wpc_fotocliente{\n"
 "min-height: 50px;\n"
@@ -259,7 +260,7 @@ class Ui_Control_Clientes(object):
         self.wpc_contenedor_scroll.setWidgetResizable(True)
         self.wpc_contenedor_scroll.setObjectName("wpc_contenedor_scroll")
         self.wpc_scrooll_area = QtWidgets.QWidget()
-        self.wpc_scrooll_area.setGeometry(QtCore.QRect(0, -569, 1381, 1063))
+        self.wpc_scrooll_area.setGeometry(QtCore.QRect(0, 0, 1381, 1063))
         self.wpc_scrooll_area.setObjectName("wpc_scrooll_area")
         self.gridLayout_11 = QtWidgets.QGridLayout(self.wpc_scrooll_area)
         self.gridLayout_11.setContentsMargins(0, 0, 0, 0)
@@ -936,7 +937,7 @@ class Ui_Control_Clientes(object):
         self.gridLayout_19.addWidget(self.wpc_contenedor_scroll, 0, 0, 1, 1)
         self.gridLayout_9.addWidget(self.wpc_clientes_contenido, 2, 0, 1, 2)
         self.label_wp_titulo_clientes = QtWidgets.QLabel(self.wpc_contenido_general)
-        self.label_wp_titulo_clientes.setMinimumSize(QtCore.QSize(0, 40))
+        self.label_wp_titulo_clientes.setMinimumSize(QtCore.QSize(0, 0))
         self.label_wp_titulo_clientes.setObjectName("label_wp_titulo_clientes")
         self.gridLayout_9.addWidget(self.label_wp_titulo_clientes, 0, 0, 1, 2)
         self.wpc_menu_opciones_clientes = QtWidgets.QWidget(self.wpc_contenido_general)

@@ -1,6 +1,7 @@
 import sys
+from datetime import datetime
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QDialog
 from ..View.UserInterfacePy.UI_SISTEMA_PRINCIPAL import Ui_Principal_sistema
 from ..Controller.ClientesController import Clientes
 from ..Controller.PerfilUsuarioController import Perfil
@@ -24,11 +25,10 @@ class SistemaPrincipal(QWidget):
     LISTAR_CLIENTES_VCLIENTES = pyqtSignal()
     def __init__(self, parent = None, datos_usuario = None):
         super().__init__(parent)
+        self.ventana_saludo = None
         self.ui = Ui_Principal_sistema()
         self.ui.setupUi(self)
         self.datos_usuario = datos_usuario
-        
-        Mensaje().mensaje_informativo(f'¡Quete encuentres de maravilla {self.datos_usuario["nombre_empleado"]}!\n¡Que tengas un excelente día y mucho éxito en tus ventas!')
         
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.showMaximized()
@@ -67,8 +67,6 @@ class SistemaPrincipal(QWidget):
         self.ui.w_cuerpo_contenido.addWidget(self.clientes)
         self.ui.w_cuerpo_contenido.addWidget(self.productos)
 
-
-        
     def mostrar_perfil(self, event):
         if self.ui.w_cuerpo_contenido.currentWidget() != self.perfil:
             self.ui.w_cuerpo_contenido.setCurrentWidget(self.perfil)
@@ -115,3 +113,4 @@ class SistemaPrincipal(QWidget):
         else:
             self.ventana_sucursales.raise_()
             self.ventana_sucursales.activateWindow()
+

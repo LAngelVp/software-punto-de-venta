@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_CONTROL_VENTA.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_VENTA.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -25,6 +25,9 @@ class Ui_Venta(object):
 "background: #B0C5D1;\n"
 "border-radius: 10px;\n"
 "min-width: 300px;\n"
+"}\n"
+"[objectName*=\"contenedor\"]{\n"
+"background: #fffefb;\n"
 "}\n"
 "[objectName*=\"etiqueta_\"]{\n"
 "font-size: 14px;\n"
@@ -271,7 +274,7 @@ class Ui_Venta(object):
         self.gridLayout_4.addWidget(self.contenedor_detallesventa, 3, 4, 1, 1, QtCore.Qt.AlignHCenter)
         self.tabla_productos = QtWidgets.QColumnView(self.contenedor_controlcentral)
         self.tabla_productos.setObjectName("tabla_productos")
-        self.gridLayout_4.addWidget(self.tabla_productos, 3, 1, 1, 3)
+        self.gridLayout_4.addWidget(self.tabla_productos, 3, 0, 1, 4)
         self.gridLayout_3.addWidget(self.contenedor_controlcentral, 0, 0, 1, 1)
         self.contenedor_controlesinferior = QtWidgets.QFrame(self.contenedor_general)
         self.contenedor_controlesinferior.setFrameShape(QtWidgets.QFrame.StyledPanel)

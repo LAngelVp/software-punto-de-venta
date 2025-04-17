@@ -19,7 +19,7 @@ class Ui_Principal_sistema(object):
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
 "#label_logoempresa{\n"
-"image: url(:/Icons/IconosSVG/logo_devrous.png);\n"
+"image: url(:/Icons/IconosSVG/logo_dev_rous_blanco.png);\n"
 "min-width:80px;\n"
 "margin-top: 2px;\n"
 "}\n"
@@ -37,7 +37,7 @@ class Ui_Principal_sistema(object):
 "    background-color: rgb(214, 214, 214);\n"
 "}\n"
 "#w_encabezado{\n"
-"background-color:#cccbc8;\n"
+"background-color:#1F3A5F;\n"
 "height:30px;\n"
 "min-height: 30px;\n"
 "max-height: 30px;\n"
@@ -51,7 +51,7 @@ class Ui_Principal_sistema(object):
 "#w_cuerpo_menu{\n"
 "min-width:40px;\n"
 "max-width:70px;\n"
-"background-color: rgb(204, 203, 200);\n"
+"background-color: #1F3A5F;\n"
 "}\n"
 "#label_fotousuario{\n"
 "image: url(:/Icons/IconosSVG/perfil.png);\n"
@@ -240,15 +240,6 @@ class Ui_Principal_sistema(object):
         self.btn_laterales_btn_sucursales.setIcon(icon9)
         self.btn_laterales_btn_sucursales.setObjectName("btn_laterales_btn_sucursales")
         self.verticalLayout_2.addWidget(self.btn_laterales_btn_sucursales)
-        self.btn_laterales_mas_opciones = QtWidgets.QToolButton(self.w_cuerpo_menu)
-        self.btn_laterales_mas_opciones.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_laterales_mas_opciones.setText("")
-        icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap(":/Icons/Bootstrap/plus-circle.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_laterales_mas_opciones.setIcon(icon10)
-        self.btn_laterales_mas_opciones.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
-        self.btn_laterales_mas_opciones.setObjectName("btn_laterales_mas_opciones")
-        self.verticalLayout_2.addWidget(self.btn_laterales_mas_opciones)
         spacerItem1 = QtWidgets.QSpacerItem(20, 45, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem1)
         self.gridLayout_3.addWidget(self.w_cuerpo_menu, 0, 0, 1, 1, QtCore.Qt.AlignHCenter)
@@ -293,6 +284,5 @@ class Ui_Principal_sistema(object):
         self.btn_laterales_productos.setToolTip(_translate("Principal_sistema", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Productos</span></p></body></html>"))
         self.btn_laterales_productos.setText(_translate("Principal_sistema", "..."))
         self.btn_laterales_btn_sucursales.setToolTip(_translate("Principal_sistema", "<html><head/><body><p><span style=\" font-size:10pt; font-weight:600;\">Administrador de Sucursales</span></p></body></html>"))
-        self.btn_laterales_mas_opciones.setToolTip(_translate("Principal_sistema", "Más Opciones"))
 from ...Source import ibootstrap_rc
 from ...Source import iconsdvg_rc
