@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\PRODUCTOS_PROVEEDORES.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/PRODUCTOS_PROVEEDORES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -80,6 +80,28 @@ class Ui_contenedor_productos_proveedores(object):
 "}\n"
 "#btn_producto_del_proveedor_cerrar:pressed{\n"
 "background: rgb(222, 221, 218);\n"
+"}\n"
+"#btn_RefrescarTabla{\n"
+"border-radius: 2px;\n"
+"background: #e0e0e0;\n"
+"padding: 5px;\n"
+"}\n"
+"#btn_RefrescarTabla:hover{\n"
+"background: rgb(179, 179, 179);\n"
+"}\n"
+"#btn_RefrescarTabla:pressed{\n"
+"background: #b6ccd8 ;\n"
+"}\n"
+"#btn_RefrescarTablaProductos{\n"
+"border-radius: 2px;\n"
+"background: #e0e0e0;\n"
+"padding: 5px;\n"
+"}\n"
+"#btn_RefrescarTablaProductos:hover{\n"
+"background: rgb(179, 179, 179);\n"
+"}\n"
+"#btn_RefrescarTablaProductos:pressed{\n"
+"background: #b6ccd8 ;\n"
 "}\n"
 "[objectName^=\"cajaopciones_\"]{\n"
 "border: none;\n"
@@ -201,12 +223,14 @@ class Ui_contenedor_productos_proveedores(object):
         self.btn_producto_del_proveedor_editar.setIcon(icon1)
         self.btn_producto_del_proveedor_editar.setObjectName("btn_producto_del_proveedor_editar")
         self.gridLayout_4.addWidget(self.btn_producto_del_proveedor_editar, 1, 3, 1, 1, QtCore.Qt.AlignRight)
-        self.btn_producto_del_proveedor_actualizar_tabla = QtWidgets.QPushButton(self.contenedor_botones_superior)
+        self.btn_RefrescarTabla = QtWidgets.QPushButton(self.contenedor_botones_superior)
+        self.btn_RefrescarTabla.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_RefrescarTabla.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_producto_del_proveedor_actualizar_tabla.setIcon(icon2)
-        self.btn_producto_del_proveedor_actualizar_tabla.setObjectName("btn_producto_del_proveedor_actualizar_tabla")
-        self.gridLayout_4.addWidget(self.btn_producto_del_proveedor_actualizar_tabla, 1, 1, 1, 1)
+        icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_RefrescarTabla.setIcon(icon2)
+        self.btn_RefrescarTabla.setObjectName("btn_RefrescarTabla")
+        self.gridLayout_4.addWidget(self.btn_RefrescarTabla, 1, 1, 1, 1)
         self.btn_producto_del_proveedor_eliminar = QtWidgets.QPushButton(self.contenedor_botones_superior)
         self.btn_producto_del_proveedor_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         icon3 = QtGui.QIcon()
@@ -266,7 +290,13 @@ class Ui_contenedor_productos_proveedores(object):
         icon5.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/vincular.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_producto_del_proveedor_para_agregar.setIcon(icon5)
         self.btn_producto_del_proveedor_para_agregar.setObjectName("btn_producto_del_proveedor_para_agregar")
-        self.gridLayout_7.addWidget(self.btn_producto_del_proveedor_para_agregar, 0, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.btn_producto_del_proveedor_para_agregar, 0, 2, 1, 1)
+        self.btn_RefrescarTablaProductos = QtWidgets.QPushButton(self.contenedor_botones_superior_productos_del_sistema)
+        self.btn_RefrescarTablaProductos.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_RefrescarTablaProductos.setText("")
+        self.btn_RefrescarTablaProductos.setIcon(icon2)
+        self.btn_RefrescarTablaProductos.setObjectName("btn_RefrescarTablaProductos")
+        self.gridLayout_7.addWidget(self.btn_RefrescarTablaProductos, 0, 1, 1, 1)
         self.gridLayout_9.addWidget(self.contenedor_botones_superior_productos_del_sistema, 0, 0, 1, 2)
         self.contenedor_contenido_tab_productos_del_sistema = QtWidgets.QFrame(self.contenedor_tab_productos_de_sistema)
         self.contenedor_contenido_tab_productos_del_sistema.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -336,7 +366,7 @@ class Ui_contenedor_productos_proveedores(object):
         contenedor_productos_proveedores.setWindowTitle(_translate("contenedor_productos_proveedores", "Form"))
         self.etiqueta_encabezado_productosProveedor.setText(_translate("contenedor_productos_proveedores", "PRODUCTOS DEL PROVEEDOR"))
         self.btn_producto_del_proveedor_editar.setText(_translate("contenedor_productos_proveedores", "Manejar Precio"))
-        self.btn_producto_del_proveedor_actualizar_tabla.setText(_translate("contenedor_productos_proveedores", "Actualizar Tabla"))
+        self.btn_RefrescarTabla.setToolTip(_translate("contenedor_productos_proveedores", "Refrescar tabla"))
         self.btn_producto_del_proveedor_eliminar.setText(_translate("contenedor_productos_proveedores", "Quitar"))
         self.etiqueta_nombre_producto.setText(_translate("contenedor_productos_proveedores", "Buscar Producto"))
         self.cajaopciones_filtro_nombre.setItemText(0, _translate("contenedor_productos_proveedores", "Igual A"))
@@ -344,6 +374,7 @@ class Ui_contenedor_productos_proveedores(object):
         self.txt_nombre_producto.setPlaceholderText(_translate("contenedor_productos_proveedores", "Nombre del Producto"))
         self.contenedor_tabs.setTabText(self.contenedor_tabs.indexOf(self.contenedor_tab_productos_de_proveedor), _translate("contenedor_productos_proveedores", "Productos del Proveedor"))
         self.btn_producto_del_proveedor_para_agregar.setText(_translate("contenedor_productos_proveedores", "Vincular al proveedor"))
+        self.btn_RefrescarTablaProductos.setToolTip(_translate("contenedor_productos_proveedores", "Refrescar tabla"))
         self.etiqueta_nombreproducto_del_sistema.setText(_translate("contenedor_productos_proveedores", "Nombre del Producto:"))
         self.cajaopciones_filtro_nombre_productos_del_sistema.setItemText(0, _translate("contenedor_productos_proveedores", "Es Igual"))
         self.cajaopciones_filtro_nombre_productos_del_sistema.setItemText(1, _translate("contenedor_productos_proveedores", "Que Contenga"))

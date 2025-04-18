@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_EMPLEADOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_EMPLEADOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -66,10 +66,10 @@ class Ui_Control_empleados(object):
 "font-family: Arial;\n"
 "font-size: 14px;\n"
 "font-weight: bold;\n"
-"max-height: 20px;\n"
 "text-align: center;\n"
 "text-transform: uppercase;\n"
 "color: #fffefb;\n"
+"padding:2px;\n"
 "}\n"
 "\n"
 "[objectName*=\"btn_btn\"]:hover{\n"
@@ -80,6 +80,17 @@ class Ui_Control_empleados(object):
 "}\n"
 "#btn_btn_agregar:hover{\n"
 "background-color: #68a67d;\n"
+"}\n"
+"#btn_RefrescarTabla{\n"
+"border-radius: 2px;\n"
+"background: #e0e0e0;\n"
+"padding: 5px;\n"
+"}\n"
+"#btn_RefrescarTabla:hover{\n"
+"background: rgb(179, 179, 179);\n"
+"}\n"
+"#btn_RefrescarTabla:pressed{\n"
+"background: #b6ccd8 ;\n"
 "}\n"
 "[objectName^=\"cajaopciones_\"]{\n"
 "border: none;\n"
@@ -191,21 +202,21 @@ class Ui_Control_empleados(object):
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/editar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_editarempleado.setIcon(icon2)
-        self.btn_btn_editarempleado.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_editarempleado.setIconSize(QtCore.QSize(19, 19))
         self.btn_btn_editarempleado.setObjectName("btn_btn_editarempleado")
         self.horizontalLayout.addWidget(self.btn_btn_editarempleado)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.btn_btn_limpiar = QtWidgets.QToolButton(self.contenedor_botones)
-        self.btn_btn_limpiar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_limpiar.setText("")
+        self.btn_RefrescarTabla = QtWidgets.QToolButton(self.contenedor_botones)
+        self.btn_RefrescarTabla.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_RefrescarTabla.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_limpiar.setIcon(icon3)
-        self.btn_btn_limpiar.setIconSize(QtCore.QSize(24, 24))
-        self.btn_btn_limpiar.setObjectName("btn_btn_limpiar")
-        self.horizontalLayout.addWidget(self.btn_btn_limpiar)
-        self.gridLayout_2.addWidget(self.contenedor_botones, 1, 0, 1, 1)
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_RefrescarTabla.setIcon(icon3)
+        self.btn_RefrescarTabla.setIconSize(QtCore.QSize(16, 16))
+        self.btn_RefrescarTabla.setObjectName("btn_RefrescarTabla")
+        self.horizontalLayout.addWidget(self.btn_RefrescarTabla, 0, QtCore.Qt.AlignVCenter)
+        self.gridLayout_2.addWidget(self.contenedor_botones, 1, 0, 1, 1, QtCore.Qt.AlignVCenter)
         self.tabla_listaempleados = QtWidgets.QTableView(self.contenedor_cuerpo)
         self.tabla_listaempleados.setMinimumSize(QtCore.QSize(0, 0))
         self.tabla_listaempleados.setMaximumSize(QtCore.QSize(16777215, 16777215))
@@ -230,13 +241,13 @@ class Ui_Control_empleados(object):
         self.gridLayout_4.setVerticalSpacing(0)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.btn_btn_buscar = QtWidgets.QToolButton(self.contenedor_cabeceraopcionbusqueda)
-        self.btn_btn_buscar.setMaximumSize(QtCore.QSize(16777215, 20))
+        self.btn_btn_buscar.setMaximumSize(QtCore.QSize(16777215, 16777215))
         self.btn_btn_buscar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_btn_buscar.setText("")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/buscar_persona_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_btn_buscar.setIcon(icon4)
-        self.btn_btn_buscar.setIconSize(QtCore.QSize(16, 16))
+        self.btn_btn_buscar.setIconSize(QtCore.QSize(18, 18))
         self.btn_btn_buscar.setObjectName("btn_btn_buscar")
         self.gridLayout_4.addWidget(self.btn_btn_buscar, 1, 3, 1, 1, QtCore.Qt.AlignVCenter)
         self.txt_nombreempleado = QtWidgets.QLineEdit(self.contenedor_cabeceraopcionbusqueda)
@@ -272,7 +283,7 @@ class Ui_Control_empleados(object):
         self.btn_btn_eliminar.setText(_translate("Control_empleados", "Eliminar"))
         self.btn_btn_editarempleado.setToolTip(_translate("Control_empleados", "Editar empleado"))
         self.btn_btn_editarempleado.setText(_translate("Control_empleados", "EDItar"))
-        self.btn_btn_limpiar.setToolTip(_translate("Control_empleados", "Actualizar tabla"))
+        self.btn_RefrescarTabla.setToolTip(_translate("Control_empleados", "Actualizar tabla"))
         self.btn_btn_buscar.setToolTip(_translate("Control_empleados", "Buscar empleado"))
         self.txt_nombreempleado.setPlaceholderText(_translate("Control_empleados", "Nombre de empleado"))
         self.txt_idempleado.setPlaceholderText(_translate("Control_empleados", "Id del empleado"))

@@ -23,10 +23,11 @@ class Productos_de_proveedorController(QWidget):
         self.ui.txt_nombre_productodelsistema.returnPressed.connect(self.filtrar_productos_sistema)
         self.ui.txt_nombre_producto.returnPressed.connect(self.filtrar_productos_de_proveedor)
         self.ui.btn_producto_del_proveedor_para_agregar.clicked.connect(self.vincular_producto_al_proveedor_funcion)
-        self.ui.btn_producto_del_proveedor_actualizar_tabla.clicked.connect(self.mostrar_productos_proveedor)
+        self.ui.btn_RefrescarTabla.clicked.connect(self.mostrar_productos_proveedor)
         self.ui.btn_producto_del_proveedor_cerrar.clicked.connect(self.close)
         self.ui.btn_producto_del_proveedor_eliminar.clicked.connect(self.desvincular_producto)
         self.ui.btn_producto_del_proveedor_editar.clicked.connect(self.editar_precio_producto)
+        self.ui.btn_RefrescarTablaProductos.clicked.connect(self.productos_de_sistema)
         
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre)
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre_productos_del_sistema)
@@ -42,7 +43,7 @@ class Productos_de_proveedorController(QWidget):
         self._ventanaCentradaProductosProveedores = False
         # self._ventanaCerradaPrecioProducto = False
         self.ventana_precio_producto = None
-        self.productos_de_sistema()
+        # self.productos_de_sistema()
         
         if not self.proveedor:
             return

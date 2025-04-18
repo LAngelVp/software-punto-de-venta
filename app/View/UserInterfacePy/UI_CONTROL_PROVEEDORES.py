@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PROVEEDORES.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PROVEEDORES.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -89,13 +89,25 @@ class Ui_Control_Proveedores(object):
 "#btn_btn_guardar:hover{\n"
 "background: #68a67d;\n"
 "}\n"
+"\n"
+"\n"
 "[objectName*=\"txt_\"]:focus{\n"
 "border-bottom: 2px solid #023375;\n"
 "}\n"
 "[objectName*=\"txtlargo_\"]:focus{\n"
 "border-bottom: 2px solid #023375;\n"
 "}\n"
-"\n"
+"#btn_RefrescarTabla{\n"
+"border-radius: 2px;\n"
+"background: #e0e0e0;\n"
+"padding: 5px;\n"
+"}\n"
+"#btn_RefrescarTabla:hover{\n"
+"background: rgb(179, 179, 179);\n"
+"}\n"
+"#btn_RefrescarTabla:pressed{\n"
+"background: #b6ccd8 ;\n"
+"}\n"
 "[objectName^=\"cajaopciones\"]{\n"
 "border: none;\n"
 "border-bottom: 1px solid #3b3c3d;\n"
@@ -174,7 +186,7 @@ class Ui_Control_Proveedores(object):
         self.contenedor_scrollArea.setWidgetResizable(True)
         self.contenedor_scrollArea.setObjectName("contenedor_scrollArea")
         self.contenedor_scroll_area_contenido = QtWidgets.QWidget()
-        self.contenedor_scroll_area_contenido.setGeometry(QtCore.QRect(0, 0, 1008, 583))
+        self.contenedor_scroll_area_contenido.setGeometry(QtCore.QRect(0, 0, 1008, 584))
         self.contenedor_scroll_area_contenido.setObjectName("contenedor_scroll_area_contenido")
         self.gridLayout_7 = QtWidgets.QGridLayout(self.contenedor_scroll_area_contenido)
         self.gridLayout_7.setObjectName("gridLayout_7")
@@ -400,15 +412,15 @@ class Ui_Control_Proveedores(object):
         self.btn_btn_buscarproveedor.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_buscarproveedor.setObjectName("btn_btn_buscarproveedor")
         self.gridLayout_5.addWidget(self.btn_btn_buscarproveedor, 0, 1, 1, 1)
-        self.btn_btn_ActualizaTablaProveedores = QtWidgets.QPushButton(self.contenedor_tablareproveedores)
-        self.btn_btn_ActualizaTablaProveedores.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_ActualizaTablaProveedores.setText("")
+        self.btn_RefrescarTabla = QtWidgets.QPushButton(self.contenedor_tablareproveedores)
+        self.btn_RefrescarTabla.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_RefrescarTabla.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_ActualizaTablaProveedores.setIcon(icon3)
-        self.btn_btn_ActualizaTablaProveedores.setIconSize(QtCore.QSize(24, 26))
-        self.btn_btn_ActualizaTablaProveedores.setObjectName("btn_btn_ActualizaTablaProveedores")
-        self.gridLayout_5.addWidget(self.btn_btn_ActualizaTablaProveedores, 0, 2, 1, 1)
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_RefrescarTabla.setIcon(icon3)
+        self.btn_RefrescarTabla.setIconSize(QtCore.QSize(16, 16))
+        self.btn_RefrescarTabla.setObjectName("btn_RefrescarTabla")
+        self.gridLayout_5.addWidget(self.btn_RefrescarTabla, 0, 2, 1, 1)
         self.tabla_proveedores = QtWidgets.QTableView(self.contenedor_tablareproveedores)
         self.tabla_proveedores.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.tabla_proveedores.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
@@ -444,15 +456,17 @@ class Ui_Control_Proveedores(object):
         self.horizontalLayout_2.addWidget(self.btn_btn_guardar)
         self.btn_btn_actualizar = QtWidgets.QPushButton(self.frame)
         self.btn_btn_actualizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btn_btn_actualizar.setIcon(icon3)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_actualizar.setIcon(icon5)
         self.btn_btn_actualizar.setIconSize(QtCore.QSize(24, 26))
         self.btn_btn_actualizar.setObjectName("btn_btn_actualizar")
         self.horizontalLayout_2.addWidget(self.btn_btn_actualizar)
         self.btn_btn_eliminar = QtWidgets.QToolButton(self.frame)
         self.btn_btn_eliminar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_eliminar.setIcon(icon5)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/eliminar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_btn_eliminar.setIcon(icon6)
         self.btn_btn_eliminar.setIconSize(QtCore.QSize(24, 24))
         self.btn_btn_eliminar.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
         self.btn_btn_eliminar.setObjectName("btn_btn_eliminar")
@@ -553,7 +567,7 @@ class Ui_Control_Proveedores(object):
         self.etiquetaTitulo_proveedor.setText(_translate("Control_Proveedores", "Lista de proveedores"))
         self.txt_buscarproveedor.setPlaceholderText(_translate("Control_Proveedores", "Nombre del proveedor"))
         self.btn_btn_buscarproveedor.setToolTip(_translate("Control_Proveedores", "Buscar Proveedor"))
-        self.btn_btn_ActualizaTablaProveedores.setToolTip(_translate("Control_Proveedores", "Actualizar Tabla"))
+        self.btn_RefrescarTabla.setToolTip(_translate("Control_Proveedores", "Actualizar tabla"))
         self.btn_btn_guardar.setToolTip(_translate("Control_Proveedores", "Guardar"))
         self.btn_btn_guardar.setText(_translate("Control_Proveedores", "GUARDAR"))
         self.btn_btn_actualizar.setToolTip(_translate("Control_Proveedores", "Actualizar"))

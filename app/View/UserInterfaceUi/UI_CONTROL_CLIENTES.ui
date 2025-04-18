@@ -40,13 +40,13 @@ max-width:50px;
 max-height:40px;
 max-width:400px
 }
-#wpc_contenedor_clienteMoral{
-max-width:800px;
+
+#contenedor_izquierda{
+max-width: 450px;
 }
+
 #wpc_menu_opciones_clientes{
-min-height: 40px
-}
-#contenedor_clientes{
+min-height: 40px;
 }
 #wpc_lista_clientes{
 background-color: #fffefb;
@@ -75,6 +75,17 @@ background-color: #2196F3;
 }
 #btn_btn_cliente_eliminar:hover{
 	background: #EE1D52;
+}
+#btn_RefrescarTabla{
+border-radius: 2px;
+background: #e0e0e0;
+padding: 5px;
+}
+#btn_RefrescarTabla:hover{
+background: rgb(179, 179, 179);
+}
+#btn_RefrescarTabla:pressed{
+background: #b6ccd8 ;
 }
 [objectName*=&quot;etiqueta_&quot;]{
 font-family:Arial;
@@ -208,6 +219,7 @@ background: #fffefb;
 
 #wpc_clientes_autorizacredito_moral{
 background: #fffefb;
+max-width:450px;
 }
 [objectName*=&quot;fecha_&quot;]{
 border: none;
@@ -303,8 +315,8 @@ border-bottom: 2px solid #00668c;
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>1381</width>
-              <height>1063</height>
+              <width>1384</width>
+              <height>1090</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_11">
@@ -344,7 +356,7 @@ border-bottom: 2px solid #00668c;
                 <item row="1" column="0">
                  <widget class="QStackedWidget" name="wpc_contenedor_pila">
                   <property name="currentIndex">
-                   <number>0</number>
+                   <number>1</number>
                   </property>
                   <widget class="QWidget" name="wpc_pagina_clientefisico">
                    <layout class="QGridLayout" name="gridLayout_3">
@@ -928,7 +940,7 @@ border-bottom: 2px solid #00668c;
                         </widget>
                        </item>
                        <item row="0" column="1">
-                        <widget class="QFrame" name="frame">
+                        <widget class="QFrame" name="contenedor_izquierda">
                          <property name="frameShape">
                           <enum>QFrame::StyledPanel</enum>
                          </property>
@@ -1012,64 +1024,6 @@ border-bottom: 2px solid #00668c;
                                </property>
                               </widget>
                              </item>
-                             <item row="10" column="0" colspan="2">
-                              <widget class="QLabel" name="etiqueta_entidadlegalizada_fisico">
-                               <property name="text">
-                                <string>Entidad Legalizada:</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="9" column="0" colspan="2">
-                              <widget class="Line" name="line_2">
-                               <property name="orientation">
-                                <enum>Qt::Horizontal</enum>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="11" column="0" colspan="2">
-                              <widget class="QCheckBox" name="casillaverificacion_entidadlegalizada_fisico">
-                               <property name="text">
-                                <string>Si</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="4" column="0" colspan="2">
-                              <widget class="QLabel" name="etiqueta_estadodelcredito_fisico">
-                               <property name="text">
-                                <string>Estado del Crédito</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="5" column="0" colspan="2">
-                              <widget class="QLineEdit" name="txt_estadodelcredito_fisico">
-                               <property name="enabled">
-                                <bool>false</bool>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="6" column="0">
-                              <widget class="QLabel" name="etiqueta_porcentajeintereses_fisico">
-                               <property name="text">
-                                <string>% Interes:</string>
-                               </property>
-                              </widget>
-                             </item>
-                             <item row="6" column="1">
-                              <widget class="QDoubleSpinBox" name="cajaDecimal_interesesaplicados_fisico">
-                               <property name="toolTip">
-                                <string>Interes sobre la deuda</string>
-                               </property>
-                               <property name="buttonSymbols">
-                                <enum>QAbstractSpinBox::NoButtons</enum>
-                               </property>
-                               <property name="suffix">
-                                <string> %</string>
-                               </property>
-                               <property name="maximum">
-                                <double>99999999.989999994635582</double>
-                               </property>
-                              </widget>
-                             </item>
                              <item row="2" column="0">
                               <widget class="QLabel" name="etiqueta_creditodisponible_fisico">
                                <property name="text">
@@ -1122,6 +1076,43 @@ border-bottom: 2px solid #00668c;
                                </property>
                               </widget>
                              </item>
+                             <item row="4" column="0" colspan="2">
+                              <widget class="QLabel" name="etiqueta_estadodelcredito_fisico">
+                               <property name="text">
+                                <string>Estado del Crédito</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="5" column="0" colspan="2">
+                              <widget class="QLineEdit" name="txt_estadodelcredito_fisico">
+                               <property name="enabled">
+                                <bool>false</bool>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="6" column="0">
+                              <widget class="QLabel" name="etiqueta_porcentajeintereses_fisico">
+                               <property name="text">
+                                <string>% Interes:</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="6" column="1">
+                              <widget class="QDoubleSpinBox" name="cajaDecimal_interesesaplicados_fisico">
+                               <property name="toolTip">
+                                <string>Interes sobre la deuda</string>
+                               </property>
+                               <property name="buttonSymbols">
+                                <enum>QAbstractSpinBox::NoButtons</enum>
+                               </property>
+                               <property name="suffix">
+                                <string> %</string>
+                               </property>
+                               <property name="maximum">
+                                <double>99999999.989999994635582</double>
+                               </property>
+                              </widget>
+                             </item>
                              <item row="7" column="0" colspan="2">
                               <widget class="QCheckBox" name="casillaverificacion_aplicadescuento_fisico">
                                <property name="toolTip">
@@ -1152,6 +1143,27 @@ border-bottom: 2px solid #00668c;
                                </property>
                                <property name="maximum">
                                 <double>99999999.989999994635582</double>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="9" column="0" colspan="2">
+                              <widget class="Line" name="line_2">
+                               <property name="orientation">
+                                <enum>Qt::Horizontal</enum>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="10" column="0" colspan="2">
+                              <widget class="QLabel" name="etiqueta_entidadlegalizada_fisico">
+                               <property name="text">
+                                <string>Entidad Legalizada:</string>
+                               </property>
+                              </widget>
+                             </item>
+                             <item row="11" column="0" colspan="2">
+                              <widget class="QCheckBox" name="casillaverificacion_entidadlegalizada_fisico">
+                               <property name="text">
+                                <string>Si</string>
                                </property>
                               </widget>
                              </item>
@@ -1416,7 +1428,7 @@ border-bottom: 2px solid #00668c;
                          </property>
                          <property name="maximumSize">
                           <size>
-                           <width>800</width>
+                           <width>16777215</width>
                            <height>16777215</height>
                           </size>
                          </property>
@@ -2008,42 +2020,44 @@ border-bottom: 2px solid #00668c;
                 <item row="2" column="0">
                  <widget class="QWidget" name="wpc_buscar_clientes" native="true">
                   <layout class="QGridLayout" name="gridLayout_12">
-                   <property name="leftMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>10</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="horizontalSpacing">
-                    <number>0</number>
-                   </property>
-                   <property name="verticalSpacing">
-                    <number>10</number>
-                   </property>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="etiqueta_iconobuscar">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="etiqueta_titulo_tabla">
+                     <property name="text">
+                      <string>LISTADO DE CLIENTES</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <spacer name="horizontalSpacer_6">
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>1154</width>
+                       <height>20</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item row="0" column="2">
+                    <widget class="QPushButton" name="btn_RefrescarTabla">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="toolTip">
+                      <string>Actualizar tabla</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QLineEdit" name="txt_buscarcliente">
-                     <property name="placeholderText">
-                      <string>Nombre del cliente</string>
-                     </property>
-                     <property name="clearButtonEnabled">
-                      <bool>true</bool>
+                     <property name="icon">
+                      <iconset resource="../../Source/iconsdvg.qrc">
+                       <normaloff>:/Icons/IconosSVG/base_datos_refresh.png</normaloff>:/Icons/IconosSVG/base_datos_refresh.png</iconset>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="0" colspan="2">
+                   <item row="2" column="0" colspan="3">
                     <widget class="QTableView" name="tabla_clientes">
                      <property name="editTriggers">
                       <set>QAbstractItemView::NoEditTriggers</set>
@@ -2054,10 +2068,10 @@ border-bottom: 2px solid #00668c;
                      <property name="gridStyle">
                       <enum>Qt::DashDotLine</enum>
                      </property>
-                     <attribute name="horizontalHeaderDefaultSectionSize">
+                     <attribute name="horizontalHeaderMinimumSectionSize">
                       <number>200</number>
                      </attribute>
-                     <attribute name="horizontalHeaderMinimumSectionSize">
+                     <attribute name="horizontalHeaderDefaultSectionSize">
                       <number>200</number>
                      </attribute>
                      <attribute name="horizontalHeaderStretchLastSection">
@@ -2065,12 +2079,26 @@ border-bottom: 2px solid #00668c;
                      </attribute>
                     </widget>
                    </item>
-                   <item row="0" column="0" colspan="2">
-                    <widget class="QLabel" name="etiqueta_titulo_tabla">
-                     <property name="text">
-                      <string>LISTADO DE CLIENTES</string>
-                     </property>
-                    </widget>
+                   <item row="1" column="0" colspan="3">
+                    <layout class="QGridLayout" name="gridLayout_8">
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="etiqueta_iconobuscar">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLineEdit" name="txt_buscarcliente">
+                       <property name="placeholderText">
+                        <string>Nombre del cliente</string>
+                       </property>
+                       <property name="clearButtonEnabled">
+                        <bool>true</bool>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
                    </item>
                   </layout>
                  </widget>

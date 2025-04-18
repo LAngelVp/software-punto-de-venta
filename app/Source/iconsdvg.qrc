@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>Icons/IconosSVG/base_datos_refresh.png</file>
     <file>Icons/IconosSVG/logo_dev_rous_blanco.png</file>
     <file>Icons/IconosSVG/logo_devrous.svg</file>
     <file>Icons/IconosSVG/logo_devrous.ico</file>

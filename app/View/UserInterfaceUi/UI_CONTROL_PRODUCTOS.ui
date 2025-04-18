@@ -51,6 +51,17 @@ background:#68a67d;
 #btn_btn_eliminar:hover{
 background:#EE1D52;
 }
+#btn_RefrescarTabla{
+border-radius: 2px;
+background: #e0e0e0;
+padding: 5px;
+}
+#btn_RefrescarTabla:hover{
+background: rgb(179, 179, 179);
+}
+#btn_RefrescarTabla:pressed{
+background: #b6ccd8 ;
+}
 #etiqueta_buscar{
 image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);
 min-width:25px;
@@ -364,16 +375,19 @@ border-bottom:2px solid #023375;
                 </spacer>
                </item>
                <item alignment="Qt::AlignVCenter">
-                <widget class="QPushButton" name="btn_btn_adminProductos_ActualizarTablaProductos">
+                <widget class="QPushButton" name="btn_RefrescarTabla">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
                  <property name="toolTip">
-                  <string>Actualizar tabla productos</string>
+                  <string>Actualizar tabla</string>
                  </property>
                  <property name="text">
                   <string/>
                  </property>
                  <property name="icon">
                   <iconset resource="../../Source/iconosSVG.qrc">
-                   <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+                   <normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</iconset>
                  </property>
                 </widget>
                </item>
@@ -391,10 +405,10 @@ border-bottom:2px solid #023375;
               <property name="gridStyle">
                <enum>Qt::DashDotLine</enum>
               </property>
-              <attribute name="horizontalHeaderDefaultSectionSize">
+              <attribute name="horizontalHeaderMinimumSectionSize">
                <number>200</number>
               </attribute>
-              <attribute name="horizontalHeaderMinimumSectionSize">
+              <attribute name="horizontalHeaderDefaultSectionSize">
                <number>200</number>
               </attribute>
              </widget>

@@ -930,7 +930,7 @@ class Productos(QWidget):
         self.ui.btn_btn_adminProductos_modificar.clicked.connect(self.modificar_producto)
         self.ui.btn_btn_adminProductos_buscar.clicked.connect(self.buscar_producto)
         self.ui.btn_btn_adminProductos_ExistenciaProducto.clicked.connect(self.existencia_productos)
-        self.ui.btn_btn_adminProductos_ActualizarTablaProductos.clicked.connect(self.consultar_productos_db)
+        self.ui.btn_RefrescarTabla.clicked.connect(self.consultar_productos_db)
         
         
         

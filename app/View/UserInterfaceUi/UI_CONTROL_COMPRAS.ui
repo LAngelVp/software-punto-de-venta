@@ -116,48 +116,23 @@ background-color: #68a67d;
 *[objectName*=&quot;btn_btn&quot;]:hover{
 background-color: #4d648d;
 }
+#btn_RefrescarTabla{
+border-radius: 2px;
+background: #e0e0e0;
+padding: 5px;
+}
+#btn_RefrescarTabla:hover{
+background: rgb(179, 179, 179);
+}
+#btn_RefrescarTabla:pressed{
+background: #b6ccd8 ;
+}
 /*-----------TABLA--------------*/
 
 
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-}
-
-/* Barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
-    border: 1px solid gray;
-    background: #023375;
-    width: 12px;  /* Fijamos el tamaño de la barra vertical */
-    border-radius: 4px;
-    margin: 22px 0 22px 0;
-}
-
-/* Manejador de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
-    background: #023375;
-    min-height: 20px;  /* Altura mínima del manejador */
-    border-radius: 4px;
-}
-
-/* Elementos de la flecha de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
-[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
-    background-color: none;
-}
-
-/* Barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
-    background: #023375;
-    height: 12px;  /* Fijamos el tamaño de la barra horizontal */
-    border-radius: 4px;
-}
-
-/* Manejador de la barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
-    background: #023375;
-    height: 12px;  /* Altura del manejador horizontal */
-    border-radius: 4px;
 }
 
 /* Encabezados de la tabla */
@@ -389,17 +364,17 @@ padding-right:5px;
                 <property name="verticalSpacing">
                  <number>5</number>
                 </property>
-                <item row="4" column="3">
-                 <widget class="QLabel" name="etiqueta_proveedor_2">
-                  <property name="text">
-                   <string>Proveedor</string>
+                <item row="3" column="3">
+                 <widget class="QLineEdit" name="txt_proveedor">
+                  <property name="placeholderText">
+                   <string>Quien realizo la compra</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="3">
-                 <widget class="QComboBox" name="cajaopciones_proveedor">
-                  <property name="sizeAdjustPolicy">
-                   <enum>QComboBox::AdjustToContents</enum>
+                <item row="4" column="2">
+                 <widget class="QLabel" name="etiqueta_fechalevantamientocompra">
+                  <property name="text">
+                   <string>Fecha documento</string>
                   </property>
                  </widget>
                 </item>
@@ -410,16 +385,23 @@ padding-right:5px;
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>40</width>
-                    <height>20</height>
+                    <width>282</width>
+                    <height>25</height>
                    </size>
                   </property>
                  </spacer>
                 </item>
-                <item row="3" column="3">
-                 <widget class="QLineEdit" name="txt_proveedor">
-                  <property name="placeholderText">
-                   <string>Quien realizo la compra</string>
+                <item row="0" column="0" colspan="2">
+                 <widget class="QLabel" name="etiquetaTitulo_buscar">
+                  <property name="text">
+                   <string>Buscar por:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="3">
+                 <widget class="QLabel" name="etiqueta_proveedor_2">
+                  <property name="text">
+                   <string>Proveedor</string>
                   </property>
                  </widget>
                 </item>
@@ -430,10 +412,37 @@ padding-right:5px;
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0" colspan="2">
-                 <widget class="QLabel" name="etiquetaTitulo_buscar">
+                <item row="6" column="0" colspan="2">
+                 <widget class="QDateEdit" name="fecha_fechacompra">
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="calendarPopup">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="2">
+                 <widget class="QDateEdit" name="fecha_levantamientocompra">
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="calendarPopup">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0" colspan="2">
+                 <widget class="QLabel" name="etiqueta_fechacompra">
                   <property name="text">
-                   <string>Buscar por:</string>
+                   <string>Fecha de compra</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="3">
+                 <widget class="QComboBox" name="cajaopciones_proveedor">
+                  <property name="sizeAdjustPolicy">
+                   <enum>QComboBox::AdjustToContents</enum>
                   </property>
                  </widget>
                 </item>
@@ -457,40 +466,6 @@ padding-right:5px;
                   </property>
                   <property name="toolButtonStyle">
                    <enum>Qt::ToolButtonTextBesideIcon</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0" colspan="2">
-                 <widget class="QDateEdit" name="fecha_fechacompra">
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="calendarPopup">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="0" colspan="2">
-                 <widget class="QLabel" name="etiqueta_fechacompra">
-                  <property name="text">
-                   <string>Fecha de compra</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="2">
-                 <widget class="QLabel" name="etiqueta_fechalevantamientocompra">
-                  <property name="text">
-                   <string>Fecha documento</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="2">
-                 <widget class="QDateEdit" name="fecha_levantamientocompra">
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
-                  </property>
-                  <property name="calendarPopup">
-                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -730,7 +705,7 @@ padding-right:5px;
              <number>5</number>
             </property>
             <property name="rightMargin">
-             <number>0</number>
+             <number>5</number>
             </property>
             <property name="bottomMargin">
              <number>5</number>
@@ -794,6 +769,23 @@ padding-right:5px;
               </property>
              </spacer>
             </item>
+            <item>
+             <widget class="QPushButton" name="btn_RefrescarTabla">
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>Actualizar tabla</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset resource="../../Source/iconsdvg.qrc">
+                <normaloff>:/Icons/IconosSVG/base_datos_refresh.png</normaloff>:/Icons/IconosSVG/base_datos_refresh.png</iconset>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
@@ -808,6 +800,7 @@ padding-right:5px;
  <resources>
   <include location="../../Source/ibootstrap.qrc"/>
   <include location="../../Source/iconosSVG.qrc"/>
+  <include location="../../Source/iconsdvg.qrc"/>
  </resources>
  <connections/>
 </ui>

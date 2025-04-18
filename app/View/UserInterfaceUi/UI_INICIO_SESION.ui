@@ -37,6 +37,12 @@ border-bottom-left-radius: 25px;
 border-bottom-right-radius: 25px;
 border-top-right-radius: 25px;
 }
+#contenedor_formulario{
+border-top-left-radius: 25px;
+border-bottom-left-radius: 25px;
+border-bottom-right-radius: 25px;
+border-top-right-radius: 25px;
+}
 #imgFormulario{
 image: url(:/Icons/IconosSVG/logo_devrous.png);
 background: #fffefb;

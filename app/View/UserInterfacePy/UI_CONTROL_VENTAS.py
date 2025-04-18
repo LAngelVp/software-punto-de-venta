@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_VENTAS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_VENTAS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -52,6 +52,18 @@ class Ui_Control_Ventas(object):
 "#btn_btn_eliminar:hover{\n"
 "background:#EE1D52;\n"
 "}\n"
+"#btn_RefrescarTabla{\n"
+"border-radius: 2px;\n"
+"background: #e0e0e0;\n"
+"padding: 5px;\n"
+"}\n"
+"#btn_RefrescarTabla:hover{\n"
+"background: rgb(179, 179, 179);\n"
+"}\n"
+"#btn_RefrescarTabla:pressed{\n"
+"background: #b6ccd8 ;\n"
+"}\n"
+"\n"
 "#etiqueta_buscar{\n"
 "image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);\n"
 "min-width:25px;\n"
@@ -212,6 +224,14 @@ class Ui_Control_Ventas(object):
         self.horizontalLayout_2.addWidget(self.btn_btn_buscar)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
+        self.btn_RefrescarTabla = QtWidgets.QPushButton(self.contenedor_tabla)
+        self.btn_RefrescarTabla.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_RefrescarTabla.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_RefrescarTabla.setIcon(icon3)
+        self.btn_RefrescarTabla.setObjectName("btn_RefrescarTabla")
+        self.horizontalLayout_2.addWidget(self.btn_RefrescarTabla)
         self.gridLayout_4.addLayout(self.horizontalLayout_2, 0, 0, 1, 1)
         self.tabla_ventas = QtWidgets.QTableView(self.contenedor_tabla)
         self.tabla_ventas.setObjectName("tabla_ventas")
@@ -231,5 +251,6 @@ class Ui_Control_Ventas(object):
         self.btn_btn_eliminar.setText(_translate("Control_Ventas", "ELIMINAR"))
         self.btn_btn_modificar.setText(_translate("Control_Ventas", "MODIFICAR"))
         self.btn_btn_buscar.setText(_translate("Control_Ventas", "Buscar"))
+        self.btn_RefrescarTabla.setToolTip(_translate("Control_Ventas", "Refrescar tabla"))
 from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc

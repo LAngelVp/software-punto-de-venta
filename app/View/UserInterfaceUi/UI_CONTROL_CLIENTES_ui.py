@@ -1206,6 +1206,6 @@ class Ui_Control_Clientes(object):
         self.btn_btn_cliente_agregar.setText(_translate("Control_Clientes", "Agregar"))
         self.btn_btn_cliente_modificar.setToolTip(_translate("Control_Clientes", "Actualizar cliente"))
         self.btn_btn_cliente_modificar.setText(_translate("Control_Clientes", "Actualizar"))
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
-from ...Source import iconsdvg_rc
+import ibootstrap_rc
+import iconosSVG_rc
+import iconsdvg_rc

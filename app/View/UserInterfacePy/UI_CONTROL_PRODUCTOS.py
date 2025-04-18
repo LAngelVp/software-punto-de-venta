@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PRODUCTOS.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -51,6 +51,17 @@ class Ui_Control_Productos(object):
 "}\n"
 "#btn_btn_eliminar:hover{\n"
 "background:#EE1D52;\n"
+"}\n"
+"#btn_RefrescarTabla{\n"
+"border-radius: 2px;\n"
+"background: #e0e0e0;\n"
+"padding: 5px;\n"
+"}\n"
+"#btn_RefrescarTabla:hover{\n"
+"background: rgb(179, 179, 179);\n"
+"}\n"
+"#btn_RefrescarTabla:pressed{\n"
+"background: #b6ccd8 ;\n"
 "}\n"
 "#etiqueta_buscar{\n"
 "image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);\n"
@@ -191,13 +202,14 @@ class Ui_Control_Productos(object):
         self.horizontalLayout_2.addWidget(self.btn_btn_adminProductos_buscar, 0, QtCore.Qt.AlignVCenter)
         spacerItem1 = QtWidgets.QSpacerItem(290, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
-        self.btn_btn_adminProductos_ActualizarTablaProductos = QtWidgets.QPushButton(self.frame)
-        self.btn_btn_adminProductos_ActualizarTablaProductos.setText("")
+        self.btn_RefrescarTabla = QtWidgets.QPushButton(self.frame)
+        self.btn_RefrescarTabla.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btn_RefrescarTabla.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_btn_adminProductos_ActualizarTablaProductos.setIcon(icon3)
-        self.btn_btn_adminProductos_ActualizarTablaProductos.setObjectName("btn_btn_adminProductos_ActualizarTablaProductos")
-        self.horizontalLayout_2.addWidget(self.btn_btn_adminProductos_ActualizarTablaProductos, 0, QtCore.Qt.AlignVCenter)
+        icon3.addPixmap(QtGui.QPixmap(":/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_RefrescarTabla.setIcon(icon3)
+        self.btn_RefrescarTabla.setObjectName("btn_RefrescarTabla")
+        self.horizontalLayout_2.addWidget(self.btn_RefrescarTabla, 0, QtCore.Qt.AlignVCenter)
         self.verticalLayout.addWidget(self.frame, 0, QtCore.Qt.AlignVCenter)
         self.tabla_productos = QtWidgets.QTableView(self.contenedor_tabla)
         self.tabla_productos.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -228,6 +240,6 @@ class Ui_Control_Productos(object):
         self.txt_buscar.setPlaceholderText(_translate("Control_Productos", "Nombre del producto"))
         self.btn_btn_adminProductos_buscar.setToolTip(_translate("Control_Productos", "Buscar producto"))
         self.btn_btn_adminProductos_buscar.setText(_translate("Control_Productos", "Buscar"))
-        self.btn_btn_adminProductos_ActualizarTablaProductos.setToolTip(_translate("Control_Productos", "Actualizar tabla productos"))
+        self.btn_RefrescarTabla.setToolTip(_translate("Control_Productos", "Actualizar tabla"))
 from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc

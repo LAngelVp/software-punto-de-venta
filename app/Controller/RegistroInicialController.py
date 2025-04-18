@@ -656,8 +656,6 @@ class Registro_personal_inicial(QDialog):
                                 departamento_id=self.ui.cajaopciones_departamentos.currentData(),
                                 sucursal_id=self.ui.cajaopciones_sucursales.currentData()
                             )
-                            print("listo")
-                            print(status_empleado)
                         if status_empleado and not self.id_empleado:
                             Mensaje().mensaje_informativo("Registro exitoso")
                             self.cerrar()

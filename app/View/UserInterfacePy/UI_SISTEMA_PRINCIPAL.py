@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_SISTEMA_PRINCIPAL.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_SISTEMA_PRINCIPAL.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -17,6 +17,9 @@ class Ui_Principal_sistema(object):
         Principal_sistema.resize(1009, 974)
         Principal_sistema.setStyleSheet("#Principal_sistema{\n"
 "background-color: rgb(255, 255, 255);\n"
+"}\n"
+"[objectName*=\"w_\"]{\n"
+"background: #fffefb;\n"
 "}\n"
 "#label_logoempresa{\n"
 "image: url(:/Icons/IconosSVG/logo_dev_rous_blanco.png);\n"
@@ -43,7 +46,7 @@ class Ui_Principal_sistema(object):
 "max-height: 30px;\n"
 "}\n"
 "[objectName^=\"w_\"]{\n"
-"background-color: rgb(255, 255, 255);\n"
+"background-color: #fffefb;\n"
 "}\n"
 "[objectName^=\"p_\"]{\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -66,6 +69,9 @@ class Ui_Principal_sistema(object):
 "max-height:35px;\n"
 "min-height:35px;\n"
 "qproperty-iconSize: 35px 35px;\n"
+"}\n"
+"[objectName^=\"btn_laterales\"]:hover {\n"
+"border-left:1px solid #fffefb;\n"
 "}\n"
 "[objectName^=\"p_\"]{\n"
 "background-color: rgb(255, 255, 255);\n"

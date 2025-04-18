@@ -88,13 +88,25 @@ background: #EE1D52;
 #btn_btn_guardar:hover{
 background: #68a67d;
 }
+
+
 [objectName*=&quot;txt_&quot;]:focus{
 border-bottom: 2px solid #023375;
 }
 [objectName*=&quot;txtlargo_&quot;]:focus{
 border-bottom: 2px solid #023375;
 }
-
+#btn_RefrescarTabla{
+border-radius: 2px;
+background: #e0e0e0;
+padding: 5px;
+}
+#btn_RefrescarTabla:hover{
+background: rgb(179, 179, 179);
+}
+#btn_RefrescarTabla:pressed{
+background: #b6ccd8 ;
+}
 [objectName^=&quot;cajaopciones&quot;]{
 border: none;
 border-bottom: 1px solid #3b3c3d;
@@ -223,7 +235,7 @@ padding-right:5px;
            <x>0</x>
            <y>0</y>
            <width>1008</width>
-           <height>583</height>
+           <height>584</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_7">
@@ -700,24 +712,24 @@ padding-right:5px;
                 </widget>
                </item>
                <item row="0" column="2">
-                <widget class="QPushButton" name="btn_btn_ActualizaTablaProveedores">
+                <widget class="QPushButton" name="btn_RefrescarTabla">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="toolTip">
-                  <string>Actualizar Tabla</string>
+                  <string>Actualizar tabla</string>
                  </property>
                  <property name="text">
                   <string/>
                  </property>
                  <property name="icon">
                   <iconset resource="../../Source/iconosSVG.qrc">
-                   <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+                   <normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>24</width>
-                   <height>26</height>
+                   <width>16</width>
+                   <height>16</height>
                   </size>
                  </property>
                 </widget>
@@ -736,11 +748,11 @@ padding-right:5px;
                  <attribute name="horizontalHeaderCascadingSectionResizes">
                   <bool>false</bool>
                  </attribute>
-                 <attribute name="horizontalHeaderDefaultSectionSize">
-                  <number>200</number>
-                 </attribute>
                  <attribute name="horizontalHeaderMinimumSectionSize">
                   <number>150</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderDefaultSectionSize">
+                  <number>200</number>
                  </attribute>
                  <attribute name="horizontalHeaderStretchLastSection">
                   <bool>false</bool>

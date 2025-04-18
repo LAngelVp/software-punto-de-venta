@@ -24,9 +24,10 @@ class EmpleadosController(QWidget):
         self.ui.txt_idempleado.setValidator(Validaciones().get_int_validator)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_empleado)
         self.ui.btn_btn_buscar.clicked.connect(self.buscar_empleado)
-        self.ui.btn_btn_limpiar.clicked.connect(self.limpiar)
+        self.ui.btn_RefrescarTabla.clicked.connect(self.limpiar)
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_empleado)
         self.ui.btn_btn_editarempleado.clicked.connect(self.editar_empleado_seleccionado)
+        self.ui.btn_RefrescarTabla.clicked.connect(self.listar_empleados)
         
         # SEÑALES: LISTAR PUESTOS EN EL REGISTRO INICIAL
         # self.ventana = 
@@ -42,7 +43,7 @@ class EmpleadosController(QWidget):
     def agregar_empleado(self):
         if self.ventana_registro is None or self.ventana_registro.isVisible():
             self.ventana_registro = Registro_personal_inicial(parent=self)
-            self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
+            # self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
             self.ventana_registro.VENTANA_REGISTRO_CERRADA.connect(self.ventana_cerrada_nuevo_personal)
             self.registro_listar_puestos.emit()
             self.ventana_registro.exec_()
@@ -81,7 +82,8 @@ class EmpleadosController(QWidget):
                 with session.begin():
                     estado = EmpleadosModel(session).eliminar_empleado(self.id_empleado)
                 if estado:
-                    self.listar_empleados()
+                    Mensaje().mensaje_informativo("Operacion exitosa")
+                    # self.listar_empleados()
                 return
             
     def editar_empleado_seleccionado(self):
@@ -90,7 +92,7 @@ class EmpleadosController(QWidget):
                 id = int(self.id_empleado)
                 self.ventana_registro = Registro_personal_inicial(parent=self)
                 self.ventana_registro.obtener_id(self.id_empleado)
-                self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
+                # self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
                 self.ventana_registro.exec_()
             else:
                 self.ventana_registro.raise_()

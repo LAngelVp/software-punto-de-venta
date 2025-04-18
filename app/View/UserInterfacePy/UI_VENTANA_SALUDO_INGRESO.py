@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_VENTANA_SALUDO_INGRESO.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_VENTANA_SALUDO_INGRESO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -25,13 +25,34 @@ class Ui_Bienvenida(object):
 "border-bottom-right-radius: 4px;\n"
 "color: #fffefb;\n"
 "font-weight:bold;\n"
-"font-size: 14px;\n"
+"font-size: 20px;\n"
+"font-family:\"Arial\";\n"
+"min-width: 150px;\n"
+"min-height: 40px;\n"
 "}\n"
 "#btn_entrar:hover{\n"
 "background-color: rgb(0, 122, 167);\n"
 "}\n"
 "#btn_entrar:pressed{\n"
 "    background-color: rgb(0, 86, 118);\n"
+"}\n"
+"#etiquetaNombreUsuario{\n"
+"font-family:\"Arial\";\n"
+"font-weight:bold;\n"
+"font-size: 40px;\n"
+"color:rgb(36, 31, 49);\n"
+"}\n"
+"#etiquetaBuendia{\n"
+"font-family:\"Arial\";\n"
+"font-weight:bold;\n"
+"font-size: 35px;\n"
+"color:rgba(0, 0, 0, 158);\n"
+"}\n"
+"#etiquetaEslogan{\n"
+"font-family:\"Arial\";\n"
+"font-weight:bold;\n"
+"font-size: 12px;\n"
+"color:rgba(0, 0, 0, 158);\n"
 "}")
         self.contenedor = QtWidgets.QFrame(Bienvenida)
         self.contenedor.setGeometry(QtCore.QRect(20, 10, 371, 391))
@@ -42,16 +63,20 @@ class Ui_Bienvenida(object):
         self.etiquetaBuendia.setEnabled(False)
         self.etiquetaBuendia.setGeometry(QtCore.QRect(10, 40, 351, 31))
         font = QtGui.QFont()
-        font.setFamily("Albertus Extra Bold")
-        font.setPointSize(24)
+        font.setFamily("Arial")
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
         self.etiquetaBuendia.setFont(font)
         self.etiquetaBuendia.setAlignment(QtCore.Qt.AlignCenter)
         self.etiquetaBuendia.setObjectName("etiquetaBuendia")
         self.etiquetaNombreUsuario = QtWidgets.QLabel(self.contenedor)
         self.etiquetaNombreUsuario.setGeometry(QtCore.QRect(10, 100, 351, 151))
         font = QtGui.QFont()
-        font.setFamily("Antique Olive Compact")
-        font.setPointSize(25)
+        font.setFamily("Arial")
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
         self.etiquetaNombreUsuario.setFont(font)
         self.etiquetaNombreUsuario.setAlignment(QtCore.Qt.AlignCenter)
         self.etiquetaNombreUsuario.setWordWrap(True)
@@ -59,14 +84,16 @@ class Ui_Bienvenida(object):
         self.etiquetaEslogan = QtWidgets.QLabel(self.contenedor)
         self.etiquetaEslogan.setGeometry(QtCore.QRect(10, 330, 351, 51))
         font = QtGui.QFont()
-        font.setFamily("MV Boli")
-        font.setPointSize(10)
+        font.setFamily("Arial")
+        font.setPointSize(-1)
+        font.setBold(True)
+        font.setWeight(75)
         self.etiquetaEslogan.setFont(font)
         self.etiquetaEslogan.setAlignment(QtCore.Qt.AlignCenter)
         self.etiquetaEslogan.setWordWrap(True)
         self.etiquetaEslogan.setObjectName("etiquetaEslogan")
         self.btn_entrar = QtWidgets.QPushButton(self.contenedor)
-        self.btn_entrar.setGeometry(QtCore.QRect(150, 290, 75, 23))
+        self.btn_entrar.setGeometry(QtCore.QRect(110, 260, 150, 40))
         self.btn_entrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btn_entrar.setObjectName("btn_entrar")
 

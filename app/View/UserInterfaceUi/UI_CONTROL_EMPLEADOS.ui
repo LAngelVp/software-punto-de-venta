@@ -65,10 +65,10 @@ background-color: #00619a;
 font-family: Arial;
 font-size: 14px;
 font-weight: bold;
-max-height: 20px;
 text-align: center;
 text-transform: uppercase;
 color: #fffefb;
+padding:2px;
 }
 
 [objectName*=&quot;btn_btn&quot;]:hover{
@@ -79,6 +79,17 @@ background-color:#EE1D52;
 }
 #btn_btn_agregar:hover{
 background-color: #68a67d;
+}
+#btn_RefrescarTabla{
+border-radius: 2px;
+background: #e0e0e0;
+padding: 5px;
+}
+#btn_RefrescarTabla:hover{
+background: rgb(179, 179, 179);
+}
+#btn_RefrescarTabla:pressed{
+background: #b6ccd8 ;
 }
 [objectName^=&quot;cajaopciones_&quot;]{
 border: none;
@@ -217,7 +228,7 @@ padding-right:5px;
          <property name="sizeConstraint">
           <enum>QLayout::SetMinAndMaxSize</enum>
          </property>
-         <item row="1" column="0">
+         <item row="1" column="0" alignment="Qt::AlignVCenter">
           <widget class="QWidget" name="contenedor_botones" native="true">
            <layout class="QHBoxLayout" name="horizontalLayout">
             <property name="topMargin">
@@ -295,8 +306,8 @@ padding-right:5px;
               </property>
               <property name="iconSize">
                <size>
-                <width>16</width>
-                <height>16</height>
+                <width>19</width>
+                <height>19</height>
                </size>
               </property>
              </widget>
@@ -314,8 +325,8 @@ padding-right:5px;
               </property>
              </spacer>
             </item>
-            <item>
-             <widget class="QToolButton" name="btn_btn_limpiar">
+            <item alignment="Qt::AlignVCenter">
+             <widget class="QToolButton" name="btn_RefrescarTabla">
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
@@ -327,12 +338,12 @@ padding-right:5px;
               </property>
               <property name="icon">
                <iconset resource="../../Source/iconosSVG.qrc">
-                <normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</normaloff>:/iconosBlancos/Icons/iconos/Blanco/actualizar_blanco.svg</iconset>
+                <normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</iconset>
               </property>
               <property name="iconSize">
                <size>
-                <width>24</width>
-                <height>24</height>
+                <width>16</width>
+                <height>16</height>
                </size>
               </property>
              </widget>
@@ -375,10 +386,10 @@ padding-right:5px;
            <property name="gridStyle">
             <enum>Qt::DashDotLine</enum>
            </property>
-           <attribute name="horizontalHeaderDefaultSectionSize">
+           <attribute name="horizontalHeaderMinimumSectionSize">
             <number>200</number>
            </attribute>
-           <attribute name="horizontalHeaderMinimumSectionSize">
+           <attribute name="horizontalHeaderDefaultSectionSize">
             <number>200</number>
            </attribute>
           </widget>
@@ -415,7 +426,7 @@ padding-right:5px;
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>20</height>
+                <height>16777215</height>
                </size>
               </property>
               <property name="cursor">
@@ -433,8 +444,8 @@ padding-right:5px;
               </property>
               <property name="iconSize">
                <size>
-                <width>16</width>
-                <height>16</height>
+                <width>18</width>
+                <height>18</height>
                </size>
               </property>
              </widget>

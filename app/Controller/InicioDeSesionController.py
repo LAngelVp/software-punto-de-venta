@@ -36,7 +36,6 @@ class Login(QWidget):
         sombra.setOffset(0, 0)
         sombra.setColor(QColor(0, 102, 204)) 
 
-        # self.ui.btnAceptar.setGraphicsEffect(sombra)
         self.ui.contenedor_global.setGraphicsEffect(sombra)
         
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) 
@@ -106,6 +105,9 @@ class SaludoIngreso(QWidget):
         self.usuario = usuario
         self.ui = Ui_Bienvenida()
         self.ui.setupUi(self)
+        pantalla = self.frameGeometry()
+        pantalla.moveCenter(self.screen().availableGeometry().center())
+        self.move(pantalla.topLeft())
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) 
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         sombra = QGraphicsDropShadowEffect()

@@ -53,8 +53,8 @@ class SistemaPrincipal(QWidget):
         self.perfil= Perfil()
         self.venta= Venta()
         self.ventas= Ventas()
-        self.compras= Compras()
-        self.clientes= Clientes()
+        self.compras= Compras(parent = self, usuario = self.datos_usuario)
+        self.clientes= Clientes(parent=self)
         self.empleados= EmpleadosController(parent=self)
         self.proveedores= Control_proveedores(parent=self)
         self.productos= Productos(parent=self, datos_usuario = self.datos_usuario)
@@ -82,7 +82,7 @@ class SistemaPrincipal(QWidget):
     def mostrar_empleados(self):
         if self.ui.w_cuerpo_contenido.currentWidget() != self.empleados:
             self.ui.w_cuerpo_contenido.setCurrentWidget(self.empleados)
-            self.LISTAR_EMPLEADOS_VEMPLEADOS.connect(self.empleados.listar_empleados)
+            # self.LISTAR_EMPLEADOS_VEMPLEADOS.connect(self.empleados.listar_empleados)
             self.LISTAR_EMPLEADOS_VEMPLEADOS.emit()
     def mostrar_proveedores(self):
         if self.ui.w_cuerpo_contenido.currentWidget() != self.proveedores:
@@ -96,10 +96,10 @@ class SistemaPrincipal(QWidget):
             self.ui.w_cuerpo_contenido.setCurrentWidget(self.clientes)
             self.LISTAR_AREAS_VCLIENTES.connect(self.clientes.listar_areas)
             self.LISTAR_CATEGORIAS_VCLIENTES.connect(self.clientes.listar_categorias)
-            self.LISTAR_CLIENTES_VCLIENTES.connect(self.clientes.tabla_listar_clientes)
+            # self.LISTAR_CLIENTES_VCLIENTES.connect(self.clientes.tabla_listar_clientes)
             self.LISTAR_AREAS_VCLIENTES.emit()
             self.LISTAR_CATEGORIAS_VCLIENTES.emit()
-            self.LISTAR_CLIENTES_VCLIENTES.emit()
+            # self.LISTAR_CLIENTES_VCLIENTES.emit()
     def mostrar_productos(self):
         if self.ui.w_cuerpo_contenido.currentWidget() != self.productos:
             self.ui.w_cuerpo_contenido.setCurrentWidget(self.productos)
@@ -107,10 +107,11 @@ class SistemaPrincipal(QWidget):
     def mostrar_sucursales(self):
         if self.ventana_sucursales is None or not self.ventana_sucursales.isVisible:
             self.ventana_sucursales = ControlSucursalesController(parent=self)
-            self.ventana_sucursales.setWindowModality(Qt.ApplicationModal)
-            self.ventana_sucursales.setWindowFlags(Qt.Dialog)
+            self.ventana_sucursales.VENTANA_CERRADA_SUCUDEPAPUES.connect(self.ventana_cerrada_sucudepapues)
             self.ventana_sucursales.show()
         else:
             self.ventana_sucursales.raise_()
             self.ventana_sucursales.activateWindow()
 
+    def ventana_cerrada_sucudepapues(self):
+        self.ventana_sucursales = None

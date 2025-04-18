@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Seleccion_Productos_Proveedor</class>
+ <widget class="QWidget" name="Seleccion_Productos_Proveedor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>885</width>
+    <height>467</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#contenedor_encabezado{
+background: #023375;
+max-height: 25px;
+}
+#etiqueta_encabezado_productosProveedor{
+color: #fffefb;
+font-size: 18px;
+font-weight:bold;
+font-family:&quot;Arial&quot;;
+}
+[objectName*=&quot;etiqueta_&quot;]{
+font-size:14px;
+font-family: Arial;
+font-weight:bold;
+color: #1d1c1c;
+}
+[objectName*=&quot;txt_&quot;]{
+background: #F5F5F5;
+border:none;
+border-radius: 5px;
+color: #1d1c1c;
+font-size: 14px;
+border-bottom: 1px solid #787878;
+}
+[objectName*=&quot;txt_&quot;]:focus{
+border-bottom: 2px solid #023375;
+}
+[objectName*=&quot;btn_&quot;]{
+background: #00619a;
+font-size: 14px;
+font-family: Arial;
+font-weight: bold;
+min-height: 25px;
+border: none;
+border-radius: 5px;
+color: #fffefb;
+padding: 3px 5px;
+}
+[objectName*=&quot;btn_aceptar&quot;]:hover{
+background: #68a67d;
+}
+[objectName*=&quot;btn_aceptar&quot;]:pressed{
+background: #578B69;
+}
+#btn_cerrar{
+background: #fffefb;
+min-height:15px;
+min-width:15px;
+}
+#btn_cerrar:pressed{
+background: rgb(222, 221, 218);
+}
+
+
+#btn_RefrescarTabla{
+border-radius: 2px;
+background: #e0e0e0;
+padding: 5px;
+}
+#btn_RefrescarTabla:hover{
+background: rgb(179, 179, 179);
+}
+#btn_RefrescarTabla:pressed{
+background: #b6ccd8 ;
+}
+
+[objectName*=&quot;tabla_&quot;] {
+    font-family: Arial;
+    font-size: 14px;
+}
+/* Encabezados de la tabla */
+[objectName*=&quot;tabla_&quot;] QHeaderView::section {
+    background-color: #023375;
+    color: white;
+    font-family: &quot;Arial&quot;;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid gray;
+}
+
+/* Encabezado horizontal */
+[objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
+    background-color: #023375;
+    color: white;
+}
+
+/* Encabezado vertical */
+[objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
+    background-color: #023375;
+    color: white;
+}
+#tabla_productosProveedor{
+min-height: 300px;
+}
+#tabla_productosParaOrden{
+min-height: 300px;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QFrame" name="contenedor_encabezado">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="etiqueta_encabezado_productosProveedor">
+        <property name="text">
+         <string>Productos</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>743</width>
+          <height>4</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_cerrar">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset resource="../../Source/ibootstrap.qrc">
+          <normaloff>:/Icons/Bootstrap/x-lg.svg</normaloff>:/Icons/Bootstrap/x-lg.svg</iconset>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QFrame" name="contenedor_cuerpo">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0">
+       <widget class="QFrame" name="contenedor_opciones_superiores">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="etiqueta_nombredelproveedor">
+           <property name="text">
+            <string>Nombre del proveedor: </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1" alignment="Qt::AlignRight">
+          <widget class="QPushButton" name="btn_aceptar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="toolTip">
+            <string>Terminar la selección</string>
+           </property>
+           <property name="text">
+            <string>Aceptar</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="txt_nombredelproducto">
+             <property name="placeholderText">
+              <string>Escribe el nombre del producto</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="txt_codigodelproducto">
+             <property name="placeholderText">
+              <string>escribe el codigo del producto</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QScrollArea" name="contenedor_area">
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>849</width>
+           <height>709</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="etiqueta_tablaproductosproveedor">
+            <property name="text">
+             <string>Productos del proveedor</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>619</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="btn_RefrescarTabla">
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="toolTip">
+             <string>Refrescar tabla productos proveedor</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="../../Source/iconsdvg.qrc">
+              <normaloff>:/Icons/IconosSVG/base_datos_refresh.png</normaloff>:/Icons/IconosSVG/base_datos_refresh.png</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="3">
+           <widget class="QTableView" name="tabla_productosProveedor"/>
+          </item>
+          <item row="4" column="0" colspan="3">
+           <widget class="QLabel" name="etiqueta_tablaproductosparaorden">
+            <property name="text">
+             <string>Productos para orden de compra</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" colspan="3">
+           <widget class="QTableView" name="tabla_productosParaOrden"/>
+          </item>
+          <item row="3" column="0" colspan="3">
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="3">
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+  <include location="../../Source/iconsdvg.qrc"/>
+ </resources>
+ <connections/>
+</ui>

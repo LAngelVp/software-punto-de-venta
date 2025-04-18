@@ -51,6 +51,18 @@ background:#68a67d;
 #btn_btn_eliminar:hover{
 background:#EE1D52;
 }
+#btn_RefrescarTabla{
+border-radius: 2px;
+background: #e0e0e0;
+padding: 5px;
+}
+#btn_RefrescarTabla:hover{
+background: rgb(179, 179, 179);
+}
+#btn_RefrescarTabla:pressed{
+background: #b6ccd8 ;
+}
+
 #etiqueta_buscar{
 image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);
 min-width:25px;
@@ -334,6 +346,23 @@ border-bottom:2px solid #023375;
                  </size>
                 </property>
                </spacer>
+              </item>
+              <item>
+               <widget class="QPushButton" name="btn_RefrescarTabla">
+                <property name="cursor">
+                 <cursorShape>PointingHandCursor</cursorShape>
+                </property>
+                <property name="toolTip">
+                 <string>Refrescar tabla</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../Source/iconosSVG.qrc">
+                  <normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</normaloff>:/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png</iconset>
+                </property>
+               </widget>
               </item>
              </layout>
             </item>

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="iconosBlancos">
+    <file>Icons/IconosSVG/base_datos_refresh.png</file>
     <file>Icons/iconos/Blanco/datos_usuario.svg</file>
     <file>Icons/iconos/Blanco/cerrar_blanco.svg</file>
     <file>Icons/iconos/Blanco/password_blanco.svg</file>

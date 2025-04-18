@@ -29,13 +29,18 @@
    <string notr="true">#Orden_compra{
 background-color: #fffefb;
 }
-#label_wc_titulo_ordencompra{
+#contenedor_encabezado{
 background-color: rgb(3, 51, 116);
-color:#fffefb;
-font-size: 24px;
-font-weight: bold;
-padding-left: 5px;
-text-transform: uppercase;
+height: 30px;
+}
+#label_wc_titulo_ordencompra{
+color: #fffefb;
+font-size: 18px;
+font-weight:bold;
+font-family:&quot;Arial&quot;;
+}
+[objectName*=&quot;frame&quot;]{
+background-color: #fffefb;
 }
 *[objectName*=&quot;etiqueta_&quot;]{
 font-family: Arial;
@@ -43,16 +48,15 @@ font-size: 14px;
 font-weight:bold;
 }
 *[objectName*=&quot;btn_btn_&quot;]{
-font-family: Arial;
+background: #00619a;
 font-size: 14px;
+font-family: Arial;
 font-weight: bold;
-color: #fffefb;
-min-height: 30px;
+min-height: 25px;
+border: none;
 border-radius: 5px;
-background-color:#00619a;
-text-align: center;
-padding-left: 5px;
-padding-right: 5px;
+color: #fffefb;
+padding: 3px 5px;
 }
 *[objectName*=&quot;btn_btn_agregar&quot;]{
 background-color: #00619a;
@@ -65,6 +69,14 @@ background-color: #68a67d;
 }
 #btn_btn_terminar:hover{
 background-color: #68a67d;
+}
+#btn_btn_cerrar{
+background-color: #fffefb;
+min-height:15px;
+max-width:15px;
+}
+#btn_btn_cerrar:pressed{
+background: rgb(222, 221, 218);
 }
 *[objectName*=&quot;txt_&quot;]{
 background-color:#F5F5F5;
@@ -95,42 +107,6 @@ border-bottom: 2px solid #00668c;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-}
-
-/* Barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
-    border: 1px solid gray;
-    background: #023375;
-    width: 12px;  /* Fijamos el tamaño de la barra vertical */
-    border-radius: 4px;
-    margin: 22px 0 22px 0;
-}
-
-/* Manejador de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
-    background: #023375;
-    min-height: 20px;  /* Altura mínima del manejador */
-    border-radius: 4px;
-}
-
-/* Elementos de la flecha de la barra vertical */
-[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
-[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
-    background-color: none;
-}
-
-/* Barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
-    background: #023375;
-    height: 12px;  /* Fijamos el tamaño de la barra horizontal */
-    border-radius: 4px;
-}
-
-/* Manejador de la barra horizontal */
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
-    background: #023375;
-    height: 12px;  /* Altura del manejador horizontal */
-    border-radius: 4px;
 }
 
 /* Encabezados de la tabla */
@@ -172,7 +148,7 @@ border-bottom: 2px solid #00668c;
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="1" column="0">
+   <item row="0" column="0">
     <widget class="QFrame" name="frame">
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -181,10 +157,165 @@ border-bottom: 2px solid #00668c;
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
-      <item row="5" column="0" colspan="2">
-       <widget class="QTableView" name="tabla_ordencompra"/>
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>0</number>
+      </property>
+      <property name="verticalSpacing">
+       <number>5</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QFrame" name="contenedor_encabezado">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_wc_titulo_ordencompra">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>orden de compra</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>411</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_btn_cerrar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="../../Source/ibootstrap.qrc">
+             <normaloff>:/Icons/Bootstrap/x-lg.svg</normaloff>:/Icons/Bootstrap/x-lg.svg</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="1" column="0">
+       <widget class="QFrame" name="frame_4">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="spacing">
+          <number>5</number>
+         </property>
+         <property name="leftMargin">
+          <number>5</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>5</number>
+         </property>
+         <property name="bottomMargin">
+          <number>5</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="btn_btn_productosProveedor">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Productos del proveedor</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>315</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QToolButton" name="btn_btn_terminar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Terminar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
        <widget class="QFrame" name="frame_2">
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -194,13 +325,13 @@ border-bottom: 2px solid #00668c;
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <property name="leftMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <property name="topMargin">
           <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <property name="bottomMargin">
           <number>0</number>
@@ -211,6 +342,13 @@ border-bottom: 2px solid #00668c;
          <property name="verticalSpacing">
           <number>0</number>
          </property>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="txt_buscarproveedor">
+           <property name="placeholderText">
+            <string>Buscar por nombre</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="etiqueta_proveedor">
            <property name="text">
@@ -221,27 +359,10 @@ border-bottom: 2px solid #00668c;
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="txt_buscarproveedor">
-           <property name="placeholderText">
-            <string>Buscar por nombre</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QToolButton" name="btn_btn_buscar">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="text">
-            <string>Buscar</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </item>
-      <item row="3" column="0" colspan="2">
+      <item row="4" column="0">
        <widget class="QFrame" name="frame_3">
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -251,13 +372,13 @@ border-bottom: 2px solid #00668c;
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <property name="leftMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <property name="topMargin">
           <number>0</number>
          </property>
          <property name="rightMargin">
-          <number>0</number>
+          <number>10</number>
          </property>
          <property name="bottomMargin">
           <number>0</number>
@@ -268,13 +389,6 @@ border-bottom: 2px solid #00668c;
          <property name="verticalSpacing">
           <number>0</number>
          </property>
-         <item row="0" column="3">
-          <widget class="QDoubleSpinBox" name="numerodecimal_cantidadproducto">
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="etiqueta_codigobarras">
            <property name="text">
@@ -286,13 +400,6 @@ border-bottom: 2px solid #00668c;
           <widget class="QLineEdit" name="txt_buscarproducto"/>
          </item>
          <item row="0" column="2">
-          <widget class="QLabel" name="etiqueta_cantidadproductos">
-           <property name="text">
-            <string>Cantidad</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
           <widget class="QToolButton" name="btn_btn_agregar">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
@@ -305,60 +412,16 @@ border-bottom: 2px solid #00668c;
         </layout>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QToolButton" name="btn_btn_terminar">
-        <property name="cursor">
-         <cursorShape>PointingHandCursor</cursorShape>
-        </property>
-        <property name="text">
-         <string>Terminar</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>489</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
+      <item row="5" column="0">
+       <widget class="QTableView" name="tabla_ordencompra"/>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label_wc_titulo_ordencompra">
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>orden de compra</string>
-     </property>
-    </widget>
-   </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../Source/ibootstrap.qrc"/>
+ </resources>
  <connections/>
 </ui>

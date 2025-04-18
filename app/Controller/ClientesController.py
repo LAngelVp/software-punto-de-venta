@@ -16,24 +16,11 @@ from .MensajesAlertasController import Mensaje
 
 class Clientes(QWidget):
     cliente_seleccionado = pyqtSignal(str)
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent = None):
+        super().__init__(parent)
         self.ui = Ui_Control_Clientes()
         self.ui.setupUi(self)
         self.clienteFisico = True
-        # self.ui.cajaDecimal_wpc_ingresosclienteFisico.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_wpc_limite_credito.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_wpc_limite_credito_moral.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_creditodisponible_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_creditodisponible_moral.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_creditoutilizado_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_creditoutilizado_moral.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_interesesaplicados_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_porcentajeintereses_moral.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_porcentajedescuento_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.cajaDecimal_porcentajedescuento_moral.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.fecha_ultimoreporte_fisico.setButtonSymbols(QSpinBox.NoButtons)
-        # self.ui.fecha_ultimoreporte_moral.setButtonSymbols(QSpinBox.NoButtons)
         self.ui.btnRadio_wpc_clienteFisico.setChecked(self.clienteFisico)
         self.ui.wpc_contenedor_pila.setCurrentIndex(0)
         self.ui.cajaDecimal_wpc_limite_credito.setEnabled(False)
@@ -97,6 +84,8 @@ class Clientes(QWidget):
         #----------------------------
 #// : eliminar clientes
         self.ui.btn_btn_cliente_eliminar.clicked.connect(self.eliminar_clientes)
+        
+        self.ui.btn_RefrescarTabla.clicked.connect(self.tabla_listar_clientes)
     #FUNCIONES:-----------------
     def buscar_cliente(self):
         tipo_cliente = None
@@ -700,7 +689,7 @@ class Clientes(QWidget):
                     Mensaje().mensaje_informativo("Operación éxitosa")
                 else:
                     Mensaje().mensaje_alerta("Ocurrio un error.")
-            self.tabla_listar_clientes()
+            # self.tabla_listar_clientes()
             self.limpiar_campos()
 
         elif self.ui.btnRadio_wpc_clienteMoral.isChecked():
@@ -766,7 +755,7 @@ class Clientes(QWidget):
                     Mensaje().mensaje_informativo("Operación éxitosa")
                 else:
                     Mensaje().mensaje_alerta("Ocurrio un error.")
-            self.tabla_listar_clientes()
+            # self.tabla_listar_clientes()
             self.limpiar_campos()
 
     def actualizar_clientes(self):
@@ -825,7 +814,7 @@ class Clientes(QWidget):
 
                 if cliente:
                     Mensaje().mensaje_informativo("Actualizado con exito")
-                    self.tabla_listar_clientes()
+                    # self.tabla_listar_clientes()
                 else:
                     Mensaje().mensaje_alerta('No se logro actualizar el cliente fisico')
             self.limpiar_campos()
@@ -883,7 +872,7 @@ class Clientes(QWidget):
                         Mensaje().mensaje_critico(f'No se logro hacer la actualizacion del cliente moral: {e}')
                 if cliente:
                     Mensaje().mensaje_informativo("Actualizado con exito")
-                    self.tabla_listar_clientes()
+                    # self.tabla_listar_clientes()
                 else:
                     Mensaje().mensaje_alerta('No se logro hacer la actualizacion del cliente moral')
             self.limpiar_campos()
@@ -905,7 +894,7 @@ class Clientes(QWidget):
                     except Exception as e:
                         Mensaje().mensaje_critico(f'No se logro eliminar el cliente fisico: {e}')
 
-                self.tabla_listar_clientes()
+                # self.tabla_listar_clientes()
                 self.limpiar_campos()
         if self.ui.btnRadio_wpc_clienteMoral.isChecked():
             modelo = Clientes_morales
@@ -985,14 +974,14 @@ class Clientes(QWidget):
         if self.ui.btnRadio_wpc_clienteMoral.isChecked():
             self.listar_areas()
             self.listar_categorias()
-            self.tabla_listar_clientes()
+            # self.tabla_listar_clientes()
             self.ui.wpc_contenedor_pila.setCurrentIndex(1)
 
     def mostrar_contenedor_cliente_fisico(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
             self.listar_areas()
             self.listar_categorias()
-            self.tabla_listar_clientes()
+            # self.tabla_listar_clientes()
             self.ui.wpc_contenedor_pila.setCurrentIndex(0)
 
     def activar_creditofisico(self):

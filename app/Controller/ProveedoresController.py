@@ -38,7 +38,7 @@ class Control_proveedores(QWidget):
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_proveedor)
         self.ui.btn_btn_listadeproductoyprecios.clicked.connect(self.mostrar_productos_y_precios)
         self.ui.txtlargo_descripcioncategoria.setReadOnly(True)
-        self.ui.btn_btn_ActualizaTablaProveedores.clicked.connect(self.listar_proveedores_tabla)
+        self.ui.btn_RefrescarTabla.clicked.connect(self.listar_proveedores_tabla)
 #comment : validaciones:
 
         self.ui.btn_btn_buscarproveedor.clicked.connect(self.buscar_proveedor)
@@ -88,11 +88,11 @@ class Control_proveedores(QWidget):
         if self.proveedor_seleccionado:
             if self.ventana_productos_precios is None or self.ventana_productos_precios.isVisible():
                 self.ventana_productos_precios = Productos_de_proveedorController(parent=self, proveedor=self.proveedor_seleccionado)
-                self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
+                # self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
                 self.ventana_productos_precios.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.connect(self.ventana_cerrada_productos_proveedor)
                 self.LIMPIAR_CAMPOS_INTERNOS.connect(self.limpiar_campos)
                 self.LIMPIAR_CAMPOS_INTERNOS.emit()
-                self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
+                # self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
                 self.ventana_productos_precios.show()
             else:
                 self.ventana_productos_precios.raise_()
@@ -374,9 +374,10 @@ class Control_proveedores(QWidget):
         # Obtén los datos del proveedor y del representante
         datos_proveedor, campos_vacios = self.obtener_datos_proveedor()
         datos_representante = self.obtener_datos_representante()
+        categoria_nombre = self.ui.cajaopciones_categorias.currentText().strip()
+        categoriaid = self.ui.cajaopciones_categorias.currentData()[0]
 
         # Obtén el nombre de la categoría seleccionada
-        categoria_nombre = self.ui.cajaopciones_categorias.currentText().strip()
 
         # Verifica si la categoría está vacía
         if not categoria_nombre:
@@ -395,8 +396,8 @@ class Control_proveedores(QWidget):
                 with session.begin():
                     try:
                         # Obtener la categoría por su nombre
-                        categoria_id = CategoriasModel(session).obtener_id_por_nombre(tipo_categoria="proveedores", nombre=categoria_nombre)
-                        if not categoria_id:
+                        # categoria_id = CategoriasModel(session).obtener_id_por_nombre(tipo_categoria="proveedores", nombre=categoria_nombre)
+                        if not categoriaid:
                             Mensaje().mensaje_alerta(cuerpo="La categoría seleccionada no existe.")
                             return
 
@@ -443,13 +444,14 @@ class Control_proveedores(QWidget):
                             Mensaje().mensaje_informativo("No se agregará un representante, solo se actualizará el proveedor.")
 
                         # Actualizar los datos del proveedor
-                        ProveedoresModel(session).actualizar_proveedor(
+                        proveedor, estatus_proveedor = ProveedoresModel(session).actualizar_proveedor(
                             proveedor_id=self.proveedor_seleccionado.id,
-                            categoria_id=categoria_id,
+                            categoria_id=categoriaid,
                             representante_id=representante_dato.id if representante_dato else None,  # Usamos None si no hay representante
                             **datos_proveedor
                         )
-                        Mensaje().mensaje_informativo("Proveedor actualizado con éxito.")
+                        if estatus_proveedor:
+                            Mensaje().mensaje_informativo("Realizado con exito")
 
                     except Exception as e:
                         session.rollback()

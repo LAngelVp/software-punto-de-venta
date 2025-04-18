@@ -157,7 +157,7 @@ class ProveedoresModel:
             
             proveedor = self.session.query(Proveedores).get(proveedor_id)
             if not proveedor:
-                return None
+                return None, False
 
             # Actualizar los atributos del proveedor
             proveedor.nombre = nombre
@@ -177,32 +177,31 @@ class ProveedoresModel:
             proveedor.tipo_moneda = tipo_moneda
 
             # Actualizar la categoría si se proporciona
-            if categoria_id:
-                try:
-                    categoria = self.session.query(Categorias_proveedores).get(categoria_id)
-                    if categoria:
-                        
-                        # Limpiar las categorías existentes y agregar la nueva
-                        proveedor.categoria = categoria
-                except Exception as e:
-                    self.session.rollback()
-                    logging.error(f"Error al agregar categoria: {e}")
-                    return None
+            if categoria_id is None:
+                return None, False
+            
+            try:
+                categoria = self.session.query(Categorias_proveedores).get(categoria_id)
+                if categoria:
+                    # Limpiar las categorías existentes y agregar la nueva
+                    proveedor.categoria = categoria
+            except Exception as e:
+                self.session.rollback()
+                return None, False
 
             # Actualizar el representante si se proporciona
-            if representante_id is not None:
-                try:
-                    representante = self.session.query(Representantes_proveedores).get(representante_id)
-                    if representante:
-                        proveedor.representante = representante
-                except Exception as e:
-                    self.session.rollback()
-                    logging.error(f"Error al agregar representante: {e}")
-                    return None
-            else:
+            if representante_id is None:
                 # Si no se proporciona representante_id, eliminar los representantes existentes
                 proveedor.representante = None
-            return proveedor_id  # Retorna el ID del proveedor actualizado
+            try:
+                representante = self.session.query(Representantes_proveedores).get(representante_id)
+                if representante:
+                    proveedor.representante = representante
+            except Exception as e:
+                self.session.rollback()
+                return None, False
+                
+            return proveedor, True  # Retorna el ID del proveedor actualizado
         except Exception as e:
             self.session.rollback()  # Hacer rollback en caso de error
             logging.error(f"Error al agregar proveedor: {e}")

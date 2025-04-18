@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_INICIO_SESION.ui'
+# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_INICIO_SESION.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -23,6 +23,12 @@ class Ui_Inicio_Sesion(object):
 "    border-top-right-radius: 25px;\n"
 "}\n"
 "#contenedor_global{\n"
+"border-top-left-radius: 25px;\n"
+"border-bottom-left-radius: 25px;\n"
+"border-bottom-right-radius: 25px;\n"
+"border-top-right-radius: 25px;\n"
+"}\n"
+"#contenedor_formulario{\n"
 "border-top-left-radius: 25px;\n"
 "border-bottom-left-radius: 25px;\n"
 "border-bottom-right-radius: 25px;\n"
