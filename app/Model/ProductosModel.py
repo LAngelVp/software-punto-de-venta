@@ -1,5 +1,5 @@
 from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos, Movimientos_Inventario, Categorias_productos
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy import select
 
 class ProductosModel:
@@ -319,7 +319,7 @@ class ProductosModel:
             return None, False
     
     def consultar_por_nombre(self, nombre):
-        productos = self.session.query(Productos).filter(Productos.nombre_producto.like(f"%{nombre}%")).all()
+        productos = self.session.query(Productos).filter(Productos.nombre_producto.ilike(f"%{nombre}%")).all()
         if productos:
             return productos, True
         else:
@@ -327,10 +327,10 @@ class ProductosModel:
         
     def consultar_producto_por_codigoUPC(self, codigo_upc):
         produto = self.session.query(Productos).options(
-            joinedload(Productos.proveedores),
-            joinedload(Productos.categoria),
-            joinedload(Productos.unidad_medida_productos),
-            joinedload(Productos.presentacion_productos)
+            selectinload(Productos.proveedores),
+            selectinload(Productos.categoria),
+            selectinload(Productos.unidad_medida_productos),
+            selectinload(Productos.presentacion_productos)
             ).filter(Productos.codigo_upc == codigo_upc).first()
         if produto:
             return produto, True

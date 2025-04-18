@@ -942,7 +942,7 @@ class Productos(QWidget):
         self.comprobar_modelo_tabla_productos()
         
     def  buscar_producto(self):
-        nombre_producto = self.ui.txt_buscar.text().upper().strip()
+        nombre_producto = self.ui.txt_buscar.text().strip()
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
