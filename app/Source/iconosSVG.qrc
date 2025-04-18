@@ -24,6 +24,7 @@
     <file>Icons/iconos/Blanco/guardar_blanco.svg</file>
   </qresource>
   <qresource prefix="iconosAzules">
+    <file>Icons/iconos/Azul/spiner_cargando.svg</file>
     <file>Icons/iconos/Azul/inicio_sesion_azul.svg</file>
     <file>Icons/iconos/Azul/buscar_filas_azul.svg</file>
     <file>Icons/iconos/Azul/buscar_persona_azul.svg</file>
