@@ -30,9 +30,9 @@ class SistemaPrincipal(QWidget):
         self.ui.setupUi(self)
         self.datos_usuario = datos_usuario
         
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.showMaximized()
-        self.setWindowTitle("RousPos")
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.showFullScreen()
+        self.setWindowTitle("Sistema de ventas")
         self.ui.btn_laterales_btn_sucursales.clicked.connect(self.mostrar_sucursales)
         
         self.ui.label_fotousuario.setCursor(Qt.PointingHandCursor)

@@ -21,7 +21,8 @@ from ..View.UserInterfacePy.UI_EXISTENCIA_PRODUCTOS import Ui_UI_EXISTENCIA_PROD
 from .PresentacionProductosController import PresentacionProductos
 from .UnidadMedidaProductosController import UnidadMedidaProductos
 
-
+from .Hilo_consultas import *
+from .Ventana_espera import *
 import traceback
 
 class ExistenciasClase(QWidget):
@@ -933,7 +934,7 @@ class Productos(QWidget):
         self.ui.btn_RefrescarTabla.clicked.connect(self.consultar_productos_db)
         
         
-        
+        self.cargando = None
         self.datos_usuario = datos_usuario
         self.seleccion_conectada_productos = None
         self.codigo_upc_producto = None
@@ -1074,12 +1075,27 @@ class Productos(QWidget):
         self.seleccion_conectada_productos = True  # Marcar como conectada
 
     def consultar_productos_db(self):
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                productos, estatus = ProductosModel(session).obtener_productos()
-            if estatus:
-                self.listar_productos(productos)
+        if self.cargando is None or not self.cargando.isVisible():
+            consultor = Consultas_segundo_plano()
+            consultor.terminado.connect(self.cargando_cerrar)
+            consultor.ejecutar_hilo(self.obtener_productos, self.listar_productos)
+            self.cargando = Modal_de_espera(parent = self)
+            self.cargando.exec_()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+    def cargando_cerrar(self):
+        if self.cargando is not None:
+            self.cargando.close()
+    def obtener_productos(self, session):
+        # Llamamos a la función obtener_productos en el modelo, pasándole la sesión
+        productos, estatus = ProductosModel(session).obtener_productos()  # Asegúrate de que el método reciba session
+        return productos, estatus
+        # with Conexion_base_datos() as db:
+        #     session = db.abrir_sesion()
+        #     with session.begin():
+        #     if estatus:
+        #         self.listar_productos(productos)
                 
     def obtener_id_elemento_tabla_productos(self, current, previus):
         # Verifica si la celda seleccionada está en la primera columna

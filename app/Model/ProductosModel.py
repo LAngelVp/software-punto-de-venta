@@ -293,10 +293,10 @@ class ProductosModel:
         
     def obtener_productos(self):
         productos = self.session.query(Productos).options(
-                joinedload(Productos.proveedores),
-                joinedload(Productos.categoria),
-                joinedload(Productos.unidad_medida_productos),
-                joinedload(Productos.presentacion_productos)
+                selectinload(Productos.proveedores),
+                selectinload(Productos.categoria),
+                selectinload(Productos.unidad_medida_productos),
+                selectinload(Productos.presentacion_productos)
             ).all()
         if productos:
             return productos, True

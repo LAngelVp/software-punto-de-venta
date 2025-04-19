@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from ..View.UserInterfacePy.UI_INICIO_SESION import *
 from ..View.UserInterfacePy.UI_VENTANA_SALUDO_INGRESO import Ui_Bienvenida
-from .Hilo_MensajeCargando import *
+from .Hilo_consultas import *
 from ..Source.iconos_rc import *
 from ..Source.ibootstrap_rc import *
 from .CreadencialesUsuarioController import *
@@ -58,8 +58,8 @@ class Login(QWidget):
 
     def mostrar_saludos(self):
         if self.ventana_saludo is None or not self.ventana_saludo.isVisible():
-            # self.ventana_saludo = SaludoIngreso(usuario=self.datos_usuario)
-            self.ventana_saludo = Ventana_proceso_cargando(parent=None)
+            self.ventana_saludo = SaludoIngreso(usuario=self.datos_usuario)
+            # self.ventana_saludo = Ventana_proceso_cargando(parent=None)
             self.ventana_saludo.show()
         else:
             self.ventana_saludo.raise_()
