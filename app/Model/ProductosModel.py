@@ -1,4 +1,5 @@
-from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos, Movimientos_Inventario, Categorias_productos
+from .Convertir_a_diccionariosModel import *
+from .BaseDatosModel import Productos, Presentacion_productos, Unidad_medida_productos, Movimientos_Inventario, Categorias_productos, Proveedores
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy import select
 
@@ -283,20 +284,24 @@ class ProductosModel:
 
         # Usar `session.merge()` para asegurarse de que no haya duplicados
         proveedores_fusionados = []
-        for proveedor in proveedores:
-            proveedor_fusionado = self.session.merge(proveedor)  # Fusionar proveedor si ya está en la sesión
+        for proveedor_dict in proveedores:
+            if isinstance(proveedor_dict, dict):
+                proveedor_obj = Proveedores(**proveedor_dict)
+            else:
+                proveedor_obj = proveedor_dict  # ya es un modelo
+            proveedor_fusionado = self.session.merge(proveedor_obj)
             proveedores_fusionados.append(proveedor_fusionado)
-        
-        producto_actual.proveedores = proveedores_fusionados  # Asignar los proveedores fusionados
+
+        producto_actual.proveedores = proveedores_fusionados 
 
         return producto_actual, True
         
     def obtener_productos(self):
         productos = self.session.query(Productos).options(
-                selectinload(Productos.proveedores),
-                selectinload(Productos.categoria),
-                selectinload(Productos.unidad_medida_productos),
-                selectinload(Productos.presentacion_productos)
+                joinedload(Productos.proveedores),
+                joinedload(Productos.categoria),
+                joinedload(Productos.unidad_medida_productos),
+                joinedload(Productos.presentacion_productos)
             ).all()
         if productos:
             return productos, True
@@ -307,9 +312,9 @@ class ProductosModel:
         producto = self.session.query(Productos).filter(Productos.codigo_upc == codigo_producto).first()
         if producto:
             self.session.delete(producto)
-            return True
+            return producto, True
         else:
-            return False
+            return None, False
     
     def consultar_por_nombre_exacto(self, nombre):
         productos = self.session.query(Productos).filter(Productos.nombre_producto.like(nombre)).all()
@@ -327,13 +332,14 @@ class ProductosModel:
         
     def consultar_producto_por_codigoUPC(self, codigo_upc):
         produto = self.session.query(Productos).options(
-            selectinload(Productos.proveedores),
-            selectinload(Productos.categoria),
-            selectinload(Productos.unidad_medida_productos),
-            selectinload(Productos.presentacion_productos)
+            joinedload(Productos.proveedores),
+            joinedload(Productos.categoria),
+            joinedload(Productos.unidad_medida_productos),
+            joinedload(Productos.presentacion_productos)
             ).filter(Productos.codigo_upc == codigo_upc).first()
         if produto:
-            return produto, True
+            producto_dict = model_to_dict(produto, deep=True)
+            return producto_dict, True
         else:
             return None, False
         
