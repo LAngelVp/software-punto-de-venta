@@ -27,18 +27,21 @@ import traceback
 
 class ExistenciasClase(QWidget):
     VENTANA_CERRADA_EXISTENCIA = pyqtSignal()
-    def __init__(self, parent = None, datos_usuario = None, producto = None):
+    RECIBIR_PRODUCTO_ID_EXISTENCIA = pyqtSignal(str)
+    def __init__(self, parent = None, datos_usuario = None, codigo_producto = None):
         super().__init__(parent)
         self._ventanaCentrada = False
         self.datos_usuario = datos_usuario
-        self.producto = producto
+        self.producto = codigo_producto
+        self.consultor = None
+        self.cargando = None
+        self.codigo_producto_upc = None
         self.ui = Ui_UI_EXISTENCIA_PRODUCTO()
         self.ui.setupUi(self)
         self.ui.fecha_FechaMovimiento.setDate(QDate.currentDate())
-        self.ui.etiqueta_ClaveProducto.setText(self.producto.codigo_upc)
-        self.ui.etiqueta_NombreUsuario.setText(self.datos_usuario["nombre_empleado"].upper())
         self.ui.btn_existenciaProducto_aceptar.clicked.connect(self.ejecutar_existencias)
         self.ui.btn_existenciaProducto_cerrar.clicked.connect(self.close)
+        self.RECIBIR_PRODUCTO_ID_EXISTENCIA.connect(self.obtener_registro_hilo)
         
     def showEvent(self, event):
         super().showEvent(event)
@@ -50,6 +53,39 @@ class ExistenciasClase(QWidget):
         self.VENTANA_CERRADA_EXISTENCIA.emit() 
         event.accept()
         
+    def consultar_producto_por_id_query(self, session):
+        producto, estado = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=self.codigo_producto_upc)
+        return producto, estado
+    
+    def obtener_registro_hilo(self, producto_id):
+        if producto_id is None:
+            return
+        self.codigo_producto_upc = producto_id
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.modal_espera_cerrado)
+        self.consultor.resultado.connect(self.mostrar_datos_en_ui)
+        self.consultor.ejecutar_hilo(
+            self.consultar_producto_por_id_query
+        )
+    
+    def modal_espera_cerrado(self):
+        self.cargando = Modal_de_espera()
+        self.cargando.close()
+        
+    def mostrar_datos_en_ui(self, producto):
+        print(f"este es el producto {self.producto}")
+        self.producto = producto
+        if self.producto:
+            self.ui.etiqueta_ClaveProducto.setText(self.producto["codigo_upc"])
+            self.ui.etiqueta_NombreUsuario.setText(self.datos_usuario["nombre_empleado"].upper())
+            
     def ejecutar_existencias(self):
         cant_existencia = self.ui.decimal_CantidadExistencia.value()
         tipo_movimiento = self.ui.cajaOpciones_TipoMovimiento.currentText()
@@ -60,7 +96,7 @@ class ExistenciasClase(QWidget):
                 session = db.abrir_sesion()
                 with session.begin():
                     movimiento, estatus_movimiento = ProductosModel(session).ejecutar_movimiento(
-                        producto=self.producto,
+                        producto_id=self.producto["id"],
                         cantidad_cambio=cant_existencia,
                         tipo_movimiento=tipo_movimiento,
                         fecha_movimiento=fecha_movimiento,
@@ -107,6 +143,7 @@ class Admin_productosController(QWidget):
 #// variables globales:
         self.consultor = None
         self.cargando = None
+        self.producto = None
         self.proveedores = {}
         self.id_proveedor = None
         self.imagenProducto = None
@@ -528,6 +565,7 @@ class Admin_productosController(QWidget):
         self.cargando = None
         
     def __cargar_datos_en_campos(self, producto):
+        self.producto = producto
         self.ui.txt_codBarras.setEnabled(False)
         self.ui.contenedor_proveedores_vinculados.show()
         self.ui.contenedor_proveedores_existentes.show()
@@ -543,45 +581,45 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_addProduct_cargar_CSVProductos.hide()
         self.ui.btn_btn_addProduct_limpiarTablaProductos.hide()
         self.ui.btn_btn_addProduct_actualizar_producto.show()
-        self.ui.txt_codBarras.setText(producto["codigo_upc"])
-        self.ui.txt_codBarras.setText(producto.get("codigo_upc", ""))
-        self.ui.txt_nombreProducto.setText(producto.get("nombre_producto", ""))
-        self.ui.txt_marcaProducto.setText(producto.get("marca", ""))
-        self.ui.txt_modeloProducto.setText(producto.get("modelo", ""))
-        self.ui.txt_colorProducto.setText(producto.get("color", ""))
-        self.ui.txt_materialProducto.setText(producto.get("material", ""))
-        self.ui.txtlargo_descripcionProducto.setPlainText(producto.get("descripcion_producto", ""))
-        self.ui.txtlargo_notasProducto.setPlainText(producto.get("notas", ""))
+        self.ui.txt_codBarras.setText(self.producto["codigo_upc"])
+        self.ui.txt_codBarras.setText(self.producto.get("codigo_upc", ""))
+        self.ui.txt_nombreProducto.setText(self.producto.get("nombre_producto", ""))
+        self.ui.txt_marcaProducto.setText(self.producto.get("marca", ""))
+        self.ui.txt_modeloProducto.setText(self.producto.get("modelo", ""))
+        self.ui.txt_colorProducto.setText(self.producto.get("color", ""))
+        self.ui.txt_materialProducto.setText(self.producto.get("material", ""))
+        self.ui.txtlargo_descripcionProducto.setPlainText(self.producto.get("descripcion_producto", ""))
+        self.ui.txtlargo_notasProducto.setPlainText(self.producto.get("notas", ""))
 
-        self.ui.decimal_costoInicialProducto.setValue(producto.get("costo_inicial", 0.0))
-        self.ui.decimal_costoFinalProducto.setValue(producto.get("costo_final", 0.0))
+        self.ui.decimal_costoInicialProducto.setValue(self.producto.get("costo_inicial", 0.0))
+        self.ui.decimal_costoFinalProducto.setValue(self.producto.get("costo_final", 0.0))
 
         # Asumiendo que margen_porcentaje es tipo string como "25 %"
         try:
-            margen = int(str(producto.get("margen_porcentaje", "0")).split(" ")[0])
+            margen = int(str(self.producto.get("margen_porcentaje", "0")).split(" ")[0])
         except Exception:
             margen = 0
         self.ui.entero_margenProducto.setValue(margen)
 
-        self.ui.decimal_precioVentaProducto.setValue(producto.get("precio", 0.0))
-        self.ui.decimal_existenciaProducto.setValue(producto.get("existencia", 0.0))
-        self.ui.decimal_existenciaMinProducto.setValue(producto.get("existencia_minima", 0.0))
-        self.ui.decimal_existenciaMaxProducto.setValue(producto.get("existencia_maxima", 0.0))
-        self.ui.decimal_pesoProducto.setValue(producto.get("peso", 0.0))
+        self.ui.decimal_precioVentaProducto.setValue(self.producto.get("precio", 0.0))
+        self.ui.decimal_existenciaProducto.setValue(self.producto.get("existencia", 0.0))
+        self.ui.decimal_existenciaMinProducto.setValue(self.producto.get("existencia_minima", 0.0))
+        self.ui.decimal_existenciaMaxProducto.setValue(self.producto.get("existencia_maxima", 0.0))
+        self.ui.decimal_pesoProducto.setValue(self.producto.get("peso", 0.0))
 
         if producto.get("fecha_fabricacion"):
             self.ui.opcion_TieneCaducidad.setChecked(True)
             
             # Convertir strings a QDate (formato esperado: "YYYY-MM-DD")
-            fecha_fabricacion = QDate.fromString(producto["fecha_fabricacion"], "yyyy-MM-dd")
-            fecha_vencimiento = QDate.fromString(producto["fecha_vencimiento"], "yyyy-MM-dd")
+            fecha_fabricacion = QDate.fromString(self.producto["fecha_fabricacion"], "yyyy-MM-dd")
+            fecha_vencimiento = QDate.fromString(self.producto["fecha_vencimiento"], "yyyy-MM-dd")
             
             # Establecer las fechas
             self.ui.fecha_fabricacionProducto.setDate(fecha_fabricacion)
             self.ui.fecha_vencimientoProducto.setDate(fecha_vencimiento)
         if producto.get("imagen"):
             self.ui.etiqueta_fotoProducto.setPixmap(
-                QPixmap(producto["imagen"]).scaled(self.ui.etiqueta_fotoProducto.size())
+                QPixmap(self.producto["imagen"]).scaled(self.ui.etiqueta_fotoProducto.size())
             )
 
         # Cargar dimensiones si existen
@@ -925,6 +963,7 @@ class Productos(QWidget):
     LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
     LISTAR_PRESENTACIONES_PRODUCTOS = pyqtSignal()
     LISTAR_PROVEEDORES_EXISTENTES_SIGNAL = pyqtSignal()
+    MOSTRAR_DATOS_EXISTENCIAS = pyqtSignal()
     def __init__(self, parent = None, datos_usuario = None):
         super().__init__(parent)
         self.ui = Ui_Control_Productos()
@@ -982,17 +1021,17 @@ class Productos(QWidget):
             Mensaje().mensaje_informativo("Debes de seleccionar un producto de la tabla para proceder a eliminarlo")
             return
         if self.cargando is None or not self.cargando.isVisible():
-            consultor = Consultas_segundo_plano()
-            consultor.terminado.connect(self.cargando_cerrar)
-            self.cargando = Modal_de_espera(parent = self)
-            consultor.ejecutar_hilo(
-                funcion=self.eliminar_producto_query,
-                callback=None
-                )
-            self.cargando.exec_()
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
         else:
             self.cargando.raise_()
             self.cargando.activateWindow()
+        
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.ejecutar_hilo(
+            funcion=self.eliminar_producto_query
+            )
         
     def eliminar_producto_query(self, session):
         producto, estado = ProductosModel(session).eliminar_producto(codigo_producto=self.codigo_upc_producto)
@@ -1032,10 +1071,6 @@ class Productos(QWidget):
         
         self.codigo_upc_producto = None
         
-    # def consultar_producto_codigoUPC_query(self, session):
-    #     producto, estado = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=self.codigo_upc_producto)
-    #     return producto, estado
-
     def listar_productos(self, productos):
         self.productos = productos
         self.comprobar_modelo_tabla_productos()
@@ -1105,6 +1140,7 @@ class Productos(QWidget):
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.listar_productos)
         self.consultor.ejecutar_hilo(funcion=self.obtener_productos)
+    
     def mostrar_error_consulta(self, mensaje):
         print(f"❌ Error en la consulta: {mensaje}")
         # Aquí podrías usar un QMessageBox si estás en una GUI
@@ -1141,16 +1177,13 @@ class Productos(QWidget):
         if self.codigo_upc_producto is None:
             Mensaje().mensaje_informativo('Selecciona un producto.')
             return
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                producto, estatus = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=self.codigo_upc_producto)
-            if not estatus:
-                Mensaje().mensaje_informativo("No se logro obtener el producto en la base de datos.")
-                return
-            self.ventana_existencia_productos = ExistenciasClase(self, datos_usuario = self.datos_usuario, producto=producto)
+        if self.ventana_existencia_productos is None or not self.ventana_existencia_productos.isVisible():
+            self.ventana_existencia_productos = ExistenciasClase(self, datos_usuario = self.datos_usuario, codigo_producto=self.codigo_upc_producto)
             self.ventana_existencia_productos.VENTANA_CERRADA_EXISTENCIA.connect(self.ventana_cerrada_form_existencia)
+            self.ventana_existencia_productos.RECIBIR_PRODUCTO_ID_EXISTENCIA.emit(self.codigo_upc_producto)
+            self.MOSTRAR_DATOS_EXISTENCIAS.emit()
             self.ventana_existencia_productos.show()
         
     def ventana_cerrada_form_existencia(self):
         self.ventana_existencia_productos = None
+        self.codigo_upc_producto = None

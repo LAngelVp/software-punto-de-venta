@@ -312,6 +312,7 @@ class ProductosModel:
         producto = self.session.query(Productos).filter(Productos.codigo_upc == codigo_producto).first()
         if producto:
             self.session.delete(producto)
+            self.session.commit()
             return producto, True
         else:
             return None, False
@@ -343,10 +344,10 @@ class ProductosModel:
         else:
             return None, False
         
-    def ejecutar_movimiento(self, producto, cantidad_cambio, tipo_movimiento, fecha_movimiento, notas, usuarioid):
-        if not producto and not usuarioid:
+    def ejecutar_movimiento(self, producto_id, cantidad_cambio, tipo_movimiento, fecha_movimiento, notas, usuarioid):
+        if not producto_id and not usuarioid:
             return None,False
-        
+        producto = self.session.get(Productos, producto_id)
         movimiento = Movimientos_Inventario(
             producto_id = producto.id,
             cantidad_cambio = cantidad_cambio,
@@ -355,10 +356,6 @@ class ProductosModel:
             notas = notas,
             usuario_id = usuarioid
             )
-        
-        producto = self.session.merge(producto)
-        
-        self.session.refresh(producto)
         
         
         if tipo_movimiento.lower() == "entrada":

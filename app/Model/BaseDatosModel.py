@@ -259,7 +259,7 @@ class Productos(Base):
         "Sucursales", secondary=sucursal_producto, back_populates="productos", 
     )
     proveedores = relationship(
-        "Proveedores", secondary=producto_proveedor, back_populates="productos", 
+        "Proveedores", secondary=producto_proveedor, back_populates="productos", lazy="joined"
     )
     
     detalles_compras = relationship("Detalles_compras", back_populates="producto")
