@@ -546,20 +546,26 @@ class Admin_productosController(QWidget):
             # Mostrar el modal de espera
             self.cargando = Modal_de_espera(self)
             self.cargando.show()
+            self.listar_categorias()
+            self.listar_proveedores_existentes()
+            self.listar_presentaciones_productos()
+            self.listar_unidades_medida()
 
             # Crear el consultor y conectar señales
-            self.consultor = Consultas_segundo_plano()
-            self.consultor.resultado.connect(self.__cargar_datos_en_campos)
-            self.consultor.error.connect(lambda msg: print("❌ Error:", msg))
-            self.consultor.terminado.connect(self.cerrar_cargando)
-
-            # Ejecutar el hilo después de que se muestre el modal (en el siguiente ciclo del evento)
-            self.consultor.ejecutar_hilo(self.consultar_producto_por_id)
         else:
             self.cargando.raise_()
             self.cargando.activateWindow()
         
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cerrar_cargando)
+        self.consultor.resultado.connect(self.__cargar_datos_en_campos)
+        self.consultor.error.connect(lambda msg: print("❌ Error:", msg))
+
+        # Ejecutar el hilo después de que se muestre el modal (en el siguiente ciclo del evento)
+        self.consultor.ejecutar_hilo(self.consultar_producto_por_id)
+        
         # Ejecutar función en segundo plano
+    
     def cerrar_cargando(self):
         self.cargando.close()
         self.cargando = None
@@ -1045,30 +1051,27 @@ class Productos(QWidget):
         
     def enviar_produto_al_ui(self, producto):
         if self.AdminProductos is None or not self.AdminProductos.isVisible():
-            # Si AdminProductos es None, se crea e inicializa
             self.AdminProductos = Admin_productosController(self)
-            self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR_ID.emit(producto)
+            # self.LISTAR_CATEGORIAS_PRODUCTOS.connect(self.AdminProductos.listar_categorias)
+            # self.LISTAR_PRESENTACIONES_PRODUCTOS.connect(self.AdminProductos.listar_presentaciones_productos)
+            # self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.connect(self.AdminProductos.listar_unidades_medida)
+            # self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(self.AdminProductos.listar_proveedores_existentes)
+            self.AdminProductos.VENTANA_CERRADA_PRODUCTOS.connect(self.ventana_productos_cerrada)
+            # self.LISTAR_PRESENTACIONES_PRODUCTOS.emit()
+            # self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.emit()
+            # self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.emit()
+            # self.LISTAR_CATEGORIAS_PRODUCTOS.emit()
             self.AdminProductos.setParent(self)
             self.AdminProductos.setStyleSheet(self.AdminProductos.styleSheet())
-            self.AdminProductos.VENTANA_CERRADA_PRODUCTOS.connect(self.ventana_productos_cerrada)
             self.AdminProductos.show()
+            # Si AdminProductos es None, se crea e inicializ
             # Ahora sí conectar las señales, ya que AdminProductos se ha creado
-            self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(
-                self.AdminProductos.listar_proveedores_existentes
-            )
-            self.LISTAR_CATEGORIAS_PRODUCTOS.connect(self.AdminProductos.listar_categorias)
-            self.LISTAR_CATEGORIAS_PRODUCTOS.emit()
-            self.LISTAR_PRESENTACIONES_PRODUCTOS.connect(self.AdminProductos.listar_presentaciones_productos)
-            self.LISTAR_PRESENTACIONES_PRODUCTOS.emit()
-            self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.connect(self.AdminProductos.listar_unidades_medida)
-            self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.emit()
-            self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(self.AdminProductos.listar_proveedores_existentes)
-            self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.emit()
         else:
             # Si ya existe y está visible, solo elevar la ventana
             self.AdminProductos.raise_()
             self.AdminProductos.activateWindow()
         
+        self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR_ID.emit(producto)
         self.codigo_upc_producto = None
         
     def listar_productos(self, productos):
