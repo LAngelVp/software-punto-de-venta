@@ -1,8 +1,8 @@
 """migracion
 
-Revision ID: 803acfa57a1c
+Revision ID: 715dd3a29a9a
 Revises: 
-Create Date: 2025-04-09 22:10:16.377240
+Create Date: 2025-04-21 15:27:13.208130
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '803acfa57a1c'
+revision: str = '715dd3a29a9a'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -41,6 +41,7 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
+    op.create_index('idx_categoriaProducto', 'Categorias_productos', ['id'], unique=False)
     op.create_table('Categorias_proveedores',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nombre', sa.String(length=150), nullable=True),
@@ -71,6 +72,7 @@ def upgrade() -> None:
     sa.Column('nombre', sa.String(length=100), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_index('idx_presentacionProducto', 'Presentacion_productos', ['id'], unique=False)
     op.create_table('Representantes_clientes_morales',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nombre', sa.String(length=100), nullable=True),
@@ -115,6 +117,7 @@ def upgrade() -> None:
     sa.Column('nombre', sa.String(length=100), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_index('idx_unidadMedidaProducto', 'Unidad_medida_productos', ['id'], unique=False)
     op.create_table('Clientes',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nombre', sa.String(length=255), nullable=True),
@@ -171,14 +174,17 @@ def upgrade() -> None:
     sa.Column('notas', sa.Text(), nullable=True),
     sa.Column('presentacion_producto_id', sa.Integer(), nullable=True),
     sa.Column('unidad_medida_productos_id', sa.Integer(), nullable=True),
-    sa.Column('categoria_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['categoria_id'], ['Categorias_productos.id'], ),
-    sa.ForeignKeyConstraint(['presentacion_producto_id'], ['Presentacion_productos.id'], ),
+    sa.Column('categoria_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['categoria_id'], ['Categorias_productos.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['presentacion_producto_id'], ['Presentacion_productos.id'], ondelete='SET NULL'),
     sa.ForeignKeyConstraint(['unidad_medida_productos_id'], ['Unidad_medida_productos.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('codigo_upc'),
     sa.UniqueConstraint('id')
     )
+    op.create_index('idx_CODIGOupcpRODUCTO', 'Productos', ['codigo_upc'], unique=False)
+    op.create_index('idx_idProducto', 'Productos', ['id'], unique=False)
+    op.create_index('idx_nombreProducto', 'Productos', ['nombre_producto'], unique=False)
     op.create_table('Proveedores',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('nombre', sa.String(length=150), nullable=True),
@@ -203,6 +209,7 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
+    op.create_index('idx_proveedorId', 'Proveedores', ['id'], unique=False)
     op.create_table('Puestos',
     sa.Column('id', sa.BigInteger(), autoincrement=True, nullable=False),
     sa.Column('nombre', sa.String(length=100), nullable=True),
@@ -318,7 +325,7 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['departamento_id'], ['Departamentos.id'], ),
     sa.ForeignKeyConstraint(['puesto_id'], ['Puestos.id'], ),
     sa.ForeignKeyConstraint(['sucursal_id'], ['Sucursales.id'], ),
-    sa.ForeignKeyConstraint(['usuario_id'], ['Usuarios.id'], ),
+    sa.ForeignKeyConstraint(['usuario_id'], ['Usuarios.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('correo_electronico'),
     sa.UniqueConstraint('curp'),
@@ -335,8 +342,8 @@ def upgrade() -> None:
     sa.Column('fecha_movimiento', sa.Date(), nullable=True),
     sa.Column('notas', sa.Text(), nullable=True),
     sa.Column('usuario_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['producto_id'], ['Productos.id'], ),
-    sa.ForeignKeyConstraint(['usuario_id'], ['Usuarios.id'], ),
+    sa.ForeignKeyConstraint(['producto_id'], ['Productos.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['usuario_id'], ['Usuarios.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
@@ -453,19 +460,26 @@ def downgrade() -> None:
     op.drop_index('idx_usuario', table_name='Usuarios')
     op.drop_table('Usuarios')
     op.drop_table('Puestos')
+    op.drop_index('idx_proveedorId', table_name='Proveedores')
     op.drop_table('Proveedores')
+    op.drop_index('idx_nombreProducto', table_name='Productos')
+    op.drop_index('idx_idProducto', table_name='Productos')
+    op.drop_index('idx_CODIGOupcpRODUCTO', table_name='Productos')
     op.drop_table('Productos')
     op.drop_table('Clientes')
+    op.drop_index('idx_unidadMedidaProducto', table_name='Unidad_medida_productos')
     op.drop_table('Unidad_medida_productos')
     op.drop_table('Sucursales')
     op.drop_table('Roles')
     op.drop_table('Representantes_proveedores')
     op.drop_table('Representantes_clientes_morales')
+    op.drop_index('idx_presentacionProducto', table_name='Presentacion_productos')
     op.drop_table('Presentacion_productos')
     op.drop_table('Permisos')
     op.drop_table('Metodos_pagos')
     op.drop_table('Departamentos')
     op.drop_table('Categorias_proveedores')
+    op.drop_index('idx_categoriaProducto', table_name='Categorias_productos')
     op.drop_table('Categorias_productos')
     op.drop_table('Categorias_de_clientes')
     op.drop_table('Areas_negocios')

@@ -9,3 +9,4 @@ alembic
 bcrypt
 openpyxl
 asyncpg
+faker

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_PROCESO_CARGANDO.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_PROCESO_CARGANDO.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Ventana_Cargando(object):
     def setupUi(self, Ventana_Cargando):
         Ventana_Cargando.setObjectName("Ventana_Cargando")
-        Ventana_Cargando.resize(300, 148)
+        Ventana_Cargando.resize(379, 230)
         Ventana_Cargando.setStyleSheet("#contenedor{\n"
 "    background-color: rgb(255, 255, 255);\n"
 "border-radius:20px;\n"
@@ -22,11 +22,8 @@ class Ui_Ventana_Cargando(object):
 "#etiqueta_logo_cargando{\n"
 "    image: url(:/Icons/IconosSVG/logo_devrous.png);\n"
 "}")
-        self.gridLayout = QtWidgets.QGridLayout(Ventana_Cargando)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setSpacing(0)
-        self.gridLayout.setObjectName("gridLayout")
         self.contenedor = QtWidgets.QFrame(Ventana_Cargando)
+        self.contenedor.setGeometry(QtCore.QRect(50, 30, 290, 161))
         self.contenedor.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.contenedor.setFrameShadow(QtWidgets.QFrame.Raised)
         self.contenedor.setObjectName("contenedor")
@@ -45,7 +42,6 @@ class Ui_Ventana_Cargando(object):
         self.etiqueta_spiner.setAlignment(QtCore.Qt.AlignCenter)
         self.etiqueta_spiner.setWordWrap(False)
         self.etiqueta_spiner.setObjectName("etiqueta_spiner")
-        self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
 
         self.retranslateUi(Ventana_Cargando)
         QtCore.QMetaObject.connectSlotsByName(Ventana_Cargando)

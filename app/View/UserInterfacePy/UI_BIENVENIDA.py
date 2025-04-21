@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UI_BIENVENIDA.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_BIENVENIDA.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -22,18 +22,16 @@ class Ui_Bienvenida(object):
 "}\n"
 "#contenedor{\n"
 "background-color: #fffefb;\n"
+"border-radius: 20px;\n"
 "}\n"
 "#etiqueta_titulo{\n"
 "font-family: Arial;\n"
 "font-weight:bold;\n"
-"font-size: 22px;\n"
+"font-size: 18px;\n"
 "}\n"
 "")
-        self.gridLayout = QtWidgets.QGridLayout(Bienvenida)
-        self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout.setSpacing(0)
-        self.gridLayout.setObjectName("gridLayout")
         self.contenedor = QtWidgets.QWidget(Bienvenida)
+        self.contenedor.setGeometry(QtCore.QRect(38, 20, 371, 211))
         self.contenedor.setStyleSheet("#btn_btn_registrar{\n"
 "background-color: rgb(0, 97, 154);\n"
 "border-radius: 5px;\n"
@@ -48,14 +46,14 @@ class Ui_Bienvenida(object):
 "}")
         self.contenedor.setObjectName("contenedor")
         self.etiqueta_imagen = QtWidgets.QLabel(self.contenedor)
-        self.etiqueta_imagen.setGeometry(QtCore.QRect(30, 0, 381, 251))
+        self.etiqueta_imagen.setGeometry(QtCore.QRect(80, 30, 191, 131))
         self.etiqueta_imagen.setStyleSheet("")
         self.etiqueta_imagen.setText("")
         self.etiqueta_imagen.setPixmap(QtGui.QPixmap(":/Icons/IconosSVG/ilustracion_hombre_con_computadora.png"))
         self.etiqueta_imagen.setScaledContents(True)
         self.etiqueta_imagen.setObjectName("etiqueta_imagen")
         self.etiqueta_titulo = QtWidgets.QLabel(self.contenedor)
-        self.etiqueta_titulo.setGeometry(QtCore.QRect(24, 0, 401, 31))
+        self.etiqueta_titulo.setGeometry(QtCore.QRect(20, 0, 331, 31))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(-1)
@@ -65,7 +63,7 @@ class Ui_Bienvenida(object):
         self.etiqueta_titulo.setAlignment(QtCore.Qt.AlignCenter)
         self.etiqueta_titulo.setObjectName("etiqueta_titulo")
         self.btn_btn_registrar = QtWidgets.QPushButton(self.contenedor)
-        self.btn_btn_registrar.setGeometry(QtCore.QRect(110, 210, 231, 31))
+        self.btn_btn_registrar.setGeometry(QtCore.QRect(78, 160, 201, 31))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(True)
@@ -75,7 +73,7 @@ class Ui_Bienvenida(object):
         self.btn_btn_registrar.setStyleSheet("")
         self.btn_btn_registrar.setObjectName("btn_btn_registrar")
         self.label = QtWidgets.QLabel(self.contenedor)
-        self.label.setGeometry(QtCore.QRect(340, 80, 91, 31))
+        self.label.setGeometry(QtCore.QRect(240, 40, 91, 31))
         self.label.setStyleSheet("")
         self.label.setText("")
         self.label.setPixmap(QtGui.QPixmap(":/Icons/IconosSVG/logo_devrous.png"))
@@ -85,7 +83,6 @@ class Ui_Bienvenida(object):
         self.btn_btn_registrar.raise_()
         self.etiqueta_titulo.raise_()
         self.label.raise_()
-        self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)
 
         self.retranslateUi(Bienvenida)
         QtCore.QMetaObject.connectSlotsByName(Bienvenida)

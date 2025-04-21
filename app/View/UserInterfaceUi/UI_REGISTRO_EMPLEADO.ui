@@ -18,8 +18,8 @@
 background: #fffefb;
 }
 #logotipo_cabecera_ventana{
-image: url(:/Icons/IconosSVG/logo_devrous.png);
-min-width:65px;
+image: url(:/Icons/IconosSVG/logo_dev_rous_blanco.png);
+min-width:85px;
 }
 #contenedor_baja{
 background:#EE1D52;
@@ -29,7 +29,7 @@ border-radius:5px;
 background: #fffefb;
 }
 #widget_cabecera_ventana{
-	background-color: #0077CC;
+ background-color:#1F3A5F;;
 	min-height: 30px;
 }
 #etiqueta_status_empleado{

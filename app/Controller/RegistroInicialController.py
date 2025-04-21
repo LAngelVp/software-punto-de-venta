@@ -59,10 +59,8 @@ class Registro_personal_inicial(QDialog):
 
         #// edicion de la ventana:
         self.setWindowTitle("Formulario del perosonal")
-        self.showMaximized()
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        
         self.ui.contenedor_credencialesusuario.hide()
         self.ui.btn_btn_bajapersona.hide()
         self.ui.btn_btn_recontratar.hide()
@@ -78,6 +76,7 @@ class Registro_personal_inicial(QDialog):
         self.ui.Button_actualizar.hide()
         self.ui.Button_agregarUsuario.hide()
         self.ui.btc_minimizar.hide()
+        self.ui.btc_maximizar.hide()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())

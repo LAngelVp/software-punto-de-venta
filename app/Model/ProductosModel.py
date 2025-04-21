@@ -13,6 +13,7 @@ class ProductosModel:
         resultado_consulta = self.session.execute(query).fetchone()
         if resultado_consulta is None:
             unidades_productos = [
+                {"nombre": 'Sin unidad'},
                 {"nombre": 'Kilogramo-(Kg)'},
                 {"nombre": 'Gramo-(g)'},
                 {"nombre": 'Litro-(L)'},
@@ -42,6 +43,7 @@ class ProductosModel:
         resultado_consulta = self.session.execute(query).fetchone()
         if resultado_consulta is None:
             categorias_productos = [
+                {"nombre": 'Sin categoria', "descripcion": "Sin descripción"},
                 {"nombre": 'Alimentos Perecederos', "descripcion": "Productos que requieren refrigeración, como carnes, pescados, lácteos, frutas y verduras frescas"},
                 {"nombre": "Alimentos No Perecederos", "descripcion": "Comestibles que no requieren refrigeración, tales como arroz, pasta, galletas, sopas enlatadas, cereales, y otros productos empaquetados"},
                 {"nombre": "Bebidas", "descripcion": "Refrescos, jugos, agua embotellada, bebidas energéticas, y también bebidas alcohólicas como cervezas, vinos, y licores"},
@@ -67,6 +69,7 @@ class ProductosModel:
         resultado_consulta = self.session.execute(query).fetchone()
         if resultado_consulta is None:
             presentaciones = [
+                {"nombre": "Sin presentación"},
                 {"nombre": "Unidad"},
                 {"nombre": "Pieza"},
                 {"nombre": "Paquete"},
@@ -127,8 +130,6 @@ class ProductosModel:
             return False
     
     def agregar_unidad_medida(self, nombre):
-        if not nombre:
-            return False
         unidad = self.session.query(Unidad_medida_productos).filter(Unidad_medida_productos.nombre == nombre).first()
         if unidad:
             return unidad, False
@@ -216,7 +217,8 @@ class ProductosModel:
                 sucursales=sucursales,
                 proveedores=proveedores
             )
-            
+            if not producto:
+                return None, False
             self.session.add(producto)
             self.session.flush()
             return producto, True

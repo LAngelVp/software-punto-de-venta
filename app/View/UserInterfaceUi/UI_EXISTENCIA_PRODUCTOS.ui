@@ -314,6 +314,9 @@ border-bottom: 2px solid #00668c;
          </item>
          <item>
           <widget class="QPushButton" name="btn_existenciaProducto_cerrar">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="text">
             <string/>
            </property>

@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 from ..Source.iconos_rc import *
 from .favicon import *
 # from ..Source.img import *
@@ -24,13 +25,21 @@ class Inicio_principal(QWidget):
         self.registro = None
         self.ui = Ui_Bienvenida()
         self.ui.setupUi(self)
-        self.ui.etiqueta_imagen.setStyleSheet('image: url(:/Icons/SVG/DrawKit(17).svg)')
-        self.setWindowIcon(QIcon(icono))
         self.ui.btn_btn_registrar.clicked.connect(self.abrir_registro)
         
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
+        self.setWindowTitle("Inicio")
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        
+        sombra = QGraphicsDropShadowEffect()
+        sombra.setBlurRadius(25) 
+        sombra.setOffset(0, 0)
+        sombra.setColor(QColor(0, 102, 204)) 
+
+        self.ui.contenedor.setGraphicsEffect(sombra)
         
     #// inicializar valores de algunas tablas
         self.crear_datos_principales()

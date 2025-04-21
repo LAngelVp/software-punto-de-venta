@@ -167,7 +167,7 @@ class Empleados(Base):
     foto = Column(Text, nullable=True)
     puesto_id = Column(Integer, ForeignKey("Puestos.id"))
     puesto = relationship("Puestos", back_populates="empleados")
-    usuario_id = Column(Integer, ForeignKey("Usuarios.id"))
+    usuario_id = Column(Integer, ForeignKey("Usuarios.id", ondelete='SET NULL'))
     usuario = relationship("Usuarios", back_populates="empleado")
     ventas = relationship("Ventas", back_populates="empleado")
     turnos = relationship("Turnos", back_populates="empleado")
@@ -249,11 +249,11 @@ class Productos(Base):
     fecha_vencimiento = Column(Date)
     imagen = Column(Text)
     notas = Column(Text)
-    presentacion_producto_id = Column(Integer, ForeignKey("Presentacion_productos.id"))
+    presentacion_producto_id = Column(Integer, ForeignKey("Presentacion_productos.id", ondelete='SET NULL'))
     presentacion_productos = relationship("Presentacion_productos", back_populates="productos")
     unidad_medida_productos_id = Column(Integer, ForeignKey("Unidad_medida_productos.id", ondelete='SET NULL'))
     unidad_medida_productos = relationship("Unidad_medida_productos", back_populates="productos")
-    categoria_id = Column(Integer, ForeignKey('Categorias_productos.id'), nullable=False)
+    categoria_id = Column(Integer, ForeignKey('Categorias_productos.id', ondelete='SET NULL'))
     categoria = relationship("Categorias_productos", back_populates="productos")
     sucursales = relationship(
         "Sucursales", secondary=sucursal_producto, back_populates="productos", 
@@ -266,17 +266,17 @@ class Productos(Base):
     
     detalles_ventas = relationship("Detalles_ventas", back_populates="producto")
     
-    movimientos_inventario = relationship("Movimientos_Inventario", back_populates="producto")
+    movimientos_inventario = relationship("Movimientos_Inventario", back_populates="producto", cascade="all, delete-orphan")
 
 class Movimientos_Inventario(Base):
     __tablename__ = "Movimientos_inventario"
     id = Column(Integer, primary_key=True, autoincrement=True, unique=True, nullable=False)
-    producto_id = Column(Integer, ForeignKey("Productos.id"))
+    producto_id = Column(Integer, ForeignKey("Productos.id", ondelete="CASCADE"))
     cantidad_cambio = Column(Float)  #  Indica la cantidad de productos que entran o salen del inventario.
     tipo_movimiento = Column(String(20))  # Tipo de movimiento: "entrada" o "salida"
     fecha_movimiento = Column(Date)
     notas = Column(Text)
-    usuario_id = Column(Integer, ForeignKey("Usuarios.id"))
+    usuario_id = Column(Integer, ForeignKey("Usuarios.id", ondelete='SET NULL'))
     
     # Relación con Productos
     producto = relationship("Productos", back_populates="movimientos_inventario")
