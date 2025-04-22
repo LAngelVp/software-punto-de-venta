@@ -16,6 +16,8 @@ from app.Controller.MensajesAlertasController import *
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from .FuncionesAuxiliares import *
 from .Productos_del_Proveedor import *
+from .Ventana_espera import *
+from .Hilo_consultas import *
 import traceback
 
 class Control_proveedores(QWidget):
@@ -38,10 +40,10 @@ class Control_proveedores(QWidget):
         self.ui.btn_btn_eliminar.clicked.connect(self.eliminar_proveedor)
         self.ui.btn_btn_listadeproductoyprecios.clicked.connect(self.mostrar_productos_y_precios)
         self.ui.txtlargo_descripcioncategoria.setReadOnly(True)
-        self.ui.btn_RefrescarTabla.clicked.connect(self.listar_proveedores_tabla)
+        self.ui.btn_RefrescarTabla.clicked.connect(self.obtener_proveedores_tabla_hilo)
 #comment : validaciones:
 
-        self.ui.btn_btn_buscarproveedor.clicked.connect(self.buscar_proveedor)
+        self.ui.btn_btn_buscarproveedor.clicked.connect(self.buscar_proveedor_hilo)
         self.ui.btn_btn_actualizar.clicked.connect(self.control_actualizar_proveedor)
         self.ui.cajaopciones_categorias.currentIndexChanged.connect(self.mostrar_descripcion_categoria)
         
@@ -68,7 +70,8 @@ class Control_proveedores(QWidget):
         self.ui.txt_codigopostal.setValidator(Validaciones().get_int_validator)
         
         
-
+        self.cargando = None
+        self.consultor = None
         self.proveedores = None
         self.proveedor_seleccionado = None
         self.id_categoria = None
@@ -88,11 +91,11 @@ class Control_proveedores(QWidget):
         if self.proveedor_seleccionado:
             if self.ventana_productos_precios is None or self.ventana_productos_precios.isVisible():
                 self.ventana_productos_precios = Productos_de_proveedorController(parent=self, proveedor=self.proveedor_seleccionado)
-                # self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.mostrar_productos_proveedor)
+                self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.connect(self.ventana_productos_precios.obtener_productos_proveedor_hilo)
                 self.ventana_productos_precios.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.connect(self.ventana_cerrada_productos_proveedor)
                 self.LIMPIAR_CAMPOS_INTERNOS.connect(self.limpiar_campos)
                 self.LIMPIAR_CAMPOS_INTERNOS.emit()
-                # self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
+                self.ventana_productos_precios.LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR.emit()
                 self.ventana_productos_precios.show()
             else:
                 self.ventana_productos_precios.raise_()
@@ -204,6 +207,7 @@ class Control_proveedores(QWidget):
         if campos_vacios:
             return None
         return datos
+
 #comment agregamos proveedor
     def control_agregar_proveedor(self):
         datos_proveedor, campos_vacios = self.obtener_datos_proveedor()
@@ -267,18 +271,29 @@ class Control_proveedores(QWidget):
                     import traceback
                     print(traceback.format_exc)
                     Mensaje().mensaje_critico(f'No se logró agregar el proveedor: {e}')
-
-        self.listar_proveedores_tabla()
         self.limpiar_campos()
 
-    def listar_proveedores_tabla(self):
-        estado = False
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                self.proveedores, estado = ProveedoresModel(session).obtener_proveedores()
-            if estado:
-                self.llenar_tabla_proveedores(self.proveedores)
+    def obtener_proveedores_tabla_hilo(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.llenar_tabla_proveedores)
+        self.consultor.ejecutar_hilo(funcion=self.obtener_proveedores_tabla_query)
+        
+    def cargando_cerrar(self):
+        if self.cargando is not None:
+            self.cargando.close()
+            self.cargando = None
+            
+    def obtener_proveedores_tabla_query(self, session):
+            self.proveedores, estado = ProveedoresModel(session).obtener_proveedores()
+            return self.proveedores, estado
 
     def llenar_tabla_proveedores(self, proveedores = None):
         try:
@@ -360,11 +375,13 @@ class Control_proveedores(QWidget):
 
             # Desconectar la señal antes de conectar
             if self.seleccion_conectada_proveedores:
-                self.ui.tabla_proveedores.selectionModel().currentChanged.disconnect(self.obtener_proveedor_seleccionado_tabla)
+                # self.ui.tabla_proveedores.selectionModel().currentChanged.disconnect(self.obtener_proveedor_seleccionado_tabla)
+                self.ui.tabla_proveedores.clicked.disconnect(self.obtener_proveedor_seleccionado_tabla)
                 self.seleccion_conectada_proveedores = False  # Actualizar el estado
 
             # Conectar la señal a la función que obtiene el ID del elemento seleccionado
-            self.ui.tabla_proveedores.selectionModel().currentChanged.connect(self.obtener_proveedor_seleccionado_tabla)
+            # self.ui.tabla_proveedores.selectionModel().currentChanged.connect(self.obtener_proveedor_seleccionado_tabla)
+            self.ui.tabla_proveedores.clicked.connect(self.obtener_proveedor_seleccionado_tabla)
             self.seleccion_conectada_proveedores = True  # Marcar como conectada
 
         except Exception as e:
@@ -459,10 +476,10 @@ class Control_proveedores(QWidget):
                         Mensaje().mensaje_critico(f'No se logró actualizar el proveedor: {e}')
 
             # Actualiza la tabla de proveedores y limpia los campos
-            self.listar_proveedores_tabla()
+            self.obtener_proveedores_tabla_hilo()
             self.limpiar_campos()
 
-    def obtener_proveedor_seleccionado_tabla(self, current, previus):
+    def obtener_proveedor_seleccionado_tabla(self, current, previus = None):
         self.limpiar_campos()
         # Verifica si la celda seleccionada está en la primera columna
         if current.column() > 0:  # Verifica si es la primera columna
@@ -471,6 +488,7 @@ class Control_proveedores(QWidget):
             if elemento is not None:
                 proveedor = elemento.data(Qt.UserRole)
                 if proveedor:
+                    print(proveedor)
                     self.proveedor_seleccionado = proveedor
                     self.cargar_datos_proveedor(self.proveedor_seleccionado)
             else:
@@ -532,14 +550,23 @@ class Control_proveedores(QWidget):
             self.ui.btnradio_representantefalse.setChecked(True)
             # self.ui.contenedor_datosrepresentante.hide()
 
-    def buscar_proveedor(self):
+    def buscar_proveedor_hilo(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.llenar_tabla_proveedores)
+        self.consultor.ejecutar_hilo(funcion=self.buscar_proveedor_query)
+        
+    def buscar_proveedor_query(self, session):
         texto = self.ui.txt_buscarproveedor.text()
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                proveedores = ProveedoresModel(session).obtener_nombre_proveedor(texto=texto)
-            if proveedores:
-                self.llenar_tabla_proveedores(proveedores)
+        proveedores, estado= ProveedoresModel(session).obtener_nombre_proveedor(texto=texto)
+        return proveedores, estado
 
     def eliminar_proveedor(self):
         datos_proveedor = self.obtener_datos_proveedor()
@@ -554,7 +581,6 @@ class Control_proveedores(QWidget):
                     if not respuesta:
                         Mensaje().mensaje_alerta("No se pudo eliminar el proveedor")
                         return
-            self.listar_proveedores_tabla()
             self.limpiar_campos()
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al eliminar proveedor: {e}")

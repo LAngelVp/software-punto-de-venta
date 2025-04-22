@@ -10,6 +10,8 @@ from ..View.UserInterfacePy.CAMBIO_PRECIO_PRODUCTO_PROVEEDOR_ui import Ui_Precio
 from .AjustarCajaOpcionesGlobal import *
 from .MensajesAlertasController import Mensaje
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
+from .Ventana_espera import *
+from .Hilo_consultas import *
 class Productos_de_proveedorController(QWidget):
     PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL=pyqtSignal(object)
     LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR = pyqtSignal()
@@ -23,16 +25,17 @@ class Productos_de_proveedorController(QWidget):
         self.ui.txt_nombre_productodelsistema.returnPressed.connect(self.filtrar_productos_sistema)
         self.ui.txt_nombre_producto.returnPressed.connect(self.filtrar_productos_de_proveedor)
         self.ui.btn_producto_del_proveedor_para_agregar.clicked.connect(self.vincular_producto_al_proveedor_funcion)
-        self.ui.btn_RefrescarTabla.clicked.connect(self.mostrar_productos_proveedor)
+        self.ui.btn_RefrescarTabla.clicked.connect(self.obtener_productos_proveedor_hilo)
         self.ui.btn_producto_del_proveedor_cerrar.clicked.connect(self.close)
         self.ui.btn_producto_del_proveedor_eliminar.clicked.connect(self.desvincular_producto)
         self.ui.btn_producto_del_proveedor_editar.clicked.connect(self.editar_precio_producto)
-        self.ui.btn_RefrescarTablaProductos.clicked.connect(self.productos_de_sistema)
+        self.ui.btn_RefrescarTablaProductos.clicked.connect(self.obtener_productos_de_sistema_hilo)
         
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre)
         AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre_productos_del_sistema)
         
         self.proveedor = proveedor
+        self.cargando =  None
         self.seleccion_conectada_productos = False
         self.producto_seleccionado = None
         self.seleccion_conectada_productos_sistema=False
@@ -77,8 +80,6 @@ class Productos_de_proveedorController(QWidget):
         self.VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR.emit()
         event.accept()
     
-        
-        
     def desvincular_producto(self):
         if self.producto_seleccionado is None:
             Mensaje().mensaje_informativo("No se realizo la selección de un producto para poder eliminarlo del proveedor.")
@@ -93,19 +94,28 @@ class Productos_de_proveedorController(QWidget):
             Mensaje().mensaje_informativo("Operación realizada con éxito.")
             self.mostrar_productos_proveedor()
     
-    def mostrar_productos_proveedor(self):
-        if self.proveedor is None:
-            return
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                productos, estado = Proveedores_productoModel(session).consultar_productos_del_proveedor(id_proveedor=self.proveedor.id)
-            if not estado:
-                self.productos_proveedores_tabla()
-                
-            else:
-                self.productos_proveedores_tabla(productos)
+    def obtener_productos_proveedor_hilo(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.productos_proveedores_tabla)
+        self.consultor.ejecutar_hilo(funcion=self.obtener_productos_proveedor_query)
     
+    def cargando_cerrar(self):
+        if self.cargando is not None:
+            self.cargando.close()
+            self.cargando = None
+            
+    def obtener_productos_proveedor_query(self, session):
+            productos, estado = Proveedores_productoModel(session).consultar_productos_del_proveedor(id_proveedor=self.proveedor.id)
+            return productos, estado
+
     def productos_proveedores_tabla(self, productos=None):
         try:
             if self.ui.tabla_productos_del_proveedor is None:
@@ -190,14 +200,22 @@ class Productos_de_proveedorController(QWidget):
             if estatus:
                 self.productos_del_sistema_tabla(productos)
     
-    def productos_de_sistema(self):
-        productos_del_sistema = None
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                productos_del_sistema, estatus = ProductosModel(session).obtener_productos()
-            if estatus:
-                self.productos_del_sistema_tabla(productos_del_sistema)
+    def obtener_productos_de_sistema_hilo(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.productos_del_sistema_tabla)
+        self.consultor.ejecutar_hilo(funcion=self.obtener_productos_de_sistema_query)
+        
+    def obtener_productos_de_sistema_query(self, session):
+            productos_del_sistema, estado = ProductosModel(session).obtener_productos()
+            return productos_del_sistema, estado
                 
     def productos_del_sistema_tabla(self, productos):
         try:

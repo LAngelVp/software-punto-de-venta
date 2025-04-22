@@ -979,15 +979,22 @@ class Productos(QWidget):
         
         
     def  buscar_producto(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.listar_productos)
+        self.consultor.ejecutar_hilo(funcion=self.busar_producto_query)
+        
+    def busar_producto_query(self, session):
         nombre_producto = self.ui.txt_buscar.text().strip()
-        if not nombre_producto:
-            return
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                productos, estatus = ProductosModel(session).consultar_por_nombre(nombre=nombre_producto)
-            if estatus:
-                self.listar_productos(productos)
+        productos, estado = ProductosModel(session).consultar_por_nombre(nombre=nombre_producto)
+        return productos, estado 
     
     def agregar_producto(self):
         if self.AdminProductos is None or self.AdminProductos.isVisible():
@@ -1114,68 +1121,11 @@ class Productos(QWidget):
 
         # Conectar señal solo si no está conectada
         if self.seleccion_conectada_productos:
-            self.ui.tabla_productos.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_productos)
+            self.ui.tabla_productos.clicked.disconnect(self.obtener_id_elemento_tabla_productos)
             self.seleccion_conectada_productos = False
 
-        self.ui.tabla_productos.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_productos)
+        self.ui.tabla_productos.clicked.connect(self.obtener_id_elemento_tabla_productos)
         self.seleccion_conectada_productos = True
-        
-        # print(f"estos son los productos de la base de datos: {productos}")
-        # self.productos = productos
-        # self.comprobar_modelo_tabla_productos()
-        # self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
-        # # Establecer los encabezados de la tabla
-        # cabeceras = [
-        #     "Proveedor", "Codigo upc", "Nombre Producto", "Categoria", "Marca", "Modelo", "Color", 
-        #     "Material", "Unidad de Medida", "Presentacion", "Costo Inicial", "Costo Final", "Margen Porcentaje", "Precio", 
-        #     "Existencia", "Existencia Minima", "Existencia Maxima", "Peso", 
-        #     "Dimensiones", "Descripcion Producto", "Notas", "Fecha Vencimiento", "Fecha Fabricacion", "Imagen"
-        # ]
-        # self.modelo_tabla_productos.setHorizontalHeaderLabels(cabeceras)
-
-        # # Recorrer la lista de productos (ahora objetos de la clase Productos)
-        # for producto in self.productos:
-        #     list_productos = []
-
-        #     for col in cabeceras:
-        #         value = ""
-
-        #         if col.lower() == "proveedor":
-        #             value = ", ".join([proveedor.nombre for proveedor in producto.proveedores]) if producto.proveedores else ""
-        #         elif col.lower() == "categoria":
-        #             value = producto.categoria.nombre if producto.categoria else ""
-        #         elif col.lower() == "unidad de medida":
-        #             # Asegúrate de acceder correctamente a la relación 'unidad_medida_productos' y a su atributo 'unidad_medida'
-        #             if producto.unidad_medida_productos:
-        #                 value = producto.unidad_medida_productos.nombre  # Accedemos al atributo 'unidad_medida'
-        #             else:
-        #                 value = ""
-        #         elif col.lower() == "presentacion":
-        #             # Asegúrate de acceder correctamente a la relación 'presentacion_productos' y a su atributo 'nombre'
-        #             if producto.presentacion_productos:
-        #                 value = producto.presentacion_productos.nombre  # Accedemos al atributo 'nombre'
-        #             else:
-        #                 value = ""
-        #         elif hasattr(producto, col.lower().replace(" ", "_")):
-        #             value = getattr(producto, col.lower().replace(" ", "_"))
-                
-        #         item = QStandardItem(str(value))  
-        #         item.setTextAlignment(Qt.AlignCenter)
-        #         list_productos.append(item)
-
-        #     self.modelo_tabla_productos.appendRow(list_productos)
-
-        # self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
-        # self.ui.tabla_productos.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        # self.ui.tabla_productos.resizeColumnsToContents()
-        
-        # if self.seleccion_conectada_productos:
-        #     self.ui.tabla_productos.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_productos)
-        #     self.seleccion_conectada_productos = False  # Actualizar el estado
-
-        # # Conectar la señal a la función que obtiene el ID del elemento seleccionado
-        # self.ui.tabla_productos.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_productos)
-        # self.seleccion_conectada_productos = True  # Marcar como conectada
 
     def consultar_productos_db(self):
         if self.cargando is None or not self.cargando.isVisible():
@@ -1203,25 +1153,15 @@ class Productos(QWidget):
         productos, estatus = ProductosModel(session).obtener_productos()
         return productos, estatus
     
-    def obtener_id_elemento_tabla_productos(self, current, previus):
-        # # Verifica si la celda seleccionada está en la primera columna
-        # if current.column() >= 0:  # Verifica si es la primera columna
-        #     indice_fila = current.row()
-        #     elemento = self.modelo_tabla_productos.item(indice_fila, 1)
-        #     if elemento is not None:
-        #         self.codigo_upc_producto= None
-        #         self.codigo_upc_producto = elemento.text()
-        #     else:
-        #         return
+    def obtener_id_elemento_tabla_productos(self, current, previus = None):
         if current.isValid():
             fila = current.row()
-
             # Accedemos al item de la columna que tiene el objeto (columna 1 = Codigo upc)
             item = self.modelo_tabla_productos.item(fila, 1)
             if item:
                 producto = item.data(Qt.UserRole)
                 if producto:
-                    print(f"Producto seleccionado: {producto.nombre_producto}, UPC: {producto.codigo_upc}")
+                    print(producto)
                     self.producto_actual = producto
     
     def comprobar_modelo_tabla_productos(self):
@@ -1245,4 +1185,4 @@ class Productos(QWidget):
         
     def ventana_cerrada_form_existencia(self):
         self.ventana_existencia_productos = None
-        self.codigo_upc_producto = None
+        self.producto_actual = None

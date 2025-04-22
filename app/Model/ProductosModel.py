@@ -327,7 +327,18 @@ class ProductosModel:
             return None, False
     
     def consultar_por_nombre(self, nombre):
-        productos = self.session.query(Productos).filter(Productos.nombre_producto.ilike(f"%{nombre}%")).all()
+        productos = (
+            self.session.query(Productos)
+            .options(
+                joinedload(Productos.categoria),
+                joinedload(Productos.proveedores),
+                joinedload(Productos.unidad_medida_productos),
+                joinedload(Productos.presentacion_productos)
+            )
+            .filter(Productos.nombre_producto.ilike(f"%{nombre}%"))
+            .all()
+        )
+
         if productos:
             return productos, True
         else:

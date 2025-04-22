@@ -129,8 +129,8 @@ class ProveedoresModel:
             joinedload(Proveedores.compras)  # Carga anticipada de las compras
         ).filter(Proveedores.nombre.ilike(texto_busqueda)).all()
         if len(proveedores) > 0:
-            return proveedores
-        return []
+            return proveedores, True
+        return [], False
     
     def actualizar_proveedor(self, 
                             proveedor_id, 
@@ -276,4 +276,3 @@ class ProveedoresModel:
                 proveedor.productos.extend(productos_a_agregar)
         except Exception as e:
             print(f"error al meter el producto {e}")
-                        
