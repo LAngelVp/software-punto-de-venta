@@ -320,7 +320,7 @@ class ProductosModel:
             return None, False
     
     def consultar_por_nombre_exacto(self, nombre):
-        productos = self.session.query(Productos).filter(Productos.nombre_producto.like(nombre)).all()
+        productos = self.session.query(Productos).filter(Productos.nombre_producto.ilike(nombre)).all()
         if productos:
             return productos, True
         else:

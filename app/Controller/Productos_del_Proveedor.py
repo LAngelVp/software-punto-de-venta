@@ -17,6 +17,7 @@ class Productos_de_proveedorController(QWidget):
     LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR = pyqtSignal()
     PRODUCTO_VINCULADO_SIGNAL = pyqtSignal()
     VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR = pyqtSignal()
+    PRODUCTO_DEL_SISTEMA_SELECCIONADO_QUITAR_SELECCION_SIGNAL = pyqtSignal(object)
     def __init__(self, parent = None, proveedor = None):
         super().__init__(parent)
         self.ui = Ui_contenedor_productos_proveedores()
@@ -39,7 +40,7 @@ class Productos_de_proveedorController(QWidget):
         self.seleccion_conectada_productos = False
         self.producto_seleccionado = None
         self.seleccion_conectada_productos_sistema=False
-        producto_seleccionado_sistema=None
+        self.producto_seleccionado_sistema=None
         self.producto_seleccionado_a_vincular = None
         self.seleccion_conectada_productos_a_vincular = False
         self.lista_productos_para_vincular = set()
@@ -54,6 +55,7 @@ class Productos_de_proveedorController(QWidget):
         self.ui.etiqueta_nombre_del_proveedor.setText(f'Nombre del Proveedor: {self.proveedor.nombre}')
         
         self.PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL.connect(self.vincular_producto_al_proveedor_signal)
+        self.PRODUCTO_DEL_SISTEMA_SELECCIONADO_QUITAR_SELECCION_SIGNAL.connect(self.quitar_de_tabla_vinculacion_producto_al_proveedor_signal)
         
     def editar_precio_producto(self):
         if self.producto_seleccionado is not None:
@@ -117,6 +119,9 @@ class Productos_de_proveedorController(QWidget):
             return productos, estado
 
     def productos_proveedores_tabla(self, productos=None):
+        if productos is None:
+            Mensaje().mensaje_informativo("No hay datos para mostrar")
+            return
         try:
             if self.ui.tabla_productos_del_proveedor is None:
                 return
@@ -154,15 +159,15 @@ class Productos_de_proveedorController(QWidget):
 
             # Desconectar la señal antes de conectar
             if self.seleccion_conectada_productos:
-                self.ui.tabla_productos_del_proveedor.selectionModel().currentChanged.disconnect(self.obtener_elemento_seleccionado_productos)
+                self.ui.tabla_productos_del_proveedor.clicked.disconnect(self.obtener_elemento_seleccionado_productos)
             
-            self.ui.tabla_productos_del_proveedor.selectionModel().currentChanged.connect(self.obtener_elemento_seleccionado_productos)
+            self.ui.tabla_productos_del_proveedor.clicked.connect(self.obtener_elemento_seleccionado_productos)
             self.seleccion_conectada_productos = True
             
         except Exception as e:
             print(f'Error en productos_proveedores_tabla: {e}')
             
-    def obtener_elemento_seleccionado_productos(self, current, previus):
+    def obtener_elemento_seleccionado_productos(self, current, previus=None):
         # Verifica si la celda seleccionada está en la primera columna
         if current.column() >= 0:  # Verifica si es la primera columna
             indice_fila = current.row()
@@ -176,29 +181,63 @@ class Productos_de_proveedorController(QWidget):
                 return
     
     def filtrar_productos_de_proveedor(self):
-        nombre_producto = self.ui.txt_nombre_producto.text().upper().strip()
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.productos_proveedores_tabla)
+        if self.ui.cajaopciones_filtro_nombre.currentText() .lower()== "igual a":
+            self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_proveedor_exacto_query)
+        else:
+            self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_proveedor_query)
+            
+        
+    def filtrar_productos_del_proveedor_exacto_query(self, session):
+        nombre_producto = self.ui.txt_nombre_producto.text().strip()
         id_proveedor = self.proveedor.id
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                if self.ui.cajaopciones_filtro_nombre.currentText() .lower()== "igual a":
-                    productos, estatus = ProveedoresModel(session).filtrar_productos_del_proveedor_exacto_nombre(proveedor_id=id_proveedor, nombre=nombre_producto)
-                else:
-                    productos, estatus = ProveedoresModel(session).filtrar_productos_del_proveedor_contenga_nombre(proveedor_id=id_proveedor, nombre=nombre_producto)
-            if estatus:
-                self.productos_proveedores_tabla(productos)
+        productos, estado = ProveedoresModel(session).filtrar_productos_del_proveedor_exacto_nombre(proveedor_id=id_proveedor, nombre=nombre_producto)
+        return productos, estado
+    
+    def filtrar_productos_del_proveedor_query(self, session):
+        nombre_producto = self.ui.txt_nombre_producto.text().strip()
+        id_proveedor = self.proveedor.id
+        productos, estado = ProveedoresModel(session).filtrar_productos_del_proveedor_contenga_nombre(proveedor_id=id_proveedor, nombre=nombre_producto)
+        return productos, estado
     
     def filtrar_productos_sistema(self):
-        nombre = self.ui.txt_nombre_productodelsistema.text().upper().strip()
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                if self.ui.cajaopciones_filtro_nombre_productos_del_sistema.currentText() .lower()== "igual a":
-                    productos, estatus = ProductosModel(session).consultar_por_nombre_exacto(nombre=nombre)
-                else:
-                    productos, estatus = ProductosModel(session).consultar_por_nombre(nombre=nombre)
-            if estatus:
-                self.productos_del_sistema_tabla(productos)
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+        
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.productos_del_sistema_tabla)
+        print(self.ui.cajaopciones_filtro_nombre_productos_del_sistema.currentText())
+        if self.ui.cajaopciones_filtro_nombre_productos_del_sistema.currentText() .lower()== "es igual":
+            self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_sistema_exacto_query)
+        else:
+            self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_sistema_query)
+    
+                
+    # comment: filtrar los productos con el nombre exacto
+    def filtrar_productos_del_sistema_exacto_query(self, session):
+        nombre = self.ui.txt_nombre_productodelsistema.text().strip()
+        productos, estado = ProductosModel(session).consultar_por_nombre_exacto(nombre=nombre)
+        return productos, estado
+    
+    #comment: filtrar por lo que en nombre contenga
+    def filtrar_productos_del_sistema_query(self, session):
+        nombre = self.ui.txt_nombre_productodelsistema.text().strip()
+        productos, estado = ProductosModel(session).consultar_por_nombre(nombre=nombre)
+        return productos, estado
     
     def obtener_productos_de_sistema_hilo(self):
         if self.cargando is None or not self.cargando.isVisible():
@@ -218,6 +257,9 @@ class Productos_de_proveedorController(QWidget):
             return productos_del_sistema, estado
                 
     def productos_del_sistema_tabla(self, productos):
+        if productos is None:
+            Mensaje().mensaje_informativo("No hay datos para mostrar")
+            return
         try:
             if self.ui.tabla_productos_del_sistema is None:
                 return
@@ -253,15 +295,15 @@ class Productos_de_proveedorController(QWidget):
 
             # Desconectar la señal antes de conectar
             if self.seleccion_conectada_productos_sistema:
-                self.ui.tabla_productos_del_sistema.selectionModel().currentChanged.disconnect(self.obtener_elemento_seleccionado_productos_sistema)
+                self.ui.tabla_productos_del_sistema.clicked.disconnect(self.obtener_elemento_seleccionado_productos_sistema)
             
-            self.ui.tabla_productos_del_sistema.selectionModel().currentChanged.connect(self.obtener_elemento_seleccionado_productos_sistema)
+            self.ui.tabla_productos_del_sistema.clicked.connect(self.obtener_elemento_seleccionado_productos_sistema)
             self.seleccion_conectada_productos_sistema = True
             
         except Exception as e:
             print(f'Error en productos_proveedores_tabla: {e}')
     
-    def obtener_elemento_seleccionado_productos_sistema(self, current, previus):
+    def obtener_elemento_seleccionado_productos_sistema(self, current, previus = None):
         if current.column() >= 0:  # Verifica si es la primera columna
             indice_fila = current.row()
             elemento = self.modelo_tabla_productos_del_sistema.item(indice_fila, 0)
@@ -279,7 +321,14 @@ class Productos_de_proveedorController(QWidget):
             return
         self.lista_productos_para_vincular.add(producto)
         self.producto_para_vincular_tabla(self.lista_productos_para_vincular)
-        print(self.lista_productos_para_vincular)
+        print(f"lista de productos a vincular {self.lista_productos_para_vincular}")
+        
+    def quitar_de_tabla_vinculacion_producto_al_proveedor_signal(self, producto):
+        if not producto:
+            return
+        self.lista_productos_para_vincular.discard(producto)
+        self.producto_para_vincular_tabla(self.lista_productos_para_vincular)
+        print(f"lista sin el producto : {self.lista_productos_para_vincular}")
         
     def producto_para_vincular_tabla(self, productos):
         try:
@@ -334,6 +383,7 @@ class Productos_de_proveedorController(QWidget):
                 producto = elemento.data(Qt.UserRole)
                 if producto:
                     self.producto_seleccionado_a_vincular = producto
+                    self.PRODUCTO_DEL_SISTEMA_SELECCIONADO_QUITAR_SELECCION_SIGNAL.emit(self.producto_seleccionado_a_vincular)
             else:
                 return
     
@@ -345,7 +395,7 @@ class Productos_de_proveedorController(QWidget):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    ProveedoresModel(session).actualizar_productos_al_proveedor(proveedor=self.proveedor.id, lista_productos=self.lista_productos_para_vincular)
+                    ProveedoresModel(session).actualizar_productos_al_proveedor(proveedor_id=self.proveedor.id, lista_productos=self.lista_productos_para_vincular)
                     self.PRODUCTO_VINCULADO_SIGNAL.emit()
                     Mensaje().mensaje_informativo("Se ha vinculado correctamente el producto al proveedor.")
         except Exception as e:

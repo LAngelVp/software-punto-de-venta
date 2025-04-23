@@ -145,11 +145,6 @@ class Registro_personal_inicial(QDialog):
         self.listar_sucursales()
 
 # señales y slots:
-        # self.listar_sucursales_signal.connect(self.sucursales.obtener_sucursales)
-        # self.listar_departamentos_signal.connect(self.departamentos.obtener_departamentos)
-        # self.listar_puestos_signal.connect(self.puestos.listar_puestos)
-        # self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
-        # self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
         
         if id_empleado is not None:
             self.cargar_datos_empleado()

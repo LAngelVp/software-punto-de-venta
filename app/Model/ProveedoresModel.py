@@ -236,7 +236,7 @@ class ProveedoresModel:
         ).join(
             Proveedores, Proveedores.id == producto_proveedor.c.proveedor_id
         ).filter(
-            Productos.nombre_producto == nombre,
+            Productos.nombre_producto.ilike(nombre),
             Proveedores.id == proveedor_id
         ).all()
         
@@ -251,7 +251,7 @@ class ProveedoresModel:
         ).join(
             Proveedores, Proveedores.id == producto_proveedor.c.proveedor_id
         ).filter(
-            Productos.nombre_producto.like(f"%{nombre}%"),
+            Productos.nombre_producto.ilike(f"%{nombre}%"),
             Proveedores.id == proveedor_id
         ).all()
         
@@ -260,19 +260,25 @@ class ProveedoresModel:
         else:
             return None, False
     
-    def actualizar_productos_al_proveedor(self, proveedor,  lista_productos):
-        pass
-        if not lista_productos or not proveedor:
+    def actualizar_productos_al_proveedor(self, proveedor_id,  lista_productos):
+        if not lista_productos or not proveedor_id:
             return None, False
         try:
-            proveedor = self.session.query(Proveedores).filter(Proveedores.id == proveedor).first()
+            proveedor = self.session.query(Proveedores).filter_by(id=proveedor_id).first()
             if not proveedor:
                 return None, False
+
             productos_a_agregar = []
             for producto in lista_productos:
-                if producto not in proveedor.productos:
-                    productos_a_agregar.append(producto)
+                producto_db = self.session.get(Productos, producto.id)  # importante
+                if producto_db and producto_db not in proveedor.productos:
+                    productos_a_agregar.append(producto_db)
+
             if productos_a_agregar:
                 proveedor.productos.extend(productos_a_agregar)
+
+            return proveedor, True
+
         except Exception as e:
             print(f"error al meter el producto {e}")
+            return None, False

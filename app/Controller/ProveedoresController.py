@@ -14,6 +14,7 @@ from app.Model.RepresentanteProveedorModel import RepresentanteProveedorModel
 from app.Model.BaseDatosModel import Proveedores
 from app.Controller.MensajesAlertasController import *
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+from ..Model.ValidacionesModel import Validaciones
 from .FuncionesAuxiliares import *
 from .Productos_del_Proveedor import *
 from .Ventana_espera import *
@@ -46,7 +47,18 @@ class Control_proveedores(QWidget):
         self.ui.btn_btn_buscarproveedor.clicked.connect(self.buscar_proveedor_hilo)
         self.ui.btn_btn_actualizar.clicked.connect(self.control_actualizar_proveedor)
         self.ui.cajaopciones_categorias.currentIndexChanged.connect(self.mostrar_descripcion_categoria)
+        self.validaciones()
+        self.cargando = None
+        self.consultor = None
+        self.proveedores = None
+        self.proveedor_seleccionado = None
+        self.id_categoria = None
+        self.representante = None
+        self.seleccion_conectada_proveedores = None
+        self.lista_categorias = {}
+        self.ventana_productos_precios = None
         
+    def validaciones(self):
         self.ui.txt_nombre.setMaxLength(150)
         self.ui.txt_pais.setMaxLength(50)
         self.ui.txt_estado.setMaxLength(50)
@@ -65,20 +77,9 @@ class Control_proveedores(QWidget):
         self.ui.txt_telefonorepresentante.setMaxLength(10)
         self.ui.txt_correorepresentante.setMaxLength(100)
         self.ui.txt_puestorepresentante.setMaxLength(100)
-        # VALIDACIONES
         self.ui.txt_telefono.setValidator(Validaciones().get_phone_validator)
         self.ui.txt_codigopostal.setValidator(Validaciones().get_int_validator)
-        
-        
-        self.cargando = None
-        self.consultor = None
-        self.proveedores = None
-        self.proveedor_seleccionado = None
-        self.id_categoria = None
-        self.representante = None
-        self.seleccion_conectada_proveedores = None
-        self.lista_categorias = {}
-        self.ventana_productos_precios = None
+        self.ui.txt_telefonorepresentante.setValidator(Validaciones().get_phone_validator)
         
     def ventana_cerrada_productos_proveedor(self):
         self.ventana_productos_precios = None
@@ -99,7 +100,6 @@ class Control_proveedores(QWidget):
                 self.ventana_productos_precios.show()
             else:
                 self.ventana_productos_precios.raise_()
-    
     
     def mostrar_categorias(self):
         with Conexion_base_datos() as db:
