@@ -11,6 +11,8 @@ from app.Model.EmpleadoModel import EmpleadosModel
 from .MensajesAlertasController import Mensaje
 from ..Model.ValidacionesModel import Validaciones
 from .ComprobarValoresTablasController import Comprobacion
+from .Ventana_espera import Modal_de_espera
+from .Hilo_consultas import Consultas_segundo_plano
 
 class EmpleadosController(QWidget):
     registro_listar_puestos = pyqtSignal()
@@ -20,6 +22,12 @@ class EmpleadosController(QWidget):
         self.ui.setupUi(self)
         self.ventana_registro = None
         self.ventana_registro_cerrada = False
+        self.seleccion_conectada_empleados = None
+        self.id_empleado = None
+        self.empleados = None
+        self.cargando = None
+        self.consultor = None
+        
         
         self.ui.txt_idempleado.setValidator(Validaciones().get_int_validator)
         self.ui.btn_btn_agregar.clicked.connect(self.agregar_empleado)
@@ -33,10 +41,11 @@ class EmpleadosController(QWidget):
         # self.ventana = 
         self.registro_listar_puestos.connect(Registro_personal_inicial().listar_puestos)
 
-        self.seleccion_conectada_empleados = None
-        self.id_empleado = None
-        self.empleados = None
-        
+    def cargando_cerrar(self):
+        if self.cargando is not None:
+            self.cargando.close()
+            self.cargando = None
+            
     def ventana_cerrada_nuevo_personal(self):
         self.ventana_registro = None
         
@@ -56,24 +65,30 @@ class EmpleadosController(QWidget):
         self.listar_empleados()
         
     def buscar_empleado(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.llenar_tabla)
+        self.consultor.ejecutar_hilo(funcion=self.buscar_empleado_query)
+        
+        
+    def buscar_empleado_query(self, session):
         id_empleado = self.ui.txt_idempleado.text()
         nombre_empleado = self.ui.txt_nombreempleado.text().upper()
         tipo_filtro_nombre = self.ui.cajaopciones_filtroNombreEmpleado.currentIndex()
-        if not id_empleado and not nombre_empleado:
-            Mensaje().mensaje_informativo("Para buscar a un empleado es necesario ingresar su ID o NOMBRE")
-            return
-        if id_empleado:
-            id_empleado = int(id_empleado)
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                empleados, estado = EmpleadosModel(session).filtrar_empleados(id_empleado, nombre_empleado, tipo_filtro_nombre)
-            if estado:
-                self.llenar_tabla(empleados)
+        empleados, estado = EmpleadosModel(session).filtrar_empleados(id_empleado, nombre_empleado, tipo_filtro_nombre)
+        return empleados, estado
                 
     def roles(self):
-        self.roles =  Control_rol()
-        self.roles.show()
+        # self.roles =  Control_rol()
+        # self.roles.show()
+        pass
 
     def eliminar_empleado(self):
         if self.id_empleado:
@@ -109,6 +124,9 @@ class EmpleadosController(QWidget):
             self.llenar_tabla(self.empleados)
 
     def llenar_tabla(self, empleados):
+        if empleados is None:
+            Mensaje().mensaje_informativo("No hay datos para mostrar")
+            return
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_listaempleados is None:
@@ -214,8 +232,3 @@ class EmpleadosController(QWidget):
         """Función auxiliar para obtener atributos de manera segura."""
         return atributo if atributo is not None else default
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    ui = EmpleadosController()
-    ui.show()
-    sys.exit(app.exec())

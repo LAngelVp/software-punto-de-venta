@@ -651,7 +651,7 @@ class Admin_productosController(QWidget):
         self.icono_proveedor = QIcon(":/Icons/Bootstrap/file-person.svg")
         for proveedor_id, proveedor in proveedores.items():
             # Crear un QListWidgetItem
-                proveedor_nombre = proveedor["nombre"]
+                proveedor_nombre = proveedor.nombre
                 item = QListWidgetItem(proveedor_nombre)
                 
                 # Establecer el ícono en el ítem

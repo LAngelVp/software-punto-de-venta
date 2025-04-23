@@ -2,6 +2,7 @@ import re
 from sqlalchemy.exc import IntegrityError
 from .UsuarioModel import UsuarioModel
 from .BaseDatosModel import Empleados, Departamentos, Puestos, Sucursales
+from sqlalchemy.orm import joinedload
 
 class EmpleadosModel:
     def __init__(self, session):
@@ -82,21 +83,25 @@ class EmpleadosModel:
             return True
         return False
     
-    def filtrar_empleados(self, id = None, nombre = None, tipo_filtro_nombre = None):
-        consulta = self.session.query(Empleados).outerjoin(Puestos).outerjoin(Departamentos).outerjoin(Sucursales)
-    
-        # Si se pasa un `id`, agrega el filtro por `id`
+    def filtrar_empleados(self, id=None, nombre=None, tipo_filtro_nombre=None):
+        # Cargar relaciones con joinedload (eager loading)
+        consulta = self.session.query(Empleados).options(
+            joinedload(Empleados.puesto),
+            joinedload(Empleados.departamento),
+            joinedload(Empleados.sucursal)
+        )
+
+        # Filtro por id
         if id:
             consulta = consulta.filter(Empleados.id == id)
         
-        # Si se pasa un `nombre`, agrega el filtro por `nombre`
+        # Filtro por nombre
         if nombre:
             if tipo_filtro_nombre == 0:
                 consulta = consulta.filter(Empleados.nombre == nombre)
             else:
                 consulta = consulta.filter(Empleados.nombre.ilike(f"%{nombre}%"))
         
-        # Ejecuta la consulta y guarda los resultados
         empleados = consulta.all()
         if empleados:
             return empleados, True
