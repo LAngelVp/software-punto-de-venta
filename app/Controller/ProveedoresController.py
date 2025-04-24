@@ -172,21 +172,21 @@ class Control_proveedores(QWidget):
     
     def obtener_datos_proveedor(self):
         datos = {
-            'nombre': self.ui.txt_nombre.text().strip().upper(),
-            'pais': self.ui.txt_pais.text().strip().upper(),
-            'estado': self.ui.txt_estado.text().strip().upper(),
-            'ciudad': self.ui.txt_ciudad.text().strip().upper(),
-            'codigo_postal': self.ui.txt_codigopostal.text().strip().upper(),
-            'calles': self.ui.txt_calles.text().strip().upper(),
-            'avenidas': self.ui.txt_avenida.text().strip().upper(),
-            'colonia': self.ui.txt_colonia.text().strip().upper(),
-            'direccion_adicional': self.ui.txtlargo_direccionadicional.toPlainText().strip().upper(),
-            'rfc': self.ui.txt_rfc.text().strip().upper(),
-            'pagina_web': self.ui.txt_web.text().strip().upper(),
-            'correo': self.ui.txt_correo.text().strip().upper(),
-            'telefono': self.ui.txt_telefono.text().strip().upper(),
-            'clave_moneda': self.ui.cajaopciones_tipomoneda.currentText().upper().split(":")[0].strip(),
-            'tipo_moneda': self.ui.cajaopciones_tipomoneda.currentText().upper().split(":")[1].strip()
+            'nombre': self.ui.txt_nombre.text().strip(),
+            'pais': self.ui.txt_pais.text().strip(),
+            'estado': self.ui.txt_estado.text().strip(),
+            'ciudad': self.ui.txt_ciudad.text().strip(),
+            'codigo_postal': self.ui.txt_codigopostal.text().strip(),
+            'calles': self.ui.txt_calles.text().strip(),
+            'avenidas': self.ui.txt_avenida.text().strip(),
+            'colonia': self.ui.txt_colonia.text().strip(),
+            'direccion_adicional': self.ui.txtlargo_direccionadicional.toPlainText().strip(),
+            'rfc': self.ui.txt_rfc.text().strip(),
+            'pagina_web': self.ui.txt_web.text().strip(),
+            'correo': self.ui.txt_correo.text().strip(),
+            'telefono': self.ui.txt_telefono.text().strip(),
+            'clave_moneda': self.ui.cajaopciones_tipomoneda.currentText().split(":")[0].strip(),
+            'tipo_moneda': self.ui.cajaopciones_tipomoneda.currentText().split(":")[1].strip()
         }
         campos_vacios = [clave for clave, valor in datos.items() if not valor]
 
@@ -196,12 +196,12 @@ class Control_proveedores(QWidget):
     
     def obtener_datos_representante(self):
         datos = {
-            'nombre': self.ui.txt_nombrerepresentante.text().strip().upper(),
-            'apellido_paterno': self.ui.txt_apellidopaternorepresen.text().strip().upper(),
-            'apellido_materno': self.ui.txt_apellidomaternorepresen.text().strip().upper(),
-            'telefono': self.ui.txt_telefonorepresentante.text().strip().upper(),
-            'correo': self.ui.txt_correorepresentante.text().strip().upper(),
-            'puesto': self.ui.txt_puestorepresentante.text().strip().upper(),
+            'nombre': self.ui.txt_nombrerepresentante.text().strip(),
+            'apellido_paterno': self.ui.txt_apellidopaternorepresen.text().strip(),
+            'apellido_materno': self.ui.txt_apellidomaternorepresen.text().strip(),
+            'telefono': self.ui.txt_telefonorepresentante.text().strip(),
+            'correo': self.ui.txt_correorepresentante.text().strip(),
+            'puesto': self.ui.txt_puestorepresentante.text().strip(),
         }
         campos_vacios = [clave for clave, valor in datos.items() if not valor]
         if campos_vacios:
@@ -295,7 +295,7 @@ class Control_proveedores(QWidget):
             self.proveedores, estado = ProveedoresModel(session).obtener_proveedores()
             return self.proveedores, estado
 
-    def llenar_tabla_proveedores(self, proveedores = None):
+    def llenar_tabla_proveedores(self, proveedores, estado):
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_proveedores is None:
@@ -551,6 +551,9 @@ class Control_proveedores(QWidget):
             # self.ui.contenedor_datosrepresentante.hide()
 
     def buscar_proveedor_hilo(self):
+        if self.ui.txt_buscarproveedor.text().strip() == "":
+            Mensaje().mensaje_informativo("No haz ingresado datos para filtrar")
+            return
         if self.cargando is None or not self.cargando.isVisible():
             self.cargando = Modal_de_espera()
             self.cargando.show()
@@ -577,10 +580,12 @@ class Control_proveedores(QWidget):
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
                 with session.begin():
-                    respuesta = ProveedoresModel(session).eliminar_proveedor(self.proveedor_seleccionado.id)
-                    if not respuesta:
+                    resultado, estado = ProveedoresModel(session).eliminar_proveedor(self.proveedor_seleccionado.id)
+                    if not estado:
                         Mensaje().mensaje_alerta("No se pudo eliminar el proveedor")
                         return
+                    else:
+                        Mensaje().mensaje_informativo("Operacion exitosa")
             self.limpiar_campos()
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al eliminar proveedor: {e}")

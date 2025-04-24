@@ -94,7 +94,6 @@ class Productos_de_proveedorController(QWidget):
                 Mensaje().mensaje_alerta("No se logro realizar la operación.")
                 return
             Mensaje().mensaje_informativo("Operación realizada con éxito.")
-            self.mostrar_productos_proveedor()
     
     def obtener_productos_proveedor_hilo(self):
         if self.cargando is None or not self.cargando.isVisible():
@@ -118,8 +117,8 @@ class Productos_de_proveedorController(QWidget):
             productos, estado = Proveedores_productoModel(session).consultar_productos_del_proveedor(id_proveedor=self.proveedor.id)
             return productos, estado
 
-    def productos_proveedores_tabla(self, productos=None):
-        if productos is None:
+    def productos_proveedores_tabla(self, productos, estado):
+        if not estado:
             Mensaje().mensaje_informativo("No hay datos para mostrar")
             return
         try:

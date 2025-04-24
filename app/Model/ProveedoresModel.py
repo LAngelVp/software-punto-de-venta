@@ -108,12 +108,15 @@ class ProveedoresModel:
             return None
 
     def obtener_proveedores(self):
-        proveedores = self.session.query(Proveedores).options(
+        proveedores = (self.session.query(Proveedores).options(
             joinedload(Proveedores.categoria),  # Carga anticipada de las categorías
             joinedload(Proveedores.productos),   # Carga anticipada de los productos
             joinedload(Proveedores.representante),  # Carga anticipada del representante
             joinedload(Proveedores.compras)  # Carga anticipada de las compras
-        ).all()
+        )
+        .order_by(Proveedores.nombre.asc())
+        .all()
+        )
         if len(proveedores) > 0:
             return proveedores, True
         else:
@@ -224,11 +227,11 @@ class ProveedoresModel:
             proveedor = self.session.query(Proveedores).filter(Proveedores.id == id).first()
             if proveedor:
                 self.session.delete(proveedor)
-                return True
+                return None, True
             else:
-                return False
+                return False, False
         except Exception as e:
-            return False
+            return None, False
 
     def filtrar_productos_del_proveedor_exacto_nombre(self, proveedor_id, nombre):
         productos = self.session.query(Productos, producto_proveedor.c.precio_venta).join(

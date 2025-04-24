@@ -26,4 +26,3 @@
 #         super().__init__()
 #         self.ui = Ui_Control_nuevo_rol()
 #         self.ui.setupUi(self)
-        

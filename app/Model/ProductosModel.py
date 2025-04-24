@@ -299,12 +299,16 @@ class ProductosModel:
         return producto_actual, True
         
     def obtener_productos(self):
-        productos = self.session.query(Productos).options(
+        productos = (
+            self.session.query(Productos).options(
                 joinedload(Productos.proveedores),
                 joinedload(Productos.categoria),
                 joinedload(Productos.unidad_medida_productos),
                 joinedload(Productos.presentacion_productos)
-            ).all()
+            )
+        .order_by(Productos.nombre_producto.asc())
+        .all()
+        )
         if productos:
             return productos, True
         else:
@@ -315,12 +319,17 @@ class ProductosModel:
         if producto:
             self.session.delete(producto)
             self.session.commit()
-            return producto, True
+            return None, True
         else:
             return None, False
     
     def consultar_por_nombre_exacto(self, nombre):
-        productos = self.session.query(Productos).filter(Productos.nombre_producto.ilike(nombre)).all()
+        productos = (
+            self.session.query(Productos)
+            .filter(Productos.nombre_producto.ilike(nombre))
+            .order_by(Productos.nombre_producto.asc())
+            .all()
+        )
         if productos:
             return productos, True
         else:
@@ -336,6 +345,7 @@ class ProductosModel:
                 joinedload(Productos.presentacion_productos)
             )
             .filter(Productos.nombre_producto.ilike(f"%{nombre}%"))
+            .order_by(Productos.nombre_producto.asc())
             .all()
         )
 

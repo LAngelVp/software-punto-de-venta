@@ -19,7 +19,7 @@ from ..Model.SucursalesModel import SucursalesModel
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
-from .SucursalesController import SucursalesController
+from .ControlSucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
 from .PuestosController import PuestosController
 
