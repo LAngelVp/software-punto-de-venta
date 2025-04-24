@@ -121,6 +121,7 @@ class Admin_productosController(QWidget):
         self.id_proveedor = None
         self.imagenProducto = None
         self.producto = None
+        self.productos_no_agregados = []
         self.codigo_producto_upc_recibido = None
         self.lista_productos = []
         self.lista_proveedores_a_asignar = {}
@@ -387,78 +388,96 @@ class Admin_productosController(QWidget):
         self.ui.tabla_productos.resizeColumnsToContents()
         
     def agregar_productos_en_bd(self):
-        productos_no_agregados = []
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            try:
-                with session.begin():  # Inicia la transacción
-                    for producto in self.lista_productos:
-                        dimensiones = f"{producto['largo_dimensiones']}-{producto['alto_dimensiones']}-{producto['ancho_dimensiones']}"
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        # self.consultor.resultado.connect(self.__productos_agregados_finalizado)
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.error.connect(self.__mostrar_error)
+        self.consultor.ejecutar_hilo(funcion=self.agregar_productos_query)
+        
+    def __mostrar_error(self, mensaje_error):
+        Mensaje().mensaje_informativo(f"Ocurrió un error: {mensaje_error}")
+        
+    def cargando_cerrar(self):
+        if self.cargando is not None:
+            self.cargando.close()
+            self.cargando = None
+            
+    def agregar_productos_query(self, session):
+            productos_no_agregados = []
+            productos_agregados = []
 
-                        nombre_proveedor = producto["proveedor"].strip()
-                        nombre_presentacion = producto["presentacion"].strip()
-                        nombre_unidad_de_medida = producto["unidad_medida"].strip()
-                        nombre_categoria = producto["categoria"].strip()
+            for producto in self.lista_productos:
+                dimensiones = f"{producto['largo_dimensiones']}-{producto['alto_dimensiones']}-{producto['ancho_dimensiones']}"
 
-                        proveedor = None
-                        presentacion = None
-                        unidad_medida = None
-                        categoria = None
+                nombre_proveedor = producto["proveedor"].strip()
+                nombre_presentacion = producto["presentacion"].strip()
+                nombre_unidad_de_medida = producto["unidad_medida"].strip()
+                nombre_categoria = producto["categoria"].strip()
 
-                        # Solo buscar o crear si hay datos
-                        if nombre_proveedor:
-                            proveedor, _ = ProveedoresModel(session).consultar_proveedor(nombre_proveedor)
-                        if nombre_presentacion:
-                            presentacion, _ = ProductosModel(session).agregar_presentacion(nombre=nombre_presentacion)
-                        if nombre_unidad_de_medida:
-                            unidad_medida, _ = ProductosModel(session).agregar_unidad_medida(nombre=nombre_unidad_de_medida)
-                        if nombre_categoria:
-                            categoria, _ = CategoriasModel(session).agregar(tipo_categoria="productos", nombre=nombre_categoria)
+                proveedor = None
+                presentacion = None
+                unidad_medida = None
+                categoria = None
 
-                        proveedores = [proveedor] if proveedor else []
+                if nombre_proveedor:
+                    proveedor, _ = ProveedoresModel(session).consultar_proveedor(nombre_proveedor)
+                if nombre_presentacion:
+                    presentacion, _ = ProductosModel(session).agregar_presentacion(nombre=nombre_presentacion)
+                if nombre_unidad_de_medida:
+                    unidad_medida, _ = ProductosModel(session).agregar_unidad_medida(nombre=nombre_unidad_de_medida)
+                if nombre_categoria:
+                    categoria, _ = CategoriasModel(session).agregar(tipo_categoria="productos", nombre=nombre_categoria)
 
-                        producto, estatus_producto = ProductosModel(session).agregar_producto(
-                            codigo_upc=producto["codigo_barras"],
-                            nombre_producto=producto["nombre"],
-                            descripcion_producto=producto["descripcion"],
-                            costo_inicial=producto["costo_inicial"],
-                            costo_final=producto["costo_final"],
-                            margen_porcentaje=f'{producto["margen_porcentaje"]}%',
-                            precio=producto["precio_venta"],
-                            existencia=producto["existencia"],
-                            existencia_minima=producto["existencia_min"],
-                            existencia_maxima=producto["existencia_max"],
-                            marca=producto["marca"],
-                            modelo=producto["modelo"],
-                            peso=producto["peso"],
-                            dimensiones=dimensiones,
-                            color=producto["color"],
-                            material=producto["material"],
-                            fecha_fabricacion=producto["fecha_fabricacion"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
-                            fecha_vencimiento=producto["fecha_vencimiento"] if self.ui.opcion_TieneCaducidad.isChecked() or producto["fecha_fabricacion"] is not None else None,
-                            imagen=self.imagenProducto if self.imagenProducto is not None else producto["imagen"],
-                            notas=producto["notas"],
-                            presentacion_producto_id=presentacion.id if presentacion else None,
-                            unidad_medida_productos_id=unidad_medida.id if unidad_medida else None,
-                            categoria_id=categoria.id if categoria else None,
-                            sucursales=[],
-                            proveedores=proveedores
-                        )
+                proveedores = [proveedor] if proveedor else []
 
-                        if not estatus_producto:
-                            productos_no_agregados.append(producto)
+                producto_obj, estatus_producto = ProductosModel(session).agregar_producto(
+                    codigo_upc=producto["codigo_barras"],
+                    nombre_producto=producto["nombre"],
+                    descripcion_producto=producto["descripcion"],
+                    costo_inicial=producto["costo_inicial"],
+                    costo_final=producto["costo_final"],
+                    margen_porcentaje=f'{producto["margen_porcentaje"]}%',
+                    precio=producto["precio_venta"],
+                    existencia=producto["existencia"],
+                    existencia_minima=producto["existencia_min"],
+                    existencia_maxima=producto["existencia_max"],
+                    marca=producto["marca"],
+                    modelo=producto["modelo"],
+                    peso=producto["peso"],
+                    dimensiones=dimensiones,
+                    color=producto["color"],
+                    material=producto["material"],
+                    fecha_fabricacion=producto["fecha_fabricacion"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
+                    fecha_vencimiento=producto["fecha_vencimiento"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
+                    imagen=self.imagenProducto if self.imagenProducto else producto["imagen"],
+                    notas=producto["notas"],
+                    presentacion_producto_id=presentacion.id if presentacion else None,
+                    unidad_medida_productos_id=unidad_medida.id if unidad_medida else None,
+                    categoria_id=categoria.id if categoria else None,
+                    sucursales=[],
+                    proveedores=proveedores
+                )
 
-                session.commit()
-            except Exception as e:
-                session.rollback()
-                print(f"Error al guardar productos: {e}")
-                Mensaje().mensaje_informativo("Ocurrió un error al guardar los productos. No se realizaron cambios.")
+                if estatus_producto:
+                    productos_agregados.append(producto_obj)
+                else:
+                    productos_no_agregados.append(producto_obj)
 
-        if productos_no_agregados:
+            return (productos_agregados, productos_no_agregados), True
+
+            
+    def resultado_de_agregar_produtos(self, resultado, estado):
+        if self.productos_no_agregados:
             Mensaje().mensaje_informativo("Existen productos que no se agregaron debido a que ya existen en la base de datos.")
-            self.__cargar_datos_en_tabla(productos_no_agregados)
-
-        self.PRODUCTOS_AGREGADOS.emit()
+            self.__cargar_datos_en_tabla(self.produtos_no_agregados)
+        self.PRODUCTOS_AGREGADOS.emit() 
     
     def __guardar_producto(self):
         try:
