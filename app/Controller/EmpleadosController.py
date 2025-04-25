@@ -55,9 +55,10 @@ class EmpleadosController(QWidget):
             # self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
             self.ventana_registro.VENTANA_REGISTRO_CERRADA.connect(self.ventana_cerrada_nuevo_personal)
             self.registro_listar_puestos.emit()
-            self.ventana_registro.exec_()
+            self.ventana_registro.show()
         else:
             self.ventana_registro.raise_()
+            self.ventana_registro.activateWindow()
 
     def limpiar(self):
         self.ui.txt_idempleado.clear()
@@ -76,7 +77,6 @@ class EmpleadosController(QWidget):
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.llenar_tabla)
         self.consultor.ejecutar_hilo(funcion=self.buscar_empleado_query)
-        
         
     def buscar_empleado_query(self, session):
         id_empleado = self.ui.txt_idempleado.text()
@@ -114,19 +114,29 @@ class EmpleadosController(QWidget):
         self.id_empleado = None
     
     def listar_empleados(self):
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                try:
-                    self.empleados, estado = EmpleadosModel(session).obtener_empleados_detallados()
-                except Exception as e:
-                    Mensaje().mensaje_critico(f'No se logro listar la tabla por el error: {e}')
-            self.llenar_tabla(self.empleados)
-
-    def llenar_tabla(self, empleados):
-        if empleados is None:
-            Mensaje().mensaje_informativo("No hay datos para mostrar")
-            return
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.error.connect(self.mostrar_error)
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.llenar_tabla)
+        self.consultor.ejecutar_hilo(self.obtener_empleados_query)
+        
+    def mostrar_error(self, error):
+        Mensaje().mensaje_alerta(f"Sucedio un error al momento de listar los empleados : {error}")
+        return
+    
+    def obtener_empleados_query(self, session):
+        empleados, estado = EmpleadosModel(session).obtener_empleados_detallados()
+        return empleados, estado
+    
+    def llenar_tabla(self, empleados, estado):
+        print(empleados, estado)
         try:
             # Verificar si la tabla está inicializada
             if self.ui.tabla_listaempleados is None:
@@ -137,6 +147,14 @@ class EmpleadosController(QWidget):
             if not hasattr(self, 'modelo_empleados_vempleados'):
                 self.modelo_empleados_vempleados = QStandardItemModel()
                 
+            if not estado:
+                Mensaje().mensaje_informativo("No hay datos para mostrar")
+                self.modelo_empleados_vempleados.clear()
+                self.modelo_empleados_vempleados.setHorizontalHeaderLabels([
+                    "id", "nombre", "apellido_paterno", "apellido_materno", "fecha_nacimiento", "estado_civil", "curp", "rfc", "nivel_academico", "carrera", "correo_electronico", "numero_seguro_social", "fecha_contratacion", "fecha_despido", "ciudad", "codigo_postal", "estado", "pais", "numero_telefonico", "nombre_contacto", "contacto_emergencia", "parentesco_contacto", "calles", "avenidas", "num_interior", "num_exterior", "direccion_adicional", "activo"
+                    ])
+                self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
+                return
             # Limpiar el modelo antes de llenarlo con nuevos datos
             self.modelo_empleados_vempleados.clear()
             # Verificar si clientes es None o una lista vacía
@@ -220,6 +238,7 @@ class EmpleadosController(QWidget):
             self.ui.tabla_listaempleados.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_empleados)
             self.seleccion_conectada_empleados = True  # Marcar como conectada
         except Exception as e:
+            print(e)
             Mensaje().mensaje_critico(f'No se logro hacer mostrar la tabla EMPLEADOS {e}')
         self.id_empleado = None
 

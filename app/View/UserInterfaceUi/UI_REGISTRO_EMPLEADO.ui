@@ -272,11 +272,14 @@ background: #2196F3;
 	background-color: #68a67d;
 }
 #foto_usuario{
-	min-height: 100px;
-	min-width: 100px;
+	min-height: 180px;
+	min-width: 180px;
+	max-height: 180px;
+	max-width: 180px;
 	height: 180px;
 	width: 180px;
 background-color: #F5F5F5;
+border: 1px solid #1f3a5f;
 }
 [objectName^=&quot;fecha_&quot;]{
 border: none;
@@ -615,8 +618,8 @@ border-bottom: 2px solid #00668c;
              <widget class="QLabel" name="foto_usuario">
               <property name="minimumSize">
                <size>
-                <width>180</width>
-                <height>180</height>
+                <width>182</width>
+                <height>182</height>
                </size>
               </property>
               <property name="cursor">

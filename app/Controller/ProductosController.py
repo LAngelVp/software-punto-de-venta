@@ -1,10 +1,9 @@
+from ..Source.iconsdvg_rc import *
+from ..Source.iconosSVG_rc import *
 from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon, QCursor
-from ..Source.iconsdvg_rc import *
-import pandas as pd
-import numpy as np
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
@@ -129,6 +128,7 @@ class Admin_productosController(QWidget):
         self.proveedores_no_vinculados = {}
         self.proveedores_generales_del_sistema_dict = {}
         self._ventanaCentradaProductoExistente = False 
+        self._translate = QtCore.QCoreApplication.translate
 #// funciones principales:
         self.comprobar_existencia_modelo_tabla()
 #// señales:
@@ -143,7 +143,7 @@ class Admin_productosController(QWidget):
         self.ui.btn_btn_addProduct_agregar_producto.clicked.connect(self.__agregar_producto)
         self.ui.btn_btn_addProduct_guardar_producto.clicked.connect(self.__guardar_producto)
         self.ui.btn_btn_addProduct_limpiarTablaProductos.clicked.connect(self.__limpiar_tabla_productos)
-        self.ui.btn_btn_addProduct_cargar_CSVProductos.clicked.connect(self.agregarCSV)
+        self.ui.btn_btn_addProduct_cargar_CSVProductos.clicked.connect(self.__leer_archivo_csv)
         self.ui.txt_buscar_proveedor_a_vincular.returnPressed.connect(self.buscar_proveedor_existente)
         self.ui.txt_buscar_proveedor_vinculado.returnPressed.connect(self.buscar_proveedor_vinculado)
         self.ui.lista_todos_los_proveedores.itemClicked.connect(self.vincular_proveedor_al_producto)
@@ -396,7 +396,7 @@ class Admin_productosController(QWidget):
             self.cargando.activateWindow()
             
         self.consultor = Consultas_segundo_plano()
-        # self.consultor.resultado.connect(self.__productos_agregados_finalizado)
+        self.consultor.resultado.connect(self.productos_agregados_finalizado)
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.error.connect(self.__mostrar_error)
         self.consultor.ejecutar_hilo(funcion=self.agregar_productos_query)
@@ -409,13 +409,20 @@ class Admin_productosController(QWidget):
             self.cargando.close()
             self.cargando = None
             
+    def productos_agregados_finalizado(self, productos_agregados, estado):
+        if estado:
+            # Aquí haces lo que quieras con los productos agregados:
+            Mensaje().mensaje_informativo(f"{len(productos_agregados)} productos agregados con éxito.")
+            # Podrías actualizar la UI o limpiar el formulario, por ejemplo
+        else:
+            Mensaje().mensaje_advertencia("No se pudieron agregar productos.")
+            
     def agregar_productos_query(self, session):
             productos_no_agregados = []
             productos_agregados = []
 
             for producto in self.lista_productos:
                 dimensiones = f"{producto['largo_dimensiones']}-{producto['alto_dimensiones']}-{producto['ancho_dimensiones']}"
-
                 nombre_proveedor = producto["proveedor"].strip()
                 nombre_presentacion = producto["presentacion"].strip()
                 nombre_unidad_de_medida = producto["unidad_medida"].strip()
@@ -470,8 +477,14 @@ class Admin_productosController(QWidget):
                 else:
                     productos_no_agregados.append(producto_obj)
 
-            return (productos_agregados, productos_no_agregados), True
+            # Asegúrate de hacer commit de la sesión después de agregar los productos
+            try:
+                session.commit()  # Guardar cambios en la base de datos
+            except Exception as e:
+                session.rollback()  # Revertir cambios si algo sale mal
+                raise e  # Propagar el error para que el hilo maneje la excepción
 
+            return productos_agregados, True
             
     def resultado_de_agregar_produtos(self, resultado, estado):
         if self.productos_no_agregados:
@@ -575,6 +588,27 @@ class Admin_productosController(QWidget):
 
         self.ui.decimal_costoInicialProducto.setValue(self.producto.costo_inicial)
         self.ui.decimal_costoFinalProducto.setValue(self.producto.costo_final)
+        
+        if self.producto.imagen:
+            try:
+                # Verifica si la ruta de la imagen es válida
+                pixmap = QPixmap(self.producto.imagen)
+                if pixmap.isNull():  # Si no se puede cargar la imagen
+                    raise ValueError("Imagen no válida")
+
+                # Escala la imagen antes de establecerla
+                pixmap_scaled = pixmap.scaled(self.ui.etiqueta_fotoProducto.size(), Qt.KeepAspectRatio)
+                self.ui.etiqueta_fotoProducto.setPixmap(pixmap_scaled)
+                self.imagenProducto = self.producto.imagen  # Guarda la imagen si todo está bien
+            except Exception as e:
+                # Si hay un error al cargar la imagen, muestra un mensaje y coloca el icono predeterminado
+                Mensaje().mensaje_informativo(f"Error al cargar la imagen: {e}")
+                _translate = QtCore.QCoreApplication.translate
+                self.ui.etiqueta_fotoProducto.setText(_translate("contenedor_agregar_productos", "<html><head/><body><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"80\" height=\"70\"/></p><p align=\"center\"><span style=\" font-size:16pt; font-family:Arial; font-weight:bold;\">Cargar Imagen</span></p></body></html>"))
+        else:
+            # Si no hay imagen, coloca el mensaje predeterminado
+            _translate = QtCore.QCoreApplication.translate
+            self.ui.etiqueta_fotoProducto.setText(_translate("contenedor_agregar_productos", "<html><head/><body><p align=\"center\"><img src=\":/Icons/IconosSVG/subir_imagen.png\" width=\"80\" height=\"70\"/></p><p align=\"center\"><span style=\" font-size:16pt; font-family:Arial; font-weight:bold;\">Cargar Imagen</span></p></body></html>"))
 
         # Asumiendo que margen_porcentaje es tipo string como "25 %"
         try:
@@ -601,10 +635,10 @@ class Admin_productosController(QWidget):
             # Establecer las fechas
             self.ui.fecha_fabricacionProducto.setDate(fecha_fabricacion)
             self.ui.fecha_vencimientoProducto.setDate(fecha_vencimiento)
-        if producto.imagen:
-            self.ui.etiqueta_fotoProducto.setPixmap(
-                QPixmap(self.producto.imagen).scaled(self.ui.etiqueta_fotoProducto.size())
-            )
+        # if producto.imagen:
+        #     self.ui.etiqueta_fotoProducto.setPixmap(
+        #         QPixmap(self.producto.imagen).scaled(self.ui.etiqueta_fotoProducto.size())
+        #     )
 
         # Cargar dimensiones si existen
         if producto.dimensiones:
@@ -843,123 +877,52 @@ class Admin_productosController(QWidget):
         if proveedor_id in self.lista_proveedores_a_asignar:
             del self.lista_proveedores_a_asignar[proveedor_id]  # Eliminarlo del diccionario de proveedores a asignar
 
-    def agregarCSV(self):
-        lista_duplicados_excel = []
-        # Leer el archivo CSV
-        df = self.__leer_archivo_csv()
-        
-        # Si no se pudo leer el archivo o si faltan columnas, salimos
-        if df is None:
-            return
-        
-        for row in range(len(df)):
-            nuevo_producto = {
-                "proveedor": str(df.iloc[row]["Proveedor"]).strip(),
-                "codigo_barras": str(df.iloc[row]["Código de Barras"]).strip(),  # Aseguramos que el código esté limpio
-                "nombre": str(df.iloc[row]["Nombre"]).strip(),
-                "categoria": str(df.iloc[row]["Categoría"]).strip(),
-                "marca": str(df.iloc[row]["Marca"]).strip(),
-                "modelo": str(df.iloc[row]["Modelo"]).strip(),
-                "color": str(df.iloc[row]["Color"]).strip(),
-                "material": str(df.iloc[row]["Material"]).strip(),
-                "unidad_medida": str(df.iloc[row]["Unidad de Medida"]).strip(),
-                "presentacion": str(df.iloc[row]["Presentación"]).strip(),
-                "costo_inicial": float(df.iloc[row]["Costo Inicial"]),
-                "costo_final": float(df.iloc[row]["Costo Final"]),
-                "margen_porcentaje": int(df.iloc[row]["Margen Porcentaje"]),
-                "precio_venta": float(df.iloc[row]["Precio Venta"]),
-                "existencia": float(df.iloc[row]["Existencia"]),
-                "existencia_min": float(df.iloc[row]["Existencia Min"]),
-                "existencia_max": float(df.iloc[row]["Existencia Max"]),
-                "peso": float(df.iloc[row]["Peso"]),
-                "largo_dimensiones": float(df.iloc[row]["Largo Dimensiones"]),
-                "alto_dimensiones": float(df.iloc[row]["Alto Dimensiones"]),
-                "ancho_dimensiones": float(df.iloc[row]["Ancho Dimensiones"]),
-                "descripcion": df.iloc[row]["Descripción"].strip(),
-                "notas": df.iloc[row]["Notas"],
-                "fecha_vencimiento": df.iloc[row]["Fecha Vencimiento"],
-                "fecha_fabricacion": df.iloc[row]["Fecha Fabricación"],
-                "imagen": df.iloc[row]["Imagen"].strip()
-            }
-
-            # Verificación de duplicados: Compara código de barras limpio con los existentes
-            producto_existente = any(str(p["codigo_barras"]).strip() == nuevo_producto["codigo_barras"] for p in self.lista_productos)
-
-            if not producto_existente:
-                self.lista_productos.append(nuevo_producto)
-            else:
-                lista_duplicados_excel.append(producto_existente)
-
-
-        # Ahora puedes actualizar la tabla si es necesario
-        self.__cargar_datos_en_tabla(self.lista_productos)
-        
-        if len(lista_duplicados_excel) > 0:
-            Mensaje().mensaje_informativo("Se encontraron registros duplicados que no fueron agregados.\nSolo se agregaron los registros sin duplicar.")
-            
     def __leer_archivo_csv(self):
         documento, _ = QFileDialog.getOpenFileName(self, "Selecciona un documento de Excel", "", "Archivos Excel (*.xlsx *.xls)")
-        
         if not documento:
-            return None
-        
-        # Definir las columnas esperadas
-        columnas_esperadas = [
+            return
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.error.connect(self.mensaje_error_docuemnto_xlsx)
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado_productos_masivos_excel.connect(self.resultado_documento_excel)
+        self.consultor.lecturas_y_procesamiento(documento, self.lista_productos)
+
+    def resultado_documento_excel(self, lista_nuevos_productos, duplicados):
+        self.lista_productos.extend(lista_nuevos_productos)
+        self.__cargar_datos_en_tabla(self.lista_productos)
+
+        if duplicados:
+            Mensaje().mensaje_informativo("Se encontraron registros duplicados que no fueron agregados.\nSolo se agregaron los registros sin duplicar.")
+
+    def mensaje_error_docuemnto_xlsx(self, error):
+        print(error)
+        Mensaje().mensaje_alerta(f"Ocurrió un error con la lectura del documento de Excel.\nError: {error}")
+
+    def __cargar_datos_en_tabla(self, lista_productos):
+        self.modelo_tabla_productos.setHorizontalHeaderLabels([
             "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color",
-            "Material", "Unidad de Medida", "Presentación", "Costo Inicial","Costo Final", "Margen Porcentaje", "Precio Venta",
+            "Material", "Unidad de Medida", "Presentación", "Costo Inicial", "Costo Final", "Margen Porcentaje", "Precio Venta",
             "Existencia", "Existencia Min", "Existencia Max", "Peso",
             "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones",
             "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
-        ]
-        
-        # Leer el archivo Excel
-        df = pd.read_excel(documento, na_filter=False)
-        
-        # Verificar si faltan columnas
-        columnas_faltantes = [col for col in columnas_esperadas if col not in df.columns]
-        if columnas_faltantes:
-            Mensaje().mensaje_alerta(f"Error: Faltan las siguientes columnas: {', '.join(columnas_faltantes)}")
-            return None
-        
-        # Reordenar las columnas según el orden esperado
-        df = df[columnas_esperadas]
-        
-        # Verificar si hay columnas adicionales
-        columnas_extra = [col for col in df.columns if col not in columnas_esperadas]
-        if columnas_extra:
-            Mensaje().mensaje_alerta(f"Advertencia: El archivo contiene columnas adicionales: {', '.join(columnas_extra)}")
-        
-        return df
-    
-    def __cargar_datos_en_tabla(self, lista_productos):
-        self.modelo_tabla_productos.setHorizontalHeaderLabels([
-            "Proveedor", "Código de Barras", "Nombre", "Categoría", "Marca", "Modelo", "Color", 
-            "Material", "Unidad de Medida", "Presentación", "Costo Inicial","Costo Final", "Margen Porcentaje", "Precio Venta", 
-            "Existencia", "Existencia Min", "Existencia Max", "Peso", 
-            "Largo Dimensiones", "Alto Dimensiones", "Ancho Dimensiones", 
-            "Descripción", "Notas", "Fecha Vencimiento", "Fecha Fabricación", "Imagen"
         ])
-        
-        row_count = self.modelo_tabla_productos.rowCount()
-        self.modelo_tabla_productos.removeRows(0, row_count)
-        
-        # Recorrer la lista de productos y agregar los datos a la tabla
+
+        self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
+
         for producto in lista_productos:
-            self.lista_productos_tabla = []
-            
-            # Agregar cada valor del diccionario como una celda en la fila
-            for key in producto:
-                item = QStandardItem(str(producto[key]))
-                item.setTextAlignment(Qt.AlignCenter)  # Centrar el texto
-                self.lista_productos_tabla.append(item)
-            
-            # Agregar la fila completa al modelo
-            self.modelo_tabla_productos.appendRow(self.lista_productos_tabla)
-        
-        # Asignar el modelo a la tabla
+            fila = [QStandardItem(str(producto[key])) for key in producto]
+            for item in fila:
+                item.setTextAlignment(Qt.AlignCenter)
+            self.modelo_tabla_productos.appendRow(fila)
+
         self.ui.tabla_productos.setModel(self.modelo_tabla_productos)
-        
-        # Ajustar el tamaño de las columnas automáticamente
         self.ui.tabla_productos.resizeColumnsToContents()
     
     def comprobar_existencia_modelo_tabla(self):
@@ -1103,6 +1066,8 @@ class Productos(QWidget):
     def listar_productos(self, productos, estado):
         if not estado:
             Mensaje().mensaje_informativo("No hay productos para mostrar")
+            self.comprobar_modelo_tabla_productos()
+            self.modelo_tabla_productos.removeRows(0, self.modelo_tabla_productos.rowCount())
             return
         self.productos = productos
         self.comprobar_modelo_tabla_productos()
@@ -1172,10 +1137,6 @@ class Productos(QWidget):
         self.consultor.resultado.connect(self.listar_productos)
         self.consultor.ejecutar_hilo(funcion=self.obtener_productos)
     
-    def mostrar_error_consulta(self, mensaje):
-        print(f"❌ Error en la consulta: {mensaje}")
-        # Aquí podrías usar un QMessageBox si estás en una GUI
-        
     def cargando_cerrar(self):
         if self.cargando is not None:
             self.cargando.close()
@@ -1185,6 +1146,10 @@ class Productos(QWidget):
         productos, estado = ProductosModel(session).obtener_productos()
         return productos, estado
     
+    def mostrar_error_consulta(self, mensaje):
+        print(f"❌ Error en la consulta: {mensaje}")
+        # Aquí podrías usar un QMessageBox si estás en una GUI
+        
     def obtener_id_elemento_tabla_productos(self, current, previus = None):
         if current.isValid():
             fila = current.row()

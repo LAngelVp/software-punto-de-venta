@@ -37,6 +37,9 @@ font-weight:bold;
 #etiqueta_fotoProducto{
 min-height: 200px;
 min-width:200px;
+max-height: 200px;
+max-width:200px;
+border: 1px solid #023375;
 }
 [objectName*=&quot;etiqueta&quot;]{
 font-size: 14px;
@@ -353,10 +356,10 @@ background: #fffefb;
            <widget class="QWidget" name="contenedor_scroll_formulario">
             <property name="geometry">
              <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>1289</width>
-              <height>949</height>
+              <x>-222</x>
+              <y>-469</y>
+              <width>1306</width>
+              <height>953</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_13">
@@ -501,65 +504,6 @@ background: #fffefb;
                    <size>
                     <width>20</width>
                     <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item row="0" column="3" rowspan="11">
-              <widget class="QFrame" name="contenedor_formulario_derecha">
-               <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
-               </property>
-               <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_2">
-                <item>
-                 <widget class="QFrame" name="contenedor_foto">
-                  <property name="frameShape">
-                   <enum>QFrame::StyledPanel</enum>
-                  </property>
-                  <property name="frameShadow">
-                   <enum>QFrame::Raised</enum>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_2">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="etiqueta_fotoProducto">
-                     <property name="cursor">
-                      <cursorShape>PointingHandCursor</cursorShape>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::NoFrame</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Plain</enum>
-                     </property>
-                     <property name="text">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/IconosSVG/subir_imagen.png&quot; width=&quot;80&quot; height=&quot;70&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-family:Arial; font-weight:bold;&quot;&gt;Cargar Imagen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="textFormat">
-                      <enum>Qt::AutoText</enum>
-                     </property>
-                     <property name="scaledContents">
-                      <bool>true</bool>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>473</height>
                    </size>
                   </property>
                  </spacer>
@@ -1222,7 +1166,7 @@ background: #fffefb;
              <item row="10" column="0" colspan="3">
               <widget class="QTableView" name="tabla_productos"/>
              </item>
-             <item row="11" column="0" colspan="4">
+             <item row="11" column="0" colspan="3">
               <widget class="QFrame" name="contenedor_formulario_inferior">
                <property name="frameShape">
                 <enum>QFrame::StyledPanel</enum>
@@ -1284,6 +1228,65 @@ background: #fffefb;
                    <string>Guardar</string>
                   </property>
                  </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="3" rowspan="12">
+              <widget class="QFrame" name="contenedor_formulario_derecha">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QFrame" name="contenedor_foto">
+                  <property name="frameShape">
+                   <enum>QFrame::StyledPanel</enum>
+                  </property>
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_2">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="etiqueta_fotoProducto">
+                     <property name="cursor">
+                      <cursorShape>PointingHandCursor</cursorShape>
+                     </property>
+                     <property name="frameShape">
+                      <enum>QFrame::NoFrame</enum>
+                     </property>
+                     <property name="frameShadow">
+                      <enum>QFrame::Plain</enum>
+                     </property>
+                     <property name="text">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;:/Icons/IconosSVG/subir_imagen.png&quot; width=&quot;80&quot; height=&quot;70&quot;/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt; font-family:Arial; font-weight:bold;&quot;&gt;Cargar Imagen&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="textFormat">
+                      <enum>Qt::AutoText</enum>
+                     </property>
+                     <property name="scaledContents">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>473</height>
+                   </size>
+                  </property>
+                 </spacer>
                 </item>
                </layout>
               </widget>

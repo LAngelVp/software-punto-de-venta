@@ -63,12 +63,17 @@ class EmpleadosModel:
         
     def obtener_empleados_detallados(self):
         try:
-            empleados = self.session.query(Empleados).\
-            outerjoin(Puestos).\
-            outerjoin(Departamentos).\
-            outerjoin(Sucursales).\
-            all()
-
+            empleados = (
+                self.session.query(Empleados).options(
+                    joinedload(Empleados.puesto)
+                        .joinedload(Puestos.departamento)
+                        .joinedload(Departamentos.sucursales),
+                    joinedload(Empleados.departamento),
+                    joinedload(Empleados.sucursal)
+                )
+                .order_by(Empleados.nombre.asc())
+                .all()
+            )
             if empleados:
                 return empleados, True
             else:

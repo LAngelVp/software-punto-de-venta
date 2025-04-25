@@ -127,7 +127,7 @@ class Puestos(Base):
         BigInteger, ForeignKey("Departamentos.id")
     )  # Clave foránea hacia Departamentos
     departamento = relationship(
-        "Departamentos", back_populates="puestos"
+        "Departamentos", back_populates="puestos", lazy="joined"
     )  # Relación inversa
 
 
@@ -166,15 +166,15 @@ class Empleados(Base):
     activo = Column(Boolean, nullable=False, default=True)
     foto = Column(Text, nullable=True)
     puesto_id = Column(Integer, ForeignKey("Puestos.id"))
-    puesto = relationship("Puestos", back_populates="empleados")
+    puesto = relationship("Puestos", back_populates="empleados", lazy="joined")
     usuario_id = Column(Integer, ForeignKey("Usuarios.id", ondelete='SET NULL'))
     usuario = relationship("Usuarios", back_populates="empleado")
     ventas = relationship("Ventas", back_populates="empleado")
     turnos = relationship("Turnos", back_populates="empleado")
     departamento_id = Column(BigInteger, ForeignKey("Departamentos.id"))
-    departamento = relationship("Departamentos", back_populates="empleados")
+    departamento = relationship("Departamentos", back_populates="empleados", lazy="joined")
     sucursal_id = Column(Integer, ForeignKey("Sucursales.id"))
-    sucursal = relationship("Sucursales", back_populates="empleados")
+    sucursal = relationship("Sucursales", back_populates="empleados", lazy="joined")
 
 class Sucursales(Base):
     __tablename__ = "Sucursales"
@@ -209,7 +209,7 @@ class Departamentos(Base):
         "Puestos", back_populates="departamento"
     )  # Relación uno a muchos con Puestos
     sucursales = relationship(
-        "Sucursales", secondary=departamento_sucursal, back_populates="departamentos", 
+        "Sucursales", secondary=departamento_sucursal, back_populates="departamentos",  lazy="joined"
     )  # Relación muchos a muchos con Sucursales
 
 class Presentacion_productos(Base):

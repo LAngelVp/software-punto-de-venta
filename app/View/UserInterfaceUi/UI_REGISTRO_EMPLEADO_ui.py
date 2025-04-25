@@ -849,6 +849,6 @@ class Ui_RegistroAdministrador(object):
         self.Button_actualizar.setText(_translate("RegistroAdministrador", "Actualizar"))
         self.Button_aceptar.setText(_translate("RegistroAdministrador", "Aceptar"))
         self.Button_cancelar.setText(_translate("RegistroAdministrador", "Cancelar"))
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
-from ...Source import iconsdvg_rc
+import ibootstrap_rc
+import iconosSVG_rc
+import iconsdvg_rc
