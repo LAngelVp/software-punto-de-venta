@@ -1,7 +1,7 @@
 import re
 from sqlalchemy.exc import IntegrityError
 from .UsuarioModel import UsuarioModel
-from .BaseDatosModel import Empleados, Departamentos, Puestos, Sucursales
+from .BaseDatosModel import Empleados, Departamentos, Puestos, Sucursales, Usuarios
 from sqlalchemy.orm import joinedload
 
 class EmpleadosModel:
@@ -69,7 +69,9 @@ class EmpleadosModel:
                         .joinedload(Puestos.departamento)
                         .joinedload(Departamentos.sucursales),
                     joinedload(Empleados.departamento),
-                    joinedload(Empleados.sucursal)
+                    joinedload(Empleados.sucursal),
+                    joinedload(Empleados.usuario)
+                        .joinedload(Usuarios.rol)
                 )
                 .order_by(Empleados.nombre.asc())
                 .all()
@@ -197,9 +199,9 @@ class EmpleadosModel:
             if empleado.usuario is not None:
                 usuario = UsuarioModel(self.session).eliminar(empleado.usuario_id)
             else:
-                return False
+                return None, False
             
             empleado.usuario_id = None
-            return True
-        return False
+            return None, True
+        return None, False
         

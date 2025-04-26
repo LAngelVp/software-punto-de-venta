@@ -256,103 +256,100 @@ class Registro_personal_inicial(QDialog):
         else:
             self.ui.contenedor_credencialesusuario.hide()
             
-    def obtener_id(self, id_empleado = None):
-        if id_empleado is not None:
-            self.id_empleado = id_empleado
+    def obtener_id(self, empleado_seleccionado = None):
+        if empleado_seleccionado is not None:
             self.ui.btn_btn_bajapersona.show()
             self.ui.btn_btn_recontratar.show()
-            self.cargar_datos_empleado(self.id_empleado)
+            self.cargar_datos_empleado(empleado_seleccionado)
 
-    def cargar_datos_empleado(self, id = None):
+    def cargar_datos_empleado(self, empleado_seleccionado = None):
         opciones_estado_civil = self.estados_civiles
         opciones_niveles_academicos = self.niveles_academicos
         opciones_parentesco = self.parentesco_contacto
-        if id is not None:
-            with Conexion_base_datos() as db:
-                session = db.abrir_sesion()
-                with session.begin():
-                    self.empleado_existente, estado = EmpleadosModel(session).obtener_empleado_por_id(id=id)
-                if estado:
-                    self.ui.txt_nombre.setText(self.empleado_existente.nombre)
-                    self.ui.txt_apellidop.setText(self.empleado_existente.apellido_paterno)
-                    self.ui.txt_apellidom.setText(self.empleado_existente.apellido_materno)
-                    self.ui.fecha_fechanacimiento.setDate(self.empleado_existente.fecha_nacimiento)
-                    self.ui.txt_curp.setText(self.empleado_existente.curp)
-                    self.ui.txt_rfc.setText(self.empleado_existente.rfc)
-                    self.ui.txt_carrera.setText(self.empleado_existente.carrera)
-                    self.ui.txt_correoelectronico.setText(self.empleado_existente.correo_electronico)
-                    self.ui.txt_numerosegurosicial.setText(self.empleado_existente.numero_seguro_social)
-                    self.ui.fecha_fechacontratacion.setDate(self.empleado_existente.fecha_contratacion)
-                    
-                    self.ui.txt_ciudad.setText(self.empleado_existente.ciudad)
-                    self.ui.txt_codigopostal.setText(self.empleado_existente.codigo_postal)
-                    self.ui.txt_estado.setText(self.empleado_existente.estado)
-                    self.ui.txt_pais.setText(self.empleado_existente.pais)
-                    self.ui.txt_numerotelefono.setText(self.empleado_existente.numero_telefonico)
-                    self.ui.txt_nombrecontactoemergencia.setText(self.empleado_existente.nombre_contacto)
-                    self.ui.txt_contactoemergencia.setText(self.empleado_existente.contacto_emergencia)
-                    self.ui.txt_calles.setText(self.empleado_existente.calles)
-                    self.ui.txt_avenidas.setText(self.empleado_existente.avenidas)
-                    self.ui.txt_colonia.setText(self.empleado_existente.colonia)
-                    self.ui.txt_ninterior.setText(self.empleado_existente.num_interior)
-                    self.ui.txt_nexterior.setText(self.empleado_existente.num_exterior)
-                    self.ui.txtlargo_direccion_completa.setPlainText(self.empleado_existente.direccion_adicional)
-                    self.ui.foto_usuario.setPixmap(QPixmap(self.empleado_existente.foto).scaled(self.ui.foto_usuario.size()))
-                    self.file_name = self.empleado_existente.foto
-                    
-                    self.ui.Button_aceptar.hide()
-                    self.ui.Button_actualizar.show()
-                    
+        
+        if not empleado_seleccionado:
+            Mensaje().mensaje_informativo("No se ha seleccionado un empleado de la base de datos")
+            return
+        self.ui.txt_nombre.setText(empleado_seleccionado.nombre)
+        self.ui.txt_apellidop.setText(empleado_seleccionado.apellido_paterno)
+        self.ui.txt_apellidom.setText(empleado_seleccionado.apellido_materno)
+        self.ui.fecha_fechanacimiento.setDate(empleado_seleccionado.fecha_nacimiento)
+        self.ui.txt_curp.setText(empleado_seleccionado.curp)
+        self.ui.txt_rfc.setText(empleado_seleccionado.rfc)
+        self.ui.txt_carrera.setText(empleado_seleccionado.carrera)
+        self.ui.txt_correoelectronico.setText(empleado_seleccionado.correo_electronico)
+        self.ui.txt_numerosegurosicial.setText(empleado_seleccionado.numero_seguro_social)
+        self.ui.fecha_fechacontratacion.setDate(empleado_seleccionado.fecha_contratacion)
+        
+        self.ui.txt_ciudad.setText(empleado_seleccionado.ciudad)
+        self.ui.txt_codigopostal.setText(empleado_seleccionado.codigo_postal)
+        self.ui.txt_estado.setText(empleado_seleccionado.estado)
+        self.ui.txt_pais.setText(empleado_seleccionado.pais)
+        self.ui.txt_numerotelefono.setText(empleado_seleccionado.numero_telefonico)
+        self.ui.txt_nombrecontactoemergencia.setText(empleado_seleccionado.nombre_contacto)
+        self.ui.txt_contactoemergencia.setText(empleado_seleccionado.contacto_emergencia)
+        self.ui.txt_calles.setText(empleado_seleccionado.calles)
+        self.ui.txt_avenidas.setText(empleado_seleccionado.avenidas)
+        self.ui.txt_colonia.setText(empleado_seleccionado.colonia)
+        self.ui.txt_ninterior.setText(empleado_seleccionado.num_interior)
+        self.ui.txt_nexterior.setText(empleado_seleccionado.num_exterior)
+        self.ui.txtlargo_direccion_completa.setPlainText(empleado_seleccionado.direccion_adicional)
+        self.ui.foto_usuario.setPixmap(QPixmap(empleado_seleccionado.foto).scaled(self.ui.foto_usuario.size()))
+        self.file_name = empleado_seleccionado.foto
+        
+        self.ui.Button_aceptar.hide()
+        self.ui.Button_actualizar.show()
+        
 
-                    if self.empleado_existente.puesto:
-                        nombre = self.empleado_existente.puesto.nombre
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_puestos, nombre)
-                            
-                    if self.empleado_existente.parentesco_contacto:
-                        nombre = self.empleado_existente.parentesco_contacto
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_parentesco, nombre)
+        if empleado_seleccionado.puesto:
+            nombre = empleado_seleccionado.puesto.nombre
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_puestos, nombre)
+                
+        if empleado_seleccionado.parentesco_contacto:
+            nombre = empleado_seleccionado.parentesco_contacto
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_parentesco, nombre)
+        
+        if empleado_seleccionado.nivel_academico:
+            nombre = empleado_seleccionado.nivel_academico
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_nivelacademico, nombre)
+        
+        if empleado_seleccionado.estado_civil:
+            nombre = empleado_seleccionado.estado_civil
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
+            
+        if empleado_seleccionado.genero:
+            nombre = empleado_seleccionado.genero
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_genero, nombre)
+            
+        if empleado_seleccionado.sucursal:
+            nombre = empleado_seleccionado.sucursal.nombre_sucursal
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_sucursales, nombre)
+        
+        if empleado_seleccionado.departamento:
+            nombre = empleado_seleccionado.departamento.nombre
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_departamentos, nombre)
+            
+        if empleado_seleccionado.usuario and empleado_seleccionado.usuario.rol:
+            nombre = empleado_seleccionado.usuario.rol.nombre
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_rol_usuario, nombre)
+            
+        if empleado_seleccionado.usuario:
+            self.ui.opcion_usodelsistema.setText("Cambiar Creadenciales")
+            self.ui.opcion_actualizar_datoscredenciales.show()
+            self.ui.Button_actualizarcredenciales.show()
+            self.ui.Button_eliminar_credenciales.show()
+            self.ui.txt_usuario_iniciosesion.setEnabled(False)
+            self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(False)
+            self.ui.opcion_actualizar_datoscredenciales.toggled.connect(self.permiso_actualizar_credenciales)
+            
+        if not empleado_seleccionado.usuario:
+            self.ui.opcion_usodelsistema.setText("Crear usuario para acceso al sistema")
+            self.ui.Button_agregarUsuario.show()
+            
+        self.mostrar_estatus_empleado(empleado_seleccionado)
                     
-                    if self.empleado_existente.nivel_academico:
-                        nombre = self.empleado_existente.nivel_academico
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_nivelacademico, nombre)
-                    
-                    if self.empleado_existente.estado_civil:
-                        nombre = self.empleado_existente.estado_civil
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
-                        
-                    if self.empleado_existente.genero:
-                        nombre = self.empleado_existente.genero
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_genero, nombre)
-                        
-                    if self.empleado_existente.sucursal:
-                        nombre = self.empleado_existente.sucursal.nombre_sucursal
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_sucursales, nombre)
-                    
-                    if self.empleado_existente.departamento:
-                        nombre = self.empleado_existente.departamento.nombre
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_departamentos, nombre)
-                        
-                    if self.empleado_existente.usuario and self.empleado_existente.usuario.rol:
-                        nombre = self.empleado_existente.usuario.rol.nombre
-                        FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_rol_usuario, nombre)
-                        
-                    if self.empleado_existente.usuario:
-                        self.ui.opcion_usodelsistema.setText("Cambiar Creadenciales")
-                        self.ui.opcion_actualizar_datoscredenciales.show()
-                        self.ui.Button_actualizarcredenciales.show()
-                        self.ui.Button_eliminar_credenciales.show()
-                        self.ui.txt_usuario_iniciosesion.setEnabled(False)
-                        self.ui.txt_contrasenia_usuario_iniciosesion.setEnabled(False)
-                        self.ui.opcion_actualizar_datoscredenciales.toggled.connect(self.permiso_actualizar_credenciales)
-                        
-                    if not self.empleado_existente.usuario:
-                        self.ui.opcion_usodelsistema.setText("Crear usuario para acceso al sistema")
-                        self.ui.Button_agregarUsuario.show()
-                        
-                    self.mostrar_estatus_empleado(self.empleado_existente)
-                    
-    def mostrar_estatus_empleado(self, empleado):
-        if empleado.activo:
+    def mostrar_estatus_empleado(self, empleado_seleccionado = None):
+        if empleado_seleccionado.activo:
             # Si estatus es verdadero, mostrar el QLabel y aplicar un estilo indicativo de "activo".
             self.ui.etiqueta_status_empleado.show()
             self.ui.etiqueta_status_empleado.setText("Estado: Activo")  # Puedes poner un texto visible
@@ -374,7 +371,10 @@ class Registro_personal_inicial(QDialog):
             self.ui.fecha_fechadespido.show()
             self.ui.etiqueta_fechadespido.show()
             self.ui.fecha_fechadespido.setEnabled(False)
-            self.ui.fecha_fechadespido.setDate(empleado.fecha_despido)
+            if empleado_seleccionado.fecha_despido:
+                self.ui.fecha_fechadespido.setDate(empleado_seleccionado.fecha_despido)
+            else:
+                self.ui.fecha_fechadespido.hide()
     
     def agregar_sucursal(self):
         if self.sucursales is None or not self.sucursales.isVisible():

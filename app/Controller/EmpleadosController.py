@@ -102,15 +102,16 @@ class EmpleadosController(QWidget):
                 return
             
     def editar_empleado_seleccionado(self):
-        if self.id_empleado:
+        if self.empleado_actual:
             if self.ventana_registro is None or self.ventana_registro.isVisible():
-                id = int(self.id_empleado)
                 self.ventana_registro = Registro_personal_inicial(parent=self)
-                self.ventana_registro.obtener_id(self.id_empleado)
+                self.ventana_registro.obtener_id(self.empleado_actual)
                 # self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
+                self.ventana_registro.VENTANA_REGISTRO_CERRADA.connect(self.ventana_cerrada_nuevo_personal)
                 self.ventana_registro.exec_()
             else:
                 self.ventana_registro.raise_()
+                self.ventana_registro.activateWindow()
         self.id_empleado = None
     
     def listar_empleados(self):
@@ -136,116 +137,107 @@ class EmpleadosController(QWidget):
         return empleados, estado
     
     def llenar_tabla(self, empleados, estado):
-        print(empleados, estado)
-        try:
-            # Verificar si la tabla está inicializada
-            if self.ui.tabla_listaempleados is None:
-                Mensaje().mensaje_alerta("El widget tabla_puestos no está disponible.")
-                return
+        if self.ui.tabla_listaempleados is None:
+            Mensaje().mensaje_alerta("El widget tabla_listaempleados no está disponible.")
+            return
 
-            # Inicializar el modelo de la tabla si no existe
-            if not hasattr(self, 'modelo_empleados_vempleados'):
-                self.modelo_empleados_vempleados = QStandardItemModel()
-                
-            if not estado:
-                Mensaje().mensaje_informativo("No hay datos para mostrar")
-                self.modelo_empleados_vempleados.clear()
-                self.modelo_empleados_vempleados.setHorizontalHeaderLabels([
-                    "id", "nombre", "apellido_paterno", "apellido_materno", "fecha_nacimiento", "estado_civil", "curp", "rfc", "nivel_academico", "carrera", "correo_electronico", "numero_seguro_social", "fecha_contratacion", "fecha_despido", "ciudad", "codigo_postal", "estado", "pais", "numero_telefonico", "nombre_contacto", "contacto_emergencia", "parentesco_contacto", "calles", "avenidas", "num_interior", "num_exterior", "direccion_adicional", "activo"
-                    ])
-                self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
-                return
-            # Limpiar el modelo antes de llenarlo con nuevos datos
-            self.modelo_empleados_vempleados.clear()
-            # Verificar si clientes es None o una lista vacía
-            if empleados is None or len(empleados) == 0:
-                self.modelo_empleados_vempleados.setHorizontalHeaderLabels([
-                    "id", "nombre", "apellido_paterno", "apellido_materno", "fecha_nacimiento", "estado_civil", "curp", "rfc", "nivel_academico", "carrera", "correo_electronico", "numero_seguro_social", "fecha_contratacion", "fecha_despido", "ciudad", "codigo_postal", "estado", "pais", "numero_telefonico", "nombre_contacto", "contacto_emergencia", "parentesco_contacto", "calles", "avenidas", "num_interior", "num_exterior", "direccion_adicional", "activo"
-                    ])
-                self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
-                return
+        if not hasattr(self, 'modelo_empleados_vempleados'):
+            self.modelo_empleados_vempleados = QStandardItemModel()
 
-            nombre_columnas = [
-                "id", "nombre", "apellido_paterno", "apellido_materno", "fecha_nacimiento", "estado_civil",
-                "curp", "rfc", "nivel_academico", "carrera", "correo_electronico", "numero_seguro_social",
-                "fecha_contratacion", "fecha_despido", "ciudad", "codigo_postal", "estado", "pais",
-                "numero_telefonico", "nombre_contacto", "contacto_emergencia", "parentesco_contacto",
-                "calles", "avenidas", "num_interior", "num_exterior", "direccion_adicional", "activo",
-                "nombre_puesto", "salario", "horas_laborales", "dias_laborales",
-                "hora_entrada", "hora_salida", "nombre_departamento", "nombre_sucursal"
-            ]
-            self.modelo_empleados_vempleados.setHorizontalHeaderLabels(nombre_columnas)
+        self.modelo_empleados_vempleados.clear()
 
-            # Llenar el modelo con datos de clientes
-            for empleado in empleados:
-                if empleado is not None:
-                    row_data = [
-                        str(empleado.id),  # ID del empleado
-                        empleado.nombre,  # Nombre del empleado
-                        empleado.apellido_paterno,  # Apellido paterno
-                        empleado.apellido_materno,  # Apellido materno
-                        empleado.fecha_nacimiento.strftime('%Y-%m-%d'),  # Fecha de nacimiento
-                        empleado.estado_civil,  # Estado civil
-                        empleado.curp,  # CURP
-                        empleado.rfc,  # RFC
-                        empleado.nivel_academico,  # Nivel académico
-                        empleado.carrera,  # Carrera
-                        empleado.correo_electronico,  # Correo electrónico
-                        empleado.numero_seguro_social,  # Número de seguro social
-                        empleado.fecha_contratacion.strftime('%Y-%m-%d') if empleado.fecha_contratacion else '',  # Fecha de contratación
-                        empleado.fecha_despido.strftime('%Y-%m-%d') if empleado.fecha_despido else '',  # Fecha de despido
-                        empleado.ciudad,  # Ciudad
-                        empleado.codigo_postal,  # Código postal
-                        empleado.estado,  # Estado
-                        empleado.pais,  # País
-                        empleado.numero_telefonico,  # Número telefónico
-                        empleado.nombre_contacto,  # Nombre de contacto
-                        empleado.contacto_emergencia,  # Contacto de emergencia
-                        empleado.parentesco_contacto,  # Parentesco de contacto
-                        empleado.calles,  # Calles
-                        empleado.avenidas,  # Avenidas
-                        empleado.num_interior,  # Número interior
-                        empleado.num_exterior,  # Número exterior
-                        empleado.direccion_adicional,  # Dirección adicional
-                        str(empleado.activo),  # Estado activo
-                        empleado.puesto.nombre if empleado.puesto else '',  # Nombre del puesto
-                        str(empleado.puesto.salario) if empleado.puesto else '',  # Salario
-                        str(empleado.puesto.horas_laborales) if empleado.puesto else '',  # Horas laborales
-                        empleado.puesto.dias_laborales if empleado.puesto else '',  # Días laborales
-                        empleado.puesto.hora_entrada.strftime('%H:%M') if empleado.puesto else '',  # Hora de entrada
-                        empleado.puesto.hora_salida.strftime('%H:%M')  if empleado.puesto else '',  # Hora de salida
-                        empleado.departamento.nombre if empleado.departamento else '',  # Nombre del departamento
-                        empleado.sucursal.nombre_sucursal if empleado.sucursal else '',  # Nombre de la sucursal
-                    ]
-                else:
-                    # Usar campos vacíos si no hay datos de cliente físico
-                    row_data = [""] * len(nombre_columnas)
+        cabeceras = [
+            "ID", "Nombre", "Apellido Paterno", "Apellido Materno", "Fecha Nacimiento", "Estado Civil",
+            "CURP", "RFC", "Nivel Académico", "Carrera", "Correo Electrónico", "Número Seguro Social",
+            "Fecha Contratación", "Fecha Despido", "Ciudad", "Código Postal", "Estado", "País",
+            "Número Telefónico", "Nombre Contacto", "Contacto Emergencia", "Parentesco Contacto",
+            "Calles", "Avenidas", "Num Interior", "Num Exterior", "Dirección Adicional", "Activo",
+            "Puesto", "Salario", "Horas Laborales", "Días Laborales",
+            "Hora Entrada", "Hora Salida", "Departamento", "Sucursal"
+        ]
 
-                items = [QStandardItem(str(item)) for item in row_data]
-                self.modelo_empleados_vempleados.appendRow(items)
+        self.modelo_empleados_vempleados.setHorizontalHeaderLabels(cabeceras)
 
-            # Asignar el modelo a la tabla
+        if not estado or not empleados:
+            Mensaje().mensaje_informativo("No hay empleados para mostrar")
             self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
-            # self.ui.tabla_listaempleados.setColumnHidden(0, True)
-            self.ui.tabla_listaempleados.resizeColumnsToContents()
+            return
 
-            # Desconectar la señal antes de conectar
-            if self.seleccion_conectada_empleados:
-                self.ui.tabla_listaempleados.selectionModel().currentChanged.disconnect(self.obtener_id_elemento_tabla_empleados)
-                self.seleccion_conectada_empleados = False  # Actualizar el estado
+        self.empleados = empleados  # Guardamos la lista de empleados si la quieres usar en otros métodos
 
-            # Conectar la señal a la función que obtiene el ID del elemento seleccionado
-            self.ui.tabla_listaempleados.selectionModel().currentChanged.connect(self.obtener_id_elemento_tabla_empleados)
-            self.seleccion_conectada_empleados = True  # Marcar como conectada
-        except Exception as e:
-            print(e)
-            Mensaje().mensaje_critico(f'No se logro hacer mostrar la tabla EMPLEADOS {e}')
-        self.id_empleado = None
+        for empleado in empleados:
+            list_items = []
 
-    def obtener_id_elemento_tabla_empleados(self, current, previus):
-        if current.column() >= 0:
-            indice_fila = current.row()
-            self.id_empleado = self.modelo_empleados_vempleados.item(indice_fila, 0).text()
+            datos_empleado = [
+                str(empleado.id),
+                empleado.nombre or '',
+                empleado.apellido_paterno or '',
+                empleado.apellido_materno or '',
+                empleado.fecha_nacimiento.strftime('%Y-%m-%d') if empleado.fecha_nacimiento else '',
+                empleado.estado_civil or '',
+                empleado.curp or '',
+                empleado.rfc or '',
+                empleado.nivel_academico or '',
+                empleado.carrera or '',
+                empleado.correo_electronico or '',
+                empleado.numero_seguro_social or '',
+                empleado.fecha_contratacion.strftime('%Y-%m-%d') if empleado.fecha_contratacion else '',
+                empleado.fecha_despido.strftime('%Y-%m-%d') if empleado.fecha_despido else '',
+                empleado.ciudad or '',
+                empleado.codigo_postal or '',
+                empleado.estado or '',
+                empleado.pais or '',
+                empleado.numero_telefonico or '',
+                empleado.nombre_contacto or '',
+                empleado.contacto_emergencia or '',
+                empleado.parentesco_contacto or '',
+                empleado.calles or '',
+                empleado.avenidas or '',
+                empleado.num_interior or '',
+                empleado.num_exterior or '',
+                empleado.direccion_adicional or '',
+                str(empleado.activo),
+                empleado.puesto.nombre if empleado.puesto else '',
+                str(empleado.puesto.salario) if empleado.puesto else '',
+                str(empleado.puesto.horas_laborales) if empleado.puesto else '',
+                empleado.puesto.dias_laborales if empleado.puesto else '',
+                empleado.puesto.hora_entrada.strftime('%H:%M') if empleado.puesto and empleado.puesto.hora_entrada else '',
+                empleado.puesto.hora_salida.strftime('%H:%M') if empleado.puesto and empleado.puesto.hora_salida else '',
+                empleado.departamento.nombre if empleado.departamento else '',
+                empleado.sucursal.nombre_sucursal if empleado.sucursal else '',
+            ]
+
+            for idx, valor in enumerate(datos_empleado):
+                item = QStandardItem(valor)
+                item.setTextAlignment(Qt.AlignCenter)
+
+                # 💡 Guardar el objeto empleado completo en la columna 0 (ID)
+                if idx == 0:
+                    item.setData(empleado, Qt.UserRole)
+
+                list_items.append(item)
+
+            self.modelo_empleados_vempleados.appendRow(list_items)
+
+        self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
+        self.ui.tabla_listaempleados.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.tabla_listaempleados.resizeColumnsToContents()
+
+        if self.seleccion_conectada_empleados:
+            self.ui.tabla_listaempleados.clicked.disconnect(self.obtener_id_elemento_tabla_empleados)
+            self.seleccion_conectada_empleados = False
+
+        self.ui.tabla_listaempleados.clicked.connect(self.obtener_id_elemento_tabla_empleados)
+        self.seleccion_conectada_empleados = True
+
+    def obtener_id_elemento_tabla_empleados(self, current, previus = None):
+        if current.isValid():
+            fila = current.row()
+            item = self.modelo_empleados_vempleados.item(fila, 0)  # columna 0 = ID (donde guardamos el objeto)
+            if item:
+                empleado = item.data(Qt.UserRole)
+                if empleado:
+                    self.empleado_actual = empleado
 
     def obtencion_segura(atributo, default='Sin dato'):
         """Función auxiliar para obtener atributos de manera segura."""
