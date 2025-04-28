@@ -1135,14 +1135,14 @@ class Productos(QWidget):
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.listar_productos)
-        self.consultor.ejecutar_hilo(funcion=self.obtener_productos)
+        self.consultor.ejecutar_hilo(funcion=self.obtener_productos_query)
     
     def cargando_cerrar(self):
         if self.cargando is not None:
             self.cargando.close()
             self.cargando = None
             
-    def obtener_productos(self, session):
+    def obtener_productos_query(self, session):
         productos, estado = ProductosModel(session).obtener_productos()
         return productos, estado
     

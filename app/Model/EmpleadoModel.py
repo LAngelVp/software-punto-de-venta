@@ -87,30 +87,38 @@ class EmpleadosModel:
         empleado = self.session.query(Empleados).filter(Empleados.id == id).one_or_none()
         if empleado:
             self.session.delete(empleado)
-            return True
-        return False
+            return None, True
+        return None, False
     
     def filtrar_empleados(self, id=None, nombre=None, tipo_filtro_nombre=None):
-        # Cargar relaciones con joinedload (eager loading)
+        # Base de la consulta
         consulta = self.session.query(Empleados).options(
             joinedload(Empleados.puesto),
             joinedload(Empleados.departamento),
-            joinedload(Empleados.sucursal)
+            joinedload(Empleados.sucursal),
+            joinedload(Empleados.usuario).joinedload(Usuarios.rol)
         )
 
-        # Filtro por id
-        if id:
-            consulta = consulta.filter(Empleados.id == id)
+        # Lista de filtros
+        filtros = []
+
+        if id is not None:
+            filtros.append(Empleados.id == id)
         
-        # Filtro por nombre
         if nombre:
-            if tipo_filtro_nombre == 0:
-                consulta = consulta.filter(Empleados.nombre == nombre)
-            else:
-                consulta = consulta.filter(Empleados.nombre.ilike(f"%{nombre}%"))
-        
+            if tipo_filtro_nombre == 0:  # Búsqueda exacta
+                filtros.append(Empleados.nombre == nombre)
+            else:  # Búsqueda parcial (LIKE)
+                filtros.append(Empleados.nombre.ilike(f"%{nombre}%"))
+
+        # Aplicar filtros si hay alguno
+        if filtros:
+            consulta = consulta.filter(*filtros)
+
         empleados = consulta.all()
+
         if empleados:
+            print(f"empleado : {empleados}")
             return empleados, True
         return None, False
     

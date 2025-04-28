@@ -23,6 +23,9 @@ from .ControlSucursalesController import SucursalesController
 from .DepartamentosController import DepartamentosController
 from .PuestosController import PuestosController
 
+from .Ventana_espera import Modal_de_espera
+from .Hilo_consultas import *
+
 import traceback
 
 class Registro_personal_inicial(QDialog):
@@ -34,9 +37,10 @@ class Registro_personal_inicial(QDialog):
     tabla_puestos = pyqtSignal()
     registro_agregado_signal = pyqtSignal()
     VENTANA_REGISTRO_CERRADA = pyqtSignal()
-    def __init__(self, parent = None, id_empleado = None):
+    def __init__(self, parent = None, empleado = None):
         super().__init__(parent)
         # comment: variables globales:
+        self.empleado = empleado
         self.estados_civiles = ['SOLTERO/A','CASADO/A','VIUDO/A','DIVORCIADO/A','UNION LIBRE']
         self.niveles_academicos = ['PRIMARIA', 'SECUNDARIA', 'BACHILLERATO', 'LICENCIATURA', 'CARRERA TRUNCA', 'MAESTRIA', 'DOCTORADO']
         self.parentesco_contacto = ['BISABUELO/A', 'ABUELO/A', 'MADRE', 'PADRE', 'TIO/A', 'ESPOSO/A', 'NIETO/A', 'HIJO/A', 'HERMANO/A', 'SOBRINO/A', 'PRIMO/A', 'CUÑADO/A' 'SUEGRO/A', 'YERNO', 'NUERA', 'OTRO']
@@ -47,11 +51,12 @@ class Registro_personal_inicial(QDialog):
         self.puestos = None
         # self.sucursales = SucursalesController()
         self.sucursales = None
-        self.id_empleado = None
         self.lista_puestos = []
         self.variable_primer_registro = False
         self.empleado_existente = None
         self._ventanaCerradaRegistro = False
+        self.cargando = None
+        self.consultor = None
         
         # comment: inicializacion de la ventana
         self.ui = Ui_RegistroAdministrador()
@@ -77,42 +82,19 @@ class Registro_personal_inicial(QDialog):
         self.ui.Button_agregarUsuario.hide()
         self.ui.btc_minimizar.hide()
         self.ui.btc_maximizar.hide()
+        self.ui.txt_nombre.setFocus()
 #// mostrar ventana en el centro de la pantalla:
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())
         
-#   // VALIDACIONES DE TAMAÑO:
-        self.ui.txt_nombre.setMaxLength(60)
-        self.ui.txt_apellidop.setMaxLength(60)
-        self.ui.txt_apellidom.setMaxLength(60)
-        self.ui.txt_curp.setMaxLength(18)
-        self.ui.txt_rfc.setMaxLength(13)
-        self.ui.txt_carrera.setMaxLength(150)
-        self.ui.txt_correoelectronico.setMaxLength(100)
-        self.ui.txt_numerosegurosicial.setMaxLength(13)
-        self.ui.txt_ciudad.setMaxLength(50)
-        self.ui.txt_codigopostal.setMaxLength(5)
-        self.ui.txt_estado.setMaxLength(50)
-        self.ui.txt_pais.setMaxLength(50)
-        self.ui.txt_numerotelefono.setMaxLength(10)
-        self.ui.txt_nombrecontactoemergencia.setMaxLength(100)
-        self.ui.txt_contactoemergencia.setMaxLength(10)
-        self.ui.txt_calles.setMaxLength(50)
-        self.ui.txt_avenidas.setMaxLength(50)
-        self.ui.txt_colonia.setMaxLength(50)
-        self.ui.txt_ninterior.setMaxLength(10)
-        self.ui.txt_nexterior.setMaxLength(10)
-        self.ui.txt_usuario_iniciosesion.setMaxLength(60)
-        self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(10)
-        self.ui.txt_nombre.setFocus()
 # señales: acciones de los botones
         self.ui.btc_cerrar.clicked.connect(self.close)
         self.ui.Button_cancelar.clicked.connect(self.close)
         self.ui.foto_usuario.mousePressEvent = self.cargar_imagen
         self.ui.btc_maximizar.clicked.connect(self.maximizar)
         self.ui.Button_nuevasucursal.clicked.connect(self.agregar_sucursal)
-        self.ui.Button_aceptar.clicked.connect(self.almacenar_informacion)
+        self.ui.Button_aceptar.clicked.connect(self.agregar_nuevo_empleado)
         self.ui.Button_agregardepartamento.clicked.connect(self.ventana_departamentos)
         self.ui.Button_agregarpuesto.clicked.connect(self.ventana_puestos)
         self.ui.opcion_usodelsistema.toggled.connect(self.mostrar_agregar_credenciales)
@@ -137,8 +119,8 @@ class Registro_personal_inicial(QDialog):
         
         
 #funciones principales:
-        self.listar_grupo_permisos_rol()
         self.ingresar_validaciones()
+        self.listar_grupo_permisos_rol()
         self.listar_departamentos()
         self.listar_puestos()
         self.listar_sucursales()
@@ -146,7 +128,7 @@ class Registro_personal_inicial(QDialog):
 
 # señales y slots:
         
-        if id_empleado is not None:
+        if empleado is not None:
             self.cargar_datos_empleado()
     
     def showEvent(self, event):
@@ -159,7 +141,6 @@ class Registro_personal_inicial(QDialog):
         self.VENTANA_REGISTRO_CERRADA.emit()
         event.accept()
         
-
 # FUNCIONES GENERALES:
     #// VENTANA DE SUCURSAL:
     def permiso_actualizar_credenciales(self):
@@ -256,7 +237,7 @@ class Registro_personal_inicial(QDialog):
         else:
             self.ui.contenedor_credencialesusuario.hide()
             
-    def obtener_id(self, empleado_seleccionado = None):
+    def obtener_empleado(self, empleado_seleccionado = None):
         if empleado_seleccionado is not None:
             self.ui.btn_btn_bajapersona.show()
             self.ui.btn_btn_recontratar.show()
@@ -439,7 +420,7 @@ class Registro_personal_inicial(QDialog):
                 sucursales = SucursalesModel(session).obtener_todo()
             if sucursales:
                 for sucursal in sucursales:
-                    self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal, sucursal.id)
+                    self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal, sucursal)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_sucursales)
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al obtener sucursales debido a lo siguiente: {e}")
@@ -467,7 +448,7 @@ class Registro_personal_inicial(QDialog):
                 departamentos, estado = DepartamentosModel(session).obtener_todos()
             if departamentos:
                 for departamento in departamentos:
-                    self.ui.cajaopciones_departamentos.addItem(departamento.nombre, departamento.id)
+                    self.ui.cajaopciones_departamentos.addItem(departamento.nombre, departamento)
                 AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_departamentos)
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al obtener departamentos: {e}")
@@ -482,7 +463,7 @@ class Registro_personal_inicial(QDialog):
                     puestos, estado = PuestoModel(session).obtener_todos()
                 if estado:
                     for puesto in puestos:
-                        self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto.id)
+                        self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto)
                     AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
 
         except Exception as e:
@@ -504,6 +485,29 @@ class Registro_personal_inicial(QDialog):
         return
         
     def ingresar_validaciones(self):
+        self.ui.txt_nombre.setMaxLength(60)
+        self.ui.txt_apellidop.setMaxLength(60)
+        self.ui.txt_apellidom.setMaxLength(60)
+        self.ui.txt_curp.setMaxLength(18)
+        self.ui.txt_rfc.setMaxLength(13)
+        self.ui.txt_carrera.setMaxLength(150)
+        self.ui.txt_correoelectronico.setMaxLength(100)
+        self.ui.txt_numerosegurosicial.setMaxLength(13)
+        self.ui.txt_ciudad.setMaxLength(50)
+        self.ui.txt_codigopostal.setMaxLength(5)
+        self.ui.txt_estado.setMaxLength(50)
+        self.ui.txt_pais.setMaxLength(50)
+        self.ui.txt_numerotelefono.setMaxLength(10)
+        self.ui.txt_nombrecontactoemergencia.setMaxLength(100)
+        self.ui.txt_contactoemergencia.setMaxLength(10)
+        self.ui.txt_calles.setMaxLength(50)
+        self.ui.txt_avenidas.setMaxLength(50)
+        self.ui.txt_colonia.setMaxLength(50)
+        self.ui.txt_ninterior.setMaxLength(10)
+        self.ui.txt_nexterior.setMaxLength(10)
+        self.ui.txt_usuario_iniciosesion.setMaxLength(60)
+        self.ui.txt_contrasenia_usuario_iniciosesion.setMaxLength(10)
+        
         self.ui.txt_nombre.setValidator(Validaciones().get_text_validator)
         self.ui.txt_apellidop.setValidator(Validaciones().get_text_validator)
         self.ui.txt_apellidom.setValidator(Validaciones().get_text_validator)
@@ -531,6 +535,7 @@ class Registro_personal_inicial(QDialog):
             "apellido_paterno": self.ui.txt_apellidop,
             "apellido_materno": self.ui.txt_apellidom,
             "fecha_nacimiento": self.ui.fecha_fechanacimiento,
+            "genero": self.ui.cajaopciones_genero,
             "estado_civil": self.ui.cajaopciones_estadocvil,
             "curp": self.ui.txt_curp,
             "rfc": self.ui.txt_rfc,
@@ -545,6 +550,7 @@ class Registro_personal_inicial(QDialog):
             "pais": self.ui.txt_pais,
             "num_telefono": self.ui.txt_numerotelefono,
             "contacto_emergencia": self.ui.txt_contactoemergencia,
+            "nivel_academico": self.ui.cajaopciones_nivelacademico,
             "parentesco_contacto_emergencia": self.ui.cajaopciones_parentesco,
             "nombre_contacto_emergencia": self.ui.txt_nombrecontactoemergencia,
             "calles": self.ui.txt_calles,
@@ -574,7 +580,7 @@ class Registro_personal_inicial(QDialog):
             elif isinstance(campo, (QDoubleSpinBox, QSpinBox)):
                 datos[nombre] = campo.value()
             elif isinstance(campo, QComboBox):
-                datos[nombre] = campo.currentText()
+                datos[nombre] = campo.currentData() if campo.currentData() is not None else campo.currentText()
 
         return datos
 
@@ -588,85 +594,120 @@ class Registro_personal_inicial(QDialog):
                 return False
         return True
     
-    def almacenar_informacion(self):
-        fecha_actual = datetime.now().date() # Obtener la fecha actual, al momento.
-        # // obtenemos los datos de los campos
-        try:
-            datos = self.obtener_datos()
-            empleado = None
-            status_empleado = False
-            if self.validar_datos(datos):
-                with Conexion_base_datos() as db:
-                    session = db.abrir_sesion()
-                    try:
-                        with session.begin():
-                            if self.ui.opcion_usodelsistema.isChecked():
-                                if self.id_empleado is None:
-                                    usuario, status_usuario = UsuarioModel(session).crear_usuario(
-                                        usuario = self.ui.txt_usuario_iniciosesion.text(),
-                                        password = self.ui.txt_contrasenia_usuario_iniciosesion.text(),
-                                        fecha_creacion = fecha_actual,
-                                        fecha_actualizacion = fecha_actual,
-                                        rol_id = self.ui.cajaopciones_rol_usuario.currentData())
-                                    if not status_usuario:
-                                        Mensaje().mensaje_informativo("El ususuario que ingresaste ya se encuentra asignado\n¡Intenta con algun otro!")
-                                        return
-                            else:
-                                usuario = None
+    def agregar_nuevo_empleado(self):
+        fecha_actual = datetime.now().date()
+        uso_del_sistema = self.ui.opcion_usodelsistema.isChecked()
+        id_empleado = self.empleado.id if self.empleado else None
+        nombre_usuario = self.ui.txt_usuario_iniciosesion.text().strip()
+        password_usuario = self.ui.txt_contrasenia_usuario_iniciosesion.text().strip()
+        current_data_rol = self.ui.cajaopciones_rol_usuario.currentData()
+        datos = self.obtener_datos()
 
-                            empleado, status_empleado = EmpleadosModel(session).crear_empleado(
-                                nombre=datos['nombre'],
-                                apellido_paterno=datos['apellido_paterno'],
-                                apellido_materno=datos['apellido_materno'],
-                                fecha_nacimiento=datos['fecha_nacimiento'],
-                                estado_civil=self.ui.cajaopciones_estadocvil.currentText().strip().upper(),
-                                genero=self.ui.cajaopciones_genero.currentText().strip().upper(),
-                                curp=datos['curp'],
-                                rfc=datos['rfc'],
-                                nivel_academico=self.ui.cajaopciones_nivelacademico.currentText().strip().upper(),
-                                carrera=datos["carrera"],
-                                correo_electronico=datos["correo"],
-                                numero_seguro_social=datos["nss"],
-                                fecha_contratacion=datos["fecha_contratacion"],
-                                fecha_despido=None,
-                                ciudad=datos["ciudad"],
-                                codigo_postal=datos["cp"],
-                                estado=datos["estado"],
-                                pais=datos["pais"],
-                                numero_telefonico=datos["num_telefono"],
-                                nombre_contacto=datos["nombre_contacto_emergencia"],
-                                contacto_emergencia=datos["contacto_emergencia"],
-                                parentesco_contacto=self.ui.cajaopciones_parentesco.currentText().strip().upper(),
-                                calles=datos["calles"],
-                                avenidas=datos["avenidas"],
-                                colonia=datos["colonia"],
-                                num_interior=datos["num_interior"],
-                                num_exterior=datos["num_exterior"],
-                                direccion_adicional=datos["direccion_adicional"],
-                                activo=True,
-                                foto=self.file_name,
-                                puesto_id=self.ui.cajaopciones_puestos.currentData(),
-                                usuario_id=usuario.id if usuario is not None else None,
-                                departamento_id=self.ui.cajaopciones_departamentos.currentData(),
-                                sucursal_id=self.ui.cajaopciones_sucursales.currentData()
-                            )
-                        if status_empleado and not self.id_empleado:
-                            Mensaje().mensaje_informativo("Registro exitoso")
-                            self.cerrar()
-                            self.registro_agregado_signal.emit()
-                            if self.id_empleado is None:
-                                self.abrir_inicio()
-                    except Exception as e:
-                    # Si ocurre un error dentro de la transacción, se hace rollback
-                        print("Ocurrió un error en la transacción, realizando rollback")
-                        traceback.print_exc()
-                        session.rollback()  # Realiza el rollback explícitamente
+        if self.validar_datos(datos=datos):
+            if self.cargando is None or not self.cargando.isVisible():
+                self.cargando = Modal_de_espera()
+                self.cargando.show()
             else:
-                Mensaje().mensaje_alerta("Datos no válidos. No se almacenará la información.")
+                self.cargando.raise_()
+                self.cargando.activateWindow()
+
+            self.consultor = Consultas_segundo_plano()
+            self.consultor.error.connect(self.mostrar_error_hilo)
+            self.consultor.terminado.connect(self.cargando_cerrar)
+            self.consultor.resultado.connect(self.mostrar_estado_usuario)
+            self.consultor.ejecutar_hilo(
+                funcion=self.almacenar_informacion_query,
+                uso_del_sistema=uso_del_sistema,
+                id_empleado=id_empleado,
+                imagen = self.file_name,
+                nombre_usuario=nombre_usuario,
+                password_usuario=password_usuario,
+                fecha_creacion=fecha_actual,
+                fecha_actualizacion=fecha_actual,
+                current_data_rol=current_data_rol,
+                datos=datos
+            )
+
+    def mostrar_estado_usuario(self, mensaje, estado):
+        Mensaje().mensaje_informativo(mensaje)
+        if estado:
+            self.cerrar()
+            self.registro_agregado_signal.emit()
+            if self.id_empleado is None:
+                self.abrir_inicio()
+
+    def mostrar_error_hilo(self, error):
+        Mensaje().mensaje_alerta(f"Ocurrió un error: {error}")
+
+    def cargando_cerrar(self):
+        if self.cargando:
+            self.cargando.close()
+            self.cargando = None
+
+    def almacenar_informacion_query(self, session, uso_del_sistema, id_empleado, imagen, nombre_usuario, password_usuario, fecha_creacion, fecha_actualizacion, current_data_rol, datos):
+        try:
+            if uso_del_sistema and id_empleado is None:
+                usuario, status_usuario = UsuarioModel(session).crear_usuario(
+                    usuario=nombre_usuario,
+                    password=password_usuario,
+                    fecha_creacion=fecha_creacion,
+                    fecha_actualizacion=fecha_actualizacion,
+                    rol_id=current_data_rol
+                )
+                if not status_usuario:
+                    return "El usuario que estás intentando asignar ya existe.", False
+            else:
+                usuario = None
+
+            empleado, status_empleado = EmpleadosModel(session).crear_empleado(
+                nombre=datos['nombre'],
+                apellido_paterno=datos['apellido_paterno'],
+                apellido_materno=datos['apellido_materno'],
+                fecha_nacimiento=datos['fecha_nacimiento'],
+                estado_civil=datos['estado_civil'],  # ← no accedes self.ui aquí
+                genero=datos['genero'],
+                curp=datos['curp'],
+                rfc=datos['rfc'],
+                nivel_academico=datos['nivel_academico'],
+                carrera=datos['carrera'],
+                correo_electronico=datos['correo'],
+                numero_seguro_social=datos['nss'],
+                fecha_contratacion=datos['fecha_contratacion'],
+                fecha_despido=None,
+                ciudad=datos['ciudad'],
+                codigo_postal=datos['cp'],
+                estado=datos['estado'],
+                pais=datos['pais'],
+                numero_telefonico=datos['num_telefono'],
+                nombre_contacto=datos['nombre_contacto_emergencia'],
+                contacto_emergencia=datos['contacto_emergencia'],
+                parentesco_contacto=datos['parentesco_contacto_emergencia'],
+                calles=datos['calles'],
+                avenidas=datos['avenidas'],
+                colonia=datos['colonia'],
+                num_interior=datos['num_interior'],
+                num_exterior=datos['num_exterior'],
+                direccion_adicional=datos['direccion_adicional'],
+                activo=True,
+                foto = imagen,
+                puesto_id=datos['puesto'].id,
+                usuario_id=usuario.id if usuario else None,
+                departamento_id=datos['departamento'].id,
+                sucursal_id=datos['sucursal'].id
+            )
+
+            if status_empleado:
+                session.commit()
+                return "Registro exitoso.", True
+            else:
+                return "No se pudo registrar el empleado.", False
+
         except Exception as e:
-            print("Ocurrió un error:")
+            session.rollback()
+            print("Ocurrió un error en la transacción, realizando rollback")
             traceback.print_exc()
-    
+            return f"Ocurrió un error inesperado: {str(e)}", False
+
     def actualizar_empleado(self):
         id_empleado = self.id_empleado
         datos = self.obtener_datos()

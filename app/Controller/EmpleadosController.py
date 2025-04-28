@@ -27,6 +27,7 @@ class EmpleadosController(QWidget):
         self.empleados = None
         self.cargando = None
         self.consultor = None
+        self.empleado_actual = None
         
         
         self.ui.txt_idempleado.setValidator(Validaciones().get_int_validator)
@@ -48,6 +49,7 @@ class EmpleadosController(QWidget):
             
     def ventana_cerrada_nuevo_personal(self):
         self.ventana_registro = None
+        self.empleado_actual = None
         
     def agregar_empleado(self):
         if self.ventana_registro is None or self.ventana_registro.isVisible():
@@ -66,22 +68,28 @@ class EmpleadosController(QWidget):
         self.listar_empleados()
         
     def buscar_empleado(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
+        id_empleado = self.ui.txt_idempleado.text().strip()
+        if id_empleado.isdigit():
+            id_empleado = int(id_empleado)
         else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+            id_empleado = None
+        nombre_empleado = self.ui.txt_nombreempleado.text().strip()
+        tipo_filtro_nombre = self.ui.cajaopciones_filtroNombreEmpleado.currentIndex()
+        if not id_empleado and not nombre_empleado:
+            Mensaje().mensaje_informativo("No haz ingresado datos para filtrar")
+            return
+        self.mostrar_modal_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.llenar_tabla)
-        self.consultor.ejecutar_hilo(funcion=self.buscar_empleado_query)
+        self.consultor.ejecutar_hilo(
+            funcion=self.buscar_empleado_query,
+            id_empleado=id_empleado,
+            nombre_empleado=nombre_empleado,
+            tipo_filtro_nombre=tipo_filtro_nombre
+        )
         
-    def buscar_empleado_query(self, session):
-        id_empleado = self.ui.txt_idempleado.text()
-        nombre_empleado = self.ui.txt_nombreempleado.text().upper()
-        tipo_filtro_nombre = self.ui.cajaopciones_filtroNombreEmpleado.currentIndex()
+    def buscar_empleado_query(self, session, id_empleado, nombre_empleado, tipo_filtro_nombre):
         empleados, estado = EmpleadosModel(session).filtrar_empleados(id_empleado, nombre_empleado, tipo_filtro_nombre)
         return empleados, estado
                 
@@ -91,28 +99,48 @@ class EmpleadosController(QWidget):
         pass
 
     def eliminar_empleado(self):
-        if self.id_empleado:
-            with Conexion_base_datos() as db:
-                session = db.abrir_sesion()
-                with session.begin():
-                    estado = EmpleadosModel(session).eliminar_empleado(self.id_empleado)
-                if estado:
-                    Mensaje().mensaje_informativo("Operacion exitosa")
-                    # self.listar_empleados()
-                return
+        if not self.empleado_actual:
+            Mensaje().mensaje_informativo("No haz seleccionado un empleado")
+            return
+        print(self.empleado_actual.id)
+        self.mostrar_modal_local()
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.mensaje_estado_eliminado)
+        self.consultor.error.connect(self.mostrar_error)
+        self.consultor.ejecutar_hilo(
+            funcion=self.eliminar_empleado_query,
+            id_empleado=self.empleado_actual.id,
+        )
+        
+    def eliminar_empleado_query(self, session, id_empleado):
+        empleado, estado = EmpleadosModel(session).eliminar_empleado(id_empleado)
+        if estado:
+            session.commit()
+        return empleado, estado
+    
+    def mensaje_estado_eliminado(self, datos, estado):
+        if estado:
+            Mensaje().mensaje_informativo("Registro eliminado")
+        else:
+            Mensaje().mensaje_informativo("No se logro eliminar el registro")
+        self.empleado_actual = None
+            
             
     def editar_empleado_seleccionado(self):
-        if self.empleado_actual:
-            if self.ventana_registro is None or self.ventana_registro.isVisible():
-                self.ventana_registro = Registro_personal_inicial(parent=self)
-                self.ventana_registro.obtener_id(self.empleado_actual)
-                # self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
-                self.ventana_registro.VENTANA_REGISTRO_CERRADA.connect(self.ventana_cerrada_nuevo_personal)
-                self.ventana_registro.exec_()
-            else:
-                self.ventana_registro.raise_()
-                self.ventana_registro.activateWindow()
-        self.id_empleado = None
+        if not self.empleado_actual:
+            Mensaje().mensaje_informativo("No haz seleccionado un empleado")
+            return
+        if self.ventana_registro is None or self.ventana_registro.isVisible():
+            self.ventana_registro = Registro_personal_inicial(parent=self)
+            self.ventana_registro.obtener_empleado(self.empleado_actual)
+            # self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
+            self.ventana_registro.VENTANA_REGISTRO_CERRADA.connect(self.ventana_cerrada_nuevo_personal)
+            self.ventana_registro.exec_()
+        else:
+            self.ventana_registro.raise_()
+            self.ventana_registro.activateWindow()
+        self.empleado_actual = None
     
     def listar_empleados(self):
         if self.cargando is None or not self.cargando.isVisible():
@@ -243,3 +271,10 @@ class EmpleadosController(QWidget):
         """Función auxiliar para obtener atributos de manera segura."""
         return atributo if atributo is not None else default
 
+    def mostrar_modal_local(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()

@@ -6,8 +6,8 @@ from ..DataBase.conexionBD import Conexion_base_datos
 class Consultas_segundo_plano(QObject):
     terminado = pyqtSignal()
     resultado = pyqtSignal(object, bool)
-    resultado_productos_masivos_excel = pyqtSignal(object, object)
     error = pyqtSignal(str)
+    resultado_productos_masivos_excel = pyqtSignal(object, object)
 
     def ejecutar_hilo(self, funcion, *args, **kwargs):
         # Función de tarea
