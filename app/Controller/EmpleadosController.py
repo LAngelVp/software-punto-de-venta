@@ -125,8 +125,7 @@ class EmpleadosController(QWidget):
         else:
             Mensaje().mensaje_informativo("No se logro eliminar el registro")
         self.empleado_actual = None
-            
-            
+
     def editar_empleado_seleccionado(self):
         if not self.empleado_actual:
             Mensaje().mensaje_informativo("No haz seleccionado un empleado")
@@ -139,16 +138,9 @@ class EmpleadosController(QWidget):
         else:
             self.ventana_registro.raise_()
             self.ventana_registro.activateWindow()
-        
     
     def listar_empleados(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.mostrar_modal_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.error.connect(self.mostrar_error)
         self.consultor.terminado.connect(self.cargando_cerrar)
@@ -227,7 +219,6 @@ class EmpleadosController(QWidget):
         self.ui.tabla_listaempleados.clicked.connect(self.obtener_id_elemento_tabla_empleados)
         self.seleccion_conectada_empleados = True
 
-        
     def obtener_id_elemento_tabla_empleados(self, current, previus = None):
         if current.isValid():
             fila = current.row()

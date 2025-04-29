@@ -214,14 +214,15 @@ class Registro_personal_inicial(QDialog):
     
     def baja_empleado(self):
         fecha_actual = datetime.now().date().strftime("%Y/%m/%d")
-        if self.id_empleado is None:
+        if self.empleado_existente is None:
             Mensaje().mensaje_informativo("No se logro dar de baja al empleado")
             return
+        self.mostrar_modal_local()
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():
                 try:
-                    empleado, estatus = EmpleadosModel(session).baja_empleado(self.id_empleado, False, fecha_actual)
+                    empleado, estatus = EmpleadosModel(session).baja_empleado(self.empleado_existente.id, False, fecha_actual)
                     if estatus:
                         Mensaje().mensaje_informativo("Empleado dado de baja con exito")
                         self.cerrar()
@@ -230,6 +231,7 @@ class Registro_personal_inicial(QDialog):
             self.registro_agregado_signal.emit()
             return
         Mensaje().mensaje_informativo("Existio un error al dar de baja al empleado.")
+        self.cargando_cerrar()
     
     def mostrar_agregar_credenciales(self):
         if self.ui.opcion_usodelsistema.isChecked():
