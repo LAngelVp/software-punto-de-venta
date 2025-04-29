@@ -124,6 +124,7 @@ class Admin_productosController(QWidget):
         self.codigo_producto_upc_recibido = None
         self.lista_productos = []
         self.lista_proveedores_a_asignar = {}
+        self.proveedores = {}
         self.proveedores_vinculados = {}
         self.proveedores_no_vinculados = {}
         self.proveedores_generales_del_sistema_dict = {}
@@ -131,8 +132,8 @@ class Admin_productosController(QWidget):
         self._translate = QtCore.QCoreApplication.translate
 #// funciones principales:
         self.comprobar_existencia_modelo_tabla()
+        self.obtener_proveedores()
 #// señales:
-        self.ui.txt_proveedor.textChanged.connect(self.__proveedor_seleccionado)
         self.ui.etiqueta_fotoProducto.mousePressEvent = self.cargar_imagen
 #// botones de ventana:
         self.RECIBIR_PRODUCTO_ACTUALIZAR_ID.connect(self.__cargar_datos_en_campos)
@@ -152,10 +153,6 @@ class Admin_productosController(QWidget):
         self.ui.entero_margenProducto.editingFinished.connect(self.calcular_precio_venta)
         self.ui.opcion_TieneCaducidad.stateChanged.connect(self.mostrar_fechas_caducidad)
         self.ui.btn_btn_addProduct_cerrar.clicked.connect(self.close)
-
-        completar = QCompleter([proveedor.nombre for proveedor in self.proveedores_generales_del_sistema_dict.values()])
-        completar.setCaseSensitivity(Qt.CaseInsensitive)
-        self.ui.txt_proveedor.setCompleter(completar)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -388,13 +385,7 @@ class Admin_productosController(QWidget):
         self.ui.tabla_productos.resizeColumnsToContents()
         
     def agregar_productos_en_bd(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.resultado.connect(self.productos_agregados_finalizado)
         self.consultor.terminado.connect(self.cargando_cerrar)
@@ -696,7 +687,11 @@ class Admin_productosController(QWidget):
         return proveedores, estado
         
     def __almacenar_proveedores_del_sistema(self, proveedores, estado):
-        self.proveedores_generales_del_sistema_dict = {p.id : p for p in proveedores}
+        self.proveedores_generales_del_sistema_dict = {p.id: p for p in proveedores}
+        completar = QCompleter([proveedor.nombre for proveedor in self.proveedores_generales_del_sistema_dict.values()])
+        completar.setCaseSensitivity(Qt.CaseInsensitive)
+        self.ui.txt_proveedor.textChanged.connect(self.__proveedor_seleccionado)
+        self.ui.txt_proveedor.setCompleter(completar)
         self.__proveedores_desvinculados()
         
     def __proveedores_desvinculados(self):
@@ -708,8 +703,8 @@ class Admin_productosController(QWidget):
                     
     def __proveedor_seleccionado(self, texto):
         # Buscar el ID del proveedor por su nombre (valor) en el diccionario
-        for id_proveedor, nombre in self.proveedores.items():
-            if nombre == texto:
+        for id_proveedor, proveedor in self.proveedores_generales_del_sistema_dict.items():
+            if proveedor.nombre == texto:
                 self.proveedor_id = id_proveedor  # Asignamos el id correspondiente
                 break
         else:
@@ -881,13 +876,7 @@ class Admin_productosController(QWidget):
         documento, _ = QFileDialog.getOpenFileName(self, "Selecciona un documento de Excel", "", "Archivos Excel (*.xlsx *.xls)")
         if not documento:
             return
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.error.connect(self.mensaje_error_docuemnto_xlsx)
         self.consultor.terminado.connect(self.cargando_cerrar)
@@ -968,13 +957,7 @@ class Productos(QWidget):
         if self.ui.txt_buscar.text().strip() == "":
             Mensaje().mensaje_informativo("No haz insertado texto para realizar la busqueda")
             return
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.listar_productos)
@@ -1008,13 +991,7 @@ class Productos(QWidget):
         if self.producto_actual is None:
             Mensaje().mensaje_informativo("Debes de seleccionar un producto de la tabla para proceder a eliminarlo")
             return
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-        
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.mensaje_hilo)
@@ -1028,6 +1005,7 @@ class Productos(QWidget):
     
     def mensaje_hilo(self, resultado, estado):
         if estado:
+            self.producto_actual = None
             Mensaje().mensaje_informativo("Eliminado correctamente")
         else:
             Mensaje().mensaje_informativo("No se elimino el producto")
@@ -1125,18 +1103,20 @@ class Productos(QWidget):
         self.seleccion_conectada_productos = True
 
     def consultar_productos_db(self):
-        if self.cargando is None or not self.cargando.isVisible():
-
-            self.cargando = Modal_de_espera(parent=self)
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.listar_productos)
         self.consultor.ejecutar_hilo(funcion=self.obtener_productos_query)
     
+    def modal_espera_local(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera(parent=self)
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
     def cargando_cerrar(self):
         if self.cargando is not None:
             self.cargando.close()

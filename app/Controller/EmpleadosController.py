@@ -234,7 +234,7 @@ class EmpleadosController(QWidget):
 
     def mostrar_modal_local(self):
         if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
+            self.cargando = Modal_de_espera(self)
             self.cargando.show()
         else:
             self.cargando.raise_()

@@ -6,7 +6,7 @@ from ..Source.gifs_rc import *
 from PyQt5.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon, QCursor
 from ..View.UserInterfacePy.UI_PROCESO_CARGANDO import Ui_Ventana_Cargando
 
-class Modal_de_espera(QWidget):
+class Modal_de_espera(QDialog):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.gif = ":gifs/Icons/Gif/loader.gif"

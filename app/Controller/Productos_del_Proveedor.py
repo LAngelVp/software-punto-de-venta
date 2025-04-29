@@ -96,18 +96,20 @@ class Productos_de_proveedorController(QWidget):
             Mensaje().mensaje_informativo("Operación realizada con éxito.")
     
     def obtener_productos_proveedor_hilo(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.productos_proveedores_tabla)
         self.consultor.ejecutar_hilo(funcion=self.obtener_productos_proveedor_query)
     
+    def modal_espera_local(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera(self)
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
     def cargando_cerrar(self):
         if self.cargando is not None:
             self.cargando.close()
@@ -180,13 +182,7 @@ class Productos_de_proveedorController(QWidget):
                 return
     
     def filtrar_productos_de_proveedor(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.productos_proveedores_tabla)
@@ -209,13 +205,7 @@ class Productos_de_proveedorController(QWidget):
         return productos, estado
     
     def filtrar_productos_sistema(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-        
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.productos_del_sistema_tabla)
@@ -239,13 +229,7 @@ class Productos_de_proveedorController(QWidget):
         return productos, estado
     
     def obtener_productos_de_sistema_hilo(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.productos_del_sistema_tabla)

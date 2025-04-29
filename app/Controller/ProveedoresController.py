@@ -274,18 +274,21 @@ class Control_proveedores(QWidget):
         self.limpiar_campos()
 
     def obtener_proveedores_tabla_hilo(self):
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.llenar_tabla_proveedores)
         self.consultor.ejecutar_hilo(funcion=self.obtener_proveedores_tabla_query)
         
+    def modal_espera_local(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera(self)
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+            
     def cargando_cerrar(self):
         if self.cargando is not None:
             self.cargando.close()
@@ -554,13 +557,7 @@ class Control_proveedores(QWidget):
         if self.ui.txt_buscarproveedor.text().strip() == "":
             Mensaje().mensaje_informativo("No haz ingresado datos para filtrar")
             return
-        if self.cargando is None or not self.cargando.isVisible():
-            self.cargando = Modal_de_espera()
-            self.cargando.show()
-        else:
-            self.cargando.raise_()
-            self.cargando.activateWindow()
-            
+        self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.llenar_tabla_proveedores)
