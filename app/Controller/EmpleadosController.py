@@ -81,7 +81,7 @@ class EmpleadosController(QWidget):
         self.mostrar_modal_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
-        self.consultor.resultado.connect(self.llenar_tabla)
+        self.consultor.resultado.connect(self.llenar_tabla_empleados)
         self.consultor.ejecutar_hilo(
             funcion=self.buscar_empleado_query,
             id_empleado=id_empleado,
@@ -134,13 +134,12 @@ class EmpleadosController(QWidget):
         if self.ventana_registro is None or self.ventana_registro.isVisible():
             self.ventana_registro = Registro_personal_inicial(parent=self)
             self.ventana_registro.obtener_empleado(self.empleado_actual)
-            # self.ventana_registro.registro_agregado_signal.connect(self.listar_empleados)
             self.ventana_registro.VENTANA_REGISTRO_CERRADA.connect(self.ventana_cerrada_nuevo_personal)
             self.ventana_registro.exec_()
         else:
             self.ventana_registro.raise_()
             self.ventana_registro.activateWindow()
-        self.empleado_actual = None
+        
     
     def listar_empleados(self):
         if self.cargando is None or not self.cargando.isVisible():
@@ -153,7 +152,7 @@ class EmpleadosController(QWidget):
         self.consultor = Consultas_segundo_plano()
         self.consultor.error.connect(self.mostrar_error)
         self.consultor.terminado.connect(self.cargando_cerrar)
-        self.consultor.resultado.connect(self.llenar_tabla)
+        self.consultor.resultado.connect(self.llenar_tabla_empleados)
         self.consultor.ejecutar_hilo(self.obtener_empleados_query)
         
     def mostrar_error(self, error):
@@ -163,8 +162,8 @@ class EmpleadosController(QWidget):
     def obtener_empleados_query(self, session):
         empleados, estado = EmpleadosModel(session).obtener_empleados_detallados()
         return empleados, estado
-    
-    def llenar_tabla(self, empleados, estado):
+
+    def llenar_tabla_empleados(self, empleados, estado):
         if self.ui.tabla_listaempleados is None:
             Mensaje().mensaje_alerta("El widget tabla_listaempleados no está disponible.")
             return
@@ -191,61 +190,31 @@ class EmpleadosController(QWidget):
             self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
             return
 
-        self.empleados = empleados  # Guardamos la lista de empleados si la quieres usar en otros métodos
+        self.empleados = empleados
+
+        campos_extras = {
+            "Puesto": lambda e: e.puesto.nombre if e.puesto else '',
+            "Salario": lambda e: e.puesto.salario if e.puesto else '',
+            "Horas Laborales": lambda e: e.puesto.horas_laborales if e.puesto else '',
+            "Días Laborales": lambda e: e.puesto.dias_laborales if e.puesto else '',
+            "Hora Entrada": lambda e: e.puesto.hora_entrada if e.puesto else '',
+            "Hora Salida": lambda e: e.puesto.hora_salida if e.puesto else '',
+            "Departamento": lambda e: e.departamento.nombre if e.departamento else '',
+            "Sucursal": lambda e: e.sucursal.nombre_sucursal if e.sucursal else '',
+        }
 
         for empleado in empleados:
-            list_items = []
-
-            datos_empleado = [
-                str(empleado.id),
-                empleado.nombre or '',
-                empleado.apellido_paterno or '',
-                empleado.apellido_materno or '',
-                empleado.fecha_nacimiento.strftime('%Y-%m-%d') if empleado.fecha_nacimiento else '',
-                empleado.estado_civil or '',
-                empleado.curp or '',
-                empleado.rfc or '',
-                empleado.nivel_academico or '',
-                empleado.carrera or '',
-                empleado.correo_electronico or '',
-                empleado.numero_seguro_social or '',
-                empleado.fecha_contratacion.strftime('%Y-%m-%d') if empleado.fecha_contratacion else '',
-                empleado.fecha_despido.strftime('%Y-%m-%d') if empleado.fecha_despido else '',
-                empleado.ciudad or '',
-                empleado.codigo_postal or '',
-                empleado.estado or '',
-                empleado.pais or '',
-                empleado.numero_telefonico or '',
-                empleado.nombre_contacto or '',
-                empleado.contacto_emergencia or '',
-                empleado.parentesco_contacto or '',
-                empleado.calles or '',
-                empleado.avenidas or '',
-                empleado.num_interior or '',
-                empleado.num_exterior or '',
-                empleado.direccion_adicional or '',
-                str(empleado.activo),
-                empleado.puesto.nombre if empleado.puesto else '',
-                str(empleado.puesto.salario) if empleado.puesto else '',
-                str(empleado.puesto.horas_laborales) if empleado.puesto else '',
-                empleado.puesto.dias_laborales if empleado.puesto else '',
-                empleado.puesto.hora_entrada.strftime('%H:%M') if empleado.puesto and empleado.puesto.hora_entrada else '',
-                empleado.puesto.hora_salida.strftime('%H:%M') if empleado.puesto and empleado.puesto.hora_salida else '',
-                empleado.departamento.nombre if empleado.departamento else '',
-                empleado.sucursal.nombre_sucursal if empleado.sucursal else '',
-            ]
-
-            for idx, valor in enumerate(datos_empleado):
-                item = QStandardItem(valor)
+            fila = []
+            for col in cabeceras:
+                valor = campos_extras[col](empleado) if col in campos_extras \
+                    else getattr(empleado, col.lower().replace(" ", "_"), '')
+                item = QStandardItem(str(valor))
                 item.setTextAlignment(Qt.AlignCenter)
-
-                # 💡 Guardar el objeto empleado completo en la columna 0 (ID)
-                if idx == 0:
+                if col == "ID":
                     item.setData(empleado, Qt.UserRole)
+                fila.append(item)
 
-                list_items.append(item)
-
-            self.modelo_empleados_vempleados.appendRow(list_items)
+            self.modelo_empleados_vempleados.appendRow(fila)
 
         self.ui.tabla_listaempleados.setModel(self.modelo_empleados_vempleados)
         self.ui.tabla_listaempleados.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -258,6 +227,7 @@ class EmpleadosController(QWidget):
         self.ui.tabla_listaempleados.clicked.connect(self.obtener_id_elemento_tabla_empleados)
         self.seleccion_conectada_empleados = True
 
+        
     def obtener_id_elemento_tabla_empleados(self, current, previus = None):
         if current.isValid():
             fila = current.row()

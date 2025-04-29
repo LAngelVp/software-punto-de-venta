@@ -241,6 +241,7 @@ class Registro_personal_inicial(QDialog):
         if empleado_seleccionado is not None:
             self.ui.btn_btn_bajapersona.show()
             self.ui.btn_btn_recontratar.show()
+            self.empleado_existente = empleado_seleccionado
             self.cargar_datos_empleado(empleado_seleccionado)
 
     def cargar_datos_empleado(self, empleado_seleccionado = None):
@@ -570,13 +571,13 @@ class Registro_personal_inicial(QDialog):
         campos = self.campos()
         for nombre, campo in campos.items():
             if isinstance(campo, QLineEdit):
-                datos[nombre] = campo.text().strip().upper()
+                datos[nombre] = campo.text().strip()
             elif isinstance(campo, QDateEdit):
                 datos[nombre] = campo.date().toString('yyyy-MM-dd')
             elif isinstance(campo, QTimeEdit):
                 datos[nombre] = campo.time().toString('HH:mm')
             elif isinstance(campo, QPlainTextEdit):
-                datos[nombre] = campo.toPlainText().strip().upper()
+                datos[nombre] = campo.toPlainText().strip()
             elif isinstance(campo, (QDoubleSpinBox, QSpinBox)):
                 datos[nombre] = campo.value()
             elif isinstance(campo, QComboBox):
@@ -604,13 +605,7 @@ class Registro_personal_inicial(QDialog):
         datos = self.obtener_datos()
 
         if self.validar_datos(datos=datos):
-            if self.cargando is None or not self.cargando.isVisible():
-                self.cargando = Modal_de_espera()
-                self.cargando.show()
-            else:
-                self.cargando.raise_()
-                self.cargando.activateWindow()
-
+            self.mostrar_modal_local()
             self.consultor = Consultas_segundo_plano()
             self.consultor.error.connect(self.mostrar_error_hilo)
             self.consultor.terminado.connect(self.cargando_cerrar)
@@ -633,12 +628,20 @@ class Registro_personal_inicial(QDialog):
         if estado:
             self.cerrar()
             self.registro_agregado_signal.emit()
-            if self.id_empleado is None:
+            if self.empleado is None:
                 self.abrir_inicio()
 
     def mostrar_error_hilo(self, error):
         Mensaje().mensaje_alerta(f"Ocurrió un error: {error}")
 
+    def mostrar_modal_local(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera()
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
     def cargando_cerrar(self):
         if self.cargando:
             self.cargando.close()
@@ -704,63 +707,83 @@ class Registro_personal_inicial(QDialog):
 
         except Exception as e:
             session.rollback()
-            print("Ocurrió un error en la transacción, realizando rollback")
             traceback.print_exc()
             return f"Ocurrió un error inesperado: {str(e)}", False
 
+    def mostrar_estado_usuario_actualizado(self, mensaje, estado):
+        if estado:
+            self.cerrar()
+            self.registro_agregado_signal.emit()
+            
+        Mensaje().mensaje_informativo(mensaje)
+
     def actualizar_empleado(self):
-        id_empleado = self.id_empleado
+        id_empleado = self.empleado_existente.id if self.empleado_existente else None
         datos = self.obtener_datos()
-        empleado = None
-        estado = False
+        print(self.empleado_existente, id_empleado)
         if self.validar_datos(datos) and id_empleado is not None:
-            with Conexion_base_datos() as db:
-                session = db.abrir_sesion()
-                with session.begin():
-                    try:
-                        empleado, estado = EmpleadosModel(session).actualizar_empleado(
-                            id_empleado = self.id_empleado,
-                            nombre=datos['nombre'],
-                            apellido_paterno=datos['apellido_paterno'],
-                            apellido_materno=datos['apellido_materno'],
-                            fecha_nacimiento=datos['fecha_nacimiento'],
-                            estado_civil=self.ui.cajaopciones_estadocvil.currentText().strip().upper(),
-                            genero=self.ui.cajaopciones_genero.currentText().strip().upper(),
-                            curp=datos['curp'],
-                            rfc=datos['rfc'],
-                            nivel_academico=self.ui.cajaopciones_nivelacademico.currentText().strip().upper(),
-                            carrera=datos["carrera"],
-                            correo_electronico=datos["correo"],
-                            numero_seguro_social=datos["nss"],
-                            fecha_contratacion=datos["fecha_contratacion"],
-                            fecha_despido=None,
-                            ciudad=datos["ciudad"],
-                            codigo_postal=datos["cp"],
-                            estado=datos["estado"],
-                            pais=datos["pais"],
-                            numero_telefonico=datos["num_telefono"],
-                            nombre_contacto=datos["nombre_contacto_emergencia"],
-                            contacto_emergencia=datos["contacto_emergencia"],
-                            parentesco_contacto=self.ui.cajaopciones_parentesco.currentText().strip().upper(),
-                            calles=datos["calles"],
-                            avenidas=datos["avenidas"],
-                            colonia=datos["colonia"],
-                            num_interior=datos["num_interior"],
-                            num_exterior=datos["num_exterior"],
-                            direccion_adicional=datos["direccion_adicional"],
-                            foto=self.file_name,
-                            puesto_id=self.ui.cajaopciones_puestos.currentData(),
-                            departamento_id=self.ui.cajaopciones_departamentos.currentData(),
-                            sucursal_id=self.ui.cajaopciones_sucursales.currentData()
-                        )
-                    except Exception as e:
-                        Mensaje().mensaje_critico(f"Error al actualizar el empleado: {e}")
-                if estado:
-                    Mensaje().mensaje_informativo("Registro exitoso")
-                    self.cerrar()
-                    self.registro_agregado_signal.emit()
+            self.mostrar_modal_local()
+            self.consultor = Consultas_segundo_plano()
+            self.consultor.error.connect(self.mostrar_error_hilo)
+            self.consultor.terminado.connect(self.cargando_cerrar)
+            self.consultor.resultado.connect(self.mostrar_estado_usuario_actualizado)
+            self.consultor.ejecutar_hilo(
+                funcion=self.actualizar_empleado_query,
+                id_empleado=id_empleado,
+                imagen = self.file_name,
+                datos=datos
+            )
         else:
-            Mensaje().mensaje_alerta("Error al actualizar el empleado debido a que los datos no son validos o el id del empleado no existe")
+            Mensaje().mensaje_informativo("Todos los campos deben de estar completos")
+    
+    def actualizar_empleado_query(self, session, id_empleado, imagen,  datos):
+        try:
+            empleado, estado = EmpleadosModel(session).actualizar_empleado(
+                id_empleado = id_empleado,
+                nombre=datos['nombre'],
+                apellido_paterno=datos['apellido_paterno'],
+                apellido_materno=datos['apellido_materno'],
+                fecha_nacimiento=datos['fecha_nacimiento'],
+                estado_civil=datos['estado_civil'],
+                genero=datos['genero'],
+                curp=datos['curp'],
+                rfc=datos['rfc'],
+                nivel_academico=datos['nivel_academico'],
+                carrera=datos["carrera"],
+                correo_electronico=datos["correo"],
+                numero_seguro_social=datos["nss"],
+                fecha_contratacion=datos["fecha_contratacion"],
+                fecha_despido=None,
+                ciudad=datos["ciudad"],
+                codigo_postal=datos["cp"],
+                estado=datos["estado"],
+                pais=datos["pais"],
+                numero_telefonico=datos["num_telefono"],
+                nombre_contacto=datos["nombre_contacto_emergencia"],
+                contacto_emergencia=datos["contacto_emergencia"],
+                parentesco_contacto=datos['parentesco_contacto_emergencia'],
+                calles=datos["calles"],
+                avenidas=datos["avenidas"],
+                colonia=datos["colonia"],
+                num_interior=datos["num_interior"],
+                num_exterior=datos["num_exterior"],
+                direccion_adicional=datos["direccion_adicional"],
+                foto=imagen,
+                puesto_id=datos['puesto'].id,
+                departamento_id=datos['departamento'].id,
+                sucursal_id=datos['sucursal'].id
+            )
+        except Exception as e:
+            session.rollback()
+            mensaje = f"Error al actualizar el empleado: {e}"
+            return mensaje, False
+        if estado:
+            session.commit()
+            mensaje = "Registro exitoso"
+            return mensaje, True
+        
+        return "no se logro actualizar", False
+            
             
     def agregar_usuario(self):
         print(self.empleado_existente.id)
