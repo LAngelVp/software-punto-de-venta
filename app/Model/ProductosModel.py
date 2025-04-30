@@ -362,8 +362,9 @@ class ProductosModel:
             joinedload(Productos.presentacion_productos)
             ).filter(Productos.codigo_upc == codigo_upc).first()
         if produto:
-            producto_dict = model_to_dict(produto, deep=True)
-            return producto_dict, True
+            # producto_dict = model_to_dict(produto, deep=True)
+            # return producto_dict, True
+            return produto, True
         else:
             return None, False
         

@@ -9,7 +9,7 @@ from .FuncionesAuxiliares import *
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..View.UserInterfacePy.UI_REGISTRO_EMPLEADO import *
 from .MensajesAlertasController import Mensaje
-from ..Model.ValidacionesModel import Validaciones
+from .Validaciones import Validaciones
 from ..Model.EmpleadoModel import EmpleadosModel
 from ..Model.GruposyPermisosModel import RolesModel, PermisosModel
 from ..Model.UsuarioModel import UsuarioModel

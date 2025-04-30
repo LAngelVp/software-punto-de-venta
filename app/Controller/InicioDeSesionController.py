@@ -12,7 +12,7 @@ from .Hilo_consultas import *
 from ..Source.iconos_rc import *
 from ..Source.ibootstrap_rc import *
 from .CreadencialesUsuarioController import *
-from ..Model.ValidacionesModel import Validaciones
+from .Validaciones import Validaciones
 
 class Login(QWidget):
     def __init__(self, parent = None):

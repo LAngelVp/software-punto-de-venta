@@ -9,7 +9,7 @@ from app.Controller.RolesController import *
 from app.DataBase.conexionBD import Conexion_base_datos
 from app.Model.EmpleadoModel import EmpleadosModel
 from .MensajesAlertasController import Mensaje
-from ..Model.ValidacionesModel import Validaciones
+from .Validaciones import Validaciones
 from .ComprobarValoresTablasController import Comprobacion
 from .Ventana_espera import Modal_de_espera
 from .Hilo_consultas import Consultas_segundo_plano

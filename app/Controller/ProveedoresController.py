@@ -8,13 +8,13 @@ from app.Controller.CategoriasController import CategoriasController
 from app.Model.ProveedoresModel import ProveedoresModel
 from app.Model.ProveedoresModel import ProveedoresModel
 from app.DataBase.conexionBD import Conexion_base_datos
-from app.Model.ValidacionesModel import Validaciones
+from app.Controller.Validaciones import Validaciones
 from app.Model.CategoriasModel import CategoriasModel
 from app.Model.RepresentanteProveedorModel import RepresentanteProveedorModel
 from app.Model.BaseDatosModel import Proveedores
 from app.Controller.MensajesAlertasController import *
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
-from ..Model.ValidacionesModel import Validaciones
+from .Validaciones import Validaciones
 from .FuncionesAuxiliares import *
 from .Productos_del_Proveedor import *
 from .Ventana_espera import *

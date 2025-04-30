@@ -339,6 +339,16 @@ border-bottom:2px solid #023375;
                 </widget>
                </item>
                <item>
+                <widget class="QLineEdit" name="txt_buscar_productoUPC">
+                 <property name="placeholderText">
+                  <string>Codigo del producto</string>
+                 </property>
+                 <property name="clearButtonEnabled">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
                 <widget class="QLineEdit" name="txt_buscar">
                  <property name="placeholderText">
                   <string>Nombre del producto</string>
@@ -405,10 +415,10 @@ border-bottom:2px solid #023375;
               <property name="gridStyle">
                <enum>Qt::DashDotLine</enum>
               </property>
-              <attribute name="horizontalHeaderMinimumSectionSize">
+              <attribute name="horizontalHeaderDefaultSectionSize">
                <number>200</number>
               </attribute>
-              <attribute name="horizontalHeaderDefaultSectionSize">
+              <attribute name="horizontalHeaderMinimumSectionSize">
                <number>200</number>
               </attribute>
              </widget>

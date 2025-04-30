@@ -19,7 +19,7 @@ from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import Ui_Nueva_categoria
 from ..View.UserInterfacePy.UI_EXISTENCIA_PRODUCTOS import Ui_UI_EXISTENCIA_PRODUCTO
 from .PresentacionProductosController import PresentacionProductos
 from .UnidadMedidaProductosController import UnidadMedidaProductos
-
+from .Validaciones import Validaciones
 from .Hilo_consultas import *
 from .Ventana_espera import *
 import traceback
@@ -80,6 +80,7 @@ class ExistenciasClase(QWidget):
                     return
         Mensaje().mensaje_informativo("Se realizo el movimiento correctamente.")
         return
+    
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
     RECIBIR_PRODUCTO_ACTUALIZAR_ID = pyqtSignal(object)
@@ -310,8 +311,8 @@ class Admin_productosController(QWidget):
             "ancho_dimensiones": self.ui.decimal_anchoDimensiones.value(),
             "descripcion_producto": self.ui.txtlargo_descripcionProducto.toPlainText(),
             "notas_producto": self.ui.txtlargo_notasProducto.toPlainText(),
-            "fecha_vencimiento_producto": self.ui.fecha_vencimientoProducto.date().toString('yyyy-MM-dd'),
-            "fecha_fabricacion_producto": self.ui.fecha_fabricacionProducto.date().toString('yyyy-MM-dd'),
+            "fecha_vencimiento_producto": self.ui.fecha_vencimientoProducto.date().toPyDate(),
+            "fecha_fabricacion_producto": self.ui.fecha_fabricacionProducto.date().toPyDate(),
         }
         return datos
         
@@ -320,7 +321,6 @@ class Admin_productosController(QWidget):
         if not datos["codigo_barras"]:
             Mensaje().mensaje_alerta("El campo Código de Barras es obligatorio")
             return
-        
         self.comprobar_existencia_modelo_tabla()
 
         self.modelo_tabla_productos.setHorizontalHeaderLabels([
@@ -358,7 +358,7 @@ class Admin_productosController(QWidget):
             "descripcion": datos["descripcion_producto"],
             "notas": datos["notas_producto"],
             "fecha_vencimiento": datos["fecha_vencimiento_producto"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
-            "fecha_fabricacion": datos["fecha_fabricacion_producto"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
+            "fecha_fabricacion": datos["fecha_fabricacion_producto"],
             "imagen": self.imagenProducto  
         }
         
@@ -452,7 +452,7 @@ class Admin_productosController(QWidget):
                     dimensiones=dimensiones,
                     color=producto["color"],
                     material=producto["material"],
-                    fecha_fabricacion=producto["fecha_fabricacion"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
+                    fecha_fabricacion=producto["fecha_fabricacion"],
                     fecha_vencimiento=producto["fecha_vencimiento"] if self.ui.opcion_TieneCaducidad.isChecked() else None,
                     imagen=self.imagenProducto if self.imagenProducto else producto["imagen"],
                     notas=producto["notas"],
@@ -499,51 +499,80 @@ class Admin_productosController(QWidget):
             return
         datos_producto = self.datos_campos()
         proveedores_vinculados = list(self.proveedores_vinculados.values())
-
         # Filtrar los proveedores de lista_proveedores_a_asignar para que no se repitan (por ID)
         proveedores_no_repetidos = [
             proveedor for proveedor_id, proveedor in self.lista_proveedores_a_asignar.items()
             if proveedor_id not in self.proveedores_vinculados  # Excluir los proveedores ya vinculados
         ]
-
         # Combinar los proveedores vinculados con los no repetidos
         todos_los_proveedores = proveedores_vinculados + proveedores_no_repetidos
-        
         dimensiones = str(datos_producto["largo_dimensiones"]) + "-" + str(datos_producto["alto_dimensiones"]) + "-" + str(datos_producto["ancho_dimensiones"])
-        with Conexion_base_datos() as db:
-            session = db.abrir_sesion()
-            with session.begin():
-                ProductosModel(session).actualizar_producto(
-                    id_producto = self.producto.id,
-                    codigo_upc = datos_producto["codigo_barras"],
-                    nombre_producto = datos_producto["nombre"],
-                    descripcion_producto = datos_producto["descripcion_producto"],
-                    costo_inicial = datos_producto["costo_inicial_producto"],
-                    costo_final = datos_producto["costo_final_producto"],
-                    margen_porcentaje=f'{datos_producto["margen_porcentaje"]} %',
-                    precio = datos_producto["precio_venta_producto"],
-                    existencia = datos_producto["existencia_producto"],
-                    existencia_minima = datos_producto["existencia_min_producto"],
-                    existencia_maxima = datos_producto["existencia_max_producto"],
-                    marca = datos_producto["marca_producto"],
-                    modelo = datos_producto["modelo_producto"],
-                    peso = datos_producto["peso_producto"],
-                    dimensiones = dimensiones,
-                    color = datos_producto["color_producto"],
-                    material = datos_producto["material_producto"],
-                    fecha_fabricacion = datos_producto["fecha_fabricacion_producto"],
-                    fecha_vencimiento = datos_producto["fecha_vencimiento_producto"],
-                    imagen = self.imagenProducto if self.imagenProducto else None,
-                    notas = datos_producto["notas_producto"],
-                    presentacion_producto_id = datos_producto["presentacion_producto"].id,
-                    unidad_medida_productos_id = datos_producto["unidad_medida_producto"].id,
-                    categoria_id = datos_producto["categoria_producto"].id,
-                    sucursales = [],
-                    proveedores = todos_los_proveedores
-                )
-        self.PRODUCTOS_AGREGADOS.emit()
-        self.close()
+        
+        if self.ui.opcion_TieneCaducidad.isChecked():
+            caducidad = self.ui.fecha_vencimientoProducto.date().toPyDate()
+        else:
+            caducidad = None
+        
+        self.modal_espera_local()
+        self.consultor = Consultas_segundo_plano()
+        self.consultor.error.connect(self.__mostrar_error)
+        self.consultor.terminado.connect(self.cargando_cerrar)
+        self.consultor.resultado.connect(self.mensaje_producto_actualizado)
+        self.consultor.ejecutar_hilo(
+            funcion = self.__actualizar_producto_query,
+            id_producto = self.producto.id,
+            todos_los_proveedores = todos_los_proveedores,
+            dimensiones = dimensiones,
+            imagen = self.imagenProducto,
+            caducidad = caducidad,
+            datos_producto = datos_producto
+        )
+        
+    def __actualizar_producto_query(self, session, id_producto, todos_los_proveedores, dimensiones, imagen, caducidad, datos_producto):
+        try:
+            datos, estado = ProductosModel(session).actualizar_producto(
+                id_producto = id_producto,
+                codigo_upc = datos_producto["codigo_barras"],
+                nombre_producto = datos_producto["nombre"],
+                descripcion_producto = datos_producto["descripcion_producto"],
+                costo_inicial = datos_producto["costo_inicial_producto"],
+                costo_final = datos_producto["costo_final_producto"],
+                margen_porcentaje=f'{datos_producto["margen_porcentaje"]}%',
+                precio = datos_producto["precio_venta_producto"],
+                existencia = datos_producto["existencia_producto"],
+                existencia_minima = datos_producto["existencia_min_producto"],
+                existencia_maxima = datos_producto["existencia_max_producto"],
+                marca = datos_producto["marca_producto"],
+                modelo = datos_producto["modelo_producto"],
+                peso = datos_producto["peso_producto"],
+                dimensiones = dimensiones,
+                color = datos_producto["color_producto"],
+                material = datos_producto["material_producto"],
+                fecha_fabricacion = datos_producto["fecha_fabricacion_producto"],
+                fecha_vencimiento = caducidad,
+                imagen = imagen if imagen else None,
+                notas = datos_producto["notas_producto"],
+                presentacion_producto_id = datos_producto["presentacion_producto"].id,
+                unidad_medida_productos_id = datos_producto["unidad_medida_producto"].id,
+                categoria_id = datos_producto["categoria_producto"].id,
+                sucursales = [],
+                proveedores = todos_los_proveedores
+            )
+            if estado:
+                session.commit()
+        except Exception as e:
+            session.rollback()
+            return None, False, f"No se logro la actualizacion: {e}"
+        return datos, estado
     
+    def mensaje_producto_actualizado(self, datos, estado, mensaje=""):
+        if estado:
+            Mensaje().mensaje_informativo("Actualización correcta")
+            self.PRODUCTOS_AGREGADOS.emit()
+            self.close()
+        else:
+            Mensaje().mensaje_alerta(mensaje or  "No se logró la actualización")
+            
     def consultar_producto_por_id(self, session):
         producto, estado = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=self.codigo_producto_upc_recibido)
         return producto, estado
@@ -614,22 +643,16 @@ class Admin_productosController(QWidget):
         self.ui.decimal_pesoProducto.setValue(self.producto.peso)
 
         if producto.fecha_fabricacion:
-            self.ui.opcion_TieneCaducidad.setChecked(True)
-            
             # Convertir datetime.date a string con formato "YYYY-MM-DD"
             fecha_fabricacion_str = producto.fecha_fabricacion.strftime("%Y-%m-%d")
             fecha_fabricacion = QDate.fromString(fecha_fabricacion_str, "yyyy-MM-dd")
+            self.ui.fecha_fabricacionProducto.setDate(fecha_fabricacion)
             
+        if producto.fecha_vencimiento:
+            self.ui.opcion_TieneCaducidad.setChecked(True)
             fecha_vencimiento_str = producto.fecha_vencimiento.strftime("%Y-%m-%d") if producto.fecha_vencimiento else None
             fecha_vencimiento = QDate.fromString(fecha_vencimiento_str, "yyyy-MM-dd") if fecha_vencimiento_str else QDate()
-
-            # Establecer las fechas
-            self.ui.fecha_fabricacionProducto.setDate(fecha_fabricacion)
             self.ui.fecha_vencimientoProducto.setDate(fecha_vencimiento)
-        # if producto.imagen:
-        #     self.ui.etiqueta_fotoProducto.setPixmap(
-        #         QPixmap(self.producto.imagen).scaled(self.ui.etiqueta_fotoProducto.size())
-        #     )
 
         # Cargar dimensiones si existen
         if producto.dimensiones:
@@ -652,13 +675,13 @@ class Admin_productosController(QWidget):
             FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_categoriaProducto, categoria_nombre)
 
         if producto.unidad_medida_productos:
-                medida_nombre = producto.unidad_medida_productos.nombre
-                FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_unidadMedidaProducto, medida_nombre)
+            medida_nombre = producto.unidad_medida_productos.nombre
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_unidadMedidaProducto, medida_nombre)
 
         # Actualizar presentación del producto
         if producto.presentacion_productos:
-                presentacion_nombre = producto.presentacion_productos.nombre
-                FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_presentacionProducto, presentacion_nombre)
+            presentacion_nombre = producto.presentacion_productos.nombre
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_presentacionProducto, presentacion_nombre)
 
         if producto.proveedores:
             self.proveedores_vinculados = {p.id: p for p in producto.proveedores}
@@ -923,7 +946,20 @@ class Admin_productosController(QWidget):
         margen = self.ui.entero_margenProducto.value() / 100
         precio_venta = costo_final + (costo_final * margen)
         self.ui.decimal_precioVentaProducto.setValue(precio_venta)
-        
+    
+    def modal_espera_local(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera(parent=self)
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+    def cargando_cerrar(self):
+        if self.cargando is not None:
+            self.cargando.close()
+            self.cargando = None
+            
 class Productos(QWidget):
     LISTAR_CATEGORIAS_PRODUCTOS = pyqtSignal()
     LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
@@ -934,6 +970,8 @@ class Productos(QWidget):
         super().__init__(parent)
         self.ui = Ui_Control_Productos()
         self.ui.setupUi(self)
+        self.ui.txt_buscar.setValidator(Validaciones().get_text_validator)
+        self.ui.txt_buscar_productoUPC.setValidator(Validaciones().get_int_validator)
         self.ui.btn_btn_adminProductos_agregar.clicked.connect(self.agregar_producto)
         self.ui.btn_btn_adminProductos_eliminar.clicked.connect(self.eliminar_producto)
         self.ui.btn_btn_adminProductos_modificar.clicked.connect(self.modificar_producto)
@@ -951,22 +989,32 @@ class Productos(QWidget):
         self.ventana_existencia_productos = None
         self.comprobar_modelo_tabla_productos()
         
-        
-        
     def  buscar_producto(self):
-        if self.ui.txt_buscar.text().strip() == "":
+        nombre_producto = self.ui.txt_buscar.text().strip()
+        codigo_del_producto = self.ui.txt_buscar_productoUPC.text().strip()
+        if nombre_producto == "" and codigo_del_producto == "":
             Mensaje().mensaje_informativo("No haz insertado texto para realizar la busqueda")
+            return
+        elif nombre_producto and codigo_del_producto:
+            Mensaje().mensaje_informativo("Solo puedes realizar la consulta por nombre o por codigo del producto. No ambos")
             return
         self.modal_espera_local()
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.listar_productos)
-        self.consultor.ejecutar_hilo(funcion=self.busar_producto_query)
+        self.consultor.ejecutar_hilo(
+            funcion=self.busar_producto_query,
+            nombre_producto = nombre_producto,
+            codigo_del_producto = codigo_del_producto
+            )
         
-    def busar_producto_query(self, session):
-        nombre_producto = self.ui.txt_buscar.text().strip()
-        productos, estado = ProductosModel(session).consultar_por_nombre(nombre=nombre_producto)
-        return productos, estado 
+    def busar_producto_query(self, session, nombre_producto, codigo_del_producto):
+        if nombre_producto:
+            datos, estado = ProductosModel(session).consultar_por_nombre(nombre=nombre_producto)
+        elif codigo_del_producto:
+            datos, estado = ProductosModel(session).consultar_producto_por_codigoUPC(codigo_upc=codigo_del_producto)
+            datos = [datos] if estado else []
+        return datos, estado 
     
     def agregar_producto(self):
         if self.AdminProductos is None or self.AdminProductos.isVisible():
@@ -1024,11 +1072,11 @@ class Productos(QWidget):
             self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.connect(self.AdminProductos.listar_unidades_medida)
             self.AdminProductos.VENTANA_CERRADA_PRODUCTOS.connect(self.ventana_productos_cerrada)
             self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.connect(self.AdminProductos.obtener_proveedores)
-            self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR_ID.emit(self.producto_actual)
             self.LISTAR_PROVEEDORES_EXISTENTES_SIGNAL.emit()
             self.LISTAR_PRESENTACIONES_PRODUCTOS.emit()
             self.LISTAR_UNIDADES_MEDIDA_PRODUCTOS.emit()
             self.LISTAR_CATEGORIAS_PRODUCTOS.emit()
+            self.AdminProductos.RECIBIR_PRODUCTO_ACTUALIZAR_ID.emit(self.producto_actual)
             self.AdminProductos.setParent(self)
             self.AdminProductos.setStyleSheet(self.AdminProductos.styleSheet())
             self.AdminProductos.show()
@@ -1163,3 +1211,5 @@ class Productos(QWidget):
     def ventana_cerrada_form_existencia(self):
         self.ventana_existencia_productos = None
         self.producto_actual = None
+        
+    

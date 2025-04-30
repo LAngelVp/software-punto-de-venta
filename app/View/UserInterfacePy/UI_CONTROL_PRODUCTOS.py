@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/hackl/Documentos/projects/software-punto-de-venta/app/View/UserInterfaceUi/UI_CONTROL_PRODUCTOS.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\Microsoft\software-punto-de-venta\app\View\UserInterfaceUi\UI_CONTROL_PRODUCTOS.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.11
 #
@@ -192,6 +192,10 @@ class Ui_Control_Productos(object):
         self.etiqueta_buscar.setText("")
         self.etiqueta_buscar.setObjectName("etiqueta_buscar")
         self.horizontalLayout_2.addWidget(self.etiqueta_buscar)
+        self.txt_buscar_productoUPC = QtWidgets.QLineEdit(self.frame)
+        self.txt_buscar_productoUPC.setClearButtonEnabled(True)
+        self.txt_buscar_productoUPC.setObjectName("txt_buscar_productoUPC")
+        self.horizontalLayout_2.addWidget(self.txt_buscar_productoUPC)
         self.txt_buscar = QtWidgets.QLineEdit(self.frame)
         self.txt_buscar.setClearButtonEnabled(True)
         self.txt_buscar.setObjectName("txt_buscar")
@@ -237,6 +241,7 @@ class Ui_Control_Productos(object):
         self.btn_btn_adminProductos_modificar.setToolTip(_translate("Control_Productos", "Editar producto"))
         self.btn_btn_adminProductos_modificar.setText(_translate("Control_Productos", "EDITAR"))
         self.btn_btn_adminProductos_ExistenciaProducto.setText(_translate("Control_Productos", "Existencia"))
+        self.txt_buscar_productoUPC.setPlaceholderText(_translate("Control_Productos", "Codigo del producto"))
         self.txt_buscar.setPlaceholderText(_translate("Control_Productos", "Nombre del producto"))
         self.btn_btn_adminProductos_buscar.setToolTip(_translate("Control_Productos", "Buscar producto"))
         self.btn_btn_adminProductos_buscar.setText(_translate("Control_Productos", "Buscar"))

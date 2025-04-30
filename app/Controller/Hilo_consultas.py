@@ -5,7 +5,7 @@ from ..DataBase.conexionBD import Conexion_base_datos
 
 class Consultas_segundo_plano(QObject):
     terminado = pyqtSignal()
-    resultado = pyqtSignal(object, bool)
+    resultado = pyqtSignal(object, bool, str)
     error = pyqtSignal(str)
     resultado_productos_masivos_excel = pyqtSignal(object, object)
 
@@ -17,9 +17,9 @@ class Consultas_segundo_plano(QObject):
                     session = db.abrir_sesion()
                     data, estado = funcion(session, *args, **kwargs)
                     if estado:
-                        self.resultado.emit(data, estado)
+                        self.resultado.emit(data, estado, "")
                     else:
-                        self.resultado.emit(None, estado)
+                        self.resultado.emit(None, estado, "No se logro la operación")
             except Exception as e:
                 self.error.emit(str(e))
             finally:
