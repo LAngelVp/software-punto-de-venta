@@ -64,23 +64,56 @@ class ExistenciasClase(QWidget):
         tipo_movimiento = self.ui.cajaOpciones_TipoMovimiento.currentText()
         fecha_movimiento = self.ui.fecha_FechaMovimiento.date().toString('yyyy-MM-dd')
         notas = self.ui.txtlargo_NotasProducto.toPlainText()
+        id_usuario = self.datos_usuario["id_empleado"]
         if cant_existencia != 0:
-            with Conexion_base_datos() as db:
-                session = db.abrir_sesion()
-                with session.begin():
-                    movimiento, estatus_movimiento = ProductosModel(session).ejecutar_movimiento(
-                        producto_id=self.producto.id,
-                        cantidad_cambio=cant_existencia,
-                        tipo_movimiento=tipo_movimiento,
-                        fecha_movimiento=fecha_movimiento,
-                        notas=notas,
-                        usuarioid=self.datos_usuario["id_empleado"])
-                if not estatus_movimiento:
-                    Mensaje().mensaje_alerta("No se logro realizar el movimiento de la existencia.")
-                    return
-        Mensaje().mensaje_informativo("Se realizo el movimiento correctamente.")
+            self.modal_espera_local()
+            self.consultor = Consultas_segundo_plano()
+            self.consultor.terminado.connect(self.cargando_cerrar)
+            self.consultor.error.connect(self.mensaje_error)
+            self.consultor.resultado.connect(self.mensaje_estado_resultado)
+            self.consultor.ejecutar_hilo(
+                funcion=self.ejecutar_existencia_query,
+                cant_existencia = cant_existencia,
+                tipo_de_movimiento = tipo_movimiento,
+                fecha_de_movimiento = fecha_movimiento,
+                notas = notas,
+                id_empleado_realizo_operacion = id_usuario
+            )
+    def ejecutar_existencia_query(self, session, cant_existencia, tipo_de_movimiento, fecha_de_movimiento, notas, id_empleado_realizo_operacion):
+        datos, estado = ProductosModel(session).ejecutar_movimiento(
+            producto_id=self.producto.id,
+            cantidad_cambio=cant_existencia,
+            tipo_movimiento=tipo_de_movimiento,
+            fecha_movimiento=fecha_de_movimiento,
+            notas=notas,
+            usuarioid=id_empleado_realizo_operacion
+            )
+        if estado:
+            session.commit()
+        return datos, estado
+    
+    def mensaje_error(self, mensaje):
+        Mensaje().mensaje_critico(f"Ocurrio un error al ejecutar la operación : {mensaje}")
         return
     
+    def mensaje_estado_resultado(self, datos, estado, mensaje):
+        if estado:
+            Mensaje().mensaje_informativo("Operación exitosa")
+        else:
+            Mensaje().mensaje_informativo(mensaje)
+            
+    def modal_espera_local(self):
+        if self.cargando is None or not self.cargando.isVisible():
+            self.cargando = Modal_de_espera(parent=self)
+            self.cargando.show()
+        else:
+            self.cargando.raise_()
+            self.cargando.activateWindow()
+            
+    def cargando_cerrar(self):
+        if self.cargando is not None:
+            self.cargando.close()
+            self.cargando = None
 class Admin_productosController(QWidget):
     PRODUCTOS_AGREGADOS = pyqtSignal()
     RECIBIR_PRODUCTO_ACTUALIZAR_ID = pyqtSignal(object)
@@ -394,12 +427,7 @@ class Admin_productosController(QWidget):
         
     def __mostrar_error(self, mensaje_error):
         Mensaje().mensaje_informativo(f"Ocurrió un error: {mensaje_error}")
-        
-    def cargando_cerrar(self):
-        if self.cargando is not None:
-            self.cargando.close()
-            self.cargando = None
-            
+
     def productos_agregados_finalizado(self, productos_agregados, estado):
         if estado:
             # Aquí haces lo que quieras con los productos agregados:
