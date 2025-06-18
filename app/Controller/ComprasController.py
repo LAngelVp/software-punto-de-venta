@@ -1,10 +1,10 @@
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 from ..Model.ProveedoresModel import ProveedoresModel
 from ..DataBase.conexionBD import Conexion_base_datos
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 from ..View.UserInterfacePy.UI_CONTROL_COMPRAS import *
 from ..View.UserInterfacePy.UI_CREAR_ORDEN_DE_COMPRA import *
 from ..View.UserInterfacePy.UI_SELECCIONAR_PRODUCTOS_DEL_VENDEDOR import Ui_Seleccion_Productos_Proveedor
@@ -35,7 +35,7 @@ class Compras(QWidget):
         self.orden_compra = None
 
 class Orden_compra(QWidget):
-    VENTANA_CERRADA_NUEVA_COMPRA = pyqtSignal()
+    VENTANA_CERRADA_NUEVA_COMPRA = Signal()
     def __init__(self, parent = None, usuario = None):
         super().__init__(parent)
         self._ventanaCentradaNuevaCompra = False

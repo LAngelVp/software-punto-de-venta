@@ -1,7 +1,7 @@
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 from datetime import  datetime, timedelta
 from ..DataBase.conexionBD import Conexion_base_datos
 from .FuncionesAuxiliares import *
@@ -15,7 +15,7 @@ from ..Model.ClientesFisicosAndMoralesModel import *
 from .MensajesAlertasController import Mensaje
 
 class Clientes(QWidget):
-    cliente_seleccionado = pyqtSignal(str)
+    cliente_seleccionado = Signal(str)
     def __init__(self, parent = None):
         super().__init__(parent)
         self.ui = Ui_Control_Clientes()

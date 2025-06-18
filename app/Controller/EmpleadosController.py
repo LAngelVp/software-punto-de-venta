@@ -1,8 +1,8 @@
 import sys
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 from app.View.UserInterfacePy.UI_CONTROL_EMPLEADOS import *
 from app.Controller.RegistroInicialController import Registro_personal_inicial
 from app.Controller.RolesController import *
@@ -15,7 +15,7 @@ from .Ventana_espera import Modal_de_espera
 from .Hilo_consultas import Consultas_segundo_plano
 
 class EmpleadosController(QWidget):
-    registro_listar_puestos = pyqtSignal()
+    registro_listar_puestos = Signal()
     def __init__(self, parent = None):
         super().__init__(parent)
         self.ui = Ui_Control_empleados()

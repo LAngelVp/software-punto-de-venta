@@ -1,7 +1,8 @@
 from datetime import datetime
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap, QRegExpValidator
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QRegularExpressionValidator
 from ..Source.iconos_rc import *
 # from .Source.img import *
 from ..Source.ibootstrap_rc import *
@@ -29,14 +30,14 @@ from .Hilo_consultas import *
 import traceback
 
 class Registro_personal_inicial(QDialog):
-    listar_sucursales_signal = pyqtSignal()
-    listar_departamentos_signal = pyqtSignal()
-    listar_puestos_signal = pyqtSignal()
-    listar_depas_en_puestos_signal = pyqtSignal()
-    listar_sucursales_en_departamentos_signal = pyqtSignal()
-    tabla_puestos = pyqtSignal()
-    registro_agregado_signal = pyqtSignal()
-    VENTANA_REGISTRO_CERRADA = pyqtSignal()
+    listar_sucursales_signal = Signal()
+    listar_departamentos_signal = Signal()
+    listar_puestos_signal = Signal()
+    listar_depas_en_puestos_signal = Signal()
+    listar_sucursales_en_departamentos_signal = Signal()
+    tabla_puestos = Signal()
+    registro_agregado_signal = Signal()
+    VENTANA_REGISTRO_CERRADA = Signal()
     def __init__(self, parent = None, empleado = None):
         super().__init__(parent)
         # comment: variables globales:

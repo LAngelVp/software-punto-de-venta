@@ -1,8 +1,8 @@
 import threading
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QMessageBox, QWidget, QTableView
-from PyQt5.QtGui import QStandardItemModel, QStandardItem
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import *
+from PySide6.QtWidgets import QMessageBox, QWidget, QTableView
+from PySide6.QtGui import QStandardItemModel, QStandardItem
 from app.View.UserInterfacePy.UI_CONTROL_PROVEEDORES import Ui_Control_Proveedores
 from app.Controller.CategoriasController import CategoriasController
 from app.Model.ProveedoresModel import ProveedoresModel
@@ -22,9 +22,9 @@ from .Hilo_consultas import *
 import traceback
 
 class Control_proveedores(QWidget):
-    PROVEEDOR_SELECCIONADO_SIGNAL = pyqtSignal(object)
-    LISTAR_PROVEEDORES_EN_TABLA_SIGNAL = pyqtSignal()
-    LIMPIAR_CAMPOS_INTERNOS = pyqtSignal()
+    PROVEEDOR_SELECCIONADO_SIGNAL = Signal(object)
+    LISTAR_PROVEEDORES_EN_TABLA_SIGNAL = Signal()
+    LIMPIAR_CAMPOS_INTERNOS = Signal()
     def __init__(self, parent = None):
         super().__init__(parent)
         self.ui = Ui_Control_Proveedores()

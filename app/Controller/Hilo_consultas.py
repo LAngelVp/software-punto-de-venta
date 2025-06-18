@@ -1,13 +1,13 @@
 import threading
 import pandas as pd
-from PyQt5.QtCore import QObject, pyqtSignal
+from PySide6.QtCore import QObject, Signal
 from ..DataBase.conexionBD import Conexion_base_datos
 
 class Consultas_segundo_plano(QObject):
-    terminado = pyqtSignal()
-    resultado = pyqtSignal(object, bool, str)
-    error = pyqtSignal(str)
-    resultado_productos_masivos_excel = pyqtSignal(object, object)
+    terminado = Signal()
+    resultado = Signal(object, bool, str)
+    error = Signal(str)
+    resultado_productos_masivos_excel = Signal(object, object)
 
     def ejecutar_hilo(self, funcion, *args, **kwargs):
         # Función de tarea

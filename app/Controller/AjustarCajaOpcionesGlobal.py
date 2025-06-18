@@ -1,5 +1,6 @@
-from PyQt5.QtWidgets import QListView, QMenu, QAction, QMessageBox
-from PyQt5.QtCore import Qt
+from PySide6.QtWidgets import QListView, QMenu, QMessageBox
+from PySide6.QtGui import QAction
+from PySide6.QtCore import Qt
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.BaseDatosModel import Unidad_medida_productos, Presentacion_productos
 from ..Model.CategoriasModel import CategoriasModel

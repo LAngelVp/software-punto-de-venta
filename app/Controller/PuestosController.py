@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
 from .MensajesAlertasController import Mensaje
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..View.UserInterfacePy.UI_ADMINISTRAR_PUESTOS import Ui_Formulario_puestos
@@ -11,9 +11,9 @@ from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
 
 class PuestosController(QDialog):
-    signal_puesto_agregado =  pyqtSignal()
-    elemento_seleccionado = pyqtSignal(str)
-    VENTANA_PUESTOS_CERRADA = pyqtSignal()
+    signal_puesto_agregado =  Signal()
+    elemento_seleccionado = Signal(str)
+    VENTANA_PUESTOS_CERRADA = Signal()
     def __init__(self, parent = None, cabecera = True):
         super().__init__(parent)
         self._ventanaCentradaPuestos = False

@@ -1,7 +1,7 @@
-from PyQt5 import *
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PySide6 import *
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 from ..View.UserInterfacePy.UI_NUEVA_AREA_NEGOCIO import *
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.AreaNegocioClientesModel import  *
@@ -10,7 +10,7 @@ from ..Model.AreaNegocioClientesModel import  AreaNegocioClientesModel
 
 
 class AreaNegocioClientesController(QWidget):
-    signal_area = pyqtSignal()
+    signal_area = Signal()
     def __init__(self, tipo_cliente = None):
         super().__init__()
         self.ui = Ui_Nueva_area_negocio()

@@ -1,9 +1,9 @@
 from ..Source.iconsdvg_rc import *
 from ..Source.iconosSVG_rc import *
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon, QCursor
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon, QCursor
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
@@ -25,8 +25,8 @@ from .Ventana_espera import *
 import traceback
 
 class ExistenciasClase(QWidget):
-    VENTANA_CERRADA_EXISTENCIA = pyqtSignal()
-    RECIBIR_PRODUCTO_ID_EXISTENCIA = pyqtSignal(object)
+    VENTANA_CERRADA_EXISTENCIA = Signal()
+    RECIBIR_PRODUCTO_ID_EXISTENCIA = Signal(object)
     def __init__(self, parent = None, datos_usuario = None):
         super().__init__(parent)
         self._ventanaCentrada = False
@@ -115,9 +115,9 @@ class ExistenciasClase(QWidget):
             self.cargando.close()
             self.cargando = None
 class Admin_productosController(QWidget):
-    PRODUCTOS_AGREGADOS = pyqtSignal()
-    RECIBIR_PRODUCTO_ACTUALIZAR_ID = pyqtSignal(object)
-    VENTANA_CERRADA_PRODUCTOS = pyqtSignal()
+    PRODUCTOS_AGREGADOS = Signal()
+    RECIBIR_PRODUCTO_ACTUALIZAR_ID = Signal(object)
+    VENTANA_CERRADA_PRODUCTOS = Signal()
     
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -989,11 +989,11 @@ class Admin_productosController(QWidget):
             self.cargando = None
             
 class Productos(QWidget):
-    LISTAR_CATEGORIAS_PRODUCTOS = pyqtSignal()
-    LISTAR_UNIDADES_MEDIDA_PRODUCTOS = pyqtSignal()
-    LISTAR_PRESENTACIONES_PRODUCTOS = pyqtSignal()
-    LISTAR_PROVEEDORES_EXISTENTES_SIGNAL = pyqtSignal()
-    MOSTRAR_DATOS_EXISTENCIAS = pyqtSignal()
+    LISTAR_CATEGORIAS_PRODUCTOS = Signal()
+    LISTAR_UNIDADES_MEDIDA_PRODUCTOS = Signal()
+    LISTAR_PRESENTACIONES_PRODUCTOS = Signal()
+    LISTAR_PROVEEDORES_EXISTENTES_SIGNAL = Signal()
+    MOSTRAR_DATOS_EXISTENCIAS = Signal()
     def __init__(self, parent = None, datos_usuario = None):
         super().__init__(parent)
         self.ui = Ui_Control_Productos()

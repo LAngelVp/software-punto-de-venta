@@ -1,8 +1,8 @@
 import sys
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 from ..Source.iconsdvg_rc import *
 from app.View.UserInterfacePy.UI_CONTROL_SUCUDEPAPUESTO import Ui_Control_SucursalesDepartamentosPuestos
 
@@ -11,10 +11,10 @@ from app.Controller.DepartamentosController import DepartamentosController
 from app.Controller.PuestosController import PuestosController
 
 class ControlSucursalesController(QDialog):
-    listar_sucursales = pyqtSignal(set)
-    listar_departamentos = pyqtSignal()
-    listar_departamentos_puestos = pyqtSignal()
-    VENTANA_CERRADA_SUCUDEPAPUES = pyqtSignal()
+    listar_sucursales = Signal(set)
+    listar_departamentos = Signal()
+    listar_departamentos_puestos = Signal()
+    VENTANA_CERRADA_SUCUDEPAPUES = Signal()
     def __init__(self, parent = None):
         super().__init__(parent)
         self._ventanaCentradaSucuDepaPues = False

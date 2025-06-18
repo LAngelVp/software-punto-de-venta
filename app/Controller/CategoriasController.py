@@ -1,9 +1,9 @@
 import sys
 import os
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QValidator
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import QValidator
 from ..View.UserInterfacePy.UI_NUEVA_CATEGORIA import *
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.CategoriasModel import CategoriasModel
@@ -11,7 +11,7 @@ from .MensajesAlertasController import Mensaje
 
 
 class CategoriasController(QWidget):
-    categoria_agregada_signal =  pyqtSignal()
+    categoria_agregada_signal =  Signal()
     def __init__(self, tipo_categoria):
         super().__init__()
         self.tipo_categoria = tipo_categoria

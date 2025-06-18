@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+from PySide6.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
 from ..Source.ibootstrap_rc import  *
 from .MensajesAlertasController import Mensaje
 from ..DataBase.conexionBD import Conexion_base_datos
@@ -9,8 +9,8 @@ from ..Model.SucursalesModel import SucursalesModel
 from ..Model.DepartamentosModel import DepartamentosModel
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 class DepartamentosController(QDialog):
-    signal_departamento_agregado = pyqtSignal()
-    VENTANA_DEPARTAMENTOS_CERRADA = pyqtSignal()
+    signal_departamento_agregado = Signal()
+    VENTANA_DEPARTAMENTOS_CERRADA = Signal()
     def __init__(self, parent = None, cabecera = True):
         super().__init__(parent)
         self._ventanaCentradaDepartamentos = False

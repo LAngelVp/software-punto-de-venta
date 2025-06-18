@@ -1,12 +1,12 @@
 import sys
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtCore import *
+from PySide6.QtGui import *
+from PySide6.QtWidgets import *
 from ..Source.iconos_rc import *
 from .favicon import *
 # from ..Source.img import *
 from ..Source.iconsdvg_rc import *
-from PyQt5.QtWidgets import QApplication, QWidget
+from PySide6.QtWidgets import QApplication, QWidget
 from app.View.UserInterfacePy.UI_BIENVENIDA import *
 from .RegistroInicialController import Registro_personal_inicial
 

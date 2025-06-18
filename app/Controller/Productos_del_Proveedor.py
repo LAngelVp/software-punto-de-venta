@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
+from PySide6.QtCore import *
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProductosModel import ProductosModel
 from ..Model.ProveedoresModel import ProveedoresModel
@@ -13,11 +13,11 @@ from .FuncionesAuxiliares import FuncionesAuxiliaresController
 from .Ventana_espera import *
 from .Hilo_consultas import *
 class Productos_de_proveedorController(QWidget):
-    PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL=pyqtSignal(object)
-    LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR = pyqtSignal()
-    PRODUCTO_VINCULADO_SIGNAL = pyqtSignal()
-    VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR = pyqtSignal()
-    PRODUCTO_DEL_SISTEMA_SELECCIONADO_QUITAR_SELECCION_SIGNAL = pyqtSignal(object)
+    PRODUCTO_DE_SISTEMA_SELECCIONADO_SIGNAL=Signal(object)
+    LISTAR_PRODUCTO_VINCULADOS_AL_PROVEEDOR = Signal()
+    PRODUCTO_VINCULADO_SIGNAL = Signal()
+    VENTANA_CERRADA_PRODUCTOS_DEL_PROVEEDOR = Signal()
+    PRODUCTO_DEL_SISTEMA_SELECCIONADO_QUITAR_SELECCION_SIGNAL = Signal(object)
     def __init__(self, parent = None, proveedor = None):
         super().__init__(parent)
         self.ui = Ui_contenedor_productos_proveedores()
@@ -385,7 +385,7 @@ class Productos_de_proveedorController(QWidget):
             print(f"error: {e}")
 
 class CambioPreciosProductosProveedores(QDialog):
-    VENTANA_CERRADA_PRECIO_PRODUCTO = pyqtSignal()
+    VENTANA_CERRADA_PRECIO_PRODUCTO = Signal()
     def __init__(self, parent = None, producto = None, proveedor = None):
         super().__init__(parent)
         self.ui = Ui_PreciosProductosProveedor()

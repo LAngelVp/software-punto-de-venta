@@ -1,7 +1,7 @@
-from PyQt5 import QtCore, QtWidgets
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PySide6 import QtCore, QtWidgets
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 from ..Source.ibootstrap_rc import  *
 from .MensajesAlertasController import Mensaje
 from ..DataBase.conexionBD import *
@@ -12,8 +12,8 @@ from ..Model.DepartamentosModel import DepartamentosModel
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
 class SucursalesController(QDialog):
-    VENTANA_SUCURSALES_CERRADA = pyqtSignal()
-    signal_sucursal_agregada = pyqtSignal()
+    VENTANA_SUCURSALES_CERRADA = Signal()
+    signal_sucursal_agregada = Signal()
     def __init__(self, parent = None, cabecera = True):
         super().__init__(parent)
         

@@ -1,7 +1,7 @@
 import sys
 from datetime import datetime
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QWidget, QDialog
+from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import QWidget, QDialog
 from ..View.UserInterfacePy.UI_SISTEMA_PRINCIPAL import Ui_Principal_sistema
 from ..Controller.ClientesController import Clientes
 from ..Controller.PerfilUsuarioController import Perfil
@@ -15,14 +15,14 @@ from ..Controller.ControlSucursalesController import ControlSucursalesController
 from .MensajesAlertasController import Mensaje
 
 class SistemaPrincipal(QWidget):
-    LISTAR_PROVEEDORES_VPROVEEDORES = pyqtSignal()
-    LISTAR_CATEGORIAS_VPROVEEDORES = pyqtSignal()
-    LIMPIAR_CAMPOS_PROVEEDORES = pyqtSignal()
-    LISTAR_EMPLEADOS_VEMPLEADOS = pyqtSignal()
-    LISTAR_PRODUCTOS_VPRODUCTOS = pyqtSignal()
-    LISTAR_AREAS_VCLIENTES = pyqtSignal()
-    LISTAR_CATEGORIAS_VCLIENTES = pyqtSignal()
-    LISTAR_CLIENTES_VCLIENTES = pyqtSignal()
+    LISTAR_PROVEEDORES_VPROVEEDORES = Signal()
+    LISTAR_CATEGORIAS_VPROVEEDORES = Signal()
+    LIMPIAR_CAMPOS_PROVEEDORES = Signal()
+    LISTAR_EMPLEADOS_VEMPLEADOS = Signal()
+    LISTAR_PRODUCTOS_VPRODUCTOS = Signal()
+    LISTAR_AREAS_VCLIENTES = Signal()
+    LISTAR_CATEGORIAS_VCLIENTES = Signal()
+    LISTAR_CLIENTES_VCLIENTES = Signal()
     def __init__(self, parent = None, datos_usuario = None):
         super().__init__(parent)
         self.ventana_saludo = None

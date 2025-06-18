@@ -3,9 +3,9 @@ from datetime import datetime
 from ..Source.iconsdvg_rc import *
 from sqlalchemy import MetaData, Table, select, func
 from ..DataBase.conexionBD import Conexion_base_datos
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+from PySide6.QtGui import *
 from ..View.UserInterfacePy.UI_INICIO_SESION import *
 from ..View.UserInterfacePy.UI_VENTANA_SALUDO_INGRESO import Ui_Bienvenida
 from .Hilo_consultas import *

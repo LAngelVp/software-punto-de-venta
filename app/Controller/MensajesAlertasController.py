@@ -1,5 +1,5 @@
-from PyQt5.QtWidgets import QMessageBox
-from PyQt5.QtGui import QIcon
+from PySide6.QtWidgets import QMessageBox
+from PySide6.QtGui import QIcon
 from ..Source.ibootstrap_rc import *
 class Mensaje:
     def __init__(self):
