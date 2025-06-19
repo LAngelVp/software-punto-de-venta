@@ -23,7 +23,7 @@ class AjustarCajaOpciones:
         if caja_opciones.count() > 0:
             # Calcular el ancho máximo basado en los elementos
             max_ancho = max(
-                caja_opciones.fontMetrics().width(caja_opciones.itemText(i))
+                caja_opciones.fontMetrics().horizontalAdvance(caja_opciones.itemText(i))
                 for i in range(caja_opciones.count())
             )
 

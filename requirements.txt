@@ -6,7 +6,6 @@ bcrypt
 psycopg2-binary
 SQLAlchemy-Utils
 alembic
-bcrypt
 openpyxl
 asyncpg
 faker
