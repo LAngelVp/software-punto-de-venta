@@ -14,11 +14,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Control_Productos{
+   <string notr="true">*{color: #1d1c1c;}
+#Control_Productos{
 background: #fffefb;
 }
-#contenedor{
+[objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
+border:none;
 }
 #etiquetaTitulo_productos{
 color:#1d1c1c;
@@ -80,10 +82,10 @@ border-radius: 5px;
 border-bottom:2px solid #023375;
 }
 /*TABLA*/
-
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
+background: #F5F5F5;
 }
 
 /* Encabezados de la tabla */
@@ -108,6 +110,7 @@ border-bottom:2px solid #023375;
     color: white;
 }
 
+
 </string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -129,10 +132,10 @@ border-bottom:2px solid #023375;
    <item row="0" column="0">
     <widget class="QFrame" name="contenedor">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
@@ -170,12 +173,12 @@ border-bottom:2px solid #023375;
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QFrame" name="frame_2">
+       <widget class="QFrame" name="contenedor_frame_2">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_5">
          <property name="leftMargin">
@@ -196,10 +199,10 @@ border-bottom:2px solid #023375;
          <item row="0" column="0">
           <widget class="QFrame" name="contenedor_controles">
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
@@ -285,7 +288,7 @@ border-bottom:2px solid #023375;
             <item row="0" column="1">
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -301,10 +304,10 @@ border-bottom:2px solid #023375;
          <item row="1" column="0">
           <widget class="QFrame" name="contenedor_tabla">
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout">
             <property name="spacing">
@@ -322,13 +325,13 @@ border-bottom:2px solid #023375;
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item alignment="Qt::AlignVCenter">
-             <widget class="QFrame" name="frame">
+            <item alignment="Qt::AlignmentFlag::AlignVCenter">
+             <widget class="QFrame" name="contenedor_frame">
               <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
+               <enum>QFrame::Shape::StyledPanel</enum>
               </property>
               <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
+               <enum>QFrame::Shadow::Raised</enum>
               </property>
               <layout class="QHBoxLayout" name="horizontalLayout_2">
                <item>
@@ -358,7 +361,7 @@ border-bottom:2px solid #023375;
                  </property>
                 </widget>
                </item>
-               <item alignment="Qt::AlignVCenter">
+               <item alignment="Qt::AlignmentFlag::AlignVCenter">
                 <widget class="QPushButton" name="btn_btn_adminProductos_buscar">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
@@ -374,7 +377,7 @@ border-bottom:2px solid #023375;
                <item>
                 <spacer name="horizontalSpacer">
                  <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                  <enum>Qt::Orientation::Horizontal</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -384,7 +387,7 @@ border-bottom:2px solid #023375;
                  </property>
                 </spacer>
                </item>
-               <item alignment="Qt::AlignVCenter">
+               <item alignment="Qt::AlignmentFlag::AlignVCenter">
                 <widget class="QPushButton" name="btn_RefrescarTabla">
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
@@ -407,18 +410,18 @@ border-bottom:2px solid #023375;
             <item>
              <widget class="QTableView" name="tabla_productos">
               <property name="editTriggers">
-               <set>QAbstractItemView::NoEditTriggers</set>
+               <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
               </property>
               <property name="selectionBehavior">
-               <enum>QAbstractItemView::SelectRows</enum>
+               <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
               </property>
               <property name="gridStyle">
-               <enum>Qt::DashDotLine</enum>
+               <enum>Qt::PenStyle::DashDotLine</enum>
               </property>
-              <attribute name="horizontalHeaderDefaultSectionSize">
+              <attribute name="horizontalHeaderMinimumSectionSize">
                <number>200</number>
               </attribute>
-              <attribute name="horizontalHeaderMinimumSectionSize">
+              <attribute name="horizontalHeaderDefaultSectionSize">
                <number>200</number>
               </attribute>
              </widget>

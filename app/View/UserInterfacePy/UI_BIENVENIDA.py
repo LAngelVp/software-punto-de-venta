@@ -24,9 +24,9 @@ class Ui_Bienvenida(object):
     def setupUi(self, Bienvenida):
         if not Bienvenida.objectName():
             Bienvenida.setObjectName(u"Bienvenida")
-        Bienvenida.resize(450, 250)
-        Bienvenida.setMinimumSize(QSize(450, 250))
-        Bienvenida.setMaximumSize(QSize(450, 250))
+        Bienvenida.resize(600, 450)
+        Bienvenida.setMinimumSize(QSize(600, 450))
+        Bienvenida.setMaximumSize(QSize(600, 450))
         Bienvenida.setStyleSheet(u"#Bienvenida{\n"
 "background-color: #fffefb;\n"
 "}\n"
@@ -42,7 +42,7 @@ class Ui_Bienvenida(object):
 "")
         self.contenedor = QWidget(Bienvenida)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setGeometry(QRect(38, 20, 371, 211))
+        self.contenedor.setGeometry(QRect(40, 80, 521, 291))
         self.contenedor.setStyleSheet(u"#btn_btn_registrar{\n"
 "background-color: rgb(0, 97, 154);\n"
 "border-radius: 5px;\n"
@@ -57,7 +57,7 @@ class Ui_Bienvenida(object):
 "}")
         self.etiqueta_imagen = QLabel(self.contenedor)
         self.etiqueta_imagen.setObjectName(u"etiqueta_imagen")
-        self.etiqueta_imagen.setGeometry(QRect(80, 30, 191, 131))
+        self.etiqueta_imagen.setGeometry(QRect(100, 30, 351, 221))
         self.etiqueta_imagen.setStyleSheet(u"")
         self.etiqueta_imagen.setPixmap(QPixmap(u":/Icons/IconosSVG/ilustracion_hombre_con_computadora.png"))
         self.etiqueta_imagen.setScaledContents(True)
@@ -68,10 +68,10 @@ class Ui_Bienvenida(object):
         font.setFamilies([u"Arial"])
         font.setBold(True)
         self.etiqueta_titulo.setFont(font)
-        self.etiqueta_titulo.setAlignment(Qt.AlignCenter)
+        self.etiqueta_titulo.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.btn_btn_registrar = QPushButton(self.contenedor)
         self.btn_btn_registrar.setObjectName(u"btn_btn_registrar")
-        self.btn_btn_registrar.setGeometry(QRect(78, 160, 201, 31))
+        self.btn_btn_registrar.setGeometry(QRect(140, 230, 251, 41))
         font1 = QFont()
         font1.setPointSize(11)
         font1.setBold(True)
@@ -80,7 +80,7 @@ class Ui_Bienvenida(object):
         self.btn_btn_registrar.setStyleSheet(u"")
         self.label = QLabel(self.contenedor)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(240, 40, 91, 31))
+        self.label.setGeometry(QRect(360, 40, 131, 61))
         self.label.setStyleSheet(u"")
         self.label.setPixmap(QPixmap(u":/Icons/IconosSVG/logo_devrous.png"))
         self.label.setScaledContents(True)

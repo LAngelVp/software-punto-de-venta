@@ -10,7 +10,7 @@ from .CategoriasController import CategoriasController
 from .AreaNegocioClientesController import AreaNegocioClientesController
 from ..Model.AreaNegocioClientesModel import AreaNegocioClientesModel
 from ..Model.CategoriasModel import CategoriasModel
-from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+from .AjustarcajaOpcionesGlobal import AjustarcajaOpciones
 from ..Model.ClientesFisicosAndMoralesModel import *
 from .MensajesAlertasController import Mensaje
 
@@ -184,7 +184,7 @@ class Clientes(QWidget):
             "codigo postal" : self.ui.txt_codigopostal_fisico,
             "direccion adicional": self.ui.txtlargo_direccionadicional_fisico,
             "entidad legalizada": self.ui.casillaverificacion_entidadlegalizada_fisico,
-            "categoria del cliente" : self.ui.cajaopciones_categoriaFisico,
+            "categoria del cliente" : self.ui.cajaOpciones_categoriaFisico,
             "tiene credito": self.ui.casillaverificacion_wpc_credito_autorizado,
             "estado del credito" : self.ui.txt_estadodelcredito_fisico,
             "limite de credito" : self.ui.cajaDecimal_wpc_limite_credito,
@@ -194,7 +194,7 @@ class Clientes(QWidget):
             "credito utilizado" : self.ui.cajaDecimal_creditoutilizado_fisico,
             "aplica descuento" : self.ui.casillaverificacion_aplicadescuento_fisico,
             "ocupacion" : self.ui.txt_ocupacion_fisico,
-            "area de negocio" : self.ui.cajaopciones_areasnegocio_fisico,
+            "area de negocio" : self.ui.cajaOpciones_areasnegocio_fisico,
             "comentarios": self.ui.txtlargo_comentarioclientefisico,
             "porcentaje de descuento" : self.ui.cajaDecimal_porcentajedescuento_fisico,
             "apellido paterno" : self.ui.txt_apellidop_fisico,
@@ -203,7 +203,7 @@ class Clientes(QWidget):
             "fecha de nacimiento" : self.ui.fecha_fechanacimiento,
             "numero de identificacion" : self.ui.txt_ine_fisico,
             "ingresos" : self.ui.cajaDecimal_wpc_ingresosclienteFisico,
-            "estado civil" : self.ui.cajaopciones_estadocivil_fisico,
+            "estado civil" : self.ui.cajaOpciones_estadocivil_fisico,
             "foto" : self.ui.label_wpc_fotocliente
         }
     
@@ -221,7 +221,7 @@ class Clientes(QWidget):
             "codigo postal" : self.ui.txt_codigopostal_moral,
             "direccion adicional": self.ui.txtlargo_direccionadicional_moral,
             "entidad legalizada": self.ui.casillaverificacion_entidadlegalizada_moral,
-            "categoria del cliente" : self.ui.cajaopciones_categoriaMoral,
+            "categoria del cliente" : self.ui.cajaOpciones_categoriaMoral,
             "sector" : self.ui.txt_sector_empre_moral,
             "web" : self.ui.txt_pagina_empre_moral,
             "tiene credito": self.ui.casillaverificacion_wpc_credito_autorizado_moral,
@@ -232,7 +232,7 @@ class Clientes(QWidget):
             "credito disponible": self.ui.cajaDecimal_creditodisponible_moral,
             "credito utilizado" : self.ui.cajaDecimal_creditoutilizado_moral,
             "aplica descuento" : self.ui.casillaverificacion_aplicadescuento_moral,
-            "area de negocio" : self.ui.cajaopciones_areasnegocio_moral,
+            "area de negocio" : self.ui.cajaOpciones_areasnegocio_moral,
             "comentarios": self.ui.txtlargo_comentarios_cliente_moral,
             "porcentaje de descuento" : self.ui.cajaDecimal_porcentajedescuento_moral,
             "razon social": self.ui.txt_razonsocial_moral,
@@ -522,7 +522,7 @@ class Clientes(QWidget):
                     "codigo postal": self.ui.txt_codigopostal_fisico.text().strip().upper(),
                     "direccion adicional": self.ui.txtlargo_direccionadicional_fisico.toPlainText().strip().upper(),
                     "curp": self.ui.txt_curp_fisico.text().strip().upper(),
-                    "estado civil": self.ui.cajaopciones_estadocivil_fisico.currentText().strip().upper(),
+                    "estado civil": self.ui.cajaOpciones_estadocivil_fisico.currentText().strip().upper(),
                     "nivel de ingresos": self.ui.cajaDecimal_wpc_ingresosclienteFisico.value(),
                     "correo electronico" : self.ui.txt_correo_fisico.text().strip(),
                     "avenidas" : self.ui.txt_avenidas_fisico.text().strip().upper(),
@@ -530,9 +530,9 @@ class Clientes(QWidget):
                     "fecha de nacimiento" : self.ui.fecha_fechanacimiento.date().toPyDate(),
                     "numero identificacion" : self.ui.txt_ine_fisico.text().strip().upper(),
                     "ocupacion" : self.ui.txt_ocupacion_fisico.text().strip().upper(),
-                    "area de negocio" : self.ui.cajaopciones_areasnegocio_fisico.currentData(),
-                    "clasificacion cliente": self.ui.cajaopciones_categoriaFisico.currentData(),
-                    "estado civil": self.ui.cajaopciones_estadocivil_fisico.currentText().strip().upper(),
+                    "area de negocio" : self.ui.cajaOpciones_areasnegocio_fisico.currentData(),
+                    "clasificacion cliente": self.ui.cajaOpciones_categoriaFisico.currentData(),
+                    "estado civil": self.ui.cajaOpciones_estadocivil_fisico.currentText().strip().upper(),
                     "comentarios" : self.ui.txtlargo_comentarioclientefisico.toPlainText().strip().upper(),
                     "entidad legalizada" : self.ui.casillaverificacion_entidadlegalizada_fisico.isChecked(),
                     "credito autorizado" : self.ui.casillaverificacion_wpc_credito_autorizado.isChecked(),
@@ -594,9 +594,9 @@ class Clientes(QWidget):
             'sector' : self.ui.txt_sector_empre_moral.text().strip().upper(),
             'estado' : self.ui.txt_estado_moral.text().strip().upper(),
             'codigo postal' : self.ui.txt_codigopostal_moral.text().strip().upper(),
-            'area de negocio' : self.ui.cajaopciones_areasnegocio_moral.currentData(),
+            'area de negocio' : self.ui.cajaOpciones_areasnegocio_moral.currentData(),
             "fecha de constitucion" : self.ui.fecha_fechaconstitucion.date().toPyDate(),
-            'clasificacion de cliente' : self.ui.cajaopciones_categoriaMoral.currentData(),
+            'clasificacion de cliente' : self.ui.cajaOpciones_categoriaMoral.currentData(),
             'direccion adicional' : self.ui.txtlargo_direccionadicional_moral.toPlainText().strip().upper(),
             'representante moral' : self.ui.txt_nombre_repre_moral.text().strip().upper(),
             'telefono representante' : self.ui.txt_telefono_repre_moral.text().strip().upper(),
@@ -925,9 +925,9 @@ class Clientes(QWidget):
 
     def listar_areas(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
-            self.ui.cajaopciones_areasnegocio_fisico.clear()
+            self.ui.cajaOpciones_areasnegocio_fisico.clear()
         else:
-            self.ui.cajaopciones_areasnegocio_moral.clear()
+            self.ui.cajaOpciones_areasnegocio_moral.clear()
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
@@ -935,12 +935,12 @@ class Clientes(QWidget):
                 if areas:
                     if self.ui.btnRadio_wpc_clienteFisico.isChecked():
                         for a in areas:
-                            self.ui.cajaopciones_areasnegocio_fisico.addItem(a.nombre, a) 
-                        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_areasnegocio_fisico)
+                            self.ui.cajaOpciones_areasnegocio_fisico.addItem(a.nombre, a) 
+                        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_areasnegocio_fisico)
                     else:
                         for a in areas:
-                            self.ui.cajaopciones_areasnegocio_moral.addItem(a.nombre, a)
-                        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_areasnegocio_moral)
+                            self.ui.cajaOpciones_areasnegocio_moral.addItem(a.nombre, a)
+                        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_areasnegocio_moral)
         except Exception as e:
             Mensaje().mensaje_critico(f'No se logro listar las areas por lo siguiente: {e}')
 
@@ -951,9 +951,9 @@ class Clientes(QWidget):
 
     def listar_categorias(self):
         if self.ui.btnRadio_wpc_clienteFisico.isChecked():
-            self.ui.cajaopciones_categoriaFisico.clear()
+            self.ui.cajaOpciones_categoriaFisico.clear()
         else:
-            self.ui.cajaopciones_categoriaMoral.clear()
+            self.ui.cajaOpciones_categoriaMoral.clear()
         try:
             with Conexion_base_datos() as db:
                 session = db.abrir_sesion()
@@ -961,12 +961,12 @@ class Clientes(QWidget):
                 if estado:
                     if self.ui.btnRadio_wpc_clienteFisico.isChecked():
                         for c in categorias:
-                            self.ui.cajaopciones_categoriaFisico.addItem(c.nombre, c)
-                        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_categoriaFisico)
+                            self.ui.cajaOpciones_categoriaFisico.addItem(c.nombre, c)
+                        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaFisico)
                     else:
                         for c in categorias:
-                            self.ui.cajaopciones_categoriaMoral.addItem(c.nombre, c)
-                        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_categoriaMoral)
+                            self.ui.cajaOpciones_categoriaMoral.addItem(c.nombre, c)
+                        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaMoral)
         except Exception as e:
             Mensaje().mensaje_critico(f'No se logro listar las categorias por lo siguiente: {e}')
 

@@ -26,7 +26,9 @@ class Ui_Control_Ventas(object):
         if not Control_Ventas.objectName():
             Control_Ventas.setObjectName(u"Control_Ventas")
         Control_Ventas.resize(775, 409)
-        Control_Ventas.setStyleSheet(u"#Control_Ventas{\n"
+        Control_Ventas.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"[objectName*=\"contenedor\"]{border:none;}\n"
+"#Control_Ventas{\n"
 "background: #fffefb;\n"
 "}\n"
 "#contenedor{\n"
@@ -71,12 +73,12 @@ class Ui_Control_Ventas(object):
 "#btn_RefrescarTabla:hover{\n"
 "background: rgb(179, 179, 179);\n"
 "}\n"
-"#btn_RefrescarTabla:pressed{\n"
+"#btn_RefrescarTab"
+                        "la:pressed{\n"
 "background: #b6ccd8 ;\n"
 "}\n"
 "\n"
-"#etiqueta_buscar{"
-                        "\n"
+"#etiqueta_buscar{\n"
 "image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);\n"
 "min-width:25px;\n"
 "min-height:25px;\n"
@@ -95,47 +97,10 @@ class Ui_Control_Ventas(object):
 "}\n"
 "\n"
 "/*TABLA*/\n"
-"\n"
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"}\n"
-"\n"
-"/* Barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 12px;  /* Fijamos el tama\u00f1o de la barra vertical */\n"
-"    border-radius: 4px;\n"
-"    margin: 22px 0 22px 0;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
-"    background: #023375;\n"
-"    min-height: 20px;  /* Altura m\u00ednima del manejador */\n"
-"    border-radius: 4px;\n"
-"}\n"
-""
-                        "\n"
-"/* Elementos de la flecha de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
-"[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
-"    background-color: none;\n"
-"}\n"
-"\n"
-"/* Barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Fijamos el tama\u00f1o de la barra horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Altura del manejador horizontal */\n"
-"    border-radius: 4px;\n"
+"background: #F5F5F5;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
@@ -149,12 +114,12 @@ class Ui_Control_Ventas(object):
 "}\n"
 "\n"
 "/* Encabezado horizontal */\n"
-"[objectName*=\"tabla_\"] QHeaderView::horizontal "
-                        "{\n"
+"[objectName*=\"tabla_\"] QHeaderView::horizontal {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
 "}\n"
-"\n"
+""
+                        "\n"
 "/* Encabezado vertical */\n"
 "[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
 "    background-color: #023375;\n"
@@ -166,8 +131,8 @@ class Ui_Control_Ventas(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor = QFrame(Control_Ventas)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_2 = QGridLayout(self.contenedor)
         self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
@@ -179,18 +144,18 @@ class Ui_Control_Ventas(object):
 
         self.gridLayout_2.addWidget(self.etiquetaTitulo_ventas, 0, 0, 1, 1)
 
-        self.frame_2 = QFrame(self.contenedor)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.gridLayout_5 = QGridLayout(self.frame_2)
+        self.contenedor_frame_2 = QFrame(self.contenedor)
+        self.contenedor_frame_2.setObjectName(u"contenedor_frame_2")
+        self.contenedor_frame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.gridLayout_5 = QGridLayout(self.contenedor_frame_2)
         self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.gridLayout_5.setContentsMargins(0, -1, 0, 0)
-        self.contenedor_controles = QFrame(self.frame_2)
+        self.contenedor_controles = QFrame(self.contenedor_frame_2)
         self.contenedor_controles.setObjectName(u"contenedor_controles")
-        self.contenedor_controles.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_controles.setFrameShadow(QFrame.Raised)
+        self.contenedor_controles.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_controles.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.contenedor_controles)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.horizontalLayout = QHBoxLayout()
@@ -232,10 +197,10 @@ class Ui_Control_Ventas(object):
 
         self.gridLayout_5.addWidget(self.contenedor_controles, 0, 0, 1, 1)
 
-        self.contenedor_tabla = QFrame(self.frame_2)
+        self.contenedor_tabla = QFrame(self.contenedor_frame_2)
         self.contenedor_tabla.setObjectName(u"contenedor_tabla")
-        self.contenedor_tabla.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_tabla.setFrameShadow(QFrame.Raised)
+        self.contenedor_tabla.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_tabla.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_4 = QGridLayout(self.contenedor_tabla)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.horizontalLayout_2 = QHBoxLayout()
@@ -280,7 +245,7 @@ class Ui_Control_Ventas(object):
         self.gridLayout_5.addWidget(self.contenedor_tabla, 1, 0, 1, 1)
 
 
-        self.gridLayout_2.addWidget(self.frame_2, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.contenedor_frame_2, 1, 0, 1, 1)
 
 
         self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)

@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDateE
     QDoubleSpinBox, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QPlainTextEdit, QPushButton, QSizePolicy,
     QSpacerItem, QWidget)
-from ...Source import ibootstrap_rc
+import ibootstrap_rc
 
 class Ui_UI_EXISTENCIA_PRODUCTO(object):
     def setupUi(self, UI_EXISTENCIA_PRODUCTO):

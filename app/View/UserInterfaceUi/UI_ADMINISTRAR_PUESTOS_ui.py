@@ -20,9 +20,9 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QCheckBox, QCombo
     QHeaderView, QLabel, QLineEdit, QPlainTextEdit,
     QPushButton, QSizePolicy, QSpacerItem, QTableView,
     QTimeEdit, QWidget)
-from ...Source import iconsdvg_rc
-from ...Source import iconosSVG_rc
-from ...Source import ibootstrap_rc
+import iconsdvg_rc
+import iconosSVG_rc
+import ibootstrap_rc
 
 class Ui_Formulario_puestos(object):
     def setupUi(self, Formulario_puestos):

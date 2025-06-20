@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
+    <width>1076</width>
     <height>460</height>
    </rect>
   </property>
@@ -14,7 +14,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Venta{
+   <string notr="true">*{color: #1d1c1c;}
+#Venta{
 background: #fffefb;
 }
 #contenedor_controlcentral{
@@ -27,6 +28,7 @@ min-width: 300px;
 }
 [objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
+border:none;
 }
 [objectName*=&quot;etiqueta_&quot;]{
 font-size: 14px;
@@ -87,85 +89,107 @@ border-bottom: 2px solid #023375;
 
 /*------TABLA-----*/
 [objectName*=&quot;tabla_&quot;] {
-    border:1px solid;
-}
-[objectName*=&quot;tabla_&quot;] QTableView::item {
-    border-bottom: 1px solid #ff5733; /* Color del borde inferior */
-}
-[objectName*=&quot;tabla_&quot;] QScrollBar:vertical {
-    border: 1px solid gray;
-    background: #023375;
-    width: 5px;
-border-radius:2px;
-    margin: 22px 0 22px 0; 
+    font-family: Arial;
+    font-size: 14px;
+background: #F5F5F5;
 }
 
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:vertical {
-    background: #023375; /* Color del &quot;manejador&quot; */
-    min-height: 20px;  /* Altura mínima del manejador */
-}
-
-[objectName*=&quot;tabla_&quot;] QScrollBar::add-line:vertical,
-[objectName*=&quot;tabla_&quot;] QScrollBar::sub-line:vertical {
-background-color:none;
-}
-
-[objectName*=&quot;tabla_&quot;] QScrollBar::handle:horizontal {
-    background: #023375;  /* Color del &quot;manejador&quot; horizontal */
-    height: 5px;  /* Altura de la barra horizontal */
-	border-radius: 2px;
-}
-
-[objectName*=&quot;tabla_&quot;] QScrollBar:horizontal {
-    background: #023375;
-    height: 5px;  /* Altura de la barra */
-	border-radius: 2px;
-}
+/* Encabezados de la tabla */
 [objectName*=&quot;tabla_&quot;] QHeaderView::section {
-    background: #023375;  /* Color de fondo de los encabezados */
-    color: white;  /* Color del texto */
-    padding: 5px;  /* Espaciado interno */
-    border: none;  /* Sin borde en los encabezados */
+    background-color: #023375;
+    color: white;
+    font-family: &quot;Arial&quot;;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid gray;
 }
 
+/* Encabezado horizontal */
 [objectName*=&quot;tabla_&quot;] QHeaderView::horizontal {
-    background: #023375;  /* Color de fondo de los encabezados horizontales */
-    color: white;  /* Color del texto */
-border:none;
+    background-color: #023375;
+    color: white;
 }
 
+/* Encabezado vertical */
 [objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
-    background: #023375;  /* Color de fondo de los encabezados verticales */
-    color: white;  /* Color del texto */
-border:none;
+    background-color: #023375;
+    color: white;
 }
-[objectName^=&quot;fecha_&quot;]{
+
+
+[objectName*=&quot;fecha_&quot;]{
 border: none;
 border-bottom: 1px solid #3b3c3d;
 border-radius: 5px;
 padding: 2px;
 background-color: #f5f4f1;
-font-size: 12px;
-width:87px;
+font-size: 14px;
+min-width:100px;
 }
-*[objectName^=&quot;fecha_&quot;]::drop-down{
+*[objectName*=&quot;fecha_&quot;]::drop-down{
 subcontrol-origin: padding;
 subcontrol-position: top right;
 padding-right:5px;
 width: 20%;
 border-left-width: 1px;
-border-radius: 5px;
-background-color: #f5f4f1;
+borde-radius: 5px;
+background-color: #F5F5F5;
 }
-*[objectName^=&quot;fecha_&quot;]::down-arrow{
+*[objectName*=&quot;fecha_&quot;]::down-arrow{
 image: url(:/Icons/Bootstrap/calendar2-date.svg);
 width: 17%;
 height: 17%;
 padding-left:5px;
 padding-right:5px;
+background: #F5F5F5;
 }
-*[objectName^=&quot;fecha_&quot;]::focus{
+*[objectName*=&quot;fecha_&quot;]::focus{
 border-bottom: 2px solid #00668c;
+}
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: #00668c;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* BOTONES DE NAVEGACIÓN */
+QCalendarWidget QToolButton {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* DESPLEGABLE DE MESES */
+QCalendarWidget QMenu {
+    background-color: #FFFFFF;
+    border: 1px solid #3b3c3d;
+}
+
+/* DÍAS DE LA SEMANA */
+QCalendarWidget QWidget#qt_calendar_weekdaybar {
+    background-color: #f5f4f1;
+    color: #3b3c3d;
+}
+
+/* DÍAS DEL MES */
+QCalendarWidget QAbstractItemView:enabled {
+    background-color: #FFFFFF;
+    color: #1d1c1c;
+    selection-background-color: #00668c;  /* Color al seleccionar fecha */
+    selection-color: white;
+}
+
+/* DÍAS DE OTROS MESES */
+QCalendarWidget QAbstractItemView:disabled {
+    color: #AAAAAA;
+}
+
+/* EFECTO HOVER SOBRE DÍAS */
+QCalendarWidget QAbstractItemView::item:hover {
+    background-color: #e1f0f7;
+    color: #1d1c1c;
 }
 
 *[objectName*=&quot;numerodecimal_&quot;]{
@@ -212,10 +236,10 @@ min-width: 450px;
    <item row="0" column="0">
     <widget class="QFrame" name="contenedor_general">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <property name="leftMargin">
@@ -268,7 +292,7 @@ min-width: 450px;
          <item row="0" column="3">
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -288,16 +312,16 @@ min-width: 450px;
          <item row="0" column="1">
           <widget class="QLineEdit" name="txt_buscarproducto"/>
          </item>
-         <item row="3" column="4" alignment="Qt::AlignHCenter">
+         <item row="3" column="4" alignment="Qt::AlignmentFlag::AlignHCenter">
           <widget class="QFrame" name="contenedor_detallesventa">
            <property name="styleSheet">
             <string notr="true"/>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QFormLayout" name="formLayout">
             <item row="0" column="0" colspan="2">
@@ -306,14 +330,14 @@ min-width: 450px;
                <string>Resumen de venta</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignCenter</set>
+               <set>Qt::AlignmentFlag::AlignCenter</set>
               </property>
              </widget>
             </item>
             <item row="1" column="0" colspan="2">
              <widget class="Line" name="line_2">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -330,7 +354,7 @@ min-width: 450px;
                <string>cantidad</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -347,7 +371,7 @@ min-width: 450px;
                <string>Cantidad</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -364,7 +388,7 @@ min-width: 450px;
                <string>cantidad</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -381,7 +405,7 @@ min-width: 450px;
                <string>cantidad</string>
               </property>
               <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -397,17 +421,17 @@ min-width: 450px;
       <item row="2" column="0">
        <widget class="QFrame" name="contenedor_controlesinferior">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QFrame" name="contenedordescuentosaplicardescuento">
+          <widget class="QFrame" name="contenedor_descuentosaplicardescuento">
            <property name="minimumSize">
             <size>
-             <width>452</width>
+             <width>0</width>
              <height>0</height>
             </size>
            </property>
@@ -418,10 +442,10 @@ min-width: 450px;
             </size>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="0" colspan="3">
@@ -512,7 +536,7 @@ min-width: 450px;
           <widget class="QFrame" name="contenedor_creditos">
            <property name="minimumSize">
             <size>
-             <width>452</width>
+             <width>450</width>
              <height>0</height>
             </size>
            </property>
@@ -523,10 +547,10 @@ min-width: 450px;
             </size>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_8">
             <item row="0" column="0" colspan="2">
@@ -561,7 +585,14 @@ min-width: 450px;
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QDoubleSpinBox" name="numerodecimal_cantidadcredito"/>
+             <widget class="QDoubleSpinBox" name="numerodecimal_cantidadcredito">
+              <property name="buttonSymbols">
+               <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
+              </property>
+              <property name="maximum">
+               <double>10000000000000000000000.000000000000000</double>
+              </property>
+             </widget>
             </item>
             <item row="3" column="2">
              <widget class="QLabel" name="etiqueta_fechapago">
@@ -572,6 +603,9 @@ min-width: 450px;
             </item>
             <item row="3" column="3">
              <widget class="QDateEdit" name="fecha_fechapagocredito">
+              <property name="displayFormat">
+               <string>dd/MM/yyyy</string>
+              </property>
               <property name="calendarPopup">
                <bool>true</bool>
               </property>
@@ -623,10 +657,10 @@ min-width: 450px;
          <item>
           <widget class="QFrame" name="contenedor_btn_cobrar">
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_7">
             <property name="leftMargin">
@@ -647,7 +681,7 @@ min-width: 450px;
             <item row="0" column="0">
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -676,10 +710,10 @@ min-width: 450px;
                </size>
               </property>
               <property name="popupMode">
-               <enum>QToolButton::InstantPopup</enum>
+               <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
               </property>
               <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextUnderIcon</enum>
+               <enum>Qt::ToolButtonStyle::ToolButtonTextUnderIcon</enum>
               </property>
               <property name="autoRaise">
                <bool>false</bool>
@@ -695,7 +729,7 @@ min-width: 450px;
       <item row="1" column="0">
        <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
        </widget>
       </item>

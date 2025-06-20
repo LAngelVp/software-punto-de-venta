@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
-    <height>569</height>
+    <width>895</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -26,11 +26,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Formulario_puestos{
+   <string notr="true">*{color: #1d1c1c;}
+#Formulario_puestos{
 background: #fffefb;
 }
 [objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
+border: none;
 }
 #contenedor_encabezado{
 background: #023375;
@@ -126,37 +128,55 @@ background: #68a67d;
 #btn_btn_eliminar:hover{
 background: #EE1D52;
 }
-[objectName^=&quot;cajaopciones_&quot;]{
-border: none;
-border-bottom: 1px solid rgb(29, 28, 28);
-border-radius: 5px;
-padding: 2px;
-background-color: #f5f4f1;
-border-radius: 5px;
-font-size: 12px;
-width:87px;
+[objectName*=&quot;cajaOpciones&quot;] {
+    border: none;
+    border-bottom: 1px solid #787878 ;
+    padding: 2px ;
+    background-color: #F5F5F5 ;
+    font-size: 14px ;
+    min-width: 200px ;
+    font-family: &quot;Arial&quot; ;
+    color: #1d1c1c ;
+	selection-background-color: #4791F5; 
 }
-[objectName^=&quot;cajaopciones_&quot;]::drop-down{
-subcontrol-origin: padding;
-subcontrol-position: top right;
-padding-right:5px;
-width: 20%;
-border-left-width: 1px;
-border-radius: 5px;
-background-color: #f5f4f1;
+
+/* ESTILO DEL DROPDOWN (LISTA) */
+[objectName*=&quot;cajaOpciones&quot;] QListView {
+    background: #F5F5F5 ;
+    border-radius: 3px;
+    outline: none;
 }
-[objectName^=&quot;cajaopciones_&quot;]::down-arrow{
-image: url(:/Icons/Bootstrap/filter-left.svg);
-width: 17%;
-height: 17%;
-padding-left:5px;
-padding-right:5px;
+
+/* ESTILO DE LOS ÍTEMS */
+[objectName*=&quot;cajaOpciones&quot;] QListView::item {
+    padding: 6px 10px ;
+    margin: 2px ;
 }
+/* BOTÓN DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::drop-down {
+    subcontrol-origin: padding ;
+    subcontrol-position: top right ;
+    padding-right: 5px ;
+    width: 20% ;
+    border-left-width: 1px ;
+    border-radius: 3px ;
+    background-color: #F5F5F5 ;
+}
+/* FLECHA DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::down-arrow {
+    image: url(:/Icons/Bootstrap/filter-left.svg);
+    width: 17% ;
+    height: 17% ;
+    padding-left: 5px ;
+    padding-right: 5px ;
+}
+
 /*TABLA*/
 
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
+background: #F5F5F5;
 }
 
 /* Encabezados de la tabla */
@@ -179,8 +199,7 @@ padding-right:5px;
 [objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
     background-color: #023375;
     color: white;
-}
-</string>
+}	</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_7">
    <property name="leftMargin">
@@ -199,12 +218,12 @@ padding-right:5px;
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QFrame" name="frame_2">
+    <widget class="QFrame" name="contenedor_frame_2">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <property name="leftMargin">
@@ -225,10 +244,10 @@ padding-right:5px;
       <item row="0" column="0">
        <widget class="QFrame" name="contenedor_encabezado">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
@@ -249,14 +268,14 @@ padding-right:5px;
          <item>
           <widget class="QLabel" name="etiquetaTitulo_administrarpuestos">
            <property name="text">
-            <string>Puestos</string>
+            <string>PUESTOS</string>
            </property>
           </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -289,19 +308,19 @@ padding-right:5px;
          <string notr="true"/>
         </property>
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_6">
          <item row="1" column="1">
-          <widget class="QFrame" name="frame">
+          <widget class="QFrame" name="contenedor_frame">
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="2" column="0" colspan="3">
@@ -367,7 +386,6 @@ padding-right:5px;
              <property name="font">
               <font>
                <pointsize>-1</pointsize>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -446,10 +464,10 @@ padding-right:5px;
             <string notr="true"/>
            </property>
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_4">
             <item row="0" column="0">
@@ -476,7 +494,7 @@ padding-right:5px;
             <item row="1" column="1">
              <widget class="QDoubleSpinBox" name="decimal_salario">
               <property name="buttonSymbols">
-               <enum>QAbstractSpinBox::NoButtons</enum>
+               <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
               </property>
               <property name="maximum">
                <double>9999999999999999635896294965248.000000000000000</double>
@@ -493,7 +511,7 @@ padding-right:5px;
             <item row="2" column="1">
              <widget class="QDoubleSpinBox" name="decimal_horaslaborales">
               <property name="buttonSymbols">
-               <enum>QAbstractSpinBox::NoButtons</enum>
+               <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
               </property>
               <property name="maximum">
                <double>9999999999999999635896294965248.000000000000000</double>
@@ -510,7 +528,7 @@ padding-right:5px;
             <item row="3" column="1">
              <widget class="QTimeEdit" name="tiempo_horaentrada">
               <property name="buttonSymbols">
-               <enum>QAbstractSpinBox::NoButtons</enum>
+               <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
               </property>
               <property name="calendarPopup">
                <bool>true</bool>
@@ -527,7 +545,7 @@ padding-right:5px;
             <item row="4" column="1">
              <widget class="QTimeEdit" name="tiempo_horasalida">
               <property name="buttonSymbols">
-               <enum>QAbstractSpinBox::NoButtons</enum>
+               <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
               </property>
               <property name="calendarPopup">
                <bool>true</bool>
@@ -555,12 +573,12 @@ padding-right:5px;
              </widget>
             </item>
             <item row="7" column="1">
-             <widget class="QComboBox" name="cajaopciones_departamentos"/>
+             <widget class="QComboBox" name="cajaOpciones_departamentos"/>
             </item>
             <item row="8" column="0" colspan="2">
              <widget class="Line" name="line">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -574,10 +592,10 @@ padding-right:5px;
             <item row="10" column="0" colspan="2">
              <widget class="QFrame" name="contenedor_diaslaborales">
               <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
+               <enum>QFrame::Shape::StyledPanel</enum>
               </property>
               <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
+               <enum>QFrame::Shadow::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_5">
                <item row="1" column="0">
@@ -590,7 +608,7 @@ padding-right:5px;
                <item row="4" column="0">
                 <spacer name="verticalSpacer">
                  <property name="orientation">
-                  <enum>Qt::Vertical</enum>
+                  <enum>Qt::Orientation::Vertical</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -661,7 +679,7 @@ padding-right:5px;
          <item row="0" column="0">
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -686,7 +704,7 @@ padding-right:5px;
   <tabstop>tiempo_horaentrada</tabstop>
   <tabstop>tiempo_horasalida</tabstop>
   <tabstop>txtlargo_descripcionpuesto</tabstop>
-  <tabstop>cajaopciones_departamentos</tabstop>
+  <tabstop>cajaOpciones_departamentos</tabstop>
   <tabstop>cajaopcion_lunes</tabstop>
   <tabstop>cajaopcion_martes</tabstop>
   <tabstop>cajaopcion_miercoles</tabstop>

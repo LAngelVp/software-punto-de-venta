@@ -21,9 +21,9 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QCheckBox, QCombo
     QLineEdit, QListWidget, QListWidgetItem, QPlainTextEdit,
     QPushButton, QScrollArea, QSizePolicy, QSpacerItem,
     QSpinBox, QTableView, QVBoxLayout, QWidget)
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
-from ...Source import iconsdvg_rc
+import ibootstrap_rc
+import iconosSVG_rc
+import iconsdvg_rc
 
 class Ui_contenedor_agregar_productos(object):
     def setupUi(self, contenedor_agregar_productos):

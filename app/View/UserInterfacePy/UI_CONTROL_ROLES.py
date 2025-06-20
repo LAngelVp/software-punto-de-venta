@@ -28,7 +28,8 @@ class Ui_Control_Roles_Permisos(object):
         Control_Roles_Permisos.resize(700, 534)
         Control_Roles_Permisos.setMinimumSize(QSize(400, 0))
         Control_Roles_Permisos.setMaximumSize(QSize(800, 16777215))
-        Control_Roles_Permisos.setStyleSheet(u"#Control_Roles_Permisos{\n"
+        Control_Roles_Permisos.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Control_Roles_Permisos{\n"
 "background: #fffefb;\n"
 "}\n"
 "#etiquetaTitulo_Roles{\n"
@@ -40,6 +41,7 @@ class Ui_Control_Roles_Permisos(object):
 "}\n"
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border:none;\n"
 "}\n"
 "[objectName*=\"etiquetaTitulo_\"]{\n"
 "font-size:18px;\n"
@@ -74,9 +76,9 @@ class Ui_Control_Roles_Permisos(object):
 "border-bottom: 1px solid #1d1c1c;\n"
 "min-width: 300px;\n"
 "}\n"
-"[objectName*=\"btn_btn_\"]{\n"
-"font-size:14p"
-                        "x;\n"
+"[obje"
+                        "ctName*=\"btn_btn_\"]{\n"
+"font-size:14px;\n"
 "color: #fffefb;\n"
 "font-family:Arial;\n"
 "font-weight: bold;\n"
@@ -99,43 +101,7 @@ class Ui_Control_Roles_Permisos(object):
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"}\n"
-"\n"
-"/* Barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 12px;  /* Fijamos el tama\u00f1o de la barra vertical */\n"
-"    border-radius: 4px;\n"
-"    margin: 22px 0 22px 0;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
-"    background: #023375;\n"
-"    min-height: 20px;  /* Altura m\u00ednima del manejador */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Elementos de la fle"
-                        "cha de la barra vertical */\n"
-"[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
-"[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
-"    background-color: none;\n"
-"}\n"
-"\n"
-"/* Barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Fijamos el tama\u00f1o de la barra horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra horizontal */\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
-"    background: #023375;\n"
-"    height: 12px;  /* Altura del manejador horizontal */\n"
-"    border-radius: 4px;\n"
+"background: #F5F5F5;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
@@ -150,24 +116,67 @@ class Ui_Control_Roles_Permisos(object):
 "\n"
 "/* Encabezado horizontal */\n"
 "[objectName*=\"tabla_\"] QHeaderView::horizontal {\n"
-"    background-color:"
-                        " #023375;\n"
+"    background-color: #023375;\n"
 "    color: white;\n"
 "}\n"
 "\n"
 "/* Encabezado vertical */\n"
-"[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
+"[objectName*=\"tabla"
+                        "_\"] QHeaderView::vertical {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
-"}")
+"}\n"
+"\n"
+"QTabWidget::pane {\n"
+"        border: none;\n"
+"        position: absolute;\n"
+"        top: -20px;\n"
+"    }\n"
+"    \n"
+"    /* Pesta\u00f1a no seleccionada */\n"
+"    QTabBar::tab {\n"
+"        background: #F5F4F1;\n"
+"        color: #3B3C3D;\n"
+"        border: 1px solid #D3D3D3;\n"
+"        border-bottom: none;\n"
+"        padding: 6px 15px;\n"
+"        min-width: 80px;\n"
+"        border-top-left-radius: 4px;\n"
+"        border-top-right-radius: 4px;\n"
+"        margin-right: 2px;\n"
+"    }\n"
+"    \n"
+"    /* Pesta\u00f1a seleccionada */\n"
+"    QTabBar::tab:selected {\n"
+"        background: #4791F5;\n"
+"        color: white;\n"
+"        font-weight: bold;\n"
+"    }\n"
+"    \n"
+"    /* Pesta\u00f1a al pasar el mouse */\n"
+"    QTabBar::tab:hover {\n"
+"        background: #E8E8E8;\n"
+"    }\n"
+"    \n"
+"    /* Pesta\u00f1a deshabilitada */\n"
+"    QTabBar::tab:disabled {\n"
+"        background: #EEEEEE;"
+                        "\n"
+"        color: #AAAAAA;\n"
+"    }\n"
+"    \n"
+"    /* \u00c1rea de las pesta\u00f1as */\n"
+"    QTabBar {\n"
+"        background: transparent;\n"
+"    }")
         self.gridLayout = QGridLayout(Control_Roles_Permisos)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor = QFrame(Control_Roles_Permisos)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_4 = QGridLayout(self.contenedor)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.etiquetaTitulo_Roles = QLabel(self.contenedor)
@@ -187,8 +196,8 @@ class Ui_Control_Roles_Permisos(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.contenedor_tabla = QFrame(self.contenedor_funcionlistaroles)
         self.contenedor_tabla.setObjectName(u"contenedor_tabla")
-        self.contenedor_tabla.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_tabla.setFrameShadow(QFrame.Raised)
+        self.contenedor_tabla.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_tabla.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.contenedor_tabla)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.btn_btn_buscar = QPushButton(self.contenedor_tabla)
@@ -217,9 +226,9 @@ class Ui_Control_Roles_Permisos(object):
 
         self.tabla_listaroles = QTableView(self.contenedor_tabla)
         self.tabla_listaroles.setObjectName(u"tabla_listaroles")
-        self.tabla_listaroles.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tabla_listaroles.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tabla_listaroles.setAlternatingRowColors(True)
-        self.tabla_listaroles.setGridStyle(Qt.DashLine)
+        self.tabla_listaroles.setGridStyle(Qt.PenStyle.DashLine)
         self.tabla_listaroles.horizontalHeader().setStretchLastSection(True)
 
         self.gridLayout_3.addWidget(self.tabla_listaroles, 2, 0, 1, 4)
@@ -234,7 +243,7 @@ class Ui_Control_Roles_Permisos(object):
         self.btn_btn_eliminarrol.setIcon(icon)
         self.btn_btn_eliminarrol.setIconSize(QSize(20, 20))
 
-        self.gridLayout_2.addWidget(self.btn_btn_eliminarrol, 2, 4, 1, 1, Qt.AlignRight)
+        self.gridLayout_2.addWidget(self.btn_btn_eliminarrol, 2, 4, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.btn_btn_modificarrol = QPushButton(self.contenedor_funcionlistaroles)
         self.btn_btn_modificarrol.setObjectName(u"btn_btn_modificarrol")
@@ -256,8 +265,8 @@ class Ui_Control_Roles_Permisos(object):
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.contenedor_2 = QFrame(self.contenedor_funcioncrearroles)
         self.contenedor_2.setObjectName(u"contenedor_2")
-        self.contenedor_2.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_2.setFrameShadow(QFrame.Raised)
+        self.contenedor_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_2.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_5 = QGridLayout(self.contenedor_2)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.btn_btn_agregar = QPushButton(self.contenedor_2)
@@ -268,7 +277,7 @@ class Ui_Control_Roles_Permisos(object):
         self.btn_btn_agregar.setIcon(icon2)
         self.btn_btn_agregar.setIconSize(QSize(20, 20))
 
-        self.gridLayout_5.addWidget(self.btn_btn_agregar, 9, 1, 1, 1, Qt.AlignRight)
+        self.gridLayout_5.addWidget(self.btn_btn_agregar, 9, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.line = QFrame(self.contenedor_2)
         self.line.setObjectName(u"line")
@@ -282,7 +291,7 @@ class Ui_Control_Roles_Permisos(object):
         self.contenedor_permisos.setWidgetResizable(True)
         self.contenedor_permisosscroll = QWidget()
         self.contenedor_permisosscroll.setObjectName(u"contenedor_permisosscroll")
-        self.contenedor_permisosscroll.setGeometry(QRect(0, 0, 622, 548))
+        self.contenedor_permisosscroll.setGeometry(QRect(0, 0, 597, 485))
         self.gridLayout_6 = QGridLayout(self.contenedor_permisosscroll)
         self.gridLayout_6.setObjectName(u"gridLayout_6")
         self.etiquetasubtitulo_puestos = QLabel(self.contenedor_permisosscroll)
@@ -643,7 +652,7 @@ class Ui_Control_Roles_Permisos(object):
 
         self.retranslateUi(Control_Roles_Permisos)
 
-        self.contenedor_funcionesroles.setCurrentIndex(1)
+        self.contenedor_funcionesroles.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Control_Roles_Permisos)

@@ -20,8 +20,8 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QFram
     QLineEdit, QPushButton, QScrollArea, QSizePolicy,
     QSpacerItem, QTabWidget, QTableView, QVBoxLayout,
     QWidget)
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
+import ibootstrap_rc
+import iconosSVG_rc
 
 class Ui_contenedor_productos_proveedores(object):
     def setupUi(self, contenedor_productos_proveedores):

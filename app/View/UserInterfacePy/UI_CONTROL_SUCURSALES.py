@@ -30,7 +30,8 @@ class Ui_Nueva_sucursal(object):
         Nueva_sucursal.resize(818, 512)
         Nueva_sucursal.setMinimumSize(QSize(0, 0))
         Nueva_sucursal.setMaximumSize(QSize(16777215, 16777215))
-        Nueva_sucursal.setStyleSheet(u"#Nueva_sucursal{\n"
+        Nueva_sucursal.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Nueva_sucursal{\n"
 "background: #fffefb;\n"
 "}\n"
 "#contenedor_encabezado{\n"
@@ -44,6 +45,7 @@ class Ui_Nueva_sucursal(object):
 "}\n"
 "[objectName*=\"contenedor_\"]{\n"
 "background: #fffefb;\n"
+"border:none;\n"
 "}\n"
 "[objectName*=\"etiquetaTitulo_\"]{\n"
 "color: #1d1c1c;\n"
@@ -75,9 +77,9 @@ class Ui_Nueva_sucursal(object):
 "font-family:Arial;\n"
 "background: #F5F5F5;\n"
 "border:none;\n"
-"border-radius:5px;\n"
-"border-bottom: 1px solid #1d1c1c;"
-                        "\n"
+"border-radius:5p"
+                        "x;\n"
+"border-bottom: 1px solid #1d1c1c;\n"
 "}\n"
 "[objectName*=\"txtlargo_\"]{\n"
 "color: #1d1c1c;\n"
@@ -119,35 +121,7 @@ class Ui_Nueva_sucursal(object):
 "QListWidget {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"}\n"
-"/* Barra vertical */\n"
-"QListWidget::vertical-scrollbar {\n"
-"    border: 1px solid gray;\n"
-"    background: #"
-                        "023375;\n"
-"    width: 10px;  /* Tama\u00f1o de la barra vertical */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra vertical */\n"
-"QListWidget::vertical-scrollbar::handle {\n"
-"    background: #023375;  /* Color del \"manejador\" */\n"
-"    min-height: 20px;  /* Altura m\u00ednima del manejador */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Barra horizontal */\n"
-"QListWidget::horizontal-scrollbar {\n"
-"    background: #023375;\n"
-"    height: 10px;  /* Tama\u00f1o de la barra horizontal */\n"
-"    border-radius: 4px;\n"
-"}\n"
-"\n"
-"/* Manejador de la barra horizontal */\n"
-"QListWidget::horizontal-scrollbar::handle {\n"
-"    background: #023375;  /* Color del \"manejador\" */\n"
-"    height: 10px;  /* Altura del manejador horizontal */\n"
-"    border-radius: 4px;\n"
+"	background: #F5F5F5;\n"
 "}\n"
 "")
         self.gridLayout_5 = QGridLayout(Nueva_sucursal)
@@ -156,16 +130,16 @@ class Ui_Nueva_sucursal(object):
         self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.contenedor_global = QFrame(Nueva_sucursal)
         self.contenedor_global.setObjectName(u"contenedor_global")
-        self.contenedor_global.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_global.setFrameShadow(QFrame.Raised)
+        self.contenedor_global.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_global.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout = QGridLayout(self.contenedor_global)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor_encabezado = QFrame(self.contenedor_global)
         self.contenedor_encabezado.setObjectName(u"contenedor_encabezado")
-        self.contenedor_encabezado.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_encabezado.setFrameShadow(QFrame.Raised)
+        self.contenedor_encabezado.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout_2 = QHBoxLayout(self.contenedor_encabezado)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(5, 5, 5, 5)
@@ -192,8 +166,8 @@ class Ui_Nueva_sucursal(object):
 
         self.contenedor_lista = QFrame(self.contenedor_global)
         self.contenedor_lista.setObjectName(u"contenedor_lista")
-        self.contenedor_lista.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_lista.setFrameShadow(QFrame.Raised)
+        self.contenedor_lista.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_lista.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_4 = QGridLayout(self.contenedor_lista)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.lista_sucursales = QListWidget(self.contenedor_lista)
@@ -240,8 +214,8 @@ class Ui_Nueva_sucursal(object):
         self.contenedor.setObjectName(u"contenedor")
         self.contenedor.setMinimumSize(QSize(380, 0))
         self.contenedor.setMaximumSize(QSize(16777215, 16777215))
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_2 = QGridLayout(self.contenedor)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setHorizontalSpacing(0)
@@ -333,8 +307,8 @@ class Ui_Nueva_sucursal(object):
 
         self.contenedor_botones = QFrame(self.contenedor)
         self.contenedor_botones.setObjectName(u"contenedor_botones")
-        self.contenedor_botones.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_botones.setFrameShadow(QFrame.Raised)
+        self.contenedor_botones.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_botones.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout = QHBoxLayout(self.contenedor_botones)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(5, -1, 5, -1)

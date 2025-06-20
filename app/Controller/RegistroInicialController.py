@@ -17,7 +17,7 @@ from ..Model.UsuarioModel import UsuarioModel
 from ..Model.PuestoModel import PuestoModel
 from ..Model.DepartamentosModel import DepartamentosModel
 from ..Model.SucursalesModel import SucursalesModel
-from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+from .AjustarCajaOpcionesGlobal import AjustarcajaOpciones
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 
 from .ControlSucursalesController import SucursalesController
@@ -107,14 +107,14 @@ class Registro_personal_inicial(QDialog):
         self.ui.Button_agregarUsuario.clicked.connect(self.agregar_usuario)
 #// agregar elementos:
         
-        self.ui.cajaopciones_nivelacademico.addItems(self.niveles_academicos)
-        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_nivelacademico)
-        self.ui.cajaopciones_estadocvil.addItems(self.estados_civiles)
-        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_estadocvil)
-        self.ui.cajaopciones_parentesco.addItems(self.parentesco_contacto)
-        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_parentesco)
-        self.ui.cajaopciones_genero.addItems(self.generos)
-        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_genero)
+        self.ui.cajaOpciones_nivelacademico.addItems(self.niveles_academicos)
+        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_nivelacademico)
+        self.ui.cajaOpciones_estadocvil.addItems(self.estados_civiles)
+        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_estadocvil)
+        self.ui.cajaOpciones_parentesco.addItems(self.parentesco_contacto)
+        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_parentesco)
+        self.ui.cajaOpciones_genero.addItems(self.generos)
+        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_genero)
         
 #// variables globales:
         
@@ -174,7 +174,7 @@ class Registro_personal_inicial(QDialog):
         usuario = self.ui.txt_usuario_iniciosesion.text()
         password = self.ui.txt_contrasenia_usuario_iniciosesion.text()
         fecha_actualizacion = datetime.now().date()
-        rol = self.ui.cajaopciones_rol_usuario.currentData()
+        rol = self.ui.cajaOpciones_rol_usuario.currentData()
         if id_empleado is None or (usuario is None and password is None):
             Mensaje().mensaje_informativo("Para actualizar las credenciales, debe de contener un nombre de usuario y una contraseña.")
             return
@@ -288,35 +288,35 @@ class Registro_personal_inicial(QDialog):
 
         if empleado_seleccionado.puesto:
             nombre = empleado_seleccionado.puesto.nombre
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_puestos, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_puestos, nombre)
                 
         if empleado_seleccionado.parentesco_contacto:
             nombre = empleado_seleccionado.parentesco_contacto
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_parentesco, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_parentesco, nombre)
         
         if empleado_seleccionado.nivel_academico:
             nombre = empleado_seleccionado.nivel_academico
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_nivelacademico, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_nivelacademico, nombre)
         
         if empleado_seleccionado.estado_civil:
             nombre = empleado_seleccionado.estado_civil
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_estadocvil, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_estadocvil, nombre)
             
         if empleado_seleccionado.genero:
             nombre = empleado_seleccionado.genero
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_genero, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_genero, nombre)
             
         if empleado_seleccionado.sucursal:
             nombre = empleado_seleccionado.sucursal.nombre_sucursal
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_sucursales, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_sucursales, nombre)
         
         if empleado_seleccionado.departamento:
             nombre = empleado_seleccionado.departamento.nombre
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_departamentos, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_departamentos, nombre)
             
         if empleado_seleccionado.usuario and empleado_seleccionado.usuario.rol:
             nombre = empleado_seleccionado.usuario.rol.nombre
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_rol_usuario, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_rol_usuario, nombre)
             
         if empleado_seleccionado.usuario:
             self.ui.opcion_usodelsistema.setText("Cambiar Creadenciales")
@@ -364,13 +364,13 @@ class Registro_personal_inicial(QDialog):
     def agregar_sucursal(self):
         if self.sucursales is None or not self.sucursales.isVisible():
             self.sucursales = SucursalesController()
-            self.sucursales.setParent(self)
+            # self.sucursales.setParent(self)
             self.listar_sucursales_signal.connect(self.sucursales.obtener_sucursales)
             self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
             self.sucursales.VENTANA_SUCURSALES_CERRADA.connect(self.ventana_sucursales_cerrada)
             self.listar_sucursales_signal.emit()
             self.sucursales.setModal(True)
-            self.sucursales.exec_()
+            self.sucursales.show()
         else:
             self.sucursales.raise_()
             self.sucursales.activateWindow()
@@ -416,7 +416,7 @@ class Registro_personal_inicial(QDialog):
         self.puestos = None
 
     def listar_sucursales(self):
-        self.ui.cajaopciones_sucursales.clear()
+        self.ui.cajaOpciones_sucursales.clear()
         sucursales = None
         try:
             with Conexion_base_datos() as db:
@@ -424,13 +424,13 @@ class Registro_personal_inicial(QDialog):
                 sucursales = SucursalesModel(session).obtener_todo()
             if sucursales:
                 for sucursal in sucursales:
-                    self.ui.cajaopciones_sucursales.addItem(sucursal.nombre_sucursal, sucursal)
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_sucursales)
+                    self.ui.cajaOpciones_sucursales.addItem(sucursal.nombre_sucursal, sucursal)
+                AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_sucursales)
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al obtener sucursales debido a lo siguiente: {e}")
 
     def listar_grupo_permisos_rol(self):
-        self.ui.cajaopciones_rol_usuario.clear()
+        self.ui.cajaOpciones_rol_usuario.clear()
         grupo_permiso = None
         try:
             with Conexion_base_datos() as db:
@@ -438,13 +438,13 @@ class Registro_personal_inicial(QDialog):
                 grupo_permiso, estado = RolesModel(session).obtener_todos()
             if estado:
                 for grupo in grupo_permiso:
-                    self.ui.cajaopciones_rol_usuario.addItem(grupo.nombre, grupo.id)
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_rol_usuario)
+                    self.ui.cajaOpciones_rol_usuario.addItem(grupo.nombre, grupo.id)
+                AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_rol_usuario)
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al obtener grupos permisos roles: {e}")
 
     def listar_departamentos(self):
-        self.ui.cajaopciones_departamentos.clear()
+        self.ui.cajaOpciones_departamentos.clear()
         departamentos = None
         try:
             with Conexion_base_datos() as db:
@@ -452,13 +452,13 @@ class Registro_personal_inicial(QDialog):
                 departamentos, estado = DepartamentosModel(session).obtener_todos()
             if departamentos:
                 for departamento in departamentos:
-                    self.ui.cajaopciones_departamentos.addItem(departamento.nombre, departamento)
-                AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_departamentos)
+                    self.ui.cajaOpciones_departamentos.addItem(departamento.nombre, departamento)
+                AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_departamentos)
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al obtener departamentos: {e}")
 
     def listar_puestos(self):
-        self.ui.cajaopciones_puestos.clear()
+        self.ui.cajaOpciones_puestos.clear()
         puestos = None
         try:
             with Conexion_base_datos() as db:
@@ -467,8 +467,8 @@ class Registro_personal_inicial(QDialog):
                     puestos, estado = PuestoModel(session).obtener_todos()
                 if estado:
                     for puesto in puestos:
-                        self.ui.cajaopciones_puestos.addItem(puesto.nombre,  puesto)
-                    AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_puestos)
+                        self.ui.cajaOpciones_puestos.addItem(puesto.nombre,  puesto)
+                    AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_puestos)
 
         except Exception as e:
             Mensaje().mensaje_critico(f"Error al obtener puestos debido a lo siguiente: {e}")
@@ -539,11 +539,11 @@ class Registro_personal_inicial(QDialog):
             "apellido_paterno": self.ui.txt_apellidop,
             "apellido_materno": self.ui.txt_apellidom,
             "fecha_nacimiento": self.ui.fecha_fechanacimiento,
-            "genero": self.ui.cajaopciones_genero,
-            "estado_civil": self.ui.cajaopciones_estadocvil,
+            "genero": self.ui.cajaOpciones_genero,
+            "estado_civil": self.ui.cajaOpciones_estadocvil,
             "curp": self.ui.txt_curp,
             "rfc": self.ui.txt_rfc,
-            "nivel_estudios": self.ui.cajaopciones_nivelacademico,
+            "nivel_estudios": self.ui.cajaOpciones_nivelacademico,
             "carrera": self.ui.txt_carrera,
             "correo": self.ui.txt_correoelectronico,
             "nss": self.ui.txt_numerosegurosicial,
@@ -554,8 +554,8 @@ class Registro_personal_inicial(QDialog):
             "pais": self.ui.txt_pais,
             "num_telefono": self.ui.txt_numerotelefono,
             "contacto_emergencia": self.ui.txt_contactoemergencia,
-            "nivel_academico": self.ui.cajaopciones_nivelacademico,
-            "parentesco_contacto_emergencia": self.ui.cajaopciones_parentesco,
+            "nivel_academico": self.ui.cajaOpciones_nivelacademico,
+            "parentesco_contacto_emergencia": self.ui.cajaOpciones_parentesco,
             "nombre_contacto_emergencia": self.ui.txt_nombrecontactoemergencia,
             "calles": self.ui.txt_calles,
             "avenidas": self.ui.txt_avenidas,
@@ -563,10 +563,10 @@ class Registro_personal_inicial(QDialog):
             "num_interior": self.ui.txt_ninterior,
             "num_exterior": self.ui.txt_nexterior,
             "direccion_adicional": self.ui.txtlargo_direccion_completa,
-            "sucursal": self.ui.cajaopciones_sucursales,
-            "puesto": self.ui.cajaopciones_puestos,
-            "departamento": self.ui.cajaopciones_departamentos,
-            "rol": self.ui.cajaopciones_rol_usuario
+            "sucursal": self.ui.cajaOpciones_sucursales,
+            "puesto": self.ui.cajaOpciones_puestos,
+            "departamento": self.ui.cajaOpciones_departamentos,
+            "rol": self.ui.cajaOpciones_rol_usuario
         }
     
     def obtener_datos(self):
@@ -604,7 +604,7 @@ class Registro_personal_inicial(QDialog):
         id_empleado = self.empleado.id if self.empleado else None
         nombre_usuario = self.ui.txt_usuario_iniciosesion.text().strip()
         password_usuario = self.ui.txt_contrasenia_usuario_iniciosesion.text().strip()
-        current_data_rol = self.ui.cajaopciones_rol_usuario.currentData()
+        current_data_rol = self.ui.cajaOpciones_rol_usuario.currentData()
         datos = self.obtener_datos()
 
         if self.validar_datos(datos=datos):
@@ -800,7 +800,7 @@ class Registro_personal_inicial(QDialog):
         usuario = self.ui.txt_usuario_iniciosesion.text()
         password = self.ui.txt_contrasenia_usuario_iniciosesion.text()
         fecha_actualizacion = datetime.now().date()
-        rol = self.ui.cajaopciones_rol_usuario.currentData()
+        rol = self.ui.cajaOpciones_rol_usuario.currentData()
         with Conexion_base_datos() as db:
             session = db.abrir_sesion()
             with session.begin():

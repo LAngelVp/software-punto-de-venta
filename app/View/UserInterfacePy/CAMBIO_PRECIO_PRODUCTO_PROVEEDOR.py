@@ -24,11 +24,13 @@ class Ui_PreciosProductosProveedor(object):
         if not PreciosProductosProveedor.objectName():
             PreciosProductosProveedor.setObjectName(u"PreciosProductosProveedor")
         PreciosProductosProveedor.resize(313, 277)
-        PreciosProductosProveedor.setStyleSheet(u"#PreciosProductosProveedor{\n"
+        PreciosProductosProveedor.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#PreciosProductosProveedor{\n"
 "background: #fffefb;\n"
 "}\n"
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border: none;\n"
 "}\n"
 "[objectName*=\"etiqueta\"]{\n"
 "font-size: 14px;\n"
@@ -66,11 +68,11 @@ class Ui_PreciosProductosProveedor(object):
 "[objectName*=\"aceptar\"]:hover{\n"
 "background: #68a67d;\n"
 "}\n"
-"[objectName*=\"aceptar\"]:pressed{\n"
+"[objectName*=\"aceptar\"]:"
+                        "pressed{\n"
 "background: #578B69;\n"
 "}\n"
-""
-                        "[objectName*=\"cancelar\"]:hover{\n"
+"[objectName*=\"cancelar\"]:hover{\n"
 "background: #ee1d52;\n"
 "}\n"
 "[objectName*=\"cancelar\"]:pressed{\n"
@@ -80,8 +82,8 @@ class Ui_PreciosProductosProveedor(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.contenedor_principal = QFrame(PreciosProductosProveedor)
         self.contenedor_principal.setObjectName(u"contenedor_principal")
-        self.contenedor_principal.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_principal.setFrameShadow(QFrame.Raised)
+        self.contenedor_principal.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_principal.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_4 = QGridLayout(self.contenedor_principal)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.contenedor_datos_principales = QGridLayout()
@@ -98,8 +100,8 @@ class Ui_PreciosProductosProveedor(object):
 
         self.etiqueta_cod_producto = QLabel(self.contenedor_principal)
         self.etiqueta_cod_producto.setObjectName(u"etiqueta_cod_producto")
-        self.etiqueta_cod_producto.setFrameShape(QFrame.NoFrame)
-        self.etiqueta_cod_producto.setFrameShadow(QFrame.Plain)
+        self.etiqueta_cod_producto.setFrameShape(QFrame.Shape.NoFrame)
+        self.etiqueta_cod_producto.setFrameShadow(QFrame.Shadow.Plain)
         self.etiqueta_cod_producto.setScaledContents(False)
         self.etiqueta_cod_producto.setWordWrap(False)
 
@@ -146,9 +148,9 @@ class Ui_PreciosProductosProveedor(object):
         self.decimal_costo_venta_proveedor.setObjectName(u"decimal_costo_venta_proveedor")
         self.decimal_costo_venta_proveedor.setWrapping(False)
         self.decimal_costo_venta_proveedor.setFrame(True)
-        self.decimal_costo_venta_proveedor.setAlignment(Qt.AlignCenter)
+        self.decimal_costo_venta_proveedor.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.decimal_costo_venta_proveedor.setReadOnly(False)
-        self.decimal_costo_venta_proveedor.setButtonSymbols(QAbstractSpinBox.NoButtons)
+        self.decimal_costo_venta_proveedor.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
         self.decimal_costo_venta_proveedor.setMaximum(999999999999999983222784.000000000000000)
 
         self.contenedor_datos_precios.addWidget(self.decimal_costo_venta_proveedor, 0, 1, 1, 1)

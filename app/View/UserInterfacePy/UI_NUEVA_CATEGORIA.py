@@ -26,11 +26,13 @@ class Ui_Nueva_categoria(object):
         Nueva_categoria.resize(400, 300)
         Nueva_categoria.setMinimumSize(QSize(400, 300))
         Nueva_categoria.setMaximumSize(QSize(400, 300))
-        Nueva_categoria.setStyleSheet(u"#Nueva_categoria{\n"
+        Nueva_categoria.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Nueva_categoria{\n"
 "background: #fffefb; \n"
 "}\n"
-"#contenedor{\n"
+"[objectName*=\"contenedor\"]{\n"
 "background: #fffefb; \n"
+"border:none;\n"
 "}\n"
 "[objectName*=\"etiquetaTitulo_\"]{\n"
 "color: #1d1c1c;\n"
@@ -63,17 +65,18 @@ class Ui_Nueva_categoria(object):
 "border:none;\n"
 "border-bottom: 1px solid #1d1c1c;\n"
 "border-radius:5px;\n"
+"min-height:100px;\n"
 "}\n"
 "[objectName*=\"txt_\"]:focus{\n"
 "border-bottom: 2px solid #023375;\n"
 "}\n"
 "[objectName*=\"txtlargo_\"]:focus{\n"
-"border-bottom: 2px solid #023375;\n"
+"border-bottom: 2px "
+                        "solid #023375;\n"
 "}\n"
 "[objectName*=\"btn_btn_\"]{\n"
 "color: #fffefb;\n"
-"fo"
-                        "nt-size: 14px;\n"
+"font-size: 14px;\n"
 "font-weight:bold;\n"
 "font-family:Arial;\n"
 "background: #023375;\n"
@@ -91,8 +94,8 @@ class Ui_Nueva_categoria(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor = QFrame(Nueva_categoria)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.contenedor)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.etiquetaTitulo_nuevacategoria = QLabel(self.contenedor)
@@ -108,8 +111,8 @@ class Ui_Nueva_categoria(object):
 
         self.contenedor_datos = QFrame(self.contenedor)
         self.contenedor_datos.setObjectName(u"contenedor_datos")
-        self.contenedor_datos.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_datos.setFrameShadow(QFrame.Raised)
+        self.contenedor_datos.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_datos.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_2 = QGridLayout(self.contenedor_datos)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setHorizontalSpacing(0)

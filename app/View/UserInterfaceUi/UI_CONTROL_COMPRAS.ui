@@ -14,11 +14,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Control_empleados{
+   <string notr="true">*{color: #1d1c1c;}
+#Control_empleados{
 background-color: #fffefb;
 }
 [objectName*=&quot;contenedor&quot;]{
 background-color: #fffefb;
+border:none;
 }
 #panel_controles{
 margin-bottom:20px;
@@ -39,9 +41,47 @@ padding-top: 5px;
 	max-height: 600px;
 	font-family:  'Times New Roman';
 }
-#contenedortabglobal{
-background-color: #fffefb;
-}
+QTabWidget::pane {
+        border: none;
+        position: absolute;
+        top: -20px;
+    }
+    
+    /* Pestaña no seleccionada */
+    QTabBar::tab {
+        background: #F5F4F1;
+        color: #3B3C3D;
+        border: 1px solid #D3D3D3;
+        border-bottom: none;
+        padding: 6px 15px;
+        min-width: 80px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        margin-right: 2px;
+    }
+    
+    /* Pestaña seleccionada */
+    QTabBar::tab:selected {
+        background: #4791F5;
+        color: white;
+        font-weight: bold;
+    }
+    
+    /* Pestaña al pasar el mouse */
+    QTabBar::tab:hover {
+        background: #E8E8E8;
+    }
+    
+    /* Pestaña deshabilitada */
+    QTabBar::tab:disabled {
+        background: #EEEEEE;
+        color: #AAAAAA;
+    }
+    
+    /* Área de las pestañas */
+    QTabBar {
+        background: transparent;
+    }
 #contenedortab_comprasrealizadas{
 background-color: #fffefb;
 border: 1px solid;
@@ -83,7 +123,7 @@ width: 350px;
 font-family: Arial;
 color: #1d1c1c
 }
-#cajaopciones_proveedor{
+#cajaOpciones_proveedor{
 width: 250px;
 max-width: 250px;
 font-family: Arial;
@@ -133,6 +173,7 @@ background: #b6ccd8 ;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
+background: #F5F5F5;
 }
 
 /* Encabezados de la tabla */
@@ -158,61 +199,124 @@ background: #b6ccd8 ;
 }
 
 /*-----------FECHA--------------*/
-[objectName^=&quot;fecha_&quot;]{
+[objectName*=&quot;fecha_&quot;]{
 border: none;
 border-bottom: 1px solid #3b3c3d;
 border-radius: 5px;
 padding: 2px;
 background-color: #f5f4f1;
 font-size: 14px;
-width:150px;
-max-width:150px;
-font-family: Arial;
-color: #1d1c1c;
-
+min-width:100px;
 }
-*[objectName^=&quot;fecha_&quot;]::drop-down{
+*[objectName*=&quot;fecha_&quot;]::drop-down{
 subcontrol-origin: padding;
 subcontrol-position: top right;
 padding-right:5px;
 width: 20%;
 border-left-width: 1px;
-border-radius: 5px;
+borde-radius: 5px;
 background-color: #F5F5F5;
 }
-*[objectName^=&quot;fecha_&quot;]::down-arrow{
+*[objectName*=&quot;fecha_&quot;]::down-arrow{
 image: url(:/Icons/Bootstrap/calendar2-date.svg);
+width: 17%;
+height: 17%;
 padding-left:5px;
 padding-right:5px;
+background: #F5F5F5;
 }
-*[objectName^=&quot;fecha_&quot;]::focus{
+*[objectName*=&quot;fecha_&quot;]::focus{
 border-bottom: 2px solid #00668c;
 }
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: #00668c;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* BOTONES DE NAVEGACIÓN */
+QCalendarWidget QToolButton {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* DESPLEGABLE DE MESES */
+QCalendarWidget QMenu {
+    background-color: #FFFFFF;
+    border: 1px solid #3b3c3d;
+}
+
+/* DÍAS DE LA SEMANA */
+QCalendarWidget QWidget#qt_calendar_weekdaybar {
+    background-color: #f5f4f1;
+    color: #3b3c3d;
+}
+
+/* DÍAS DEL MES */
+QCalendarWidget QAbstractItemView:enabled {
+    background-color: #FFFFFF;
+    color: #1d1c1c;
+    selection-background-color: #00668c;  /* Color al seleccionar fecha */
+    selection-color: white;
+}
+
+/* DÍAS DE OTROS MESES */
+QCalendarWidget QAbstractItemView:disabled {
+    color: #AAAAAA;
+}
+
+/* EFECTO HOVER SOBRE DÍAS */
+QCalendarWidget QAbstractItemView::item:hover {
+    background-color: #e1f0f7;
+    color: #1d1c1c;
+}
 /*----------CAJA OPCIONES---------------*/
-[objectName^=&quot;cajaopciones_&quot;]{
-border: none;
-border-bottom: 1px solid rgb(29, 28, 28);
-border-radius: 5px;
-padding: 2px;
-background-color: #F5F5F5;
-border-radius: 5px;
-font-size: 12px;
-width:87px;
-color: #1d1c1c;
+[objectName*=&quot;cajaOpciones&quot;] {
+    border: none;
+    border-bottom: 1px solid #787878 ;
+    padding: 2px ;
+    background-color: #F5F5F5 ;
+    font-size: 14px ;
+    min-width: 200px ;
+    font-family: &quot;Arial&quot; ;
+    color: #1d1c1c ;
+	selection-background-color: #4791F5; 
 }
-[objectName^=&quot;cajaopciones_&quot;]::drop-down{
-subcontrol-origin: padding;
-subcontrol-position: top right;
-padding-right:5px;
-border-left-width: 1px;
-border-radius: 5px;
-background-color:#F5F5F5;
+
+/* ESTILO DEL DROPDOWN (LISTA) */
+[objectName*=&quot;cajaOpciones&quot;] QListView {
+    background: #F5F5F5 ;
+    border-radius: 3px;
+    outline: none;
 }
-[objectName^=&quot;cajaopciones_&quot;]::down-arrow{
-image: url(:/Icons/Bootstrap/filter-left.svg);
-padding-left:5px;
-padding-right:5px;
-}</string>
+
+/* ESTILO DE LOS ÍTEMS */
+[objectName*=&quot;cajaOpciones&quot;] QListView::item {
+    padding: 6px 10px ;
+    margin: 2px ;
+}
+/* BOTÓN DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::drop-down {
+    subcontrol-origin: padding ;
+    subcontrol-position: top right ;
+    padding-right: 5px ;
+    width: 20% ;
+    border-left-width: 1px ;
+    border-radius: 3px ;
+    background-color: #F5F5F5 ;
+}
+/* FLECHA DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::down-arrow {
+    image: url(:/Icons/Bootstrap/filter-left.svg);
+    width: 17% ;
+    height: 17% ;
+    padding-left: 5px ;
+    padding-right: 5px ;
+}
+</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
@@ -252,10 +356,10 @@ padding-right:5px;
    <item row="1" column="0">
     <widget class="QFrame" name="contenedor_principal">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_6">
       <property name="leftMargin">
@@ -279,7 +383,6 @@ padding-right:5px;
          <font>
           <family>Arial</family>
           <pointsize>14</pointsize>
-          <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
@@ -320,7 +423,7 @@ padding-right:5px;
            <number>0</number>
           </property>
           <item row="0" column="0">
-           <widget class="QWidget" name="widget" native="true">
+           <widget class="QWidget" name="contenedor_widget" native="true">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -335,15 +438,15 @@ padding-right:5px;
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
              <property name="sizeConstraint">
-              <enum>QLayout::SetMinAndMaxSize</enum>
+              <enum>QLayout::SizeConstraint::SetMinAndMaxSize</enum>
              </property>
              <item row="0" column="0">
               <widget class="QFrame" name="contenedor_contenido">
                <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
+                <enum>QFrame::Shape::StyledPanel</enum>
                </property>
                <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
+                <enum>QFrame::Shadow::Raised</enum>
                </property>
                <layout class="QGridLayout" name="gridLayout_4">
                 <property name="leftMargin">
@@ -381,7 +484,7 @@ padding-right:5px;
                 <item row="3" column="9">
                  <spacer name="horizontalSpacer_2">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -415,7 +518,7 @@ padding-right:5px;
                 <item row="6" column="0" colspan="2">
                  <widget class="QDateEdit" name="fecha_fechacompra">
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                   <property name="calendarPopup">
                    <bool>true</bool>
@@ -425,7 +528,7 @@ padding-right:5px;
                 <item row="6" column="2">
                  <widget class="QDateEdit" name="fecha_levantamientocompra">
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                   <property name="calendarPopup">
                    <bool>true</bool>
@@ -440,9 +543,9 @@ padding-right:5px;
                  </widget>
                 </item>
                 <item row="6" column="3">
-                 <widget class="QComboBox" name="cajaopciones_proveedor">
+                 <widget class="QComboBox" name="cajaOpciones_proveedor">
                   <property name="sizeAdjustPolicy">
-                   <enum>QComboBox::AdjustToContents</enum>
+                   <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
                   </property>
                  </widget>
                 </item>
@@ -465,7 +568,7 @@ padding-right:5px;
                    </size>
                   </property>
                   <property name="toolButtonStyle">
-                   <enum>Qt::ToolButtonTextBesideIcon</enum>
+                   <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
                   </property>
                  </widget>
                 </item>
@@ -520,15 +623,15 @@ padding-right:5px;
             </property>
             <layout class="QGridLayout" name="gridLayout_7">
              <property name="sizeConstraint">
-              <enum>QLayout::SetMinAndMaxSize</enum>
+              <enum>QLayout::SizeConstraint::SetMinAndMaxSize</enum>
              </property>
              <item row="0" column="0">
               <widget class="QFrame" name="contenedor_contenidocompras_pendientes">
                <property name="frameShape">
-                <enum>QFrame::StyledPanel</enum>
+                <enum>QFrame::Shape::StyledPanel</enum>
                </property>
                <property name="frameShadow">
-                <enum>QFrame::Raised</enum>
+                <enum>QFrame::Shadow::Raised</enum>
                </property>
                <layout class="QGridLayout" name="gridLayout_8">
                 <property name="leftMargin">
@@ -566,7 +669,7 @@ padding-right:5px;
                 <item row="5" column="0">
                  <widget class="QDateEdit" name="fecha_fechacompra_2">
                   <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <set>Qt::AlignmentFlag::AlignCenter</set>
                   </property>
                   <property name="calendarPopup">
                    <bool>true</bool>
@@ -574,9 +677,9 @@ padding-right:5px;
                  </widget>
                 </item>
                 <item row="5" column="2">
-                 <widget class="QComboBox" name="cajaopciones_proveedor_2">
+                 <widget class="QComboBox" name="cajaOpciones_proveedor_2">
                   <property name="sizeAdjustPolicy">
-                   <enum>QComboBox::AdjustToContents</enum>
+                   <enum>QComboBox::SizeAdjustPolicy::AdjustToContents</enum>
                   </property>
                  </widget>
                 </item>
@@ -590,7 +693,7 @@ padding-right:5px;
                 <item row="3" column="8">
                  <spacer name="horizontalSpacer_3">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -619,7 +722,7 @@ padding-right:5px;
                    </size>
                   </property>
                   <property name="toolButtonStyle">
-                   <enum>Qt::ToolButtonTextBesideIcon</enum>
+                   <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
                   </property>
                  </widget>
                 </item>
@@ -651,7 +754,7 @@ padding-right:5px;
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QFrame" name="panel_controles">
+       <widget class="QFrame" name="contenedor_panel_controles">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -665,10 +768,10 @@ padding-right:5px;
          </size>
         </property>
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <property name="leftMargin">
@@ -686,13 +789,13 @@ padding-right:5px;
          <property name="spacing">
           <number>0</number>
          </property>
-         <item row="0" column="0" alignment="Qt::AlignTop">
-          <widget class="QFrame" name="frame_2">
+         <item row="0" column="0" alignment="Qt::AlignmentFlag::AlignTop">
+          <widget class="QFrame" name="contenedor_frame_2">
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <property name="spacing">
@@ -729,7 +832,7 @@ padding-right:5px;
                </size>
               </property>
               <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextBesideIcon</enum>
+               <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
               </property>
              </widget>
             </item>
@@ -752,14 +855,14 @@ padding-right:5px;
                </size>
               </property>
               <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextBesideIcon</enum>
+               <enum>Qt::ToolButtonStyle::ToolButtonTextBesideIcon</enum>
               </property>
              </widget>
             </item>
             <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>

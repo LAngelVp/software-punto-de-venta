@@ -17,18 +17,20 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+    QSpacerItem, QVBoxLayout, QWidget)
 
 class Ui_Formulario(object):
     def setupUi(self, Formulario):
         if not Formulario.objectName():
             Formulario.setObjectName(u"Formulario")
-        Formulario.resize(368, 129)
-        Formulario.setStyleSheet(u"#Formulario{\n"
+        Formulario.resize(394, 174)
+        Formulario.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Formulario{\n"
 "background: #fffefb;\n"
 "}\n"
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border: none;\n"
 "}\n"
 "[objectName*=\"etiqueta_\"]{\n"
 "font-size:14px;\n"
@@ -59,7 +61,7 @@ class Ui_Formulario(object):
 "background: #00619a;\n"
 "border:none;\n"
 "border-radius:4px;\n"
-"padding: 4px 0px;\n"
+"padding: 2px 0px;\n"
 "}\n"
 "#btn_btn_cancelar:hover{\n"
 "background: #ee1d52;\n"
@@ -69,17 +71,17 @@ class Ui_Formulario(object):
 "}\n"
 "#btn_btn_guardar:hover{\n"
 "background: #68a67d;\n"
-"}\n"
+""
+                        "}\n"
 "#btn_btn_guardar:pressed{\n"
-"b"
-                        "ackground: #578B69;\n"
+"background: #578B69;\n"
 "}")
         self.gridLayout = QGridLayout(Formulario)
         self.gridLayout.setObjectName(u"gridLayout")
         self.contenedor = QFrame(Formulario)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout = QVBoxLayout(self.contenedor)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.etiqueta_nombre = QLabel(self.contenedor)
@@ -91,32 +93,36 @@ class Ui_Formulario(object):
         self.txt_nombre.setObjectName(u"txt_nombre")
         self.txt_nombre.setMaxLength(30)
         self.txt_nombre.setFrame(True)
-        self.txt_nombre.setEchoMode(QLineEdit.Normal)
-        self.txt_nombre.setCursorMoveStyle(Qt.LogicalMoveStyle)
+        self.txt_nombre.setEchoMode(QLineEdit.EchoMode.Normal)
+        self.txt_nombre.setCursorMoveStyle(Qt.CursorMoveStyle.LogicalMoveStyle)
         self.txt_nombre.setClearButtonEnabled(True)
 
         self.verticalLayout.addWidget(self.txt_nombre)
 
-        self.frame = QFrame(self.contenedor)
-        self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout = QHBoxLayout(self.frame)
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.verticalLayout.addItem(self.verticalSpacer)
+
+        self.contenedor_frame = QFrame(self.contenedor)
+        self.contenedor_frame.setObjectName(u"contenedor_frame")
+        self.contenedor_frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout = QHBoxLayout(self.contenedor_frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.btn_btn_cancelar = QPushButton(self.frame)
+        self.btn_btn_cancelar = QPushButton(self.contenedor_frame)
         self.btn_btn_cancelar.setObjectName(u"btn_btn_cancelar")
         self.btn_btn_cancelar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.horizontalLayout.addWidget(self.btn_btn_cancelar)
 
-        self.btn_btn_guardar = QPushButton(self.frame)
+        self.btn_btn_guardar = QPushButton(self.contenedor_frame)
         self.btn_btn_guardar.setObjectName(u"btn_btn_guardar")
         self.btn_btn_guardar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.horizontalLayout.addWidget(self.btn_btn_guardar)
 
 
-        self.verticalLayout.addWidget(self.frame)
+        self.verticalLayout.addWidget(self.contenedor_frame)
 
 
         self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)

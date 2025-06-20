@@ -5,7 +5,7 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon, QCursor
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
-from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+from .AjustarcajaOpcionesGlobal import AjustarcajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProveedoresModel import ProveedoresModel
 from ..Model.CategoriasModel import CategoriasModel
@@ -223,7 +223,7 @@ class Admin_productosController(QWidget):
                 self.ui.cajaOpciones_presentacionProducto.clear()
                 for presentacion in datos:
                     self.ui.cajaOpciones_presentacionProducto.addItem(presentacion.nombre, presentacion)
-                AjustarCajaOpciones(ProductosModel(session)).ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
+                AjustarcajaOpciones(ProductosModel(session)).ajustar_cajadeopciones(self.ui.cajaOpciones_presentacionProducto)
 
     def listar_unidades_medida(self):
         with Conexion_base_datos() as db:
@@ -234,7 +234,7 @@ class Admin_productosController(QWidget):
                 self.ui.cajaOpciones_unidadMedidaProducto.clear()
                 for unidad in datos:
                     self.ui.cajaOpciones_unidadMedidaProducto.addItem(unidad.nombre, unidad)
-                AjustarCajaOpciones(ProductosModel(session)).ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
+                AjustarcajaOpciones(ProductosModel(session)).ajustar_cajadeopciones(self.ui.cajaOpciones_unidadMedidaProducto)
 
     def listar_categorias(self):
         with Conexion_base_datos() as db:
@@ -245,7 +245,7 @@ class Admin_productosController(QWidget):
                 self.ui.cajaOpciones_categoriaProducto.clear()
                 for categoria in categorias:
                     self.ui.cajaOpciones_categoriaProducto.addItem(categoria.nombre, categoria)
-                AjustarCajaOpciones(CategoriasModel(session), 'productos').ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
+                AjustarcajaOpciones(CategoriasModel(session), 'productos').ajustar_cajadeopciones(self.ui.cajaOpciones_categoriaProducto)
                 
     
 #########################

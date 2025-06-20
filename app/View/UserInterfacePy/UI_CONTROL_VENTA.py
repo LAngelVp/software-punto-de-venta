@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QColumnView, QDateEdit, QDoubleSpinBox,
-    QFormLayout, QFrame, QGridLayout, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QSpacerItem, QToolButton, QWidget)
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QColumnView, QDateEdit,
+    QDoubleSpinBox, QFormLayout, QFrame, QGridLayout,
+    QHBoxLayout, QLabel, QLineEdit, QPushButton,
+    QSizePolicy, QSpacerItem, QToolButton, QWidget)
 from ...Source import ibootstrap_rc
 from ...Source import iconosSVG_rc
 
@@ -26,8 +26,9 @@ class Ui_Venta(object):
     def setupUi(self, Venta):
         if not Venta.objectName():
             Venta.setObjectName(u"Venta")
-        Venta.resize(1050, 460)
-        Venta.setStyleSheet(u"#Venta{\n"
+        Venta.resize(1076, 460)
+        Venta.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Venta{\n"
 "background: #fffefb;\n"
 "}\n"
 "#contenedor_controlcentral{\n"
@@ -40,6 +41,7 @@ class Ui_Venta(object):
 "}\n"
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border:none;\n"
 "}\n"
 "[objectName*=\"etiqueta_\"]{\n"
 "font-size: 14px;\n"
@@ -72,10 +74,10 @@ class Ui_Venta(object):
 "image: url(:/Icons/Bootstrap/upc-scan.svg);\n"
 "min-width: 20px;\n"
 "}\n"
-"[objectName*=\"btn_btn_\"]{\n"
+"[objectName*=\""
+                        "btn_btn_\"]{\n"
 "height: 25px;\n"
-"color"
-                        ": #fffefb;\n"
+"color: #fffefb;\n"
 "background: #00619a;\n"
 "border-radius: 5px;\n"
 "font-family: Arial;\n"
@@ -101,91 +103,113 @@ class Ui_Venta(object):
 "\n"
 "/*------TABLA-----*/\n"
 "[objectName*=\"tabla_\"] {\n"
-"    border:1px solid;\n"
-"}\n"
-"[objectName*=\"tabla_\"] QTableView::item {\n"
-"    border-bottom: 1px solid #ff5733; /* Color del borde inferior */\n"
-"}\n"
-"[objectName*=\"tabla_\"] QScrollBar:vertical {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 5px;\n"
-"border-radius:2px;\n"
-"    margin: 22px 0 22px 0; \n"
+"    font-family: Arial;\n"
+"    font-size: 14px;\n"
+"background: #F5F5F5;\n"
 "}\n"
 "\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:vertical {\n"
-"    background: #023375; /* Color del \"manejador\" */\n"
-"    min-he"
-                        "ight: 20px;  /* Altura m\u00ednima del manejador */\n"
-"}\n"
-"\n"
-"[objectName*=\"tabla_\"] QScrollBar::add-line:vertical,\n"
-"[objectName*=\"tabla_\"] QScrollBar::sub-line:vertical {\n"
-"background-color:none;\n"
-"}\n"
-"\n"
-"[objectName*=\"tabla_\"] QScrollBar::handle:horizontal {\n"
-"    background: #023375;  /* Color del \"manejador\" horizontal */\n"
-"    height: 5px;  /* Altura de la barra horizontal */\n"
-"	border-radius: 2px;\n"
-"}\n"
-"\n"
-"[objectName*=\"tabla_\"] QScrollBar:horizontal {\n"
-"    background: #023375;\n"
-"    height: 5px;  /* Altura de la barra */\n"
-"	border-radius: 2px;\n"
-"}\n"
+"/* Encabezados de la tabla */\n"
 "[objectName*=\"tabla_\"] QHeaderView::section {\n"
-"    background: #023375;  /* Color de fondo de los encabezados */\n"
-"    color: white;  /* Color del texto */\n"
-"    padding: 5px;  /* Espaciado interno */\n"
-"    border: none;  /* Sin borde en los encabezados */\n"
+"    background-color: #023375;\n"
+"    color: white;\n"
+"    font-family: \"Arial\";\n"
+"    font-size: 16px;\n"
+"    padding: 5px;\n"
+"    border: 1px solid gray;\n"
 "}\n"
 "\n"
+"/* Encabezado horizontal */\n"
 "[objectName*=\"tabla_\"] QHeaderView::horizontal {\n"
-"    background: #023375;  /* Color de fondo de los encabezados horizontales"
-                        " */\n"
-"    color: white;  /* Color del texto */\n"
-"border:none;\n"
+"    "
+                        "background-color: #023375;\n"
+"    color: white;\n"
 "}\n"
 "\n"
+"/* Encabezado vertical */\n"
 "[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
-"    background: #023375;  /* Color de fondo de los encabezados verticales */\n"
-"    color: white;  /* Color del texto */\n"
-"border:none;\n"
+"    background-color: #023375;\n"
+"    color: white;\n"
 "}\n"
-"[objectName^=\"fecha_\"]{\n"
+"\n"
+"\n"
+"[objectName*=\"fecha_\"]{\n"
 "border: none;\n"
 "border-bottom: 1px solid #3b3c3d;\n"
 "border-radius: 5px;\n"
 "padding: 2px;\n"
 "background-color: #f5f4f1;\n"
-"font-size: 12px;\n"
-"width:87px;\n"
+"font-size: 14px;\n"
+"min-width:100px;\n"
 "}\n"
-"*[objectName^=\"fecha_\"]::drop-down{\n"
+"*[objectName*=\"fecha_\"]::drop-down{\n"
 "subcontrol-origin: padding;\n"
 "subcontrol-position: top right;\n"
 "padding-right:5px;\n"
 "width: 20%;\n"
 "border-left-width: 1px;\n"
-"border-radius: 5px;\n"
-"background-color: #f5f4f1;\n"
+"borde-radius: 5px;\n"
+"background-color: #F5F5F5;\n"
 "}\n"
-"*[objectName^=\"fecha_\"]::down-arrow{\n"
+"*[objectName*=\"fecha_\"]::down-arrow{\n"
 "image: url(:/Icons/Bootstrap/calendar2-date.svg);\n"
 "width: 17%;\n"
 "height: 17%;\n"
 "padding-left:5px;\n"
 "padding-right:5px;\n"
+"background: #F5F5F5;\n"
 "}\n"
-"*[objectName^=\"fecha_\"]::focus{\n"
+"*[objectName*=\"fecha_\"]::focus{\n"
 "border-bottom: 2px solid #00668c;\n"
 "}\n"
+"QCalendarWidget QWidget#qt_calendar_navigationbar {\n"
+"    background-co"
+                        "lor: #00668c;\n"
+"    color: white;\n"
+"    border-top-left-radius: 5px;\n"
+"    border-top-right-radius: 5px;\n"
+"}\n"
 "\n"
-"*[objectName*=\"numerodecimal_\"]{"
-                        "\n"
+"/* BOTONES DE NAVEGACI\u00d3N */\n"
+"QCalendarWidget QToolButton {\n"
+"    background-color: transparent;\n"
+"    color: white;\n"
+"    font-weight: bold;\n"
+"    padding: 5px;\n"
+"}\n"
+"\n"
+"/* DESPLEGABLE DE MESES */\n"
+"QCalendarWidget QMenu {\n"
+"    background-color: #FFFFFF;\n"
+"    border: 1px solid #3b3c3d;\n"
+"}\n"
+"\n"
+"/* D\u00cdAS DE LA SEMANA */\n"
+"QCalendarWidget QWidget#qt_calendar_weekdaybar {\n"
+"    background-color: #f5f4f1;\n"
+"    color: #3b3c3d;\n"
+"}\n"
+"\n"
+"/* D\u00cdAS DEL MES */\n"
+"QCalendarWidget QAbstractItemView:enabled {\n"
+"    background-color: #FFFFFF;\n"
+"    color: #1d1c1c;\n"
+"    selection-background-color: #00668c;  /* Color al seleccionar fecha */\n"
+"    selection-color: white;\n"
+"}\n"
+"\n"
+"/* D\u00cdAS DE OTROS MESES */\n"
+"QCalendarWidget QAbstractItemView:disabled {\n"
+"    color: #AAAAAA;\n"
+"}\n"
+"\n"
+"/* EFECTO HOVER SOBRE D\u00cdAS */\n"
+""
+                        "QCalendarWidget QAbstractItemView::item:hover {\n"
+"    background-color: #e1f0f7;\n"
+"    color: #1d1c1c;\n"
+"}\n"
+"\n"
+"*[objectName*=\"numerodecimal_\"]{\n"
 "background-color: rgb(245, 244, 241);\n"
 "color: rgb(29, 28, 28);\n"
 "border: none;\n"
@@ -215,8 +239,8 @@ class Ui_Venta(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor_general = QFrame(Venta)
         self.contenedor_general.setObjectName(u"contenedor_general")
-        self.contenedor_general.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_general.setFrameShadow(QFrame.Raised)
+        self.contenedor_general.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_general.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.contenedor_general)
         self.gridLayout_3.setSpacing(0)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
@@ -255,13 +279,13 @@ class Ui_Venta(object):
         self.contenedor_detallesventa = QFrame(self.contenedor_controlcentral)
         self.contenedor_detallesventa.setObjectName(u"contenedor_detallesventa")
         self.contenedor_detallesventa.setStyleSheet(u"")
-        self.contenedor_detallesventa.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_detallesventa.setFrameShadow(QFrame.Raised)
+        self.contenedor_detallesventa.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_detallesventa.setFrameShadow(QFrame.Shadow.Raised)
         self.formLayout = QFormLayout(self.contenedor_detallesventa)
         self.formLayout.setObjectName(u"formLayout")
         self.etiquetaTitulo_ = QLabel(self.contenedor_detallesventa)
         self.etiquetaTitulo_.setObjectName(u"etiquetaTitulo_")
-        self.etiquetaTitulo_.setAlignment(Qt.AlignCenter)
+        self.etiquetaTitulo_.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.formLayout.setWidget(0, QFormLayout.ItemRole.SpanningRole, self.etiquetaTitulo_)
 
@@ -279,7 +303,7 @@ class Ui_Venta(object):
 
         self.etiquetaresultado_subtotalresultado = QLabel(self.contenedor_detallesventa)
         self.etiquetaresultado_subtotalresultado.setObjectName(u"etiquetaresultado_subtotalresultado")
-        self.etiquetaresultado_subtotalresultado.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.etiquetaresultado_subtotalresultado.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
         self.formLayout.setWidget(2, QFormLayout.ItemRole.FieldRole, self.etiquetaresultado_subtotalresultado)
 
@@ -290,7 +314,7 @@ class Ui_Venta(object):
 
         self.etiquetaresultado_descuentoresultado = QLabel(self.contenedor_detallesventa)
         self.etiquetaresultado_descuentoresultado.setObjectName(u"etiquetaresultado_descuentoresultado")
-        self.etiquetaresultado_descuentoresultado.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.etiquetaresultado_descuentoresultado.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
         self.formLayout.setWidget(3, QFormLayout.ItemRole.FieldRole, self.etiquetaresultado_descuentoresultado)
 
@@ -301,7 +325,7 @@ class Ui_Venta(object):
 
         self.etiquetaresultado_impuestoresultado = QLabel(self.contenedor_detallesventa)
         self.etiquetaresultado_impuestoresultado.setObjectName(u"etiquetaresultado_impuestoresultado")
-        self.etiquetaresultado_impuestoresultado.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.etiquetaresultado_impuestoresultado.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
         self.formLayout.setWidget(4, QFormLayout.ItemRole.FieldRole, self.etiquetaresultado_impuestoresultado)
 
@@ -312,12 +336,12 @@ class Ui_Venta(object):
 
         self.etiquetaTitulo_totalresultado = QLabel(self.contenedor_detallesventa)
         self.etiquetaTitulo_totalresultado.setObjectName(u"etiquetaTitulo_totalresultado")
-        self.etiquetaTitulo_totalresultado.setAlignment(Qt.AlignRight|Qt.AlignTrailing|Qt.AlignVCenter)
+        self.etiquetaTitulo_totalresultado.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
         self.formLayout.setWidget(5, QFormLayout.ItemRole.FieldRole, self.etiquetaTitulo_totalresultado)
 
 
-        self.gridLayout_4.addWidget(self.contenedor_detallesventa, 3, 4, 1, 1, Qt.AlignHCenter)
+        self.gridLayout_4.addWidget(self.contenedor_detallesventa, 3, 4, 1, 1, Qt.AlignmentFlag.AlignHCenter)
 
         self.tabla_productos = QColumnView(self.contenedor_controlcentral)
         self.tabla_productos.setObjectName(u"tabla_productos")
@@ -329,72 +353,72 @@ class Ui_Venta(object):
 
         self.contenedor_controlesinferior = QFrame(self.contenedor_general)
         self.contenedor_controlesinferior.setObjectName(u"contenedor_controlesinferior")
-        self.contenedor_controlesinferior.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_controlesinferior.setFrameShadow(QFrame.Raised)
+        self.contenedor_controlesinferior.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_controlesinferior.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout = QHBoxLayout(self.contenedor_controlesinferior)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.contenedordescuentosaplicardescuento = QFrame(self.contenedor_controlesinferior)
-        self.contenedordescuentosaplicardescuento.setObjectName(u"contenedordescuentosaplicardescuento")
-        self.contenedordescuentosaplicardescuento.setMinimumSize(QSize(452, 0))
-        self.contenedordescuentosaplicardescuento.setMaximumSize(QSize(16777215, 16777215))
-        self.contenedordescuentosaplicardescuento.setFrameShape(QFrame.StyledPanel)
-        self.contenedordescuentosaplicardescuento.setFrameShadow(QFrame.Raised)
-        self.gridLayout_5 = QGridLayout(self.contenedordescuentosaplicardescuento)
+        self.contenedor_descuentosaplicardescuento = QFrame(self.contenedor_controlesinferior)
+        self.contenedor_descuentosaplicardescuento.setObjectName(u"contenedor_descuentosaplicardescuento")
+        self.contenedor_descuentosaplicardescuento.setMinimumSize(QSize(0, 0))
+        self.contenedor_descuentosaplicardescuento.setMaximumSize(QSize(16777215, 16777215))
+        self.contenedor_descuentosaplicardescuento.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_descuentosaplicardescuento.setFrameShadow(QFrame.Shadow.Raised)
+        self.gridLayout_5 = QGridLayout(self.contenedor_descuentosaplicardescuento)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
-        self.etiquetaTitulo_descuentos = QLabel(self.contenedordescuentosaplicardescuento)
+        self.etiquetaTitulo_descuentos = QLabel(self.contenedor_descuentosaplicardescuento)
         self.etiquetaTitulo_descuentos.setObjectName(u"etiquetaTitulo_descuentos")
 
         self.gridLayout_5.addWidget(self.etiquetaTitulo_descuentos, 0, 0, 1, 3)
 
-        self.etiqueta_idclientedescuento = QLabel(self.contenedordescuentosaplicardescuento)
+        self.etiqueta_idclientedescuento = QLabel(self.contenedor_descuentosaplicardescuento)
         self.etiqueta_idclientedescuento.setObjectName(u"etiqueta_idclientedescuento")
 
         self.gridLayout_5.addWidget(self.etiqueta_idclientedescuento, 1, 0, 1, 1)
 
-        self.etiqueta_nombredescuento = QLabel(self.contenedordescuentosaplicardescuento)
+        self.etiqueta_nombredescuento = QLabel(self.contenedor_descuentosaplicardescuento)
         self.etiqueta_nombredescuento.setObjectName(u"etiqueta_nombredescuento")
 
         self.gridLayout_5.addWidget(self.etiqueta_nombredescuento, 2, 0, 1, 1)
 
-        self.etiqueta_tipodescuento = QLabel(self.contenedordescuentosaplicardescuento)
+        self.etiqueta_tipodescuento = QLabel(self.contenedor_descuentosaplicardescuento)
         self.etiqueta_tipodescuento.setObjectName(u"etiqueta_tipodescuento")
 
         self.gridLayout_5.addWidget(self.etiqueta_tipodescuento, 3, 0, 1, 1)
 
-        self.txt_tipodescuento = QLineEdit(self.contenedordescuentosaplicardescuento)
+        self.txt_tipodescuento = QLineEdit(self.contenedor_descuentosaplicardescuento)
         self.txt_tipodescuento.setObjectName(u"txt_tipodescuento")
 
         self.gridLayout_5.addWidget(self.txt_tipodescuento, 3, 1, 1, 1)
 
-        self.etiqueta_porcientodescuento = QLabel(self.contenedordescuentosaplicardescuento)
+        self.etiqueta_porcientodescuento = QLabel(self.contenedor_descuentosaplicardescuento)
         self.etiqueta_porcientodescuento.setObjectName(u"etiqueta_porcientodescuento")
 
         self.gridLayout_5.addWidget(self.etiqueta_porcientodescuento, 3, 2, 1, 1)
 
-        self.txt_porcientodescuento = QLineEdit(self.contenedordescuentosaplicardescuento)
+        self.txt_porcientodescuento = QLineEdit(self.contenedor_descuentosaplicardescuento)
         self.txt_porcientodescuento.setObjectName(u"txt_porcientodescuento")
 
         self.gridLayout_5.addWidget(self.txt_porcientodescuento, 3, 3, 1, 1)
 
-        self.btn_btn_aplicardescuento = QPushButton(self.contenedordescuentosaplicardescuento)
+        self.btn_btn_aplicardescuento = QPushButton(self.contenedor_descuentosaplicardescuento)
         self.btn_btn_aplicardescuento.setObjectName(u"btn_btn_aplicardescuento")
         self.btn_btn_aplicardescuento.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.gridLayout_5.addWidget(self.btn_btn_aplicardescuento, 4, 3, 1, 1)
 
-        self.txt_nombredescuento = QLineEdit(self.contenedordescuentosaplicardescuento)
+        self.txt_nombredescuento = QLineEdit(self.contenedor_descuentosaplicardescuento)
         self.txt_nombredescuento.setObjectName(u"txt_nombredescuento")
 
         self.gridLayout_5.addWidget(self.txt_nombredescuento, 2, 1, 1, 3)
 
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.txt_iddescuento = QLineEdit(self.contenedordescuentosaplicardescuento)
+        self.txt_iddescuento = QLineEdit(self.contenedor_descuentosaplicardescuento)
         self.txt_iddescuento.setObjectName(u"txt_iddescuento")
 
         self.gridLayout_2.addWidget(self.txt_iddescuento, 0, 0, 1, 1)
 
-        self.btn_btn_buscarclientedescuento = QPushButton(self.contenedordescuentosaplicardescuento)
+        self.btn_btn_buscarclientedescuento = QPushButton(self.contenedor_descuentosaplicardescuento)
         self.btn_btn_buscarclientedescuento.setObjectName(u"btn_btn_buscarclientedescuento")
         self.btn_btn_buscarclientedescuento.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         icon = QIcon()
@@ -408,14 +432,14 @@ class Ui_Venta(object):
         self.gridLayout_5.addLayout(self.gridLayout_2, 1, 1, 1, 3)
 
 
-        self.horizontalLayout.addWidget(self.contenedordescuentosaplicardescuento)
+        self.horizontalLayout.addWidget(self.contenedor_descuentosaplicardescuento)
 
         self.contenedor_creditos = QFrame(self.contenedor_controlesinferior)
         self.contenedor_creditos.setObjectName(u"contenedor_creditos")
-        self.contenedor_creditos.setMinimumSize(QSize(452, 0))
+        self.contenedor_creditos.setMinimumSize(QSize(450, 0))
         self.contenedor_creditos.setMaximumSize(QSize(16777215, 16777215))
-        self.contenedor_creditos.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_creditos.setFrameShadow(QFrame.Raised)
+        self.contenedor_creditos.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_creditos.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_8 = QGridLayout(self.contenedor_creditos)
         self.gridLayout_8.setObjectName(u"gridLayout_8")
         self.etiquetaTitulo_creditos = QLabel(self.contenedor_creditos)
@@ -441,6 +465,8 @@ class Ui_Venta(object):
 
         self.numerodecimal_cantidadcredito = QDoubleSpinBox(self.contenedor_creditos)
         self.numerodecimal_cantidadcredito.setObjectName(u"numerodecimal_cantidadcredito")
+        self.numerodecimal_cantidadcredito.setButtonSymbols(QAbstractSpinBox.ButtonSymbols.NoButtons)
+        self.numerodecimal_cantidadcredito.setMaximum(10000000000000000000000.000000000000000)
 
         self.gridLayout_8.addWidget(self.numerodecimal_cantidadcredito, 3, 1, 1, 1)
 
@@ -489,8 +515,8 @@ class Ui_Venta(object):
 
         self.contenedor_btn_cobrar = QFrame(self.contenedor_controlesinferior)
         self.contenedor_btn_cobrar.setObjectName(u"contenedor_btn_cobrar")
-        self.contenedor_btn_cobrar.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_btn_cobrar.setFrameShadow(QFrame.Raised)
+        self.contenedor_btn_cobrar.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_btn_cobrar.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_7 = QGridLayout(self.contenedor_btn_cobrar)
         self.gridLayout_7.setSpacing(0)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
@@ -506,8 +532,8 @@ class Ui_Venta(object):
         icon1.addFile(u":/iconosBlancos/Icons/iconos/Blanco/dinero_blanco.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btn_btn_cobrar.setIcon(icon1)
         self.btn_btn_cobrar.setIconSize(QSize(35, 35))
-        self.btn_btn_cobrar.setPopupMode(QToolButton.InstantPopup)
-        self.btn_btn_cobrar.setToolButtonStyle(Qt.ToolButtonTextUnderIcon)
+        self.btn_btn_cobrar.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
+        self.btn_btn_cobrar.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextUnderIcon)
         self.btn_btn_cobrar.setAutoRaise(False)
 
         self.gridLayout_7.addWidget(self.btn_btn_cobrar, 0, 1, 1, 1)
@@ -560,6 +586,7 @@ class Ui_Venta(object):
         self.etiqueta_nombreclientecredito.setText(QCoreApplication.translate("Venta", u"Nombre", None))
         self.etiqueta_creditodisponible.setText(QCoreApplication.translate("Venta", u"Credito disponible", None))
         self.etiqueta_fechapago.setText(QCoreApplication.translate("Venta", u"Fecha Pago", None))
+        self.fecha_fechapagocredito.setDisplayFormat(QCoreApplication.translate("Venta", u"dd/MM/yyyy", None))
         self.btn_btn_cobrarconcredito.setText(QCoreApplication.translate("Venta", u"A credito", None))
         self.btn_btn_buscarcreditocliente.setText("")
         self.btn_btn_cobrar.setText(QCoreApplication.translate("Venta", u"Cobrar", None))

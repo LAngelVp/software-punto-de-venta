@@ -21,9 +21,9 @@ from PySide6.QtWidgets import (QAbstractItemView, QAbstractSpinBox, QApplication
     QLabel, QLayout, QLineEdit, QPlainTextEdit,
     QPushButton, QRadioButton, QScrollArea, QSizePolicy,
     QSpacerItem, QStackedWidget, QTableView, QWidget)
-from ...Source import ibootstrap_rc
-from ...Source import iconsdvg_rc
-from ...Source import iconosSVG_rc
+import ibootstrap_rc
+import iconsdvg_rc
+import iconosSVG_rc
 
 class Ui_Control_Clientes(object):
     def setupUi(self, Control_Clientes):

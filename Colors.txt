@@ -27,6 +27,7 @@ DROP SCHEMA public CASCADE;
 CREATE SCHEMA PUBLIC;
 GRANT ALL ON SCHEMA public TO public;
 
+Azul de selección: #4791F5
 rojo : #ee1d52
 azul enfasis : #023375
 etiquetas con enfasis : #fffefb
@@ -48,7 +49,7 @@ color fondo contenedores extra: #B0C5D1
 
 
 -------------------
-[objectName^="cajaopciones_"]{
+[objectName^="cajaOpciones_"]{
 border: none;
 border-bottom: 1px solid rgb(29, 28, 28);
 borde-radius: 5px;
@@ -58,7 +59,7 @@ borde-radius: 5px;
 font-size: 12px;
 width:87px;
 }
-[objectName^="cajaopciones_"]::drop-down{
+[objectName^="cajaOpciones_"]::drop-down{
 subcontrol-origin: padding;
 subcontrol-position: top right;
 padding-right:5px;
@@ -67,7 +68,7 @@ border-left-width: 1px;
 borde-radius: 5px;
 background-color: #f5f4f1;
 }
-[objectName^="cajaopciones_"]::down-arrow{
+[objectName^="cajaOpciones_"]::down-arrow{
 image: url(:/Icons/Bootstrap/filter-left.svg);
 width: 17%;
 height: 17%;

@@ -28,7 +28,10 @@ class Ui_Orden_compra(object):
         Orden_compra.resize(600, 556)
         Orden_compra.setMinimumSize(QSize(600, 556))
         Orden_compra.setMaximumSize(QSize(600, 556))
-        Orden_compra.setStyleSheet(u"#Orden_compra{\n"
+        Orden_compra.setStyleSheet(u"*{\n"
+"color: #1d1c1c;\n"
+"}\n"
+"#Orden_compra{\n"
 "background-color: #fffefb;\n"
 "}\n"
 "#contenedor_encabezado{\n"
@@ -41,6 +44,7 @@ class Ui_Orden_compra(object):
 "font-weight:bold;\n"
 "font-family:\"Arial\";\n"
 "}\n"
+"[objectName*=\"contenedor\"]{ background: #fffefb; border:none;}\n"
 "[objectName*=\"frame\"]{\n"
 "background-color: #fffefb;\n"
 "}\n"
@@ -69,13 +73,13 @@ class Ui_Orden_compra(object):
 "#btn_btn_agregar:hover{\n"
 "background-color: #68a67d;\n"
 "}\n"
-"#btn_btn_terminar:hover{\n"
+"#btn_btn_terminar"
+                        ":hover{\n"
 "background-color: #68a67d;\n"
 "}\n"
 "#btn_btn_cerrar{\n"
 "background-color: #fffefb;\n"
-"m"
-                        "in-height:15px;\n"
+"min-height:15px;\n"
 "max-width:15px;\n"
 "}\n"
 "#btn_btn_cerrar:pressed{\n"
@@ -110,16 +114,17 @@ class Ui_Orden_compra(object):
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
+"background: #F5F5F5;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
 "[objectName*=\"tabla_\"] QHeaderView::section {\n"
-"    background-color: #023375;\n"
+""
+                        "    background-color: #023375;\n"
 "    color: white;\n"
 "    font-family: \"Arial\";\n"
 "    font-size: 16px;\n"
-"    paddi"
-                        "ng: 5px;\n"
+"    padding: 5px;\n"
 "    border: 1px solid gray;\n"
 "}\n"
 "\n"
@@ -139,19 +144,19 @@ class Ui_Orden_compra(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.frame = QFrame(Orden_compra)
-        self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.gridLayout_4 = QGridLayout(self.frame)
+        self.contenedor_frame = QFrame(Orden_compra)
+        self.contenedor_frame.setObjectName(u"contenedor_frame")
+        self.contenedor_frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.gridLayout_4 = QGridLayout(self.contenedor_frame)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setHorizontalSpacing(0)
         self.gridLayout_4.setVerticalSpacing(5)
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.contenedor_encabezado = QFrame(self.frame)
+        self.contenedor_encabezado = QFrame(self.contenedor_frame)
         self.contenedor_encabezado.setObjectName(u"contenedor_encabezado")
-        self.contenedor_encabezado.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_encabezado.setFrameShadow(QFrame.Raised)
+        self.contenedor_encabezado.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout = QHBoxLayout(self.contenedor_encabezado)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -179,15 +184,15 @@ class Ui_Orden_compra(object):
 
         self.gridLayout_4.addWidget(self.contenedor_encabezado, 0, 0, 1, 1)
 
-        self.frame_4 = QFrame(self.frame)
-        self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setFrameShape(QFrame.StyledPanel)
-        self.frame_4.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame_4)
+        self.contenedor_frame_4 = QFrame(self.contenedor_frame)
+        self.contenedor_frame_4.setObjectName(u"contenedor_frame_4")
+        self.contenedor_frame_4.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame_4.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.contenedor_frame_4)
         self.horizontalLayout_2.setSpacing(5)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(5, 5, 5, 5)
-        self.btn_btn_productosProveedor = QPushButton(self.frame_4)
+        self.btn_btn_productosProveedor = QPushButton(self.contenedor_frame_4)
         self.btn_btn_productosProveedor.setObjectName(u"btn_btn_productosProveedor")
         self.btn_btn_productosProveedor.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
@@ -197,80 +202,80 @@ class Ui_Orden_compra(object):
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
-        self.btn_btn_terminar = QToolButton(self.frame_4)
+        self.btn_btn_terminar = QToolButton(self.contenedor_frame_4)
         self.btn_btn_terminar.setObjectName(u"btn_btn_terminar")
         self.btn_btn_terminar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.horizontalLayout_2.addWidget(self.btn_btn_terminar)
 
 
-        self.gridLayout_4.addWidget(self.frame_4, 1, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.contenedor_frame_4, 1, 0, 1, 1)
 
-        self.line = QFrame(self.frame)
+        self.line = QFrame(self.contenedor_frame)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.Shape.HLine)
         self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_4.addWidget(self.line, 2, 0, 1, 1)
 
-        self.frame_2 = QFrame(self.frame)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.gridLayout_2 = QGridLayout(self.frame_2)
+        self.contenedor_frame_2 = QFrame(self.contenedor_frame)
+        self.contenedor_frame_2.setObjectName(u"contenedor_frame_2")
+        self.contenedor_frame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.gridLayout_2 = QGridLayout(self.contenedor_frame_2)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setHorizontalSpacing(5)
         self.gridLayout_2.setVerticalSpacing(0)
         self.gridLayout_2.setContentsMargins(10, 0, 10, 0)
-        self.txt_buscarproveedor = QLineEdit(self.frame_2)
+        self.txt_buscarproveedor = QLineEdit(self.contenedor_frame_2)
         self.txt_buscarproveedor.setObjectName(u"txt_buscarproveedor")
 
         self.gridLayout_2.addWidget(self.txt_buscarproveedor, 0, 1, 1, 1)
 
-        self.etiqueta_proveedor = QLabel(self.frame_2)
+        self.etiqueta_proveedor = QLabel(self.contenedor_frame_2)
         self.etiqueta_proveedor.setObjectName(u"etiqueta_proveedor")
-        self.etiqueta_proveedor.setTextFormat(Qt.AutoText)
+        self.etiqueta_proveedor.setTextFormat(Qt.TextFormat.AutoText)
 
         self.gridLayout_2.addWidget(self.etiqueta_proveedor, 0, 0, 1, 1)
 
 
-        self.gridLayout_4.addWidget(self.frame_2, 3, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.contenedor_frame_2, 3, 0, 1, 1)
 
-        self.frame_3 = QFrame(self.frame)
-        self.frame_3.setObjectName(u"frame_3")
-        self.frame_3.setFrameShape(QFrame.StyledPanel)
-        self.frame_3.setFrameShadow(QFrame.Raised)
-        self.gridLayout_3 = QGridLayout(self.frame_3)
+        self.contenedor_frame_3 = QFrame(self.contenedor_frame)
+        self.contenedor_frame_3.setObjectName(u"contenedor_frame_3")
+        self.contenedor_frame_3.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame_3.setFrameShadow(QFrame.Shadow.Raised)
+        self.gridLayout_3 = QGridLayout(self.contenedor_frame_3)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_3.setHorizontalSpacing(5)
         self.gridLayout_3.setVerticalSpacing(0)
         self.gridLayout_3.setContentsMargins(10, 0, 10, 0)
-        self.etiqueta_codigobarras = QLabel(self.frame_3)
+        self.etiqueta_codigobarras = QLabel(self.contenedor_frame_3)
         self.etiqueta_codigobarras.setObjectName(u"etiqueta_codigobarras")
 
         self.gridLayout_3.addWidget(self.etiqueta_codigobarras, 0, 0, 1, 1)
 
-        self.txt_buscarproducto = QLineEdit(self.frame_3)
+        self.txt_buscarproducto = QLineEdit(self.contenedor_frame_3)
         self.txt_buscarproducto.setObjectName(u"txt_buscarproducto")
 
         self.gridLayout_3.addWidget(self.txt_buscarproducto, 0, 1, 1, 1)
 
-        self.btn_btn_agregar = QToolButton(self.frame_3)
+        self.btn_btn_agregar = QToolButton(self.contenedor_frame_3)
         self.btn_btn_agregar.setObjectName(u"btn_btn_agregar")
         self.btn_btn_agregar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
         self.gridLayout_3.addWidget(self.btn_btn_agregar, 0, 2, 1, 1)
 
 
-        self.gridLayout_4.addWidget(self.frame_3, 4, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.contenedor_frame_3, 4, 0, 1, 1)
 
-        self.tabla_ordencompra = QTableView(self.frame)
+        self.tabla_ordencompra = QTableView(self.contenedor_frame)
         self.tabla_ordencompra.setObjectName(u"tabla_ordencompra")
 
         self.gridLayout_4.addWidget(self.tabla_ordencompra, 5, 0, 1, 1)
 
 
-        self.gridLayout.addWidget(self.frame, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.contenedor_frame, 0, 0, 1, 1)
 
 
         self.retranslateUi(Orden_compra)

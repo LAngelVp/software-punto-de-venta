@@ -23,6 +23,7 @@ class SucursalesController(QDialog):
         
         self.ui = Ui_Nueva_sucursal()
         self.ui.setupUi(self)
+        
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())
         self.move(pantalla.topLeft())

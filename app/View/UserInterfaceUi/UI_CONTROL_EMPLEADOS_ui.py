@@ -19,8 +19,8 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QFram
     QGridLayout, QHBoxLayout, QHeaderView, QLabel,
     QLayout, QLineEdit, QPushButton, QSizePolicy,
     QSpacerItem, QTableView, QToolButton, QWidget)
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
+import ibootstrap_rc
+import iconosSVG_rc
 
 class Ui_Control_empleados(object):
     def setupUi(self, Control_empleados):

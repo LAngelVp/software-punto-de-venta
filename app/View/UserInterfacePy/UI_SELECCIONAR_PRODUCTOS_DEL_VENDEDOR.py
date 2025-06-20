@@ -26,8 +26,13 @@ class Ui_Seleccion_Productos_Proveedor(object):
     def setupUi(self, Seleccion_Productos_Proveedor):
         if not Seleccion_Productos_Proveedor.objectName():
             Seleccion_Productos_Proveedor.setObjectName(u"Seleccion_Productos_Proveedor")
-        Seleccion_Productos_Proveedor.resize(885, 467)
-        Seleccion_Productos_Proveedor.setStyleSheet(u"#contenedor_encabezado{\n"
+        Seleccion_Productos_Proveedor.resize(877, 507)
+        Seleccion_Productos_Proveedor.setStyleSheet(u"*{ color: #1d1c1c;	}\n"
+"[objectName*=\"contenedor\"]{\n"
+"background: #fffefb;\n"
+"border: none;\n"
+"}\n"
+"#contenedor_encabezado{\n"
 "background: #023375;\n"
 "max-height: 25px;\n"
 "}\n"
@@ -68,13 +73,13 @@ class Ui_Seleccion_Productos_Proveedor(object):
 "[objectName*=\"btn_aceptar\"]:hover{\n"
 "background: #68a67d;\n"
 "}\n"
-"[objectName*=\"btn_aceptar\"]:pressed{\n"
+"[objectN"
+                        "ame*=\"btn_aceptar\"]:pressed{\n"
 "background: #578B69;\n"
 "}\n"
 "#btn_cerrar{\n"
 "background: #fffefb;\n"
-""
-                        "min-height:15px;\n"
+"min-height:15px;\n"
 "min-width:15px;\n"
 "}\n"
 "#btn_cerrar:pressed{\n"
@@ -97,13 +102,15 @@ class Ui_Seleccion_Productos_Proveedor(object):
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
+"background: #F5F5F5;\n"
 "}\n"
+"\n"
 "/* Encabezados de la tabla */\n"
 "[objectName*=\"tabla_\"] QHeaderView::section {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
 "    font-family: \"Arial\";\n"
-"    font-size: 14px;\n"
+"    font-size: 16px;\n"
 "    padding: 5px;\n"
 "    border: 1px solid gray;\n"
 "}\n"
@@ -114,17 +121,11 @@ class Ui_Seleccion_Productos_Proveedor(object):
 "    color: white;\n"
 "}\n"
 "\n"
-"/* Encabezado vertical */\n"
+"/* Encabezad"
+                        "o vertical */\n"
 "[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
-"}\n"
-"#tab"
-                        "la_productosProveedor{\n"
-"min-height: 300px;\n"
-"}\n"
-"#tabla_productosParaOrden{\n"
-"min-height: 300px;\n"
 "}")
         self.gridLayout = QGridLayout(Seleccion_Productos_Proveedor)
         self.gridLayout.setSpacing(0)
@@ -132,8 +133,8 @@ class Ui_Seleccion_Productos_Proveedor(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor_encabezado = QFrame(Seleccion_Productos_Proveedor)
         self.contenedor_encabezado.setObjectName(u"contenedor_encabezado")
-        self.contenedor_encabezado.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_encabezado.setFrameShadow(QFrame.Raised)
+        self.contenedor_encabezado.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout = QHBoxLayout(self.contenedor_encabezado)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -161,14 +162,14 @@ class Ui_Seleccion_Productos_Proveedor(object):
 
         self.contenedor_cuerpo = QFrame(Seleccion_Productos_Proveedor)
         self.contenedor_cuerpo.setObjectName(u"contenedor_cuerpo")
-        self.contenedor_cuerpo.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_cuerpo.setFrameShadow(QFrame.Raised)
+        self.contenedor_cuerpo.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_cuerpo.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_4 = QGridLayout(self.contenedor_cuerpo)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.contenedor_opciones_superiores = QFrame(self.contenedor_cuerpo)
         self.contenedor_opciones_superiores.setObjectName(u"contenedor_opciones_superiores")
-        self.contenedor_opciones_superiores.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_opciones_superiores.setFrameShadow(QFrame.Raised)
+        self.contenedor_opciones_superiores.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_opciones_superiores.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_2 = QGridLayout(self.contenedor_opciones_superiores)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.etiqueta_nombredelproveedor = QLabel(self.contenedor_opciones_superiores)
@@ -180,7 +181,7 @@ class Ui_Seleccion_Productos_Proveedor(object):
         self.btn_aceptar.setObjectName(u"btn_aceptar")
         self.btn_aceptar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
-        self.gridLayout_2.addWidget(self.btn_aceptar, 0, 1, 1, 1, Qt.AlignRight)
+        self.gridLayout_2.addWidget(self.btn_aceptar, 0, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
@@ -205,12 +206,12 @@ class Ui_Seleccion_Productos_Proveedor(object):
         self.contenedor_area = QScrollArea(self.contenedor_cuerpo)
         self.contenedor_area.setObjectName(u"contenedor_area")
         self.contenedor_area.setWidgetResizable(True)
-        self.scrollAreaWidgetContents = QWidget()
-        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 849, 709))
-        self.gridLayout_3 = QGridLayout(self.scrollAreaWidgetContents)
+        self.contenedor_scrollAreaWidgetContents = QWidget()
+        self.contenedor_scrollAreaWidgetContents.setObjectName(u"contenedor_scrollAreaWidgetContents")
+        self.contenedor_scrollAreaWidgetContents.setGeometry(QRect(0, 0, 853, 351))
+        self.gridLayout_3 = QGridLayout(self.contenedor_scrollAreaWidgetContents)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.etiqueta_tablaproductosproveedor = QLabel(self.scrollAreaWidgetContents)
+        self.etiqueta_tablaproductosproveedor = QLabel(self.contenedor_scrollAreaWidgetContents)
         self.etiqueta_tablaproductosproveedor.setObjectName(u"etiqueta_tablaproductosproveedor")
 
         self.gridLayout_3.addWidget(self.etiqueta_tablaproductosproveedor, 0, 0, 1, 1)
@@ -219,7 +220,7 @@ class Ui_Seleccion_Productos_Proveedor(object):
 
         self.gridLayout_3.addItem(self.horizontalSpacer_2, 0, 1, 1, 1)
 
-        self.btn_RefrescarTabla = QPushButton(self.scrollAreaWidgetContents)
+        self.btn_RefrescarTabla = QPushButton(self.contenedor_scrollAreaWidgetContents)
         self.btn_RefrescarTabla.setObjectName(u"btn_RefrescarTabla")
         self.btn_RefrescarTabla.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         icon1 = QIcon()
@@ -228,36 +229,36 @@ class Ui_Seleccion_Productos_Proveedor(object):
 
         self.gridLayout_3.addWidget(self.btn_RefrescarTabla, 0, 2, 1, 1)
 
-        self.tabla_productosProveedor = QTableView(self.scrollAreaWidgetContents)
+        self.tabla_productosProveedor = QTableView(self.contenedor_scrollAreaWidgetContents)
         self.tabla_productosProveedor.setObjectName(u"tabla_productosProveedor")
 
         self.gridLayout_3.addWidget(self.tabla_productosProveedor, 1, 0, 1, 3)
 
-        self.etiqueta_tablaproductosparaorden = QLabel(self.scrollAreaWidgetContents)
+        self.etiqueta_tablaproductosparaorden = QLabel(self.contenedor_scrollAreaWidgetContents)
         self.etiqueta_tablaproductosparaorden.setObjectName(u"etiqueta_tablaproductosparaorden")
 
         self.gridLayout_3.addWidget(self.etiqueta_tablaproductosparaorden, 4, 0, 1, 3)
 
-        self.tabla_productosParaOrden = QTableView(self.scrollAreaWidgetContents)
+        self.tabla_productosParaOrden = QTableView(self.contenedor_scrollAreaWidgetContents)
         self.tabla_productosParaOrden.setObjectName(u"tabla_productosParaOrden")
 
         self.gridLayout_3.addWidget(self.tabla_productosParaOrden, 5, 0, 1, 3)
 
-        self.line_2 = QFrame(self.scrollAreaWidgetContents)
+        self.line_2 = QFrame(self.contenedor_scrollAreaWidgetContents)
         self.line_2.setObjectName(u"line_2")
         self.line_2.setFrameShape(QFrame.Shape.HLine)
         self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_3.addWidget(self.line_2, 3, 0, 1, 3)
 
-        self.line = QFrame(self.scrollAreaWidgetContents)
+        self.line = QFrame(self.contenedor_scrollAreaWidgetContents)
         self.line.setObjectName(u"line")
         self.line.setFrameShape(QFrame.Shape.HLine)
         self.line.setFrameShadow(QFrame.Shadow.Sunken)
 
         self.gridLayout_3.addWidget(self.line, 2, 0, 1, 3)
 
-        self.contenedor_area.setWidget(self.scrollAreaWidgetContents)
+        self.contenedor_area.setWidget(self.contenedor_scrollAreaWidgetContents)
 
         self.gridLayout_4.addWidget(self.contenedor_area, 1, 0, 1, 1)
 

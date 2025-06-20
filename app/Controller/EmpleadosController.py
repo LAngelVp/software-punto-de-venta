@@ -74,7 +74,7 @@ class EmpleadosController(QWidget):
         else:
             id_empleado = None
         nombre_empleado = self.ui.txt_nombreempleado.text().strip()
-        tipo_filtro_nombre = self.ui.cajaopciones_filtroNombreEmpleado.currentIndex()
+        tipo_filtro_nombre = self.ui.cajaOpciones_filtroNombreEmpleado.currentIndex()
         if not id_empleado and not nombre_empleado:
             Mensaje().mensaje_informativo("No haz ingresado datos para filtrar")
             return

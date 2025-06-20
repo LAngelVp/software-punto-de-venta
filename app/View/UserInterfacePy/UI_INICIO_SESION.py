@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
     QLabel, QLineEdit, QPushButton, QSizePolicy,
     QWidget)
-from ...Source import  iconos_rc
+from ...Source import iconos_rc
 from ...Source import iconsdvg_rc
 from ...Source import iconosSVG_rc
 
@@ -29,7 +29,9 @@ class Ui_Inicio_Sesion(object):
         Inicio_Sesion.resize(616, 468)
         Inicio_Sesion.setMinimumSize(QSize(600, 450))
         Inicio_Sesion.setMaximumSize(QSize(16777215, 16777215))
-        Inicio_Sesion.setStyleSheet(u"#principal{\n"
+        Inicio_Sesion.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"\n"
+"#principal{\n"
 "	background-color: rgb(163, 158, 158);\n"
 "	border-bottom-right-radius: 25px;\n"
 "	border-top-right-radius: 25px;\n"
@@ -65,9 +67,9 @@ class Ui_Inicio_Sesion(object):
 "}\n"
 "[objectName^=\"txt\"]{\n"
 "	border: none;\n"
-"	border-bottom: 1px solid rgb(58, 137, 198);\n"
-"	f"
-                        "ont-size: 14px;\n"
+"	border-bottom: 1px sol"
+                        "id rgb(58, 137, 198);\n"
+"	font-size: 14px;\n"
 "	font-weight: Arial;\n"
 "	background-color:#F5F5F5;\n"
 "	border-radius: 4px;\n"
@@ -108,16 +110,16 @@ class Ui_Inicio_Sesion(object):
         self.contenedor_global = QFrame(Inicio_Sesion)
         self.contenedor_global.setObjectName(u"contenedor_global")
         self.contenedor_global.setGeometry(QRect(20, 20, 551, 421))
-        self.contenedor_global.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_global.setFrameShadow(QFrame.Raised)
+        self.contenedor_global.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_global.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_4 = QGridLayout(self.contenedor_global)
         self.gridLayout_4.setSpacing(0)
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
         self.contenedor_formulario = QFrame(self.contenedor_global)
         self.contenedor_formulario.setObjectName(u"contenedor_formulario")
-        self.contenedor_formulario.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_formulario.setFrameShadow(QFrame.Raised)
+        self.contenedor_formulario.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_formulario.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout = QGridLayout(self.contenedor_formulario)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
@@ -148,7 +150,7 @@ class Ui_Inicio_Sesion(object):
         font.setPointSize(10)
         font.setBold(True)
         self.labelNombreEmpresa.setFont(font)
-        self.labelNombreEmpresa.setAlignment(Qt.AlignCenter)
+        self.labelNombreEmpresa.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.widget = QWidget(self.principal)
         self.widget.setObjectName(u"widget")
         self.widget.setGeometry(QRect(200, 10, 61, 31))
@@ -195,7 +197,7 @@ class Ui_Inicio_Sesion(object):
         self.imgFacebook.setMaximumSize(QSize(30, 30))
         self.imgFacebook.setStyleSheet(u"image: url(:/Icons/IconosSVG/facebook.svg);\n"
 "background-color: none;")
-        self.imgFacebook.setAlignment(Qt.AlignCenter)
+        self.imgFacebook.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.imgFacebook)
 
@@ -205,7 +207,7 @@ class Ui_Inicio_Sesion(object):
         self.imgLinkedin.setMaximumSize(QSize(30, 30))
         self.imgLinkedin.setStyleSheet(u"image: url(:/Icons/IconosSVG/linkedin.svg);\n"
 "background-color: none;")
-        self.imgLinkedin.setAlignment(Qt.AlignCenter)
+        self.imgLinkedin.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.imgLinkedin)
 
@@ -216,7 +218,7 @@ class Ui_Inicio_Sesion(object):
         self.imgWhatsapp.setStyleSheet(u"image: url(:/Icons/IconosSVG/whatsapp.svg);\n"
 "background-color: none;")
         self.imgWhatsapp.setScaledContents(False)
-        self.imgWhatsapp.setAlignment(Qt.AlignCenter)
+        self.imgWhatsapp.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_2.addWidget(self.imgWhatsapp)
 
@@ -232,7 +234,7 @@ class Ui_Inicio_Sesion(object):
         self.img_Password.setMinimumSize(QSize(25, 0))
         self.img_Password.setMaximumSize(QSize(25, 16777215))
         self.img_Password.setStyleSheet(u"")
-        self.img_Password.setAlignment(Qt.AlignCenter)
+        self.img_Password.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_2.addWidget(self.img_Password, 0, 0, 1, 1)
 
@@ -241,8 +243,8 @@ class Ui_Inicio_Sesion(object):
         font1 = QFont()
         self.txt_Password.setFont(font1)
         self.txt_Password.setStyleSheet(u"")
-        self.txt_Password.setEchoMode(QLineEdit.Password)
-        self.txt_Password.setAlignment(Qt.AlignCenter)
+        self.txt_Password.setEchoMode(QLineEdit.EchoMode.Password)
+        self.txt_Password.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_2.addWidget(self.txt_Password, 0, 1, 1, 1)
 
@@ -258,7 +260,7 @@ class Ui_Inicio_Sesion(object):
         self.img_User.setMinimumSize(QSize(25, 0))
         self.img_User.setMaximumSize(QSize(25, 16777215))
         self.img_User.setStyleSheet(u"")
-        self.img_User.setAlignment(Qt.AlignCenter)
+        self.img_User.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_3.addWidget(self.img_User, 0, 0, 1, 1)
 
@@ -266,8 +268,8 @@ class Ui_Inicio_Sesion(object):
         self.txt_User.setObjectName(u"txt_User")
         self.txt_User.setFont(font1)
         self.txt_User.setStyleSheet(u"")
-        self.txt_User.setEchoMode(QLineEdit.Normal)
-        self.txt_User.setAlignment(Qt.AlignCenter)
+        self.txt_User.setEchoMode(QLineEdit.EchoMode.Normal)
+        self.txt_User.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_3.addWidget(self.txt_User, 0, 1, 1, 1)
 

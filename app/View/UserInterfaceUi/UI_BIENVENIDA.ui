@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>250</height>
+    <width>600</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>450</width>
-    <height>250</height>
+    <width>600</width>
+    <height>450</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>450</width>
-    <height>250</height>
+    <width>600</width>
+    <height>450</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -43,10 +43,10 @@ font-size: 18px;
   <widget class="QWidget" name="contenedor" native="true">
    <property name="geometry">
     <rect>
-     <x>38</x>
-     <y>20</y>
-     <width>371</width>
-     <height>211</height>
+     <x>40</x>
+     <y>80</y>
+     <width>521</width>
+     <height>291</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -66,10 +66,10 @@ color:#1d1c1c;
    <widget class="QLabel" name="etiqueta_imagen">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>100</x>
       <y>30</y>
-      <width>191</width>
-      <height>131</height>
+      <width>351</width>
+      <height>221</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -98,7 +98,6 @@ color:#1d1c1c;
      <font>
       <family>Arial</family>
       <pointsize>-1</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -106,22 +105,21 @@ color:#1d1c1c;
      <string>Bienvenido a tu sistema de negocios</string>
     </property>
     <property name="alignment">
-     <set>Qt::AlignCenter</set>
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="btn_btn_registrar">
     <property name="geometry">
      <rect>
-      <x>78</x>
-      <y>160</y>
-      <width>201</width>
-      <height>31</height>
+      <x>140</x>
+      <y>230</y>
+      <width>251</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>11</pointsize>
-      <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
@@ -138,10 +136,10 @@ color:#1d1c1c;
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>360</x>
       <y>40</y>
-      <width>91</width>
-      <height>31</height>
+      <width>131</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="styleSheet">

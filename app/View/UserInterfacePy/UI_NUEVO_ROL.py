@@ -26,11 +26,13 @@ class Ui_Control_nuevo_rol(object):
         Control_nuevo_rol.resize(400, 400)
         Control_nuevo_rol.setMinimumSize(QSize(400, 400))
         Control_nuevo_rol.setMaximumSize(QSize(400, 400))
-        Control_nuevo_rol.setStyleSheet(u"#Control_nuevo_rol{\n"
+        Control_nuevo_rol.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Control_nuevo_rol{\n"
 "background: #fffefb;\n"
 "}\n"
-"#contenedor{\n"
+"[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border:none;\n"
 "}\n"
 "[objectName*=\"etiquetaTitulo_\"]{\n"
 "font-size:18px;\n"
@@ -62,33 +64,6 @@ class Ui_Control_nuevo_rol(object):
 "background: #fffefb;\n"
 "color: #1d1c1c;\n"
 "}\n"
-"#contenedor_permisos QScrollBar:vertical {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 5px;\n"
-"border-radius:2px;\n"
-"    margin: 22px 0 22px 0; \n"
-"}\n"
-"\n"
-"#contenedor_permisos QScrollBar::handle:vertical {\n"
-"    background: #023375;  /* Color del \"manej"
-                        "ador\" */\n"
-"    min-height: 20px;  /* Altura m\u00ednima del manejador */\n"
-"}\n"
-"\n"
-"#contenedor_permisos QScrollBar:horizontal {\n"
-"    border: 1px solid gray;\n"
-"    background: #023375;\n"
-"    width: 5px;\n"
-"border-radius:2px;\n"
-"    margin: 22px 0 22px 0; \n"
-"}\n"
-"\n"
-"#contenedor_permisos QScrollBar::handle:horizontal {\n"
-"    background: #023375;  /* Color del \"manejador\" */\n"
-"    min-height: 20px;  /* Altura m\u00ednima del manejador */\n"
-"}\n"
-"\n"
 "\n"
 "[objectName*=\"txt_\"]{\n"
 "font-size:14px;\n"
@@ -100,7 +75,8 @@ class Ui_Control_nuevo_rol(object):
 "border-radius: 5px;\n"
 "border-bottom: 1px solid #1d1c1c;\n"
 "}\n"
-"[objectName*=\"txt_\"]:focus{\n"
+"[objectNa"
+                        "me*=\"txt_\"]:focus{\n"
 "border-bottom: 2px solid #023375;\n"
 "}\n"
 "[objectName*=\"btn_btn_\"]{\n"
@@ -113,8 +89,7 @@ class Ui_Control_nuevo_rol(object):
 "border-radius: 5px;\n"
 "padding-left: 10px;\n"
 "padding-right: 10px;\n"
-"heigh"
-                        "t: 30px;\n"
+"height: 30px;\n"
 "}\n"
 "[objectName*=\"btn_btn_\"]:hover{\n"
 "background: #2196F3;\n"
@@ -124,8 +99,8 @@ class Ui_Control_nuevo_rol(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.contenedor = QFrame(Control_nuevo_rol)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.contenedor)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.etiquetaTitulo_rol = QLabel(self.contenedor)
@@ -143,7 +118,7 @@ class Ui_Control_nuevo_rol(object):
         self.contenedor_permisos.setWidgetResizable(True)
         self.contenedor_permisosscroll = QWidget()
         self.contenedor_permisosscroll.setObjectName(u"contenedor_permisosscroll")
-        self.contenedor_permisosscroll.setGeometry(QRect(0, 0, 355, 327))
+        self.contenedor_permisosscroll.setGeometry(QRect(0, 0, 337, 313))
         self.gridLayout_2 = QGridLayout(self.contenedor_permisosscroll)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.etiquetasubtitulo_proveedor = QLabel(self.contenedor_permisosscroll)
@@ -320,7 +295,7 @@ class Ui_Control_nuevo_rol(object):
         self.btn_btn_agregar.setObjectName(u"btn_btn_agregar")
         self.btn_btn_agregar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
-        self.gridLayout_3.addWidget(self.btn_btn_agregar, 5, 1, 1, 1, Qt.AlignRight)
+        self.gridLayout_3.addWidget(self.btn_btn_agregar, 5, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
 
         self.txt_nombrerol = QLineEdit(self.contenedor)
         self.txt_nombrerol.setObjectName(u"txt_nombrerol")

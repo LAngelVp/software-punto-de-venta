@@ -13,7 +13,7 @@ from app.Model.CategoriasModel import CategoriasModel
 from app.Model.RepresentanteProveedorModel import RepresentanteProveedorModel
 from app.Model.BaseDatosModel import Proveedores
 from app.Controller.MensajesAlertasController import *
-from .AjustarCajaOpcionesGlobal import AjustarCajaOpciones
+from .AjustarcajaOpcionesGlobal import AjustarcajaOpciones
 from .Validaciones import Validaciones
 from .FuncionesAuxiliares import *
 from .Productos_del_Proveedor import *
@@ -46,7 +46,7 @@ class Control_proveedores(QWidget):
 
         self.ui.btn_btn_buscarproveedor.clicked.connect(self.buscar_proveedor_hilo)
         self.ui.btn_btn_actualizar.clicked.connect(self.control_actualizar_proveedor)
-        self.ui.cajaopciones_categorias.currentIndexChanged.connect(self.mostrar_descripcion_categoria)
+        self.ui.cajaOpciones_categorias.currentIndexChanged.connect(self.mostrar_descripcion_categoria)
         self.validaciones()
         self.cargando = None
         self.consultor = None
@@ -107,19 +107,19 @@ class Control_proveedores(QWidget):
             with session.begin():
                 categorias, estado = CategoriasModel(session).obtener_todo(tipo_categoria="proveedores")
                 if estado:
-                    self.ui.cajaopciones_categorias.clear()
+                    self.ui.cajaOpciones_categorias.clear()
                     for categoria in categorias:
-                        self.ui.cajaopciones_categorias.addItem(categoria.nombre, (categoria.id, categoria.descripcion))
-                    AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_categorias)
+                        self.ui.cajaOpciones_categorias.addItem(categoria.nombre, (categoria.id, categoria.descripcion))
+                    AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_categorias)
             
         self.mostrar_descripcion_categoria()
     
     def mostrar_descripcion_categoria(self):
-        index_seleccion = self.ui.cajaopciones_categorias.currentIndex()
+        index_seleccion = self.ui.cajaOpciones_categorias.currentIndex()
 
         # Si hay un ítem seleccionado válido
         if index_seleccion != -1:
-            dato_seleccionado = self.ui.cajaopciones_categorias.currentData()
+            dato_seleccionado = self.ui.cajaOpciones_categorias.currentData()
 
             # Verificar si currentData() devuelve datos válidos
             if dato_seleccionado is not None:
@@ -185,8 +185,8 @@ class Control_proveedores(QWidget):
             'pagina_web': self.ui.txt_web.text().strip(),
             'correo': self.ui.txt_correo.text().strip(),
             'telefono': self.ui.txt_telefono.text().strip(),
-            'clave_moneda': self.ui.cajaopciones_tipomoneda.currentText().split(":")[0].strip(),
-            'tipo_moneda': self.ui.cajaopciones_tipomoneda.currentText().split(":")[1].strip()
+            'clave_moneda': self.ui.cajaOpciones_tipomoneda.currentText().split(":")[0].strip(),
+            'tipo_moneda': self.ui.cajaOpciones_tipomoneda.currentText().split(":")[1].strip()
         }
         campos_vacios = [clave for clave, valor in datos.items() if not valor]
 
@@ -212,7 +212,7 @@ class Control_proveedores(QWidget):
     def control_agregar_proveedor(self):
         datos_proveedor, campos_vacios = self.obtener_datos_proveedor()
         datos_representante = self.obtener_datos_representante()
-        categoriaid = self.ui.cajaopciones_categorias.currentData()[0]
+        categoriaid = self.ui.cajaOpciones_categorias.currentData()[0]
         
         
 
@@ -394,8 +394,8 @@ class Control_proveedores(QWidget):
         # Obtén los datos del proveedor y del representante
         datos_proveedor, campos_vacios = self.obtener_datos_proveedor()
         datos_representante = self.obtener_datos_representante()
-        categoria_nombre = self.ui.cajaopciones_categorias.currentText().strip()
-        categoriaid = self.ui.cajaopciones_categorias.currentData()[0]
+        categoria_nombre = self.ui.cajaOpciones_categorias.currentText().strip()
+        categoriaid = self.ui.cajaOpciones_categorias.currentData()[0]
 
         # Obtén el nombre de la categoría seleccionada
 
@@ -516,15 +516,15 @@ class Control_proveedores(QWidget):
         if proveedor.categoria:
             nombre = None
             nombre = proveedor.categoria.nombre
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_categorias, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_categorias, nombre)
         
         if proveedor.clave_moneda:
             nombre = f'{proveedor.clave_moneda}: {proveedor.tipo_moneda}'
-            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaopciones_tipomoneda, nombre)
+            FuncionesAuxiliaresController().caja_opciones_mover_elemento(self.ui.cajaOpciones_tipomoneda, nombre)
         
             
             # # Obtener el QComboBox
-            # caja_categorias = self.ui.cajaopciones_categorias
+            # caja_categorias = self.ui.cajaOpciones_categorias
             # caja_categorias.clear()  # Limpiar elementos existentes
 
             # # Crear un conjunto para rastrear categorías ya añadidas

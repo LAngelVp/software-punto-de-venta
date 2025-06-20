@@ -20,9 +20,9 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateEdit,
     QLabel, QLineEdit, QPlainTextEdit, QPushButton,
     QSizePolicy, QSpacerItem, QToolButton, QVBoxLayout,
     QWidget)
-from ...Source import ibootstrap_rc
-from ...Source import iconsdvg_rc
-from ...Source import iconosSVG_rc
+import ibootstrap_rc
+import iconsdvg_rc
+import iconosSVG_rc
 
 class Ui_RegistroAdministrador(object):
     def setupUi(self, RegistroAdministrador):

@@ -26,7 +26,9 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#principal{
+   <string notr="true">*{color: #1d1c1c;}
+
+#principal{
 	background-color: rgb(163, 158, 158);
 	border-bottom-right-radius: 25px;
 	border-top-right-radius: 25px;
@@ -112,10 +114,10 @@ image: url(:/iconosBlancos/Icons/iconos/Blanco/password_blanco.svg);
     </rect>
    </property>
    <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
+    <enum>QFrame::Shape::StyledPanel</enum>
    </property>
    <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
+    <enum>QFrame::Shadow::Raised</enum>
    </property>
    <layout class="QGridLayout" name="gridLayout_4">
     <property name="leftMargin">
@@ -136,10 +138,10 @@ image: url(:/iconosBlancos/Icons/iconos/Blanco/password_blanco.svg);
     <item row="0" column="0">
      <widget class="QFrame" name="contenedor_formulario">
       <property name="frameShape">
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::Shape::StyledPanel</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Shadow::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <property name="leftMargin">
@@ -220,7 +222,6 @@ image: url(:/iconosBlancos/Icons/iconos/Blanco/password_blanco.svg);
            <font>
             <family>Times New Roman</family>
             <pointsize>10</pointsize>
-            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -228,7 +229,7 @@ image: url(:/iconosBlancos/Icons/iconos/Blanco/password_blanco.svg);
            <string>Systems Dev~Rous</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignCenter</set>
+           <set>Qt::AlignmentFlag::AlignCenter</set>
           </property>
          </widget>
          <widget class="QWidget" name="widget" native="true">
@@ -369,7 +370,7 @@ background-color: none;</string>
               <string/>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -395,7 +396,7 @@ background-color: none;</string>
               <string/>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -424,7 +425,7 @@ background-color: none;</string>
               <bool>false</bool>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -464,7 +465,7 @@ background-color: none;</string>
               <string/>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -479,10 +480,10 @@ background-color: none;</string>
               <string notr="true"/>
              </property>
              <property name="echoMode">
-              <enum>QLineEdit::Password</enum>
+              <enum>QLineEdit::EchoMode::Password</enum>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
              <property name="placeholderText">
               <string>Contraseña</string>
@@ -525,7 +526,7 @@ background-color: none;</string>
               <string/>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -540,10 +541,10 @@ background-color: none;</string>
               <string notr="true"/>
              </property>
              <property name="echoMode">
-              <enum>QLineEdit::Normal</enum>
+              <enum>QLineEdit::EchoMode::Normal</enum>
              </property>
              <property name="alignment">
-              <set>Qt::AlignCenter</set>
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
              <property name="placeholderText">
               <string>Nombre de Usuario</string>

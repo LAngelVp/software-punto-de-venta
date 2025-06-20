@@ -27,11 +27,13 @@ class Ui_Control_Productos(object):
         if not Control_Productos.objectName():
             Control_Productos.setObjectName(u"Control_Productos")
         Control_Productos.resize(743, 433)
-        Control_Productos.setStyleSheet(u"#Control_Productos{\n"
+        Control_Productos.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Control_Productos{\n"
 "background: #fffefb;\n"
 "}\n"
-"#contenedor{\n"
+"[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border:none;\n"
 "}\n"
 "#etiquetaTitulo_productos{\n"
 "color:#1d1c1c;\n"
@@ -72,11 +74,11 @@ class Ui_Control_Productos(object):
 "#btn_RefrescarTabla:hover{\n"
 "background: rgb(179, 179, 179);\n"
 "}\n"
-"#btn_RefrescarTabla:pressed{\n"
+"#btn_Refre"
+                        "scarTabla:pressed{\n"
 "background: #b6ccd8 ;\n"
 "}\n"
-"#e"
-                        "tiqueta_buscar{\n"
+"#etiqueta_buscar{\n"
 "image: url(:/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg);\n"
 "min-width:25px;\n"
 "min-height:25px;\n"
@@ -94,10 +96,10 @@ class Ui_Control_Productos(object):
 "border-bottom:2px solid #023375;\n"
 "}\n"
 "/*TABLA*/\n"
-"\n"
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
+"background: #F5F5F5;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
@@ -116,12 +118,13 @@ class Ui_Control_Productos(object):
 "    color: white;\n"
 "}\n"
 "\n"
-"/* Encabezado vertical */\n"
-"[objectName*=\"tabla_\"] QHeaderView::vertica"
-                        "l {\n"
+""
+                        "/* Encabezado vertical */\n"
+"[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
 "}\n"
+"\n"
 "\n"
 "")
         self.gridLayout = QGridLayout(Control_Productos)
@@ -130,8 +133,8 @@ class Ui_Control_Productos(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor = QFrame(Control_Productos)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_2 = QGridLayout(self.contenedor)
         self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
@@ -143,18 +146,18 @@ class Ui_Control_Productos(object):
 
         self.gridLayout_2.addWidget(self.etiquetaTitulo_productos, 0, 0, 1, 1)
 
-        self.frame_2 = QFrame(self.contenedor)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setFrameShape(QFrame.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Raised)
-        self.gridLayout_5 = QGridLayout(self.frame_2)
+        self.contenedor_frame_2 = QFrame(self.contenedor)
+        self.contenedor_frame_2.setObjectName(u"contenedor_frame_2")
+        self.contenedor_frame_2.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame_2.setFrameShadow(QFrame.Shadow.Raised)
+        self.gridLayout_5 = QGridLayout(self.contenedor_frame_2)
         self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
-        self.contenedor_controles = QFrame(self.frame_2)
+        self.contenedor_controles = QFrame(self.contenedor_frame_2)
         self.contenedor_controles.setObjectName(u"contenedor_controles")
-        self.contenedor_controles.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_controles.setFrameShadow(QFrame.Raised)
+        self.contenedor_controles.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_controles.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.contenedor_controles)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.horizontalLayout = QHBoxLayout()
@@ -204,64 +207,64 @@ class Ui_Control_Productos(object):
 
         self.gridLayout_5.addWidget(self.contenedor_controles, 0, 0, 1, 1)
 
-        self.contenedor_tabla = QFrame(self.frame_2)
+        self.contenedor_tabla = QFrame(self.contenedor_frame_2)
         self.contenedor_tabla.setObjectName(u"contenedor_tabla")
-        self.contenedor_tabla.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_tabla.setFrameShadow(QFrame.Raised)
+        self.contenedor_tabla.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_tabla.setFrameShadow(QFrame.Shadow.Raised)
         self.verticalLayout = QVBoxLayout(self.contenedor_tabla)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.frame = QFrame(self.contenedor_tabla)
-        self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame)
+        self.contenedor_frame = QFrame(self.contenedor_tabla)
+        self.contenedor_frame.setObjectName(u"contenedor_frame")
+        self.contenedor_frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_frame.setFrameShadow(QFrame.Shadow.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.contenedor_frame)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.etiqueta_buscar = QLabel(self.frame)
+        self.etiqueta_buscar = QLabel(self.contenedor_frame)
         self.etiqueta_buscar.setObjectName(u"etiqueta_buscar")
 
         self.horizontalLayout_2.addWidget(self.etiqueta_buscar)
 
-        self.txt_buscar_productoUPC = QLineEdit(self.frame)
+        self.txt_buscar_productoUPC = QLineEdit(self.contenedor_frame)
         self.txt_buscar_productoUPC.setObjectName(u"txt_buscar_productoUPC")
         self.txt_buscar_productoUPC.setClearButtonEnabled(True)
 
         self.horizontalLayout_2.addWidget(self.txt_buscar_productoUPC)
 
-        self.txt_buscar = QLineEdit(self.frame)
+        self.txt_buscar = QLineEdit(self.contenedor_frame)
         self.txt_buscar.setObjectName(u"txt_buscar")
         self.txt_buscar.setClearButtonEnabled(True)
 
         self.horizontalLayout_2.addWidget(self.txt_buscar)
 
-        self.btn_btn_adminProductos_buscar = QPushButton(self.frame)
+        self.btn_btn_adminProductos_buscar = QPushButton(self.contenedor_frame)
         self.btn_btn_adminProductos_buscar.setObjectName(u"btn_btn_adminProductos_buscar")
         self.btn_btn_adminProductos_buscar.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
 
-        self.horizontalLayout_2.addWidget(self.btn_btn_adminProductos_buscar, 0, Qt.AlignVCenter)
+        self.horizontalLayout_2.addWidget(self.btn_btn_adminProductos_buscar, 0, Qt.AlignmentFlag.AlignVCenter)
 
         self.horizontalSpacer = QSpacerItem(290, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
 
-        self.btn_RefrescarTabla = QPushButton(self.frame)
+        self.btn_RefrescarTabla = QPushButton(self.contenedor_frame)
         self.btn_RefrescarTabla.setObjectName(u"btn_RefrescarTabla")
         self.btn_RefrescarTabla.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
         icon3 = QIcon()
         icon3.addFile(u":/iconosBlancos/Icons/IconosSVG/base_datos_refresh.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.btn_RefrescarTabla.setIcon(icon3)
 
-        self.horizontalLayout_2.addWidget(self.btn_RefrescarTabla, 0, Qt.AlignVCenter)
+        self.horizontalLayout_2.addWidget(self.btn_RefrescarTabla, 0, Qt.AlignmentFlag.AlignVCenter)
 
 
-        self.verticalLayout.addWidget(self.frame, 0, Qt.AlignVCenter)
+        self.verticalLayout.addWidget(self.contenedor_frame, 0, Qt.AlignmentFlag.AlignVCenter)
 
         self.tabla_productos = QTableView(self.contenedor_tabla)
         self.tabla_productos.setObjectName(u"tabla_productos")
-        self.tabla_productos.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tabla_productos.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tabla_productos.setGridStyle(Qt.DashDotLine)
+        self.tabla_productos.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.tabla_productos.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
+        self.tabla_productos.setGridStyle(Qt.PenStyle.DashDotLine)
         self.tabla_productos.horizontalHeader().setMinimumSectionSize(200)
         self.tabla_productos.horizontalHeader().setDefaultSectionSize(200)
 
@@ -271,7 +274,7 @@ class Ui_Control_Productos(object):
         self.gridLayout_5.addWidget(self.contenedor_tabla, 1, 0, 1, 1)
 
 
-        self.gridLayout_2.addWidget(self.frame_2, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.contenedor_frame_2, 1, 0, 1, 1)
 
 
         self.gridLayout.addWidget(self.contenedor, 0, 0, 1, 1)

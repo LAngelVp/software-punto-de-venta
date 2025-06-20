@@ -14,11 +14,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Control_departamentos{
+   <string notr="true">*{color: #1d1c1c;}
+#Control_departamentos{
 background: #fffefb;
 }
 [objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
+border:none;
 }
 #contenedor_encabezado{
 background: #023375;
@@ -96,6 +98,7 @@ border-bottom: 2px solid #023375;
 QListWidget {
     font-family: Arial;
     font-size: 14px;
+	background: #F5F5F5;
 }
 /* Barra vertical */
 QListWidget::vertical-scrollbar {
@@ -146,10 +149,10 @@ QListWidget::horizontal-scrollbar::handle {
    <item row="0" column="0">
     <widget class="QFrame" name="frame">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <property name="leftMargin">
@@ -170,10 +173,10 @@ QListWidget::horizontal-scrollbar::handle {
       <item row="0" column="0">
        <widget class="QFrame" name="contenedor_encabezado">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
@@ -194,14 +197,14 @@ QListWidget::horizontal-scrollbar::handle {
          <item>
           <widget class="QLabel" name="etiquetaTituloEncabezado">
            <property name="text">
-            <string>Departamentos</string>
+            <string>DEPARTAMENTOS</string>
            </property>
           </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_3">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -231,10 +234,10 @@ QListWidget::horizontal-scrollbar::handle {
       <item row="1" column="0">
        <widget class="QFrame" name="contenedor">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <property name="leftMargin">
@@ -318,7 +321,7 @@ QListWidget::horizontal-scrollbar::handle {
          <item row="0" column="1">
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -331,10 +334,10 @@ QListWidget::horizontal-scrollbar::handle {
          <item row="1" column="0" colspan="7">
           <widget class="QFrame" name="contenedor_formulario">
            <property name="frameShape">
-            <enum>QFrame::StyledPanel</enum>
+            <enum>QFrame::Shape::StyledPanel</enum>
            </property>
            <property name="frameShadow">
-            <enum>QFrame::Raised</enum>
+            <enum>QFrame::Shadow::Raised</enum>
            </property>
            <layout class="QGridLayout" name="gridLayout_5">
             <item row="0" column="0">
@@ -347,7 +350,7 @@ QListWidget::horizontal-scrollbar::handle {
             <item row="0" column="2">
              <spacer name="horizontalSpacer_2">
               <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+               <enum>Qt::Orientation::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
@@ -414,10 +417,10 @@ QListWidget::horizontal-scrollbar::handle {
             <item row="5" column="1">
              <widget class="QFrame" name="contenedor_botonesvincular">
               <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
+               <enum>QFrame::Shape::StyledPanel</enum>
               </property>
               <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
+               <enum>QFrame::Shadow::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
                <item row="0" column="0">
@@ -499,7 +502,7 @@ QListWidget::horizontal-scrollbar::handle {
                  <bool>true</bool>
                 </property>
                 <property name="alignment">
-                 <set>Qt::AlignCenter</set>
+                 <set>Qt::AlignmentFlag::AlignCenter</set>
                 </property>
                </widget>
               </item>

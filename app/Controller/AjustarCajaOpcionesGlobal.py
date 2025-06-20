@@ -5,7 +5,7 @@ from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.BaseDatosModel import Unidad_medida_productos, Presentacion_productos
 from ..Model.CategoriasModel import CategoriasModel
 from ..Model.ProductosModel import ProductosModel
-class AjustarCajaOpciones:
+class AjustarcajaOpciones:
     def __init__(self, modelo = None, tipo_categoria = None):
         self.modelo = modelo  # El modelo que se pasará, como CategoriasModel o ProductosModel
         self.tipo_categoria = tipo_categoria  # El tipo de categoría ('productos', 'clientes', etc.)

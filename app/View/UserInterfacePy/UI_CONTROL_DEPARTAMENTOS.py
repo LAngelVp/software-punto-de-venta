@@ -28,11 +28,13 @@ class Ui_Control_departamentos(object):
         if not Control_departamentos.objectName():
             Control_departamentos.setObjectName(u"Control_departamentos")
         Control_departamentos.resize(878, 565)
-        Control_departamentos.setStyleSheet(u"#Control_departamentos{\n"
+        Control_departamentos.setStyleSheet(u"*{color: #1d1c1c;}\n"
+"#Control_departamentos{\n"
 "background: #fffefb;\n"
 "}\n"
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border:none;\n"
 "}\n"
 "#contenedor_encabezado{\n"
 "background: #023375;\n"
@@ -75,9 +77,9 @@ class Ui_Control_departamentos(object):
 "margin-left: 3px;\n"
 "margin-right:3px;\n"
 "}\n"
-"[objectName*=\"btn_btn_\"]:hover{\n"
-"background: #219"
-                        "6F3;\n"
+"[objectName*=\""
+                        "btn_btn_\"]:hover{\n"
+"background: #2196F3;\n"
 "}\n"
 "#btn_btn_eliminar:hover{\n"
 "background:#EE1D52;\n"
@@ -111,17 +113,18 @@ class Ui_Control_departamentos(object):
 "QListWidget {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
+"	background: #F5F5F5;\n"
 "}\n"
 "/* Barra vertical */\n"
 "QListWidget::vertical-scrollbar {\n"
 "    border: 1px solid gray;\n"
 "    background: #023375;\n"
 "    width: 10px;  /* Tama\u00f1o de la barra vertical */\n"
-"    border-radius: 4px;\n"
+""
+                        "    border-radius: 4px;\n"
 "}\n"
 "\n"
-"/* Manejador de la barra v"
-                        "ertical */\n"
+"/* Manejador de la barra vertical */\n"
 "QListWidget::vertical-scrollbar::handle {\n"
 "    background: #023375;  /* Color del \"manejador\" */\n"
 "    min-height: 20px;  /* Altura m\u00ednima del manejador */\n"
@@ -148,16 +151,16 @@ class Ui_Control_departamentos(object):
         self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
         self.frame = QFrame(Control_departamentos)
         self.frame.setObjectName(u"frame")
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout = QGridLayout(self.frame)
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor_encabezado = QFrame(self.frame)
         self.contenedor_encabezado.setObjectName(u"contenedor_encabezado")
-        self.contenedor_encabezado.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_encabezado.setFrameShadow(QFrame.Raised)
+        self.contenedor_encabezado.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_encabezado.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout = QHBoxLayout(self.contenedor_encabezado)
         self.horizontalLayout.setSpacing(5)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -185,8 +188,8 @@ class Ui_Control_departamentos(object):
 
         self.contenedor = QFrame(self.frame)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_2 = QGridLayout(self.contenedor)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setHorizontalSpacing(0)
@@ -228,8 +231,8 @@ class Ui_Control_departamentos(object):
 
         self.contenedor_formulario = QFrame(self.contenedor)
         self.contenedor_formulario.setObjectName(u"contenedor_formulario")
-        self.contenedor_formulario.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_formulario.setFrameShadow(QFrame.Raised)
+        self.contenedor_formulario.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_formulario.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_5 = QGridLayout(self.contenedor_formulario)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
         self.etiqueta_nombredepartamento = QLabel(self.contenedor_formulario)
@@ -290,8 +293,8 @@ class Ui_Control_departamentos(object):
 
         self.contenedor_botonesvincular = QFrame(self.contenedor_formulario)
         self.contenedor_botonesvincular.setObjectName(u"contenedor_botonesvincular")
-        self.contenedor_botonesvincular.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_botonesvincular.setFrameShadow(QFrame.Raised)
+        self.contenedor_botonesvincular.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_botonesvincular.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_3 = QGridLayout(self.contenedor_botonesvincular)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.btn_btn_vincular = QPushButton(self.contenedor_botonesvincular)
@@ -339,7 +342,7 @@ class Ui_Control_departamentos(object):
         self.etiqueta_buscardepartamento.setObjectName(u"etiqueta_buscardepartamento")
         self.etiqueta_buscardepartamento.setPixmap(QPixmap(u":/iconosAzules/Icons/iconos/Azul/buscar_filas_azul.svg"))
         self.etiqueta_buscardepartamento.setScaledContents(True)
-        self.etiqueta_buscardepartamento.setAlignment(Qt.AlignCenter)
+        self.etiqueta_buscardepartamento.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout_4.addWidget(self.etiqueta_buscardepartamento, 0, 0, 1, 1)
 
@@ -384,7 +387,7 @@ class Ui_Control_departamentos(object):
 
     def retranslateUi(self, Control_departamentos):
         Control_departamentos.setWindowTitle(QCoreApplication.translate("Control_departamentos", u"Form", None))
-        self.etiquetaTituloEncabezado.setText(QCoreApplication.translate("Control_departamentos", u"Departamentos", None))
+        self.etiquetaTituloEncabezado.setText(QCoreApplication.translate("Control_departamentos", u"DEPARTAMENTOS", None))
         self.btn_cerrar.setText("")
         self.btn_btn_eliminar.setText(QCoreApplication.translate("Control_departamentos", u"Eliminar", None))
         self.btn_btn_guardar.setText(QCoreApplication.translate("Control_departamentos", u"Guardar", None))

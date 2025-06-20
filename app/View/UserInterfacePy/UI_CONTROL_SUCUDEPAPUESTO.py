@@ -31,8 +31,13 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
         Control_SucursalesDepartamentosPuestos.setStyleSheet(u"#Control_SucursalesDepartamentosPuestos{\n"
 "background: #fffefb;\n"
 "}\n"
+"[objectName*=\"pagina\"]{\n"
+"background: #fffefb;\n"
+"border:none;\n"
+"}\n"
 "[objectName*=\"contenedor\"]{\n"
 "background: #fffefb;\n"
+"border:none;\n"
 "}\n"
 "[objectName*=\"btn_btn\"]{\n"
 "background: #023375;\n"
@@ -54,16 +59,16 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.contenedor = QFrame(Control_SucursalesDepartamentosPuestos)
         self.contenedor.setObjectName(u"contenedor")
-        self.contenedor.setFrameShape(QFrame.StyledPanel)
-        self.contenedor.setFrameShadow(QFrame.Raised)
+        self.contenedor.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_2 = QGridLayout(self.contenedor)
         self.gridLayout_2.setSpacing(0)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.contenedor_botones = QFrame(self.contenedor)
         self.contenedor_botones.setObjectName(u"contenedor_botones")
-        self.contenedor_botones.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_botones.setFrameShadow(QFrame.Raised)
+        self.contenedor_botones.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_botones.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalLayout = QHBoxLayout(self.contenedor_botones)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.btn_btn_sucursales = QPushButton(self.contenedor_botones)
@@ -89,8 +94,8 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
 
         self.contenedor_formularios = QFrame(self.contenedor)
         self.contenedor_formularios.setObjectName(u"contenedor_formularios")
-        self.contenedor_formularios.setFrameShape(QFrame.StyledPanel)
-        self.contenedor_formularios.setFrameShadow(QFrame.Raised)
+        self.contenedor_formularios.setFrameShape(QFrame.Shape.StyledPanel)
+        self.contenedor_formularios.setFrameShadow(QFrame.Shadow.Raised)
         self.gridLayout_5 = QGridLayout(self.contenedor_formularios)
         self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
@@ -103,13 +108,13 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
         self.pagina_inicial.setObjectName(u"pagina_inicial")
         self.gridLayout_3 = QGridLayout(self.pagina_inicial)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.label = QLabel(self.pagina_inicial)
-        self.label.setObjectName(u"label")
-        self.label.setEnabled(False)
-        self.label.setMouseTracking(False)
-        self.label.setStyleSheet(u"image: url(:/Icons/IconosSVG/logo_devrous.png);")
+        self.contenedor_label = QLabel(self.pagina_inicial)
+        self.contenedor_label.setObjectName(u"contenedor_label")
+        self.contenedor_label.setEnabled(False)
+        self.contenedor_label.setMouseTracking(False)
+        self.contenedor_label.setStyleSheet(u"image: url(:/Icons/IconosSVG/logo_devrous.png);")
 
-        self.gridLayout_3.addWidget(self.label, 0, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.contenedor_label, 0, 0, 1, 1)
 
         self.contenedor_paginas.addWidget(self.pagina_inicial)
 
@@ -135,6 +140,6 @@ class Ui_Control_SucursalesDepartamentosPuestos(object):
         self.btn_btn_sucursales.setText(QCoreApplication.translate("Control_SucursalesDepartamentosPuestos", u"Sucursales", None))
         self.btn_btn_departamentos.setText(QCoreApplication.translate("Control_SucursalesDepartamentosPuestos", u"Departamentos", None))
         self.btn_btn_puestos.setText(QCoreApplication.translate("Control_SucursalesDepartamentosPuestos", u"Puestos", None))
-        self.label.setText("")
+        self.contenedor_label.setText("")
     # retranslateUi
 

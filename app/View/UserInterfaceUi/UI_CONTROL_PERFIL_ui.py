@@ -20,8 +20,8 @@ from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QCheckBox, QCombo
     QGroupBox, QHBoxLayout, QLabel, QLineEdit,
     QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem,
     QTimeEdit, QToolButton, QWidget)
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
+import ibootstrap_rc
+import iconosSVG_rc
 
 class Ui_Formulario_Datos_Empleado(object):
     def setupUi(self, Formulario_Datos_Empleado):

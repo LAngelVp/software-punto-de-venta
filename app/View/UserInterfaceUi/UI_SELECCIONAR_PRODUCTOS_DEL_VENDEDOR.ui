@@ -6,15 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>885</width>
-    <height>467</height>
+    <width>877</width>
+    <height>507</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#contenedor_encabezado{
+   <string notr="true">*{ color: #1d1c1c;	}
+[objectName*=&quot;contenedor&quot;]{
+background: #fffefb;
+border: none;
+}
+#contenedor_encabezado{
 background: #023375;
 max-height: 25px;
 }
@@ -83,13 +88,15 @@ background: #b6ccd8 ;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
+background: #F5F5F5;
 }
+
 /* Encabezados de la tabla */
 [objectName*=&quot;tabla_&quot;] QHeaderView::section {
     background-color: #023375;
     color: white;
     font-family: &quot;Arial&quot;;
-    font-size: 14px;
+    font-size: 16px;
     padding: 5px;
     border: 1px solid gray;
 }
@@ -104,12 +111,6 @@ background: #b6ccd8 ;
 [objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
     background-color: #023375;
     color: white;
-}
-#tabla_productosProveedor{
-min-height: 300px;
-}
-#tabla_productosParaOrden{
-min-height: 300px;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -131,10 +132,10 @@ min-height: 300px;
    <item row="0" column="0">
     <widget class="QFrame" name="contenedor_encabezado">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
@@ -156,7 +157,7 @@ min-height: 300px;
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -186,19 +187,19 @@ min-height: 300px;
    <item row="1" column="0">
     <widget class="QFrame" name="contenedor_cuerpo">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
        <widget class="QFrame" name="contenedor_opciones_superiores">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
@@ -208,7 +209,7 @@ min-height: 300px;
            </property>
           </widget>
          </item>
-         <item row="0" column="1" alignment="Qt::AlignRight">
+         <item row="0" column="1" alignment="Qt::AlignmentFlag::AlignRight">
           <widget class="QPushButton" name="btn_aceptar">
            <property name="cursor">
             <cursorShape>PointingHandCursor</cursorShape>
@@ -253,13 +254,13 @@ min-height: 300px;
         <property name="widgetResizable">
          <bool>true</bool>
         </property>
-        <widget class="QWidget" name="scrollAreaWidgetContents">
+        <widget class="QWidget" name="contenedor_scrollAreaWidgetContents">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>849</width>
-           <height>709</height>
+           <width>853</width>
+           <height>351</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">
@@ -273,7 +274,7 @@ min-height: 300px;
           <item row="0" column="1">
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -316,14 +317,14 @@ min-height: 300px;
           <item row="3" column="0" colspan="3">
            <widget class="Line" name="line_2">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
            </widget>
           </item>
           <item row="2" column="0" colspan="3">
            <widget class="Line" name="line">
             <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+             <enum>Qt::Orientation::Horizontal</enum>
             </property>
            </widget>
           </item>

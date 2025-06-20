@@ -20,9 +20,9 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDateEdit, QFrame,
     QLayout, QLineEdit, QPushButton, QSizePolicy,
     QSpacerItem, QTabWidget, QTableView, QToolButton,
     QWidget)
-from ...Source import ibootstrap_rc
-from ...Source import iconosSVG_rc
-from ...Source import iconsdvg_rc
+import ibootstrap_rc
+import iconosSVG_rc
+import iconsdvg_rc
 
 class Ui_control_compras(object):
     def setupUi(self, control_compras):

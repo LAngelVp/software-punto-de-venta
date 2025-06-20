@@ -7,7 +7,7 @@ from ..Model.ProveedoresModel import ProveedoresModel
 from ..Model.Proveedores_ProductosModel import Proveedores_productoModel
 from ..View.UserInterfacePy.PRODUCTOS_PROVEEDORES import *
 from ..View.UserInterfacePy.CAMBIO_PRECIO_PRODUCTO_PROVEEDOR_ui import Ui_PreciosProductosProveedor
-from .AjustarCajaOpcionesGlobal import *
+from .AjustarcajaOpcionesGlobal import *
 from .MensajesAlertasController import Mensaje
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 from .Ventana_espera import *
@@ -32,8 +32,8 @@ class Productos_de_proveedorController(QWidget):
         self.ui.btn_producto_del_proveedor_editar.clicked.connect(self.editar_precio_producto)
         self.ui.btn_RefrescarTablaProductos.clicked.connect(self.obtener_productos_de_sistema_hilo)
         
-        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre)
-        AjustarCajaOpciones().ajustar_cajadeopciones(self.ui.cajaopciones_filtro_nombre_productos_del_sistema)
+        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_filtro_nombre)
+        AjustarcajaOpciones().ajustar_cajadeopciones(self.ui.cajaOpciones_filtro_nombre_productos_del_sistema)
         
         self.proveedor = proveedor
         self.cargando =  None
@@ -186,7 +186,7 @@ class Productos_de_proveedorController(QWidget):
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.productos_proveedores_tabla)
-        if self.ui.cajaopciones_filtro_nombre.currentText() .lower()== "igual a":
+        if self.ui.cajaOpciones_filtro_nombre.currentText() .lower()== "igual a":
             self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_proveedor_exacto_query)
         else:
             self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_proveedor_query)
@@ -209,8 +209,8 @@ class Productos_de_proveedorController(QWidget):
         self.consultor = Consultas_segundo_plano()
         self.consultor.terminado.connect(self.cargando_cerrar)
         self.consultor.resultado.connect(self.productos_del_sistema_tabla)
-        print(self.ui.cajaopciones_filtro_nombre_productos_del_sistema.currentText())
-        if self.ui.cajaopciones_filtro_nombre_productos_del_sistema.currentText() .lower()== "es igual":
+        print(self.ui.cajaOpciones_filtro_nombre_productos_del_sistema.currentText())
+        if self.ui.cajaOpciones_filtro_nombre_productos_del_sistema.currentText() .lower()== "es igual":
             self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_sistema_exacto_query)
         else:
             self.consultor.ejecutar_hilo(funcion=self.filtrar_productos_del_sistema_query)

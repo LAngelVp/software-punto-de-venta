@@ -124,7 +124,7 @@ class PuestosController(QDialog):
         diasLaborales = ', '.join(self.diasLaborales)
         datos = self.obtener_contenido_campos()
 
-        departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
+        departamento_seleccionado = self.ui.cajaOpciones_departamentos.currentText()
 
         if self.diccionario_departamentos:
             for index, nombre in self.diccionario_departamentos.items():
@@ -184,7 +184,7 @@ class PuestosController(QDialog):
         diasLaborales = ', '.join(self.diasLaborales)
         datos = self.obtener_contenido_campos()
 
-        departamento_seleccionado = self.ui.cajaopciones_departamentos.currentText()
+        departamento_seleccionado = self.ui.cajaOpciones_departamentos.currentText()
 
         if self.diccionario_departamentos:
             for index, nombre in self.diccionario_departamentos.items():
@@ -233,8 +233,8 @@ class PuestosController(QDialog):
                         self.diccionario_departamentos = {
                             depa.id: depa.nombre for depa in departamentos
                         }
-                        self.ui.cajaopciones_departamentos.clear()
-                        self.ui.cajaopciones_departamentos.addItems(self.diccionario_departamentos.values())
+                        self.ui.cajaOpciones_departamentos.clear()
+                        self.ui.cajaOpciones_departamentos.addItems(self.diccionario_departamentos.values())
 
         except Exception as e:
             Mensaje().mensaje_critico(f'Surgio un error al listar los departamentos: {e}')
@@ -362,7 +362,7 @@ class PuestosController(QDialog):
                             if elemento_seleccionado.departamento:
                                 departamento_nombre = elemento_seleccionado.departamento.nombre
                                 # Obtén una referencia al QComboBox
-                                caja_departamento = self.ui.cajaopciones_departamentos  # Esto debe ser el objeto QComboBox
+                                caja_departamento = self.ui.cajaOpciones_departamentos  # Esto debe ser el objeto QComboBox
 
                                 # Encuentra el índice del departamento en el combo box
                                 indice = caja_departamento.findText(departamento_nombre)

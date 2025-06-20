@@ -14,7 +14,9 @@
    <string>Existencia Producto</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#contenedor_encabezado{
+   <string notr="true">*{color: #1d1c1c;}
+[objectName*=&quot;contenedor&quot;]{border:none;}
+#contenedor_encabezado{
 background: #023375;
 }
 #etiqueta_encabezado_existenciaProducto{
@@ -71,33 +73,7 @@ background: #fffefb;
 #btn_existenciaProducto_cerrar:pressed{
 background: rgb(222, 221, 218);
 }
-[objectName*=&quot;cajaOpciones&quot;]{
-border: none;
-border-bottom: 1px solid #787878;
-borde-radius: 3px;
-padding: 2px;
-background-color: #F5F5F5;
-font-size: 14px;
-min-width: 200px;
-font-family:&quot;Arial&quot;;
-color: #1d1c1c;
-}
-[objectName*=&quot;cajaOpciones&quot;]::drop-down{
-subcontrol-origin: padding;
-subcontrol-position: top right;
-padding-right:5px;
-width: 20%;
-border-left-width: 1px;
-borde-radius: 3px;
-background-color: #F5F5F5;
-}
-[objectName*=&quot;cajaOpciones&quot;]::down-arrow{
-image: url(:/Icons/Bootstrap/filter-left.svg);
-width: 17%;
-height: 17%;
-padding-left:5px;
-padding-right:5px;
-}
+
 [objectName*=&quot;decimal&quot;]{
 min-width:100px;
 background: #F5F5F5;
@@ -127,7 +103,7 @@ padding-right:5px;
 width: 20%;
 border-left-width: 1px;
 borde-radius: 5px;
-background-color: #f5f4f1;
+background-color: #F5F5F5;
 }
 *[objectName*=&quot;fecha_&quot;]::down-arrow{
 image: url(:/Icons/Bootstrap/calendar2-date.svg);
@@ -135,9 +111,102 @@ width: 17%;
 height: 17%;
 padding-left:5px;
 padding-right:5px;
+background: #F5F5F5;
 }
 *[objectName*=&quot;fecha_&quot;]::focus{
 border-bottom: 2px solid #00668c;
+}
+QCalendarWidget QWidget#qt_calendar_navigationbar {
+    background-color: #00668c;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* BOTONES DE NAVEGACIÓN */
+QCalendarWidget QToolButton {
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+}
+
+/* DESPLEGABLE DE MESES */
+QCalendarWidget QMenu {
+    background-color: #FFFFFF;
+    border: 1px solid #3b3c3d;
+}
+
+/* DÍAS DE LA SEMANA */
+QCalendarWidget QWidget#qt_calendar_weekdaybar {
+    background-color: #f5f4f1;
+    color: #3b3c3d;
+}
+
+/* DÍAS DEL MES */
+QCalendarWidget QAbstractItemView:enabled {
+    background-color: #FFFFFF;
+    color: #1d1c1c;
+    selection-background-color: #00668c;  /* Color al seleccionar fecha */
+    selection-color: white;
+}
+
+/* DÍAS DE OTROS MESES */
+QCalendarWidget QAbstractItemView:disabled {
+    color: #AAAAAA;
+}
+
+/* EFECTO HOVER SOBRE DÍAS */
+QCalendarWidget QAbstractItemView::item:hover {
+    background-color: #e1f0f7;
+    color: #1d1c1c;
+}
+
+
+
+
+
+[objectName*=&quot;cajaOpciones&quot;] {
+    border: none;
+    border-bottom: 1px solid #787878 ;
+    padding: 2px ;
+    background-color: #F5F5F5 ;
+    font-size: 14px ;
+    min-width: 200px ;
+    font-family: &quot;Arial&quot; ;
+    color: #1d1c1c ;
+	selection-background-color: #4791F5; 
+}
+
+/* ESTILO DEL DROPDOWN (LISTA) */
+[objectName*=&quot;cajaOpciones&quot;] QListView {
+    background: #F5F5F5 ;
+    border-radius: 3px;
+    outline: none;
+}
+
+/* ESTILO DE LOS ÍTEMS */
+[objectName*=&quot;cajaOpciones&quot;] QListView::item {
+    padding: 6px 10px ;
+    margin: 2px ;
+}
+/* BOTÓN DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::drop-down {
+    subcontrol-origin: padding ;
+    subcontrol-position: top right ;
+    padding-right: 5px ;
+    width: 20% ;
+    border-left-width: 1px ;
+    border-radius: 3px ;
+    background-color: #F5F5F5 ;
+}
+/* FLECHA DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::down-arrow {
+    image: url(:/Icons/Bootstrap/filter-left.svg);
+    width: 17% ;
+    height: 17% ;
+    padding-left: 5px ;
+    padding-right: 5px ;
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -159,10 +228,10 @@ border-bottom: 2px solid #00668c;
    <item row="0" column="0">
     <widget class="QFrame" name="contenedor">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
       <property name="leftMargin">
@@ -181,7 +250,7 @@ border-bottom: 2px solid #00668c;
        <number>0</number>
       </property>
       <item row="2" column="0" colspan="3">
-       <layout class="QGridLayout" name="gridLayout_2">
+       <layout class="QGridLayout" name="contenedor_gridLayout_2">
         <property name="leftMargin">
          <number>10</number>
         </property>
@@ -214,7 +283,7 @@ border-bottom: 2px solid #00668c;
         <item row="0" column="1">
          <widget class="QDoubleSpinBox" name="decimal_CantidadExistencia">
           <property name="buttonSymbols">
-           <enum>QAbstractSpinBox::NoButtons</enum>
+           <enum>QAbstractSpinBox::ButtonSymbols::NoButtons</enum>
           </property>
           <property name="decimals">
            <number>3</number>
@@ -233,6 +302,9 @@ border-bottom: 2px solid #00668c;
         </item>
         <item row="1" column="1">
          <widget class="QComboBox" name="cajaOpciones_TipoMovimiento">
+          <property name="frame">
+           <bool>true</bool>
+          </property>
           <item>
            <property name="text">
             <string>Entrada</string>
@@ -247,6 +319,9 @@ border-bottom: 2px solid #00668c;
         </item>
         <item row="2" column="1">
          <widget class="QDateEdit" name="fecha_FechaMovimiento">
+          <property name="displayFormat">
+           <string>dd/MM/yyyy</string>
+          </property>
           <property name="calendarPopup">
            <bool>true</bool>
           </property>
@@ -262,12 +337,12 @@ border-bottom: 2px solid #00668c;
        </layout>
       </item>
       <item row="4" column="0" colspan="3">
-       <widget class="QFrame" name="frame">
+       <widget class="QFrame" name="contenedor_frame">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
          <item row="1" column="0">
@@ -286,10 +361,10 @@ border-bottom: 2px solid #00668c;
       <item row="0" column="0" colspan="3">
        <widget class="QFrame" name="contenedor_encabezado">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
@@ -302,7 +377,7 @@ border-bottom: 2px solid #00668c;
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -330,7 +405,7 @@ border-bottom: 2px solid #00668c;
        </widget>
       </item>
       <item row="1" column="0" colspan="3">
-       <layout class="QGridLayout" name="gridLayout_3">
+       <layout class="QGridLayout" name="contenedor_gridLayout_3">
         <property name="leftMargin">
          <number>10</number>
         </property>
@@ -376,7 +451,7 @@ border-bottom: 2px solid #00668c;
       <item row="3" column="0" colspan="3">
        <spacer name="verticalSpacer">
         <property name="orientation">
-         <enum>Qt::Vertical</enum>
+         <enum>Qt::Orientation::Vertical</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>

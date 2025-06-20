@@ -26,11 +26,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Nueva_categoria{
+   <string notr="true">*{color: #1d1c1c;}
+#Nueva_categoria{
 background: #fffefb; 
 }
-#contenedor{
+[objectName*=&quot;contenedor&quot;]{
 background: #fffefb; 
+border:none;
 }
 [objectName*=&quot;etiquetaTitulo_&quot;]{
 color: #1d1c1c;
@@ -63,6 +65,7 @@ background: #F5F5F5;
 border:none;
 border-bottom: 1px solid #1d1c1c;
 border-radius:5px;
+min-height:100px;
 }
 [objectName*=&quot;txt_&quot;]:focus{
 border-bottom: 2px solid #023375;
@@ -104,10 +107,10 @@ background: #68a67d;
    <item row="0" column="0">
     <widget class="QFrame" name="contenedor">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
@@ -130,10 +133,10 @@ background: #68a67d;
       <item row="2" column="0">
        <widget class="QFrame" name="contenedor_datos">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <property name="leftMargin">
@@ -180,7 +183,7 @@ background: #68a67d;
       <item row="1" column="0">
        <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
        </widget>
       </item>

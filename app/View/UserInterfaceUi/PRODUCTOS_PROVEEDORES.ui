@@ -14,7 +14,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#contenedor_encabezado{
+   <string notr="true">*{color: #1d1c1c;}
+#contenedor_encabezado{
 background: #023375;
 }
 #etiqueta_encabezado_productosProveedor{
@@ -25,6 +26,7 @@ font-family:&quot;Arial&quot;;
 }
 [objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
+border:none;
 }
 [objectName*=&quot;etiqueta_&quot;]{
 font-size:14px;
@@ -102,42 +104,61 @@ background: rgb(179, 179, 179);
 #btn_RefrescarTablaProductos:pressed{
 background: #b6ccd8 ;
 }
-[objectName^=&quot;cajaopciones_&quot;]{
-border: none;
-border-bottom: 1px solid rgb(29, 28, 28);
-borde-radius: 5px;
-padding: 2px;
-background-color: #f5f4f1;
-borde-radius: 5px;
-font-size: 14px;
-min-width:120px;
+[objectName*=&quot;cajaOpciones&quot;] {
+    border: none;
+    border-bottom: 1px solid #787878 ;
+    padding: 2px ;
+    background-color: #F5F5F5 ;
+    font-size: 14px ;
+    min-width: 200px ;
+    font-family: &quot;Arial&quot; ;
+    color: #1d1c1c ;
+	selection-background-color: #4791F5; 
 }
-[objectName^=&quot;cajaopciones_&quot;]::drop-down{
-subcontrol-origin: padding;
-subcontrol-position: top right;
-padding-right:5px;
-width: 20%;
-border-left-width: 1px;
-borde-radius: 5px;
-background-color: #f5f4f1;
+
+/* ESTILO DEL DROPDOWN (LISTA) */
+[objectName*=&quot;cajaOpciones&quot;] QListView {
+    background: #F5F5F5 ;
+    border-radius: 3px;
+    outline: none;
 }
-[objectName^=&quot;cajaopciones_&quot;]::down-arrow{
-image: url(:/Icons/Bootstrap/filter-left.svg);
-width: 17%;
-height: 17%;
-padding-left:5px;
-padding-right:5px;
+
+/* ESTILO DE LOS ÍTEMS */
+[objectName*=&quot;cajaOpciones&quot;] QListView::item {
+    padding: 6px 10px ;
+    margin: 2px ;
 }
+/* BOTÓN DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::drop-down {
+    subcontrol-origin: padding ;
+    subcontrol-position: top right ;
+    padding-right: 5px ;
+    width: 20% ;
+    border-left-width: 1px ;
+    border-radius: 3px ;
+    background-color: #F5F5F5 ;
+}
+/* FLECHA DESPLEGABLE */
+[objectName*=&quot;cajaOpciones&quot;]::down-arrow {
+    image: url(:/Icons/Bootstrap/filter-left.svg);
+    width: 17% ;
+    height: 17% ;
+    padding-left: 5px ;
+    padding-right: 5px ;
+}
+
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
+background: #F5F5F5;
 }
+
 /* Encabezados de la tabla */
 [objectName*=&quot;tabla_&quot;] QHeaderView::section {
     background-color: #023375;
     color: white;
     font-family: &quot;Arial&quot;;
-    font-size: 14px;
+    font-size: 16px;
     padding: 5px;
     border: 1px solid gray;
 }
@@ -152,7 +173,51 @@ padding-right:5px;
 [objectName*=&quot;tabla_&quot;] QHeaderView::vertical {
     background-color: #023375;
     color: white;
-}</string>
+}
+
+/* CONTENEDOR TABS */
+
+QTabWidget::pane {
+        border: none;
+        position: absolute;
+        top: -20px;
+    }
+    
+    /* Pestaña no seleccionada */
+    QTabBar::tab {
+        background: #F5F4F1;
+        color: #3B3C3D;
+        border: 1px solid #D3D3D3;
+        border-bottom: none;
+        padding: 6px 15px;
+        min-width: 80px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        margin-right: 2px;
+    }
+    
+    /* Pestaña seleccionada */
+    QTabBar::tab:selected {
+        background: #4791F5;
+        color: white;
+        font-weight: bold;
+    }
+    
+    /* Pestaña al pasar el mouse */
+    QTabBar::tab:hover {
+        background: #E8E8E8;
+    }
+    
+    /* Pestaña deshabilitada */
+    QTabBar::tab:disabled {
+        background: #EEEEEE;
+        color: #AAAAAA;
+    }
+    
+    /* Área de las pestañas */
+    QTabBar {
+        background: transparent;
+    }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -173,10 +238,10 @@ padding-right:5px;
    <item>
     <widget class="QFrame" name="contenedor_encabezado">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <property name="topMargin">
@@ -195,7 +260,7 @@ padding-right:5px;
       <item>
        <spacer name="horizontalSpacer_3">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -232,8 +297,8 @@ padding-right:5px;
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1018</width>
-        <height>438</height>
+        <width>1020</width>
+        <height>442</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -248,7 +313,6 @@ padding-right:5px;
         <widget class="QTabWidget" name="contenedor_tabs">
          <property name="font">
           <font>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -267,10 +331,10 @@ padding-right:5px;
            <item row="0" column="0">
             <widget class="QFrame" name="contenedor_productos_proveedor">
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::Shape::StyledPanel</enum>
              </property>
              <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
+              <enum>QFrame::Shadow::Raised</enum>
              </property>
              <layout class="QGridLayout" name="gridLayout_5">
               <property name="leftMargin">
@@ -294,13 +358,13 @@ padding-right:5px;
               <item row="0" column="0">
                <widget class="QFrame" name="contenedor_botones_superior">
                 <property name="frameShape">
-                 <enum>QFrame::StyledPanel</enum>
+                 <enum>QFrame::Shape::StyledPanel</enum>
                 </property>
                 <property name="frameShadow">
-                 <enum>QFrame::Raised</enum>
+                 <enum>QFrame::Shadow::Raised</enum>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_4">
-                 <item row="1" column="3" alignment="Qt::AlignRight">
+                 <item row="1" column="3" alignment="Qt::AlignmentFlag::AlignRight">
                   <widget class="QPushButton" name="btn_producto_del_proveedor_editar">
                    <property name="cursor">
                     <cursorShape>PointingHandCursor</cursorShape>
@@ -348,7 +412,7 @@ padding-right:5px;
                  <item row="1" column="0">
                   <spacer name="horizontalSpacer">
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                    <property name="sizeHint" stdset="0">
                     <size>
@@ -374,7 +438,7 @@ padding-right:5px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="cajaopciones_filtro_nombre">
+                 <widget class="QComboBox" name="cajaOpciones_filtro_nombre">
                   <item>
                    <property name="text">
                     <string>Igual A</string>
@@ -402,13 +466,13 @@ padding-right:5px;
               <item row="2" column="0">
                <widget class="QTableView" name="tabla_productos_del_proveedor">
                 <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
+                 <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
                 </property>
                 <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectRows</enum>
+                 <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
                 </property>
                 <property name="gridStyle">
-                 <enum>Qt::DashLine</enum>
+                 <enum>Qt::PenStyle::DashLine</enum>
                 </property>
                 <attribute name="horizontalHeaderMinimumSectionSize">
                  <number>150</number>
@@ -444,16 +508,16 @@ padding-right:5px;
            <item row="0" column="0" colspan="2">
             <widget class="QFrame" name="contenedor_botones_superior_productos_del_sistema">
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::Shape::StyledPanel</enum>
              </property>
              <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
+              <enum>QFrame::Shadow::Raised</enum>
              </property>
              <layout class="QGridLayout" name="gridLayout_7">
               <item row="0" column="0">
                <spacer name="horizontalSpacer_2">
                 <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
+                 <enum>Qt::Orientation::Horizontal</enum>
                 </property>
                 <property name="sizeHint" stdset="0">
                  <size>
@@ -500,10 +564,10 @@ padding-right:5px;
            <item row="1" column="0">
             <widget class="QFrame" name="contenedor_contenido_tab_productos_del_sistema">
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::Shape::StyledPanel</enum>
              </property>
              <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
+              <enum>QFrame::Shadow::Raised</enum>
              </property>
              <layout class="QGridLayout" name="gridLayout_8">
               <property name="leftMargin">
@@ -531,7 +595,7 @@ padding-right:5px;
                  </widget>
                 </item>
                 <item>
-                 <widget class="QComboBox" name="cajaopciones_filtro_nombre_productos_del_sistema">
+                 <widget class="QComboBox" name="cajaOpciones_filtro_nombre_productos_del_sistema">
                   <item>
                    <property name="text">
                     <string>Es Igual</string>
@@ -559,13 +623,13 @@ padding-right:5px;
               <item row="2" column="0">
                <widget class="QTableView" name="tabla_productos_del_sistema">
                 <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
+                 <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
                 </property>
                 <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectRows</enum>
+                 <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
                 </property>
                 <property name="gridStyle">
-                 <enum>Qt::DashLine</enum>
+                 <enum>Qt::PenStyle::DashLine</enum>
                 </property>
                 <attribute name="horizontalHeaderMinimumSectionSize">
                  <number>150</number>
@@ -585,12 +649,12 @@ padding-right:5px;
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QFrame" name="frame">
+            <widget class="QFrame" name="contenedor_frame">
              <property name="frameShape">
-              <enum>QFrame::StyledPanel</enum>
+              <enum>QFrame::Shape::StyledPanel</enum>
              </property>
              <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
+              <enum>QFrame::Shadow::Raised</enum>
              </property>
              <layout class="QGridLayout" name="gridLayout_6">
               <property name="leftMargin">
@@ -618,10 +682,10 @@ padding-right:5px;
               <item row="1" column="0">
                <widget class="QTableView" name="tabla_Productos_A_VincularProveedor">
                 <property name="editTriggers">
-                 <set>QAbstractItemView::NoEditTriggers</set>
+                 <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
                 </property>
                 <property name="selectionBehavior">
-                 <enum>QAbstractItemView::SelectRows</enum>
+                 <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
                 </property>
                 <attribute name="horizontalHeaderStretchLastSection">
                  <bool>true</bool>

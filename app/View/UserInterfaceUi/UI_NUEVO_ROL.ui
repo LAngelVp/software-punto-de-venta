@@ -26,11 +26,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Control_nuevo_rol{
+   <string notr="true">*{color: #1d1c1c;}
+#Control_nuevo_rol{
 background: #fffefb;
 }
-#contenedor{
+[objectName*=&quot;contenedor&quot;]{
 background: #fffefb;
+border:none;
 }
 [objectName*=&quot;etiquetaTitulo_&quot;]{
 font-size:18px;
@@ -62,32 +64,6 @@ background: #fffefb;
 background: #fffefb;
 color: #1d1c1c;
 }
-#contenedor_permisos QScrollBar:vertical {
-    border: 1px solid gray;
-    background: #023375;
-    width: 5px;
-border-radius:2px;
-    margin: 22px 0 22px 0; 
-}
-
-#contenedor_permisos QScrollBar::handle:vertical {
-    background: #023375;  /* Color del &quot;manejador&quot; */
-    min-height: 20px;  /* Altura mínima del manejador */
-}
-
-#contenedor_permisos QScrollBar:horizontal {
-    border: 1px solid gray;
-    background: #023375;
-    width: 5px;
-border-radius:2px;
-    margin: 22px 0 22px 0; 
-}
-
-#contenedor_permisos QScrollBar::handle:horizontal {
-    background: #023375;  /* Color del &quot;manejador&quot; */
-    min-height: 20px;  /* Altura mínima del manejador */
-}
-
 
 [objectName*=&quot;txt_&quot;]{
 font-size:14px;
@@ -123,10 +99,10 @@ background: #2196F3;
    <item row="0" column="0">
     <widget class="QFrame" name="contenedor">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
@@ -153,8 +129,8 @@ background: #2196F3;
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>355</width>
-           <height>327</height>
+           <width>337</width>
+           <height>313</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -280,7 +256,7 @@ background: #2196F3;
           <item row="12" column="2">
            <spacer name="verticalSpacer_2">
             <property name="orientation">
-             <enum>Qt::Vertical</enum>
+             <enum>Qt::Orientation::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -300,7 +276,7 @@ background: #2196F3;
           <item row="12" column="4">
            <spacer name="verticalSpacer_3">
             <property name="orientation">
-             <enum>Qt::Vertical</enum>
+             <enum>Qt::Orientation::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -313,7 +289,7 @@ background: #2196F3;
           <item row="12" column="0">
            <spacer name="verticalSpacer">
             <property name="orientation">
-             <enum>Qt::Vertical</enum>
+             <enum>Qt::Orientation::Vertical</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -326,14 +302,14 @@ background: #2196F3;
           <item row="0" column="3" rowspan="14">
            <widget class="Line" name="line_3">
             <property name="orientation">
-             <enum>Qt::Vertical</enum>
+             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
           <item row="0" column="1" rowspan="14">
            <widget class="Line" name="line_2">
             <property name="orientation">
-             <enum>Qt::Vertical</enum>
+             <enum>Qt::Orientation::Vertical</enum>
             </property>
            </widget>
           </item>
@@ -411,7 +387,7 @@ background: #2196F3;
         </widget>
        </widget>
       </item>
-      <item row="5" column="1" alignment="Qt::AlignRight">
+      <item row="5" column="1" alignment="Qt::AlignmentFlag::AlignRight">
        <widget class="QPushButton" name="btn_btn_agregar">
         <property name="cursor">
          <cursorShape>PointingHandCursor</cursorShape>
@@ -427,7 +403,7 @@ background: #2196F3;
       <item row="1" column="0" colspan="2">
        <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
        </widget>
       </item>

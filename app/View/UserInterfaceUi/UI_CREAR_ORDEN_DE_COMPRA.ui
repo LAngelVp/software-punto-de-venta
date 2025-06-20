@@ -26,7 +26,10 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Orden_compra{
+   <string notr="true">*{
+color: #1d1c1c;
+}
+#Orden_compra{
 background-color: #fffefb;
 }
 #contenedor_encabezado{
@@ -39,6 +42,7 @@ font-size: 18px;
 font-weight:bold;
 font-family:&quot;Arial&quot;;
 }
+[objectName*=&quot;contenedor&quot;]{ background: #fffefb; border:none;}
 [objectName*=&quot;frame&quot;]{
 background-color: #fffefb;
 }
@@ -107,6 +111,7 @@ border-bottom: 2px solid #00668c;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
+background: #F5F5F5;
 }
 
 /* Encabezados de la tabla */
@@ -149,12 +154,12 @@ border-bottom: 2px solid #00668c;
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QFrame" name="frame">
+    <widget class="QFrame" name="contenedor_frame">
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::Shape::StyledPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <property name="leftMargin">
@@ -178,10 +183,10 @@ border-bottom: 2px solid #00668c;
       <item row="0" column="0">
        <widget class="QFrame" name="contenedor_encabezado">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <property name="spacing">
@@ -221,7 +226,7 @@ border-bottom: 2px solid #00668c;
          <item>
           <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -249,12 +254,12 @@ border-bottom: 2px solid #00668c;
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QFrame" name="frame_4">
+       <widget class="QFrame" name="contenedor_frame_4">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <property name="spacing">
@@ -285,7 +290,7 @@ border-bottom: 2px solid #00668c;
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -311,17 +316,17 @@ border-bottom: 2px solid #00668c;
       <item row="2" column="0">
        <widget class="Line" name="line">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QFrame" name="frame_2">
+       <widget class="QFrame" name="contenedor_frame_2">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_2">
          <property name="leftMargin">
@@ -355,7 +360,7 @@ border-bottom: 2px solid #00668c;
             <string>Proveedor</string>
            </property>
            <property name="textFormat">
-            <enum>Qt::AutoText</enum>
+            <enum>Qt::TextFormat::AutoText</enum>
            </property>
           </widget>
          </item>
@@ -363,12 +368,12 @@ border-bottom: 2px solid #00668c;
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QFrame" name="frame_3">
+       <widget class="QFrame" name="contenedor_frame_3">
         <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
+         <enum>QFrame::Shape::StyledPanel</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+         <enum>QFrame::Shadow::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
          <property name="leftMargin">
