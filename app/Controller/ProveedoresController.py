@@ -13,7 +13,7 @@ from app.Model.CategoriasModel import CategoriasModel
 from app.Model.RepresentanteProveedorModel import RepresentanteProveedorModel
 from app.Model.BaseDatosModel import Proveedores
 from app.Controller.MensajesAlertasController import *
-from .AjustarcajaOpcionesGlobal import AjustarcajaOpciones
+from .AjustarCajaOpcionesGlobal import AjustarcajaOpciones
 from .Validaciones import Validaciones
 from .FuncionesAuxiliares import *
 from .Productos_del_Proveedor import *

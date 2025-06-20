@@ -10,7 +10,7 @@ from .CategoriasController import CategoriasController
 from .AreaNegocioClientesController import AreaNegocioClientesController
 from ..Model.AreaNegocioClientesModel import AreaNegocioClientesModel
 from ..Model.CategoriasModel import CategoriasModel
-from .AjustarcajaOpcionesGlobal import AjustarcajaOpciones
+from .AjustarCajaOpcionesGlobal import AjustarcajaOpciones
 from ..Model.ClientesFisicosAndMoralesModel import *
 from .MensajesAlertasController import Mensaje
 

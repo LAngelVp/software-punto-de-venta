@@ -6,8 +6,8 @@ from ..Model.ProductosModel import ProductosModel
 from ..Model.ProveedoresModel import ProveedoresModel
 from ..Model.Proveedores_ProductosModel import Proveedores_productoModel
 from ..View.UserInterfacePy.PRODUCTOS_PROVEEDORES import *
-from ..View.UserInterfacePy.CAMBIO_PRECIO_PRODUCTO_PROVEEDOR_ui import Ui_PreciosProductosProveedor
-from .AjustarcajaOpcionesGlobal import *
+from ..View.UserInterfacePy.CAMBIO_PRECIO_PRODUCTO_PROVEEDOR import Ui_PreciosProductosProveedor
+from .AjustarCajaOpcionesGlobal import *
 from .MensajesAlertasController import Mensaje
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
 from .Ventana_espera import *

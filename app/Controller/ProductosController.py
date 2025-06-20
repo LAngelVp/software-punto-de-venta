@@ -5,7 +5,7 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QValidator, QStandardItemModel, QStandardItem, QPixmap, QIcon, QCursor
 from .FuncionesAuxiliares import FuncionesAuxiliaresController
-from .AjustarcajaOpcionesGlobal import AjustarcajaOpciones
+from .AjustarCajaOpcionesGlobal import AjustarcajaOpciones
 from ..DataBase.conexionBD import Conexion_base_datos
 from ..Model.ProveedoresModel import ProveedoresModel
 from ..Model.CategoriasModel import CategoriasModel

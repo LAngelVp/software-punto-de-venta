@@ -59,7 +59,7 @@ class Ui_control_compras(object):
 "QTabWidget::pane {\n"
 "        border: none;\n"
 "        position: absolute;\n"
-"        top: -20px;\n"
+"        top: 10px;\n"
 "    }\n"
 "    \n"
 "    /* Pesta\u00f1a no seleccionada */\n"
@@ -70,10 +70,11 @@ class Ui_control_compras(object):
 "        border-bottom: none;\n"
 "        padding: 6px 15px;\n"
 "        min-width: 80px;\n"
-"        border-top-left-radius: "
-                        "4px;\n"
+"        border-top-left-radius: 4"
+                        "px;\n"
 "        border-top-right-radius: 4px;\n"
 "        margin-right: 2px;\n"
+"		margin-top:10px;\n"
 "    }\n"
 "    \n"
 "    /* Pesta\u00f1a seleccionada */\n"
@@ -111,9 +112,9 @@ class Ui_control_compras(object):
 "margin-left: 5px;\n"
 "margin-right: 5px;\n"
 "font-size: 16px;\n"
-"font-weight:bold;\n"
-"text-tra"
-                        "nsform: uppercase;\n"
+"font-wei"
+                        "ght:bold;\n"
+"text-transform: uppercase;\n"
 "color: #1d1c1c;\n"
 "}\n"
 "*[objectName*=\"etiqueta_\"]{\n"
@@ -159,9 +160,9 @@ class Ui_control_compras(object):
 "font-size: 16px;\n"
 "font-weight: bold;\n"
 "height: 25px;\n"
-"margin-left: 5px;\n"
 "ma"
-                        "rgin-right: 5px;\n"
+                        "rgin-left: 5px;\n"
+"margin-right: 5px;\n"
 "text-align: center;\n"
 "text-transform: uppercase;\n"
 "}\n"
@@ -205,8 +206,8 @@ class Ui_control_compras(object):
 "}\n"
 "\n"
 "/* Encabezado horizontal */\n"
-"[objectName*=\"tabla_\"] QHeaderVie"
-                        "w::horizontal {\n"
+"[objectName*="
+                        "\"tabla_\"] QHeaderView::horizontal {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
 "}\n"
@@ -246,9 +247,9 @@ class Ui_control_compras(object):
 "}\n"
 "*[objectName*=\"fecha_\"]::focus{\n"
 "border-bottom: 2px solid #00668c;\n"
-"}\n"
-"QCalendarWidget"
-                        " QWidget#qt_calendar_navigationbar {\n"
+""
+                        "}\n"
+"QCalendarWidget QWidget#qt_calendar_navigationbar {\n"
 "    background-color: #00668c;\n"
 "    color: white;\n"
 "    border-top-left-radius: 5px;\n"
@@ -284,9 +285,9 @@ class Ui_control_compras(object):
 "}\n"
 "\n"
 "/* D\u00cdAS DE OTROS MESES */\n"
-"QCalendarWidget QAbstractItemView:disabled {\n"
-"    color: #"
-                        "AAAAAA;\n"
+"QCalendarWidget QAbstractItemView:disabl"
+                        "ed {\n"
+"    color: #AAAAAA;\n"
 "}\n"
 "\n"
 "/* EFECTO HOVER SOBRE D\u00cdAS */\n"
@@ -322,8 +323,8 @@ class Ui_control_compras(object):
 "/* BOT\u00d3N DESPLEGABLE */\n"
 "[objectName*=\"cajaOpciones\"]::drop-down {\n"
 "    subcontrol-origin: padding ;\n"
-"    subcontrol-position: top right"
-                        " ;\n"
+"    subcontro"
+                        "l-position: top right ;\n"
 "    padding-right: 5px ;\n"
 "    width: 20% ;\n"
 "    border-left-width: 1px ;\n"
@@ -474,14 +475,14 @@ class Ui_control_compras(object):
         self.gridLayout_9.setSpacing(0)
         self.gridLayout_9.setObjectName(u"gridLayout_9")
         self.gridLayout_9.setContentsMargins(0, 0, 0, 0)
-        self.widget_2 = QWidget(self.contenedortab_compraspendientes)
-        self.widget_2.setObjectName(u"widget_2")
-        self.widget_2.setMinimumSize(QSize(0, 0))
-        self.widget_2.setMaximumSize(QSize(16777215, 16777215))
-        self.gridLayout_7 = QGridLayout(self.widget_2)
+        self.contenedor_widget_2 = QWidget(self.contenedortab_compraspendientes)
+        self.contenedor_widget_2.setObjectName(u"contenedor_widget_2")
+        self.contenedor_widget_2.setMinimumSize(QSize(0, 0))
+        self.contenedor_widget_2.setMaximumSize(QSize(16777215, 16777215))
+        self.gridLayout_7 = QGridLayout(self.contenedor_widget_2)
         self.gridLayout_7.setObjectName(u"gridLayout_7")
         self.gridLayout_7.setSizeConstraint(QLayout.SizeConstraint.SetMinAndMaxSize)
-        self.contenedor_contenidocompras_pendientes = QFrame(self.widget_2)
+        self.contenedor_contenidocompras_pendientes = QFrame(self.contenedor_widget_2)
         self.contenedor_contenidocompras_pendientes.setObjectName(u"contenedor_contenidocompras_pendientes")
         self.contenedor_contenidocompras_pendientes.setFrameShape(QFrame.Shape.StyledPanel)
         self.contenedor_contenidocompras_pendientes.setFrameShadow(QFrame.Shadow.Raised)
@@ -544,13 +545,13 @@ class Ui_control_compras(object):
 
         self.gridLayout_7.addWidget(self.contenedor_contenidocompras_pendientes, 0, 0, 1, 1)
 
-        self.tabla_compraspendientes = QTableView(self.widget_2)
+        self.tabla_compraspendientes = QTableView(self.contenedor_widget_2)
         self.tabla_compraspendientes.setObjectName(u"tabla_compraspendientes")
 
         self.gridLayout_7.addWidget(self.tabla_compraspendientes, 1, 0, 1, 1)
 
 
-        self.gridLayout_9.addWidget(self.widget_2, 0, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.contenedor_widget_2, 0, 0, 1, 1)
 
         icon2 = QIcon()
         icon2.addFile(u":/Icons/Bootstrap/pause-circle.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
@@ -623,7 +624,7 @@ class Ui_control_compras(object):
 
         self.retranslateUi(control_compras)
 
-        self.contenedortabglobal.setCurrentIndex(0)
+        self.contenedortabglobal.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(control_compras)
