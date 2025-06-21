@@ -21,7 +21,7 @@ border: none;
 }
 #contenedor_encabezado{
 background: #023375;
-max-height: 25px;
+min-height: 35px;
 }
 #etiqueta_encabezado_productosProveedor{
 color: #fffefb;
@@ -88,7 +88,8 @@ background: #b6ccd8 ;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-background: #F5F5F5;
+background: #E3E3E3;
+border:none;
 }
 
 /* Encabezados de la tabla */
@@ -150,7 +151,7 @@ background: #F5F5F5;
       <item>
        <widget class="QLabel" name="etiqueta_encabezado_productosProveedor">
         <property name="text">
-         <string>Productos</string>
+         <string>PRODUCTOS</string>
         </property>
        </widget>
       </item>
@@ -260,7 +261,7 @@ background: #F5F5F5;
            <x>0</x>
            <y>0</y>
            <width>853</width>
-           <height>351</height>
+           <height>341</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_3">

@@ -98,7 +98,8 @@ border-bottom: 2px solid #023375;
 QListWidget {
     font-family: Arial;
     font-size: 14px;
-	background: #F5F5F5;
+	background: #E3E3E3;
+border:none;
 }
 /* Barra vertical */
 QListWidget::vertical-scrollbar {

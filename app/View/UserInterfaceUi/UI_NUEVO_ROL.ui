@@ -61,7 +61,7 @@ color: #1d1c1c;
 background: #fffefb;
 }
 #contenedor_permisosscroll{
-background: #fffefb;
+background: #E3E3E3;
 color: #1d1c1c;
 }
 

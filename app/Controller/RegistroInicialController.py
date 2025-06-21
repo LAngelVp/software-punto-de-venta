@@ -364,7 +364,6 @@ class Registro_personal_inicial(QDialog):
     def agregar_sucursal(self):
         if self.sucursales is None or not self.sucursales.isVisible():
             self.sucursales = SucursalesController()
-            # self.sucursales.setParent(self)
             self.listar_sucursales_signal.connect(self.sucursales.obtener_sucursales)
             self.sucursales.signal_sucursal_agregada.connect(self.listar_sucursales)
             self.sucursales.VENTANA_SUCURSALES_CERRADA.connect(self.ventana_sucursales_cerrada)
@@ -381,7 +380,6 @@ class Registro_personal_inicial(QDialog):
     def ventana_departamentos(self):
         if self.departamentos is None or not self.departamentos.isVisible():
             self.departamentos = DepartamentosController()
-            self.departamentos.setParent(self)
             self.listar_departamentos_signal.connect(self.departamentos.obtener_departamentos)
             self.listar_sucursales_en_departamentos_signal.connect(self.departamentos.listar_sucursales_existentes)
             self.departamentos.signal_departamento_agregado.connect(self.listar_departamentos)
@@ -389,7 +387,7 @@ class Registro_personal_inicial(QDialog):
             self.listar_sucursales_en_departamentos_signal.emit()
             self.listar_departamentos_signal.emit()
             self.departamentos.setModal(True)
-            self.departamentos.exec_()
+            self.departamentos.show()
         else:
             self.departamentos.raise_()
             self.departamentos.activateWindow()
@@ -400,14 +398,13 @@ class Registro_personal_inicial(QDialog):
     def ventana_puestos(self):
         if self.puestos is None or not self.puestos.isVisible():
             self.puestos = PuestosController()
-            self.puestos.setParent(self)
             self.puestos.signal_puesto_agregado.connect(self.listar_puestos)
             self.puestos.VENTANA_PUESTOS_CERRADA.connect(self.ventana_puestos_cerrada)
             self.listar_puestos_signal.connect(self.puestos.listar_puestos)
             self.listar_depas_en_puestos_signal.connect(self.puestos.listar_departamentos)
             self.listar_depas_en_puestos_signal.emit()
             self.listar_puestos_signal.emit()
-            self.puestos.exec_()
+            self.puestos.show()
         else:
             self.puestos.raise_()
             self.puestos.activateWindow()

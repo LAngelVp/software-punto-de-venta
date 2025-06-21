@@ -7,7 +7,7 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 from PySide6.QtGui import *
 from ..View.UserInterfacePy.UI_INICIO_SESION import *
-from ..View.UserInterfacePy.UI_VENTANA_SALUDO_INGRESO import Ui_Bienvenida
+from ..View.UserInterfacePy.UI_VENTANA_SALUDO_INGRESO import Ui_Saludo_bienvenida
 from .Hilo_consultas import *
 from ..Source.iconos_rc import *
 from ..Source.ibootstrap_rc import *
@@ -105,7 +105,7 @@ class SaludoIngreso(QWidget):
     def __init__(self, parent = None, usuario = None):
         super().__init__(parent)
         self.usuario = usuario
-        self.ui = Ui_Bienvenida()
+        self.ui = Ui_Saludo_bienvenida()
         self.ui.setupUi(self)
         pantalla = self.frameGeometry()
         pantalla.moveCenter(self.screen().availableGeometry().center())

@@ -189,7 +189,9 @@ border-bottom: 2px solid #00668c;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-background: #F5F5F5;
+background: #E3E3E3;
+min-height:400px;
+border:none;
 }
 
 /* Encabezados de la tabla */
@@ -379,9 +381,9 @@ QCalendarWidget QAbstractItemView::item:hover {
             <property name="geometry">
              <rect>
               <x>0</x>
-              <y>0</y>
+              <y>-609</y>
               <width>1385</width>
-              <height>811</height>
+              <height>1140</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_11">

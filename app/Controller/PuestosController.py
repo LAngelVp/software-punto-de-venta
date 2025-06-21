@@ -92,13 +92,15 @@ class PuestosController(QDialog):
         self.ventana_roles.show()
     
     def comprobar_caja_verificacion(self, state):
-        sender = self.sender()
-        if state == Qt.Checked:
-            if sender.text() not in self.diasLaborales:
-                self.diasLaborales.append(sender.text())
+        print(state, Qt.Checked.value)
+        status_checked = self.sender()
+        day_name = status_checked.text()
+        if state == Qt.Checked.value:
+            if status_checked not in self.diasLaborales:
+                self.diasLaborales.append(day_name)
         else:
-            if sender.text() in self.diasLaborales:
-                self.diasLaborales.remove(sender.text())
+            if status_checked in self.diasLaborales:
+                self.diasLaborales.remove(day_name)
 
     def limpiar(self):
 
@@ -132,6 +134,8 @@ class PuestosController(QDialog):
                     self.id_departamento = index
                     break
         campos_vacios, estado_campos_vacios = self.validar(datos)
+        print(self.diasLaborales)
+        print(estado_campos_vacios)
         if not estado_campos_vacios or not self.diasLaborales:
             lista_vacios = []
             if estado_campos_vacios is False:

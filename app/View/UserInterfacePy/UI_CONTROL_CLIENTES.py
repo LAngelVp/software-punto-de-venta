@@ -209,7 +209,9 @@ class Ui_Control_Clientes(object):
                         "\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"background: #F5F5F5;\n"
+"background: #E3E3E3;\n"
+"min-height:400px;\n"
+"border:none;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
@@ -248,9 +250,9 @@ class Ui_Control_Clientes(object):
 "min-height:200px;\n"
 "min-width:200px;\n"
 "background: #F5F5F5;\n"
-"border: 1px solid rgb(0, 0, 0);\n"
 ""
-                        "}\n"
+                        "border: 1px solid rgb(0, 0, 0);\n"
+"}\n"
 "#wpc_clientes_autorizacredito{\n"
 "background: #fffefb;\n"
 "}\n"
@@ -291,10 +293,10 @@ class Ui_Control_Clientes(object):
 "border-bottom: 2px solid #00668c;\n"
 "}\n"
 "QCalendarWidget QWidget#qt_calendar_navigationbar {\n"
-"    background-color: #00668c;\n"
+"    background-color:"
+                        " #00668c;\n"
 "    color: white;\n"
-""
-                        "    border-top-left-radius: 5px;\n"
+"    border-top-left-radius: 5px;\n"
 "    border-top-right-radius: 5px;\n"
 "}\n"
 "\n"
@@ -332,8 +334,8 @@ class Ui_Control_Clientes(object):
 "}\n"
 "\n"
 "/* EFECTO HOVER SOBRE D\u00cdAS */\n"
-"QCalendarWidget QAbstractItemView::i"
-                        "tem:hover {\n"
+""
+                        "QCalendarWidget QAbstractItemView::item:hover {\n"
 "    background-color: #e1f0f7;\n"
 "    color: #1d1c1c;\n"
 "}")
@@ -360,7 +362,7 @@ class Ui_Control_Clientes(object):
         self.wpc_contenedor_scroll.setWidgetResizable(True)
         self.wpc_scrooll_area = QWidget()
         self.wpc_scrooll_area.setObjectName(u"wpc_scrooll_area")
-        self.wpc_scrooll_area.setGeometry(QRect(0, 0, 1385, 811))
+        self.wpc_scrooll_area.setGeometry(QRect(0, -609, 1385, 1140))
         self.gridLayout_11 = QGridLayout(self.wpc_scrooll_area)
         self.gridLayout_11.setSpacing(0)
         self.gridLayout_11.setObjectName(u"gridLayout_11")

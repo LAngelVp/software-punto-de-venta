@@ -61,7 +61,7 @@ class Ui_Control_nuevo_rol(object):
 "background: #fffefb;\n"
 "}\n"
 "#contenedor_permisosscroll{\n"
-"background: #fffefb;\n"
+"background: #E3E3E3;\n"
 "color: #1d1c1c;\n"
 "}\n"
 "\n"

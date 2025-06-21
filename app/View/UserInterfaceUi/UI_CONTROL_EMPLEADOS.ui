@@ -35,10 +35,6 @@ text-transform: uppercase;
 font-family: &quot;Arial&quot;;
 padding-top: 5px;
 }
-#tabla_listaempleados {
-    border: 1px solid;
-    background: #fffefb;
-}
 *[objectName*=&quot;etiqueta&quot;]{
 font-family: Arial;
 margin-left: 5px;
@@ -139,7 +135,8 @@ background: #b6ccd8 ;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-background: #F5F5F5;
+background: #E3E3E3;
+border:none;
 }
 
 /* Encabezados de la tabla */

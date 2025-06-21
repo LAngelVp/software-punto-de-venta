@@ -28,7 +28,7 @@ class Ui_Formulario_puestos(object):
     def setupUi(self, Formulario_puestos):
         if not Formulario_puestos.objectName():
             Formulario_puestos.setObjectName(u"Formulario_puestos")
-        Formulario_puestos.resize(895, 600)
+        Formulario_puestos.resize(921, 600)
         Formulario_puestos.setMinimumSize(QSize(0, 0))
         Formulario_puestos.setMaximumSize(QSize(16777215, 16777215))
         Formulario_puestos.setStyleSheet(u"*{color: #1d1c1c;}\n"
@@ -184,7 +184,8 @@ class Ui_Formulario_puestos(object):
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"background: #F5F5F5;\n"
+"background: #E3E3E3;\n"
+"border:none;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
@@ -203,9 +204,9 @@ class Ui_Formulario_puestos(object):
 "    color: white;\n"
 "}\n"
 "\n"
-"/* Encabezado vertical */\n"
-"[objectName"
-                        "*=\"tabla_\"] QHeaderView::vertical {\n"
+"/* Encabezado vertical *"
+                        "/\n"
+"[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
 "}	")

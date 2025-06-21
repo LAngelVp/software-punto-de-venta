@@ -116,7 +116,8 @@ background: #EE1D52;
 QListWidget {
     font-family: Arial;
     font-size: 14px;
-	background: #F5F5F5;
+	background: #E3E3E3;
+border:none;
 }
 </string>
   </property>

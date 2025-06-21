@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
+    <width>921</width>
     <height>600</height>
    </rect>
   </property>
@@ -176,7 +176,8 @@ background: #EE1D52;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-background: #F5F5F5;
+background: #E3E3E3;
+border:none;
 }
 
 /* Encabezados de la tabla */

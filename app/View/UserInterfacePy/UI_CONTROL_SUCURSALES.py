@@ -121,7 +121,8 @@ class Ui_Nueva_sucursal(object):
 "QListWidget {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"	background: #F5F5F5;\n"
+"	background: #E3E3E3;\n"
+"border:none;\n"
 "}\n"
 "")
         self.gridLayout_5 = QGridLayout(Nueva_sucursal)

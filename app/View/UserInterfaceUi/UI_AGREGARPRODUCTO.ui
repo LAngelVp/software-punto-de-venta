@@ -112,8 +112,9 @@ font-weight:bold;
 font-family: &quot;Arial&quot;;
 }
 [objectName*=&quot;lista&quot;]{
-background: #F5F5F5;
+background: #E3E3E3;
 min-height: 150px;
+border:none;
 }
 [objectName*=&quot;cajaOpciones&quot;] {
     border: none;
@@ -267,7 +268,8 @@ max-height: 35px;
 [objectName*=&quot;tabla_&quot;] {
     font-family: Arial;
     font-size: 14px;
-background: #F5F5F5;
+background: #E3E3E3;
+border:none;
 }
 
 /* Encabezados de la tabla */
@@ -434,7 +436,7 @@ min-height: 350px;
               <x>0</x>
               <y>0</y>
               <width>1361</width>
-              <height>1212</height>
+              <height>1208</height>
              </rect>
             </property>
             <layout class="QGridLayout" name="gridLayout_13">

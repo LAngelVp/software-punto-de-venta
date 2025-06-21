@@ -34,7 +34,7 @@ class Ui_Seleccion_Productos_Proveedor(object):
 "}\n"
 "#contenedor_encabezado{\n"
 "background: #023375;\n"
-"max-height: 25px;\n"
+"min-height: 35px;\n"
 "}\n"
 "#etiqueta_encabezado_productosProveedor{\n"
 "color: #fffefb;\n"
@@ -102,7 +102,8 @@ class Ui_Seleccion_Productos_Proveedor(object):
 "[objectName*=\"tabla_\"] {\n"
 "    font-family: Arial;\n"
 "    font-size: 14px;\n"
-"background: #F5F5F5;\n"
+"background: #E3E3E3;\n"
+"border:none;\n"
 "}\n"
 "\n"
 "/* Encabezados de la tabla */\n"
@@ -120,9 +121,9 @@ class Ui_Seleccion_Productos_Proveedor(object):
 "    background-color: #023375;\n"
 "    color: white;\n"
 "}\n"
-"\n"
-"/* Encabezad"
-                        "o vertical */\n"
+""
+                        "\n"
+"/* Encabezado vertical */\n"
 "[objectName*=\"tabla_\"] QHeaderView::vertical {\n"
 "    background-color: #023375;\n"
 "    color: white;\n"
@@ -208,7 +209,7 @@ class Ui_Seleccion_Productos_Proveedor(object):
         self.contenedor_area.setWidgetResizable(True)
         self.contenedor_scrollAreaWidgetContents = QWidget()
         self.contenedor_scrollAreaWidgetContents.setObjectName(u"contenedor_scrollAreaWidgetContents")
-        self.contenedor_scrollAreaWidgetContents.setGeometry(QRect(0, 0, 853, 351))
+        self.contenedor_scrollAreaWidgetContents.setGeometry(QRect(0, 0, 853, 341))
         self.gridLayout_3 = QGridLayout(self.contenedor_scrollAreaWidgetContents)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.etiqueta_tablaproductosproveedor = QLabel(self.contenedor_scrollAreaWidgetContents)
@@ -273,7 +274,7 @@ class Ui_Seleccion_Productos_Proveedor(object):
 
     def retranslateUi(self, Seleccion_Productos_Proveedor):
         Seleccion_Productos_Proveedor.setWindowTitle(QCoreApplication.translate("Seleccion_Productos_Proveedor", u"Form", None))
-        self.etiqueta_encabezado_productosProveedor.setText(QCoreApplication.translate("Seleccion_Productos_Proveedor", u"Productos", None))
+        self.etiqueta_encabezado_productosProveedor.setText(QCoreApplication.translate("Seleccion_Productos_Proveedor", u"PRODUCTOS", None))
         self.btn_cerrar.setText("")
         self.etiqueta_nombredelproveedor.setText(QCoreApplication.translate("Seleccion_Productos_Proveedor", u"Nombre del proveedor: ", None))
 #if QT_CONFIG(tooltip)
